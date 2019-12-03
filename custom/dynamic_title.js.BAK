@@ -1,0 +1,17 @@
+<!--动态浏览器标签-->
+ var OriginTitle = document.title;
+ var titleTime;
+ document.addEventListener('visibilitychange', function () {
+     if (document.hidden) {
+         $('[rel="icon"]').attr('href', "/img/TEP.ico");
+         document.title = "Waiting...";
+         clearTimeout(titleTime);
+     }
+     else {
+         $('[rel="icon"]').attr('href', "/favicon.ico");
+         document.title = "Welcome Back";
+         titleTime = setTimeout(function () {
+             document.title = OriginTitle;
+         }, 800);
+     }
+ });

@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "8cd9e2df"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。">
+<meta name="keywords" content="AI,MachineLearning,人工智能,机器学习,线性回归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML入门——线性回归三种求解">
+<meta property="og:url" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/index.html">
+<meta property="og:site_name" content="SLLiu&#39;s Blogs">
+<meta property="og:description" content="（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/pseudoinverse.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/gradient_demo.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/different_eta.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/subderivative.png">
+<meta property="og:updated_time" content="2019-12-03T13:24:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ML入门——线性回归三种求解">
+<meta name="twitter:description" content="（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。">
+<meta name="twitter:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/pseudoinverse.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SLLiu's Blogs" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ML入门——线性回归三种求解 | SLLiu's Blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SLLiu's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Learn, or Lose</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="开/关导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-plannings">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/plannings/" rel="section"><i class="menu-item-icon fa fa-fw fa-list-alt"></i> <br>计划</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/slliu96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+
+  
+  
+  
+  <div class="post-block">
+
+    
+    
+    
+    
+      <div class="bottom-divider">
+        <style>
+          .bottom-divider {
+            display: table;
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+            width: 100%;
+            border-bottom: 1px solid #eee;
+          }
+        </style>
+        <div class="post-nav-next post-nav-item">
+          
+            <a href="/post/machinelearning/ml-linear/ml-linear-introduction/" rel="next" title="ML入门——线性回归简介">
+              <i class="fa fa-chevron-left"></i> ML入门——线性回归简介
+            </a>
+          
+        </div>
+
+        <span class="post-nav-divider"></span>
+
+        <div class="post-nav-prev post-nav-item">
+          
+            <a href="/post/machinelearning/ml-linear/ml-linear-loss-regular/" rel="prev" title="ML入门——损失和正则的概率解释">
+              ML入门——损失和正则的概率解释 <i class="fa fa-chevron-right"></i>
+            </a>
+          
+        </div>
+      </div>
+    
+
+    
+    
+    
+    
+    
+
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="description" content="Learn, or Lose">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SLLiu's Blogs">
+    </span>
+
+
+    
+    
+    
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ML入门——线性回归三种求解
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-03 15:21:47" itemprop="dateCreated datePublished" datetime="2019-02-03T15:21:47+08:00">2019-02-03</time>
+            
+
+            
+            
+          </span>
+
+
+          
+            
+            
+          
+
+
+          
+          
+          
+          
+            <div class="post-symbolscount" style="display: inline">
+
+              <span class="post-meta-divider">|</span>
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文字数：</span>
+                
+                <span title="全文字数">29k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">32 分钟</span>
+              
+            </div>
+          
+
+
+          
+          
+          
+          
+            <span id="/post/machinelearning/ml-linear/ml-linear-solutions/" class="leancloud_visitors" data-flag-title="ML入门——线性回归三种求解">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读量：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+
+          
+          
+          
+          
+
+
+
+          
+          
+          
+          
+            <p>
+              <font color="#999999">
+                【注】本文全部内容均为原创，引用链接仅做学习指导，转载前请务必联系授权。
+              </font>
+            </p>
+          
+
+
+
+          
+          
+          
+          
+            
+            
+              <div></div>
+            
+          
+
+
+
+          
+          
+          
+          
+            <span class="post-category">
+              <span class="post-meta-item-icon" style="text-align:center;font-size:12px;vertical-align:middle;display:inline-block;">
+                  <i class="fa fa-th"></i>
+              </span>
+              
+                <span class="post-meta-item-text" style="text-align:center;font-size:12px;vertical-align:middle;display:inline-block;">
+                  Categories:&ensp;
+                </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a style="vertical-align:middle;display:inline-block;" href="/categories/MachineLearning/" itemprop="url" rel="index"><span itemprop="name" style="text-decoration: none; font-size:12px">MachineLearning</span></a></span>
+
+                
+                
+                  &ensp;
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a style="vertical-align:middle;display:inline-block;" href="/categories/MachineLearning/LinearRegression/" itemprop="url" rel="index"><span itemprop="name" style="text-decoration: none; font-size:12px">LinearRegression</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+
+          
+          
+          
+          
+
+            
+              <span class="post-meta-divider" style="vertical-align: middle;display:inline-block;">|</span>
+            
+
+            <div class="post-tags" style="display: inline">
+
+              <div style="text-align:center;vertical-align: middle;display:inline-block;font-size:12px;">
+                <i class="fa fa-tags"></i>&ensp;Tags:&ensp;
+              </div>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/AI/" rel="tag"># AI&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/MachineLearning/" rel="tag"># MachineLearning&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/人工智能/" rel="tag"># 人工智能&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/机器学习/" rel="tag"># 机器学习&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/线性回归/" rel="tag"># 线性回归&ensp;</a></span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+      
+
+      
+
+
+
+        
+        <div style="color: #EB6D39; text-align: center">Tips : Safari 浏览器对 LaTeX 的支持不太好。&emsp;LaTeX not supported well in Safari.</div>
+        <br>
+        
+
+
+        
+        
+        
+        
+        
+          <div class="post-description"><span style="color: #EB6D39">
+                  简介：
+                </span>（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。</div>
+        
+
+        <a id="more"></a>
+
+<hr>
+<h1 id="1-解析法"><a href="#1-解析法" class="headerlink" title="1. 解析法"></a>1. 解析法</h1><p>在给定正则参数（超参数）λ 的情况下，目标函数的最优解为：$\hat{W} = \arg_W \min J(W)$，满足最优解的必要条件即一阶导数为零：$\dfrac {\partial J(W)} {\partial W} = 0$。</p>
+<br>
+
+<h2 id="1-1-OLS最优解析解"><a href="#1-1-OLS最优解析解" class="headerlink" title="1.1 OLS最优解析解"></a>1.1 OLS最优解析解</h2><p><strong>（1）正规方程组</strong></p>
+<p>对 OLS 目标函数矩阵形式展开：</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= ||y - X W||^2_2 = (y - X W)^T (y - X W)<br>\\<br>&amp;= y^T y - y^T X W - W^T X^T y + W^T X^T X W<br>\end{aligned}<br>$$</p>
+<p>根据矩阵的转置运算有：$A^T B = B^T A$，也即 $y^T X W = W^T X^T y$，因此上式等价于：</p>
+<p>$$<br>J(W) = y^T y - 2 W^T X^T y + W^T X^T X W<br>$$</p>
+<p>因此满足 OLS 最优解即：</p>
+<p>$$<br>\begin{aligned}<br>&amp;\dfrac {\partial J(W)} {\partial W} = 0<br>\\<br>\Longrightarrow \quad &amp;\dfrac { \partial (y^T y - 2 W^T X^T y + W^T X^T X W)} { \partial W } = 0 \quad（0 矩阵）<br>\end{aligned}<br>$$</p>
+<p>根据矩阵的微分运算有：</p>
+<p>$<br>\begin{aligned}<br>&amp;① \quad \dfrac {\partial (A^T B)} {\partial A} = B<br>\\<br>&amp;② \quad \dfrac {\partial (A^T B A)} {\partial A} = (B^T + B) A<br>\end{aligned}<br>$</p>
+<p>进而得到下式：</p>
+<p>$$<br>0 - 2 X^T y + [ (X^T X)^T + (X^T X) ] W = 0<br>$$</p>
+<p>根据矩阵的运算法则有：</p>
+<p>$<br>\begin{aligned}<br>\because \quad &amp;X^T X = (X)^T (X^T)^T = (X^T X)^T<br>\\<br>\therefore \quad &amp;X^T X 为对称矩阵<br>\\<br>\Longrightarrow \quad &amp;X^T X = (X^TX)^T<br>\end{aligned}<br>$</p>
+<p>进一步合并得：</p>
+<p>$$<br>\begin{aligned}<br>&amp;-2 X^T y + 2 X^T X W = 0<br>\\<br>&amp;\Longrightarrow X^T X W = X^T y \quad （正规方程组）<br>\\<br>&amp;\Longrightarrow \hat{W}_{OLS} = (X^T X)^{-1} X^T y<br>\end{aligned}<br>$$</p>
+<p>这种求解方式也称为用正规方程组解析求解最小二乘线性回归。但在解析 $ \hat{W}_{OLS} $ 的过程中涉及到了逆矩阵的计算，应当避免。</p>
+<p><strong>（2）Moore-Penrose广义逆</strong></p>
+<p>通常，训练的目标是 OLS 目标函数 $J(W) = ||y - XW||^2_2$ 最小，通俗来讲也即 $y$ 与 $X W$ 越接近越好，最好的情况即求解：$y = X W$。</p>
+<p>（1）假如 $X$ 为方阵，则可以求其逆：$W = X^{-1} y$，<br>（2）假如 $X$ 不为方阵，则求其逆矩阵无意义，可求 Moore-Penrose 广义逆：$W = X^+ y$<br>（3）※ 注 | 广义逆的符号为：</p>
+<p><img src="/post_files/machinelearning/ml-linear/ml-linear-solutions/pseudoinverse.png" alt="广义逆符号" title="TOPICS"> </p>
+<p>LaTeX 代码为 <code>X^{\dag}</code>，但 Hexo 不支持引入宏包无法显示，因此使用 $X^+$ 代替。</p>
+<p>Moore-Penrose 广义逆可采用奇异值分解（Singular Value Decomposition, SVD）实现：</p>
+<p>$<br>\begin{aligned}<br>&amp;若有：X = U \Sigma V^T,<br>\\<br>&amp;其中 U, V 为正交阵，\Sigma 为对角阵（不一定为方阵）<br>\\<br>&amp;则：X^+ = V \Sigma^+ V^T<br>\end{aligned}<br>$</p>
+<p>对角阵 $\Sigma$ 求伪逆，则将非零元素求倒数即可：</p>
+<p>$$<br>\Sigma = \left(<br>\begin{matrix}<br> \lambda_1 &amp; 0         &amp; \cdots &amp; 0<br> \\<br> 0         &amp; \lambda_2 &amp; \cdots &amp; 0<br> \\<br> \vdots    &amp; \vdots    &amp; \ddots &amp; \vdots<br> \\<br> 0         &amp; 0         &amp; \cdots &amp; 0<br> \\<br>\end{matrix}<br>\right),<br>\Sigma^+ = \left(<br>\begin{matrix}<br> \dfrac 1 \lambda_1 &amp; 0                  &amp; \cdots &amp; 0<br> \\<br> 0                  &amp; \dfrac 1 \lambda_2 &amp; \cdots &amp; 0<br> \\<br> \vdots             &amp; \vdots             &amp; \ddots &amp; \vdots<br> \\<br> 0                  &amp; 0                  &amp; \cdots &amp; 0<br> \\<br>\end{matrix}<br>\right),<br>$$</p>
+<p>这也是 Scikit-Learn 中 LinearRegression 推荐的求解方式。</p>
+<br>
+
+<h2 id="1-2-Ridge最优解析解"><a href="#1-2-Ridge最优解析解" class="headerlink" title="1.2 Ridge最优解析解"></a>1.2 Ridge最优解析解</h2><p>Ridge 比 OLS 多一个 L2 正则，目标函数为：</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\\<br>&amp;= (y - X W)^T (y - X W) + \lambda W^T W<br>\end{aligned}<br>$$</p>
+<p>其最优解也采用 SVD 分解的方式实现。求解偏导数等于零：</p>
+<p>$$<br>\begin{aligned}<br>\dfrac {\partial J(W)} {\partial W} &amp;= -2 X^T y + 2 (X^T X) W + 2 \lambda W = 0<br>\\<br>\Longrightarrow \hat{W}_{Ridge} &amp;= (X^T X + \lambda I)^{-1} X^T y<br>\\<br>&amp;（其中 I 为 D \times D 的单位阵）<br>\end{aligned}<br>$$</p>
+<p>对比 OLS 的解：</p>
+<p>$$<br>\hat{W}_{OLS} = (X^T X)^{-1} X^T y<br>$$</p>
+<p>对 Ridge 的解进行变形，配出一个 $\hat{W}_{OLS}$：</p>
+<p>$$<br>\begin{aligned}<br>\hat{W}_{Ridge} &amp;= (X^T X + \lambda I)^{-1} X^T y<br>\\<br>&amp;= (X^T X + \lambda I)^{-1} (X^T X) (X^T X)^{-1} X^T y<br>\\<br>&amp;= (X^T X + \lambda I)^{-1} (X^T X) \hat{W}_{OLS}<br>\end{aligned}<br>$$</p>
+<p>将 $(X^T X + \lambda I)^{-1}$ 看成是分母，将 $(X^T X)$ 看成分子，由于 $(X^T X + \lambda I) &gt; (X^T X)$，因此有 $\hat{W}_{Ridge} &lt; \hat{W}_{OLS}$。</p>
+<p>因此 $\hat{W}_{Ridge} $ 在 $ \hat{W}_{OLS}$ 的基础上进行了收缩，L2 正则也称为权重收缩。</p>
+<br>
+
+<h2 id="1-3-总结"><a href="#1-3-总结" class="headerlink" title="1.3 总结"></a>1.3 总结</h2><p>（1）OLS 的解为：$\hat{W}_{OLS} = (X^T X)^{-1} X^T y$，需要对矩阵 $X^T X$ 求逆。</p>
+<ul>
+<li>当输入特征存在共线性（某些特征可以用其他特征的线性组合表示），矩阵 X 是接近不满秩，矩阵 $X^T X$ 接近奇异，求逆不稳定。</li>
+</ul>
+<p>（2）Ridge 的解为：$\hat{W}_{Ridge} = (X^T X + \lambda I)^{-1} X^T y$，需要对矩阵 $(X^T X + \lambda I)$ 求逆。</p>
+<ul>
+<li>即使输入特征存在共线性，矩阵 $X$ 不满秩，矩阵 $X^T X$ 对角线存在等于 0 或接近于 0 的元素，但 $0 + \lambda \ne 0$，$(X^T X + \lambda I)$ 求逆仍可得到稳定解。因此岭回归 Ridge 在输入特征存在共线性的情况仍然能得到稳定解。</li>
+</ul>
+<p>（3）Lasso 无法无法求得解析解，可以用迭代求解。</p>
+<hr>
+<h1 id="2-梯度下降法"><a href="#2-梯度下降法" class="headerlink" title="2. 梯度下降法"></a>2. 梯度下降法</h1><br>
+
+<h2 id="2-1-梯度下降法思想"><a href="#2-1-梯度下降法思想" class="headerlink" title="2.1 梯度下降法思想"></a>2.1 梯度下降法思想</h2><p>解析求解法对 N x D 维矩阵 X 进行 SVD 分解的复杂度为：$O(N^2 D)$。</p>
+<ul>
+<li>当样本数 N 很大或特征维度 D 很大时，SVD 计算复杂度高，或机器的内存根本不够。</li>
+<li>可采用迭代求解的方法：梯度下降法、随机梯度下降法、次梯度法、坐标轴下降法等。</li>
+<li>梯度下降法（Gradient Descent）是求解无约束优化问题最常采用的方法之一。</li>
+</ul>
+<p>在微积分中，一元函数 $f(x)$ 在 $x$ 处的梯度为函数在该点的导数 $\dfrac {df} {dx}$。</p>
+<p>对应在多元函数 $f(x_1, …, x_D)$ 中，在点 $x = (x_1, …, x_D)$ 处共有 D 个偏导数：$\dfrac {\partial f} {\partial x_1}, …, \dfrac {\partial f} {\partial x_D}$。将这 D 个偏导数组合成一个 D 维的矢量 $(\dfrac {\partial f} {\partial x_1}, …, \dfrac {\partial f} {\partial x_D})^T$，即称为函数 $f(x_1, …, x_D)$ 在点 $x$ 处的梯度，一般记为 $\nabla$ 或 $grad$，即：</p>
+<p>$$<br>\nabla f(x_1, …, x_D) = grad \ f(x_1, …, x_D) = (\dfrac {\partial f} {\partial x_1}, …, \dfrac {\partial f} {\partial x_D})^T<br>$$</p>
+<p>（1）从几何意义上讲，某点的梯度是函数在该点变化最快的地方。<br>（2）沿着梯度方向，函数增加最快，更容易找到函数的最大值<br>（3）沿负梯度方向，函数减少最快，更容易找到函数的最小值。</p>
+<p>※ 注 | $\nabla$ 发音为 nabla，表示微分，不属于希腊字符，只是一个记号。</p>
+<p>正负梯度的例子如下：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-linear/ml-linear-solutions/gradient_demo.png" alt="梯度示意图" title="TOPICS"></p>
+</center>
+
+
+<p>在计算 $f(x)$ 的最小值时，当函数形式比较简单且数据量小，可用解析计算 $ f’(x) = 0 $，否则可用迭代法求解：</p>
+<p>（1）从 t = 0 开始，随机寻找一个值 $x^{t = 0}$ 为初始值；<br>（2）找到下一个点 $x^{t + 1}$，使得函数值越来越小，即 $f(x^{t + 1}) &lt; f(x^t)$；<br>（3）重复，直到函数值不再见小，则已经找到函数的 <strong>局部极小值</strong>。<br>※ 注 | 该方法仅能找到局部极小值。</p>
+<p>为此，可以对该迭代方案进行改进：</p>
+<ul>
+<li>（1）随机寻找初始值时，初始化多个点；</li>
+<li>（2）最后从多个局部极小值中取最小的作为最终的极小值。</li>
+</ul>
+<br>
+
+<h2 id="2-2-梯度下降法数学解释"><a href="#2-2-梯度下降法数学解释" class="headerlink" title="2.2 梯度下降法数学解释"></a>2.2 梯度下降法数学解释</h2><p>对函数 $f(x)$ 进行一节泰勒展开得到：</p>
+<p>$$<br>f(x + \Delta x) \approx f(x) + \Delta x \nabla f(x)<br>$$</p>
+<p>要找到函数的最小值，也即每一次步进 $\Delta x$ 后的函数值均小于原函数值，因此有：</p>
+<p>$$<br>\begin{aligned}<br>&amp; f(x + \Delta x) &lt; f(x)<br>\\<br>\Longrightarrow &amp; \Delta x \nabla f(x) &lt; 0<br>\end{aligned}<br>$$</p>
+<p>假设令 $\Delta x = - \eta \nabla f(x), \ \ (\eta &gt; 0)$，其中步长 $\eta$ 为一个较小的正数，从而有：</p>
+<p>$$<br>\Delta x \nabla f(x) = - \eta \left( \nabla f(x) \right)^2 &lt; 0<br>$$</p>
+<p>令 $\Delta x = - \eta \nabla f(x)$ 即可确保 $\left( \nabla f(x) \right)^2 &gt; 0$。</p>
+<p>因此，对 $x$ 的更新为：$x^{t + 1} = x + \Delta x = x^t - \eta \nabla f(x)$，也即 $x$ 向负梯度方向 $- \eta \nabla f(x)$ 移动步长 $\eta$，会使得$f(x^{t + 1}) &lt; f(x^t)$，$\eta$ 也称为学习率。</p>
+<p>由于只对 $f(x)$ 进行一阶泰勒展开，因此梯度下降法是一阶最优化算法。</p>
+<br>
+
+<h2 id="2-3-OLS的梯度下降"><a href="#2-3-OLS的梯度下降" class="headerlink" title="2.3 OLS的梯度下降"></a>2.3 OLS的梯度下降</h2><p>OLS 的目标函数为：</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2<br>\\<br>&amp;= ||y - X W||^2_2<br>\\<br>&amp;= (y - X W)^T (y - X W)<br>\end{aligned}<br>$$</p>
+<p>其梯度为：</p>
+<p>$$<br>\nabla J(W) = -2 X^T y + 2 X^T X W = -2 X^T (y - X W)<br>$$</p>
+<p>梯度下降：</p>
+<p>$$<br>\begin{aligned}<br>W^{t + 1} &amp;= W^t - \eta \nabla J(W^t)<br>\\<br>&amp;= W^t + 2 \eta X^T (y - X W^T)<br>\end{aligned}<br>$$</p>
+<p>其中 $(y - X W^T)$ 即为预测残差 r，说明参数的更新量与输入 X 和预测残差 r 的相关性有关。$X^T$ 与 r 的相关性较强时需要把 $\eta$ 调大一些，则 r 逐渐与输入 $X^T$ 无关，直到无需再更新 W。</p>
+<p>OLS 的梯度下降过程：</p>
+<p>（1）从 t = 0 开始，随机寻找一个值 $W^{t = 0}$ 为初始值（或 0）；<br>（2）计算目标函数 $J(W)$ 在当前值的梯度：$\nabla J(W^t)$；<br>（3）根据学习率 $\eta$，更新参数：$W^{t + 1} = W^t - \eta \nabla J(W^t)$；<br>（4）判断是否满足迭代终止条件。若满足，循环结束并返回最佳参数 $W^{t + 1}$ 和目标函数极小值 $J(W^{t + 1})$，否则跳转至第 2 步。</p>
+<p>迭代终止条件有：</p>
+<p>（1）迭代次数达到预设的最大次数。<br>（2）迭代过程中目标函数的变化值小于预设值：$\dfrac{J(W^t) - J(W^{t + 1})}{J(W^t)} \le \varepsilon$。</p>
+<br>
+
+<h2 id="2-4-Ridge的梯度下降"><a href="#2-4-Ridge的梯度下降" class="headerlink" title="2.4 Ridge的梯度下降"></a>2.4 Ridge的梯度下降</h2><p>Ridge 的目标函数为：</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} w^2_j<br>\\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\end{aligned}<br>$$</p>
+<p>其梯度为：</p>
+<p>$$<br>\nabla J(W) = -2 X^T y + 2 X^T X W + 2 \lambda W<br>$$</p>
+<p>Ridge 的梯度下降过程与 OLS 的相同。</p>
+<br>
+
+<h2 id="2-5-Lasso次梯度法"><a href="#2-5-Lasso次梯度法" class="headerlink" title="2.5 Lasso次梯度法"></a>2.5 Lasso次梯度法</h2><p>Lasso 的目标函数为：</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} |W_j|<br>\\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||_1<br>\end{aligned}<br>$$</p>
+<p>绝对值函数 &amp;||W||_1&amp; 在原点 $W = 0$ 处不可导，无法使用梯度下降求解。</p>
+<p>（1）可用次梯度概念替换梯度，得到次梯度法。</p>
+<p>（2）或用坐标轴下降求解。</p>
+<br>
+
+<h2 id="2-6-梯度下降的实用Tips"><a href="#2-6-梯度下降的实用Tips" class="headerlink" title="2.6 梯度下降的实用Tips"></a>2.6 梯度下降的实用Tips</h2><p>（1）梯度下降中的学习率 η 需要小心设置。太大可能引起目标函数震荡，太小收敛速度过慢，可以采用自适应学习率的方案：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-linear/ml-linear-solutions/different_eta.png" alt="不同 η 的影响" title="TOPICS"></p>
+</center>
+
+<p>（2）梯度下降对特征的取值范围敏感，建议对输入特征 X 做去量纲处理（可用 sklearn.preprocessing.StandardScaler 实现）：</p>
+<p>$$<br>W^{t + 1} = W^t + 2 \eta X^T (y - X W^t) \ \ \ \ （与输入 X 的取值有关）<br>$$</p>
+<p>梯度下降算法延伸阅读：<a href="https://www.analyticsvidhya.com/blog/2017/03/introduction-to-gradient-descent-algorithm-along-its-variants/" title="TOLINKS" target="_blank" rel="noopener">Introduction to Gradient Descent Algorithm (along with variants) in Machine Learning</a></p>
+<br>
+
+<h2 id="2-7-随机梯度下降"><a href="#2-7-随机梯度下降" class="headerlink" title="2.7 随机梯度下降"></a>2.7 随机梯度下降</h2><p>在机器学习模型中，目标函数形式为：</p>
+<p>$$<br>J(W) = \sum^N_{i = 1} L \left( y_i, f(X_i; W) \right) + \lambda R(W)<br>$$</p>
+<p>梯度形式为：</p>
+<p>$$<br>\nabla J(W^t) = \sum^N_{i = 1} \nabla L \left( y_i, f(X_i; W^t) \right) + \lambda \nabla R(W^t)<br>$$</p>
+<p>当样本中存在信息冗余（正负抵消或梯度相似）时效率不高，因此可以使用随机梯度下降，即每次梯度下降更新时只计算一个样本上的梯度：</p>
+<p>$$<br>\nabla J(W^t) = \nabla L \left( y_t, f(X_t; W^t) \right) + \lambda \nabla R(W^t)<br>$$</p>
+<p>通俗而言，每一次迭代时，随机选择一个样本，向该样本的负梯度方向移动一步。梯度下降法每一次迭代都需要计算所有样本的梯度，随机梯度下降每一次迭代仅需计算单个样本的梯度：</p>
+<p>（1）为了确保收敛，相比于同等条件下的梯度下降，随机梯度下降需要采用更小的步长和更多的迭代轮数。</p>
+<p>（2）相比于非随机算法，随机梯度下降在前期的迭代效果卓越。</p>
+<p>小批量梯度下降法：介于一次使用所有样本（批处理梯度下降）和一次只是用一个样本（随机梯度下降）之间，也即在随机梯度下降中，每次使用一个小批量的样本代替单个样本。实践中常采用小批量样本（mini-batch）下降。</p>
+<blockquote>
+<p>随机梯度下降参考文章：</p>
+<p>① “Stochastic Gradient Descent” L. Bottou - Website, 2010<br>② “The Tradeoffs of Large Scale Machine Learning” L. Bottou - Website, 2011</p>
+</blockquote>
+<br>
+
+<h2 id="2-8-Ridge和SGDRegressor"><a href="#2-8-Ridge和SGDRegressor" class="headerlink" title="2.8 Ridge和SGDRegressor"></a>2.8 Ridge和SGDRegressor</h2><h3 id="2-8-1-Ridge"><a href="#2-8-1-Ridge" class="headerlink" title="2.8.1 Ridge"></a>2.8.1 Ridge</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.Ridge</span></span><br><span class="line">Ridge(alpha=<span class="number">1.0</span>,</span><br><span class="line">      fit_intercept=<span class="literal">True</span>,</span><br><span class="line">      normalize=<span class="literal">False</span>,</span><br><span class="line">      copy_X=<span class="literal">True</span>,</span><br><span class="line">      max_iter=<span class="literal">None</span>,</span><br><span class="line">      tol=<span class="number">0.001</span>,</span><br><span class="line">      solver=’auto’,</span><br><span class="line">      random_state=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>（1）其中与优化计算有关的参数如下</strong></p>
+<p><code>max_iter</code>：<br>共轭梯度求解器的最大迭代次数。<br>对于优化算法 solver 为 ‘sparse_cg’ 和 ‘lsqr’，则默认值由 <code>scipy.sparse.linalg</code> 确定，对于 ‘sag’ 求解器，默认值为 1000。</p>
+<p><code>tol</code>：<br>解的精度，判断迭代收敛与否的阈值。<br>当（loss &gt; previous_loss - tol）时迭代终止。</p>
+<p><code>solver</code>：<br>求解最优化问题的算法。<br>可取：’auto’，’svd’，’cholesky’，’lsqr’，’sparse_cg’，’sag’，’saga’。</p>
+<p><code>random_state</code>：<br>数据洗牌时的随机种子。<br>仅用于 ‘sag’ 求解器。</p>
+<p><strong>（2）其中求解器 <code>solver</code> 可选的算法如下</strong></p>
+<p><code>auto</code>：<br>根据数据类型自动选择求解器。<br>默认算法。</p>
+<p><code>svd</code>：<br>使用 X 的奇异值分解来计算 Ridge 系数。<br>对于奇异矩阵，比 ‘cholesky’ 更稳定。</p>
+<p><code>cholesky</code>：<br>使用标准的 <code>scipy.linalg.solve</code> 函数获得解析解。</p>
+<p><code>sparse_cg</code>：<br>使用 <code>scipy.sparse.linalg.cg</code> 中的共轭梯度求解器。<br>对大规模数据，比“cholesky”更合适。</p>
+<p><code>lsqr</code>：<br>使用专用的正则化最小二乘常数 <code>scipy.sparse.linalg.lsqr</code>。<br>速度最快。</p>
+<p><code>sag</code>：<br>使用随机平均梯度下降。<br>当样本数 n_samples 和特征维数 n_feature 都很大时，通常比其他求解器更快。</p>
+<p><code>saga</code>：<br>‘sag’ 的改进算法。<br>当 <code>fit_intercept</code> 为 <code>True</code> 时，’sag’ 和 ‘saga’ 只支持稀疏输入。’sag’ 和 ‘saga’ 快速收敛仅在具有近似相同尺度的特征上被保证，因此数据需要标准化。</p>
+<h3 id="2-8-2-SGDRegressor"><a href="#2-8-2-SGDRegressor" class="headerlink" title="2.8.2 SGDRegressor"></a>2.8.2 SGDRegressor</h3><p>Scikit-Learn 中实现了随机梯度下降回归：SGDRegressor，其对大数据量训练集（n_sample &gt; 10000）的回归问题合适。</p>
+<p>SGDRegressor 的目标函数为：</p>
+<p>$$<br>J(W) = \dfrac {1} {N} \sum^N_{i = 1} L \left( y_i, f(X_i) \right) + \alpha R(W)<br>$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.SGDRegressor</span></span><br><span class="line">SGDRegressor(loss=<span class="string">'squared_loss'</span>,</span><br><span class="line">             penalty=<span class="string">'l2'</span>,</span><br><span class="line">             alpha=<span class="number">0.0001</span>,</span><br><span class="line">             l1_ratio=<span class="number">0.15</span>,</span><br><span class="line">             fit_intercept=<span class="literal">True</span>,</span><br><span class="line">             max_iter=<span class="literal">None</span>,</span><br><span class="line">             tol=<span class="literal">None</span>,</span><br><span class="line">             shuffle=<span class="literal">True</span>,</span><br><span class="line">             verbose=<span class="number">0</span>,</span><br><span class="line">             epsilon=<span class="number">0.1</span>,</span><br><span class="line">             random_state=<span class="literal">None</span>,</span><br><span class="line">             learning_rate=<span class="string">'invscaling'</span>,</span><br><span class="line">             eta0=<span class="number">0.01</span>,</span><br><span class="line">             power_t=<span class="number">0.25</span>,</span><br><span class="line">             warm_start=<span class="literal">False</span>,</span><br><span class="line">             average=<span class="literal">False</span>,</span><br><span class="line">             n_iter=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<p>（1）参数 <code>loss</code> 支持的损失函数包括：</p>
+<ul>
+<li><code>squared_loss</code>：L2 损失。</li>
+<li><code>huber</code>：Huber 损失。</li>
+<li><code>epsilon_insensitive</code>：ɛ 不敏感损失 (如：SVM)</li>
+<li><code>squared_epsilon_insensitive</code></li>
+</ul>
+<p>（2）参数 <code>penalty</code> 支持的正则函数包括：</p>
+<ul>
+<li><code>none</code>：无正则</li>
+<li><code>l2</code>：L2正则</li>
+<li><code>l1</code>：L1正则</li>
+<li><code>elasticnet</code>：L1 正则 + L2 正则（配合参数 <code>l1_ratio</code> 为 L1 正则的比例）</li>
+</ul>
+<p>（3）参数 <code>epsilon</code> 是某些损失函数（huber、epsilon_insensitive、squared_epsilon_insensitive）需要的额外参数。</p>
+<p>（4）参数 <code>alpha</code> 是正则惩罚系数，也用于学习率计算。</p>
+<p>（5）优化算法有关的参数包括：</p>
+<p><code>max_iter</code>：<br>最大迭代次数（访问训练数据的次数，Epoches 的次数），默认值 5。<br>一个迭代循环只使用一个随机样本的梯度，并且循环所有的样本，则称为一个 Epoches。SGD 在接近 $10^6$ 的训练样本时收敛。因此可将迭代数设置为 np.ceil($10^6$ / 𝑁)，其中 𝑁 是训练集的样本数目。参数 <code>n_iter</code> 意义相同，已被抛弃。</p>
+<p><code>tol</code>：<br>停止条件。<br>如果不为 ‘None’，则当（loss &gt; previous_loss - tol）时迭代终止。</p>
+<p><code>shuffle</code>：<br>每轮 SGD 之前是否重新对数据进行洗牌。</p>
+<p><code>random_state</code>：<br>随机种子，Scikit-Learn 中与随机有关的算法均有此参数，含义相同。<br>当参数 <code>shuffle == True</code> 时使用。如果随机种子相同，每次洗牌得到的结果一样。可设置为某个整数以复现结果。</p>
+<p><code>learning_rate</code>：<br>学习率。<br>支持 3 种选择：<br>① ‘constant’：$\eta = \eta_0$。<br>② ‘optimal’：$\eta = 1.0 / \alpha * (t + t_0)$，分类任务中随机梯度下降默认值。<br>③ ‘invscaling’：$\eta = \eta_0 / pow(t, \ power_t)$，回归任务重随机梯度下降默认值。</p>
+<p><code>warm_start</code>：<br>是否从之前的结果继续。<br>随机梯度下降中初始值可以是之前的训练结果，支持在线学习，即可以在原来的学习基础上继续学习新加入的样本并更新模型参数（输出）。初始值可在 <code>fit</code> 函数中作为参数传递。</p>
+<p><code>average</code>：<br>是否采用平均随机梯度下降法（ASGD）。</p>
+<hr>
+<h1 id="3-次梯度法"><a href="#3-次梯度法" class="headerlink" title="3. 次梯度法"></a>3. 次梯度法</h1><p>当函数可导时，梯度下降法是非常有效的优化算法。但 Lasso 的目标函数为：$J(W) = ||y - X W||^2_2 + \lambda ||W||_1$，其中正则项 $||W||_1$ 为绝对值函数，在 $W_j = 0$ 处不可导，无法计算梯度，也无法用梯度下降法求解。因此需要将梯度扩展为次梯度，用次梯度法求解该问题。</p>
+<p>为了处理不平滑函数，扩展导数的表示。定义一个凸函数 $f$ 在点 $x_0$ 处的 <strong>次导数</strong> 为一个标量 g，使得：</p>
+<p>$<br>f(x) - f(x_0) \ge g(x - x_0), \forall x \in \mathrm{I}<br>$</p>
+<p>其中 $\mathrm{I}$ 为包含 $x_0$ 的某个区间。如下图所示，对于定义域中的任何 $x_0$，总可以做一条直线通过点 $(x_0, f(x_0))$，且直线要么接触 $f$，要么在其下方：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-linear/ml-linear-solutions/subderivative.png" alt="次导数" title="TOPICS"></p>
+</center>
+
+<p>上式等价于：</p>
+<p>$<br>\Delta f(x) \ge g \Delta x \Rightarrow g \le \dfrac {\Delta f(x)} {\Delta x}<br>$</p>
+<p>从该直线方程可知，$g$ 也就是在直线 $y = f(x_0)$ 下方的直线的斜率，所有 $g$ 的解（斜率）都称为函数的次导数（Subderivative），所有次导数（$g$ 的解）的集合称为函数 $f$ 在 $x_0$ 处的次微分（Subdifferential），记为 $\partial f(x_0)$。</p>
+<p>次微分是次导数的集合，定义该集合为区间 $[a, b]$：</p>
+<p>$$<br>a = \lim_{x \rightarrow x^-_0} \dfrac {f(x) - f(x_0)} {x - x_0}, \quad b = \lim_{x \rightarrow x^+_0} \dfrac {f(x) - f(x_0)} {x - x_0}<br>$$</p>
+<p>也即 $x_0$ 点的次微分的集合左边界 $a$ 是从点 $x_0$ 的左侧逼近函数值，右边界 $b$ 是从点 $x_0$ 的右侧逼近函数值。<strong>当函数在 $x_0$ 处可导时，该点的次微分只有一个点组成，也就是函数在该点的导数。</strong></p>
+<p>例如求凸函数 $f(x) = |x|$ 的次微分，由于 $f(x)$ 在点 $x = 0$ 处不可导，因此该点的次微分区间左边界为 $f(0^-) = -1$，右边界为 $f(0^+) = 1$：</p>
+<p>$$<br>\partial f(x) = \left \{<br>\begin{aligned}<br>\{ -1 \}, &amp;&amp; {x &lt; 0}<br>\\<br>[-1, +1], &amp;&amp; {x = 0}<br>\\<br>\{ +1 \}, &amp;&amp; {x &gt; 0}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>若求解多维点的次微分，则分别求解每个分量的次微分并组成向量，即作为函数在该点的次梯度。</p>
+<font color="EB6D39">
+
+<p>对可导函数，最优解的条件为 $f(x) = 0$，对此类仅局部可导，需要使用次微分的函数，最优解的条件为：</p>
+<p>$<br>0 \in \partial f(x^<em>) \Longleftrightarrow f(x^</em>) = \min_x f(x)<br>$</p>
+<p>当且仅当 0 属于函数 $f$ 在点 $x^<em>$ 处次梯度集合时，$x^</em>$ 为极值点。当然，因为函数在可导的点的次微分等于其导数，因此该条件可扩展到全局可导函数。</p>
+</font>
+
+<p>※ 注 | Python 可用 <code>numpy.sign</code> 函数实现绝对值函数的次梯度。</p>
+<p>将梯度下降法中的梯度换成次梯度就得到次梯度法：</p>
+<table>
+<thead>
+<tr>
+<th align="left">梯度下降法</th>
+<th align="left">次梯度法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1. 从 $t = 0$ 开始，初始化 $w^0$</td>
+<td align="left">1. 从 $t = 0$ 开始，初始化 $w^0$</td>
+</tr>
+<tr>
+<td align="left">2. 计算目标函数 $J(W)$ 在当前值的梯度：$\nabla J(W^t)$</td>
+<td align="left">2. 计算目标函数 $J(W)$ 在当前值的次梯度：$\partial J(W^t)$</td>
+</tr>
+<tr>
+<td align="left">3. 根据学习率 $\eta$ 更新参数：$W^{t + 1} = W^t - \eta \nabla J(W^t)$</td>
+<td align="left">3. 根据学习率 $\eta$ 更新参数：$W^{t + 1} = W^t - \eta \partial J(W^t)$</td>
+</tr>
+<tr>
+<td align="left">4. 判断是否满足迭代总之条件，如果满足，循环结束并返回最佳参数 $W^{t + 1}$ 和目标函数极小值 $J(W^{t+ 1})$，否则跳转到第 2 步</td>
+<td align="left">判断是否满足迭代总之条件，如果满足，循环结束并返回最佳参数 $W^{t + 1}$ 和目标函数极小值 $J(W^{t+ 1})$，否则跳转到第 2 步</td>
+</tr>
+</tbody></table>
+<font color="EB6D39">
+
+<p>与梯度下降算法不同，次梯度算法并不是下降算法（每次对参数的更新，并不能保证目标函数单调递减）。因此一般情况下会从多个点同时应用次梯度法，最后选择最小值：</p>
+<p>$$<br>f(x^*) = \min_{1, …, t} f(x^t)<br>$$</p>
+<p>虽然次梯度法不能保证迭代过程中目标函数保持单调下降，但可以证明，满足一定条件的凸函数，次梯度法可以保证收敛，只是收敛速度比梯度下降法慢。因此 Lasso 通常使用 <strong>坐标轴下降法</strong> 求解。</p>
+</font>
+
+<hr>
+<h1 id="4-坐标轴下降法求解"><a href="#4-坐标轴下降法求解" class="headerlink" title="4. 坐标轴下降法求解"></a>4. 坐标轴下降法求解</h1><p>次梯度法收敛速度慢，Lasso 求解推荐使用坐标轴下降法。</p>
+<p>坐标轴下降法即：沿着坐标轴方向搜索。和梯度下降法与随机梯度下降法的概念类似，例如对 D 维样本参数 $W_0, …, W_D$，坐标轴下降法是每次仅对其中一个 $W_j$ 搜索最优值。循环使用不同的坐标轴（不同维度），一个周期的以为搜索迭代过程相当于一个梯度迭代。</p>
+<p>坐标轴下降发利用当前坐标系统进行搜索，无需计算目标函数的导数，只按照某一坐标方向进行搜索最小值，而梯度下降法验目标函数的负梯度方向搜索，因此梯度方向通常不与任何坐标轴平行。</p>
+<p>坐标轴下降法在系数矩阵上的计算速度非常快。</p>
+<br>
+
+<h2 id="4-1-Lasso坐标轴下降的数学解释"><a href="#4-1-Lasso坐标轴下降的数学解释" class="headerlink" title="4.1 Lasso坐标轴下降的数学解释"></a>4.1 Lasso坐标轴下降的数学解释</h2><p>Lasso 的目标函数为：$J(W) = ||y - X W||^2_2 + \lambda ||W||_1$。</p>
+<p>将 Lasso 目标函数中的损失和及正则项分别应用坐标轴下降法搜索，每次仅搜索一个维度。定义 $w_{-j}$ 为 $W$ 去掉 $w_j$ 后的剩余 $(D - 1)$ 维向量。</p>
+<p>（1）对 RSS 的第 j 维坐标轴下降（可导，直接计算梯度）：</p>
+<p>$$<br>\begin{aligned}<br>\dfrac {\partial} {\partial w_j} RSS(W) &amp;= \dfrac {\partial} {\partial w_j} \sum^N_{i = 1} (y_i - W^T X_i)^2<br>\\<br>&amp;= \dfrac {\partial} {\partial w_j} \sum^N_{i = 1} (y_i - (W^T_{-j} X_{i, -j} + w_j x_{ij}))^2<br>\\<br>&amp;= \dfrac {\partial} {\partial w_j} \sum^N_{i = 1} (y_i - W^T_{-j} X_{i, -j} - w_j x_{ij})^2<br>\\<br>（复合函数求导） &amp;= -2 \sum^N_{i = 1} (y_i - W^T_{-j} X_{i, -j} - w_i x_{ij}) \cdot x_{ij}<br>\\<br>&amp;= 2 \sum^N_{i = 1} x^2_{ij} w_j - 2 \sum^N_{i = 1} x_{ij} (y_i - W^T_{-j} X_{i, -j})<br>\\ \\<br>令：a_j &amp;= 2 \sum^N_{i = 1} x^2_{ij}, \quad c_j =  \sum^N_{i = 1} x_{ij} (y_i - W^T_{-j} X_{i, -j})<br>\\ \\<br>\Longrightarrow \dfrac {\partial} {\partial w_j} RSS(W) &amp;= a_j w_j - c_j<br>\end{aligned}<br>$$</p>
+<p>（2）再对 $R(W)$ 的第 j 维坐标轴下降（计算次梯度）：</p>
+<p>$$<br>\dfrac {\partial} {\partial w_j} R(W) = \dfrac {\partial} {\partial w_j} \lambda |w_j| =<br>\left \{<br>\begin{aligned}<br>&amp; \dfrac {\partial} {\partial w_j} (- w_j \lambda) = \{ - \lambda \}, &amp;&amp; {w_j &lt; 0}<br>\\<br>&amp; [- \lambda, + \lambda], &amp;&amp; {w_j = 0}<br>\\<br>&amp; \dfrac {\partial} {\partial w_j} (w_j \lambda) = \{ \lambda \}, &amp;&amp; {w_j &gt; 0}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>（3）合并为对 $J(W, \lambda)$ 的第 j 维坐标轴下降：</p>
+<p>$$<br>\begin{aligned}<br>&amp; \dfrac {\partial} {\partial w_j} J(W, \lambda) = \dfrac {\partial} {\partial w_j} (RSS + R(W))<br>\\<br>&amp;= \left \{<br>\begin{aligned}<br>&amp; \{ a_j w_j - c_j - \lambda \}, &amp;&amp; {w_j &lt; 0}<br>\\<br>&amp; [a_j w_j - c_j - \lambda, a_j w_j - c_j + \lambda] = [- c_j - \lambda, - c_j + \lambda], &amp;&amp; {w_j = 0}<br>\\<br>&amp; \{ a_j w_j - c_j + \lambda \}, &amp;&amp; {w_j &gt; 0}<br>\end{aligned}<br>\right.<br>\end{aligned}<br>$$</p>
+<p>（4）最优解需满足：$0 \in \dfrac {\partial} {\partial w_j} J(W, \lambda)$，对于可导部分，则为 $0 = \dfrac {\partial} {\partial w_j} J(W, \lambda)$：</p>
+<p>$$<br>\Longrightarrow \left \{<br>\begin{aligned}<br>&amp; 0 = a_j w_j - c_j - \lambda, &amp;&amp; {w_j &lt; 0}<br>\\<br>&amp; 0 \in [- c_j - \lambda, - c_j + \lambda], &amp;&amp; {w_j = 0}<br>\\<br>&amp; 0 = a_j w_j - c_j + \lambda, &amp;&amp; {w_j &gt; 0}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>其中：</p>
+<p>$<br>\begin{aligned}<br>&amp; 0 \in [- c_j - \lambda, - c_j + \lambda]<br>\\<br>&amp; \Longrightarrow \left \{<br>\begin{aligned}<br>0 \ge - c_j - \lambda<br>\\<br>0 \le - c_j + \lambda<br>\end{aligned}<br>\right.<br>\\<br>&amp; \Longleftrightarrow c_j \in [- \lambda, \lambda]<br>\end{aligned}<br>$</p>
+<p>由于 $a_j = 2 \sum^N_{i = 1} x^2_{ij} &gt; 0$，</p>
+<p>① 当 $w_j &lt; 0$ 时有：</p>
+<p>$<br>\begin{aligned}<br>&amp; 0 = a_j w_j - c_j - \lambda<br>\\<br>&amp; w_j = \dfrac {c_j + \lambda} {a_j} &lt; 0<br>\\<br>&amp; \Longrightarrow c_j &lt; - \lambda<br>\end{aligned}<br>$</p>
+<p>② 同理，当 $w_j &gt; 0$ 时有：</p>
+<p>$<br>\begin{aligned}<br>&amp; 0 = a_j w_j - c_j + \lambda<br>\\<br>&amp; w_j = \dfrac {c_j - \lambda} {a_j} &gt; 0<br>\\<br>&amp; \Longrightarrow c_j &gt; \lambda<br>\end{aligned}<br>$</p>
+<p>因此可以转换为下式：</p>
+<p>$$<br>\hat{w_j}(c_j) = \left \{<br>\begin{aligned}<br>&amp; \dfrac {c_j + \lambda} {a_j}, &amp;&amp; {c_j &lt; - \lambda}<br>\\<br>&amp; 0, &amp;&amp; {c_j \in [- \lambda, \lambda]}<br>\\<br>&amp; \dfrac {c_j - \lambda} {a_j}, &amp;&amp; {c_j &gt; \lambda}<br>\end{aligned}<br>\right.<br>$$</p>
+<br>
+
+<h2 id="4-2-Lasso坐标轴下降步骤"><a href="#4-2-Lasso坐标轴下降步骤" class="headerlink" title="4.2 Lasso坐标轴下降步骤"></a>4.2 Lasso坐标轴下降步骤</h2><p>由于 $a_j = 2 \sum^N_{i = 1} x^2_{ij}$ 对于已知的输入 $X$ 是可以预计算的，因此 Lasso 坐标轴下降的步骤如下：</p>
+<p>① 预计算 $a_j = 2 \sum^N_{i = 1} x^2_{ij}$</p>
+<p>② 初始化参数 $W$（全 0 或随机）</p>
+<p>③ 选择变化幅度最大的维度、或随机选择、或轮流选择需要更新的参数 $w_j$</p>
+<p>④ 计算 $c_j =  \sum^N_{i = 1} x_{ij} (y_i - W^T_{-j} X_{i, -j})$</p>
+<p>⑤ 计算 $\hat{w_j}(c_j) = \left \{<br>\begin{aligned}<br>&amp; \dfrac {c_j + \lambda} {a_j}, &amp;&amp; {c_j &lt; - \lambda}<br>\\<br>&amp; 0, &amp;&amp; {c_j \in [- \lambda, \lambda]}<br>\\<br>&amp; \dfrac {c_j - \lambda} {a_j}, &amp;&amp; {c_j &gt; \lambda}<br>\end{aligned}<br>\right.$</p>
+<p>⑥ 重复第 3 ~ 5 步直到收敛</p>
+<p>⑦ 根据训练好的 $W$ 调整 $\lambda$ 的取值。</p>
+<font color="EB6D39">
+
+<p>注意 $c_j =  \sum^N_{i = 1} x_{ij} (y_i - W^T_{-j} X_{i, -j})$，其中的 $W^T_{-j} X_{i, -j}$ 本质上是分别从 $W$ 和 $X$ 中各去掉了一维后的向量/矩阵相乘，但从另一方面理解，也可以认为是去掉了第 j 维特征后用剩下的特征计算出来的预测值，因此 $y_i - W^T_{-j} X_{i, -j}$ 实际上也是第 i 个样本的预测残差 $r_i$，而 $c_j = X_j \cdot r$ 可以表示输入特征 $X$ 和预测残差 $r$ 的相关性。</p>
+</font>
+
+
+<p><strong>（1）当特征与预测残差强相关时，表示该输入特征的取值（实际上由权重 $w_j$ 控制）对预测结果（残差）有很大影响（例如 $r_j$ 下降很快），则说明这个特征很重要（即权重 $w_j$ 是必须的）。</strong></p>
+<p><strong>（2）当特征与预测残差弱相关时，则表示有没有该特征对预测结果没有什么影响，因此直接使得 $w_j = 0$，这也是 L1 正则起到特征选择作用的原理。</strong></p>
+<p><strong>（3）这也印证了目标函数 $J(W, \lambda) = \sum Loss + \lambda R(W)$ 中正则参数 $\lambda$ 的理解：$\lambda$ 为正则项的惩罚，$\lambda$ 越大，对应的 $[ -\lambda, \lambda]$ 区间也越宽，则 $w_j = 0$ 的可能性越大，因此得到的解越稀疏，从而 $W$ 的复杂度越低。</strong></p>
+<p><strong>（4）是否 $c_j \in [- \lambda, \lambda]$ 决定了 $w_j$ 是否为 0，而 $c_j$ 同样表示输入特征和预测残差之间的相关性。当 $\lambda$ 大于某个最值时，会导致所有的权重均为零 $w_j = 0$。这个最大值同样是可以预计算的：当 $\lambda$ 取最大值时，所有权重均为零，因此每条样本的预测值全为 0，对应的每条样本的预测残差即为真实值本身：$r_i = y_i$，因此 $c_j$ 即可用输入特征和真实值的相关性来代替：$c_j = X^T_{: j} y$，其中 $X_{: j}$ 表示所有样本的第 j 维特征值，因此当 $\lambda \ge \max_j (X^T_{: j} y)$ 时，可得所有 $w_j = 0$。</strong></p>
+<br>
+
+<h2 id="4-3-Scikit-Learn中的Lasso"><a href="#4-3-Scikit-Learn中的Lasso" class="headerlink" title="4.3 Scikit-Learn中的Lasso"></a>4.3 Scikit-Learn中的Lasso</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.Lasso</span></span><br><span class="line">Lasso(alpha=<span class="number">1.0</span>,</span><br><span class="line">      fit_intercept=<span class="literal">True</span>,</span><br><span class="line">      normalize=<span class="literal">False</span>,</span><br><span class="line">      precompute=<span class="literal">False</span>,</span><br><span class="line">      copy_X =<span class="literal">True</span>,</span><br><span class="line">      max_iter=<span class="number">1000</span>,</span><br><span class="line">      tol=<span class="number">0.0001</span>,</span><br><span class="line">      warm_start=<span class="literal">False</span>,</span><br><span class="line">      positive=<span class="literal">False</span>,</span><br><span class="line">      random_state=<span class="literal">None</span>,</span><br><span class="line">      selection=<span class="string">'cyclic'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>precompute</code>：<br>是否使用预计算的 Gram 矩阵来加速计算。<br>可取值：’True’, ‘False’, ‘auto’ 或数组（array-like）。若设置为 ‘auto’ 则由机器决定。</p>
+<p><code>max_iter</code>：<br>最大迭代次数。</p>
+<p><code>tol</code>：<br>解的精度，判断迭代收敛与否的阈值。<br>当更新量小于tol时，优化代码检查优化的 dual gap 并继续直到小于 tol 为止。</p>
+<p><code>warm_start</code>：<br>是否从之前的结果继续。<br>初始值可以是之前的训练结果，支持在线学习。初始值可在 fit 函数中作为参数传递。</p>
+<p><code>positive</code>：<br>是否强制使系数 $W$ 为正。</p>
+<p><code>random_state</code>：<br>随机选择特征的权重进行更新的随机种子。<br>仅当参数 <code>selection == &#39;random&#39;</code> 时有效。</p>
+<p><code>selection</code>：<br>选择特征权重更新的方式。<br>可选项有：<br>① ‘cyclic’：循环更新<br>② ‘random’：随机选择特征进行更新，通常收敛更快，尤其当参数 tol &gt; (10 - 4) 时。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+    
+    
+    <div>
+      
+        <div>
+    
+	<br> <br> <br>
+	<div style="text-align:center;color: #678;font-size:18px;">======================</div>
+        <div style="text-align:center;color: #678;font-size:18px;">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;感 谢 阅 读</div>
+	<div style="text-align:center;color: #678;font-size:18px;">======================</div>
+    
+</div>
+      
+    </div>
+
+    
+    
+    
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>SLLiu</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/" title="ML入门——线性回归三种求解">https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>感谢鼓励</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    赞赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="SLLiu 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="SLLiu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+    
+    
+    <footer class="post-footer">
+
+    
+
+      
+      
+      
+
+      
+      
+      
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/machinelearning/ml-linear/ml-linear-introduction/" rel="next" title="ML入门——线性回归简介">
+                <i class="fa fa-chevron-left"></i> ML入门——线性回归简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/machinelearning/ml-linear/ml-linear-loss-regular/" rel="prev" title="ML入门——损失和正则的概率解释">
+                ML入门——损失和正则的概率解释 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+      
+        
+        <div class="underline" style="width: 100%; display: inline-block">
+          <style>
+          .underline{ padding-bottom:1px; border-bottom:1px solid #EB6D39}
+          </style>
+          <span style="width: 100%; font-size: 13px; color: #EB6D39;">
+            
+            <div style="cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block" onclick="window.location='#';">
+            页首
+            </div>
+            &ensp;|&ensp;
+            
+            <div style="cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block" onclick="window.location='/';">
+            主页
+            </div>
+            &ensp;|&ensp;
+            
+            <div style="cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block" onclick="window.scrollBy(0, document.getElementsByTagName('BODY')[0].scrollHeight);">
+            评论
+            </div>
+          </span>
+        </div>
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            本文目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            博客信息
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SLLiu">
+            
+              <p class="site-author-name" itemprop="name">SLLiu</p>
+              <div class="site-description motion-element" itemprop="description">Learn, or Lose</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+
+              
+              <div class="site-state-item">
+                
+                <span class="site-state-item-count">692</span>
+                <span class="site-state-item-name">版本</span>
+              </div>
+
+              
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    
+                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-name">文章</span>
+                  </a>
+                </div>
+              
+
+              
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/slliu96" title="GitHub &rarr; https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/about/" title="Chats &rarr; /about/"><i class="fa fa-fw fa-comments"></i>Chats</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/1842855041" title="Weibo &rarr; https://weibo.com/u/1842855041" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:luislsl@163.com" title="EMail &rarr; mailto:luislsl@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>EMail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-users"></i>
+                
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://renxingkai.github.io" title="https://renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://me.csdn.net/singwhatiwanna" title="https://me.csdn.net/singwhatiwanna" rel="noopener" target="_blank">任玉刚</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-解析法"><span class="nav-text">1. 解析法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-OLS最优解析解"><span class="nav-text">1.1 OLS最优解析解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Ridge最优解析解"><span class="nav-text">1.2 Ridge最优解析解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-总结"><span class="nav-text">1.3 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-梯度下降法"><span class="nav-text">2. 梯度下降法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-梯度下降法思想"><span class="nav-text">2.1 梯度下降法思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-梯度下降法数学解释"><span class="nav-text">2.2 梯度下降法数学解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-OLS的梯度下降"><span class="nav-text">2.3 OLS的梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Ridge的梯度下降"><span class="nav-text">2.4 Ridge的梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-Lasso次梯度法"><span class="nav-text">2.5 Lasso次梯度法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-梯度下降的实用Tips"><span class="nav-text">2.6 梯度下降的实用Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-随机梯度下降"><span class="nav-text">2.7 随机梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-Ridge和SGDRegressor"><span class="nav-text">2.8 Ridge和SGDRegressor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-1-Ridge"><span class="nav-text">2.8.1 Ridge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-2-SGDRegressor"><span class="nav-text">2.8.2 SGDRegressor</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-次梯度法"><span class="nav-text">3. 次梯度法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-坐标轴下降法求解"><span class="nav-text">4. 坐标轴下降法求解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Lasso坐标轴下降的数学解释"><span class="nav-text">4.1 Lasso坐标轴下降的数学解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Lasso坐标轴下降步骤"><span class="nav-text">4.2 Lasso坐标轴下降步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-Scikit-Learn中的Lasso"><span class="nav-text">4.3 Scikit-Learn中的Lasso</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="博客总字数">293k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="博客总阅读时长">5:25</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'aff3b6b8b0835b7a6bbb',
+    clientSecret: '1dafdc5eedb3fc7c5917667a3867c014a2d69da6',
+    repo: 'slliu96.gitalk.io',
+    owner: 'slliu96',
+    admin: ['slliu96'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
+                'X-LC-Key': 'YRRibTsHhmelPnfq41YO6B1r',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!--动态浏览器标题-->
+<script type="text/javascript" src="/custom/dynamic_title.js"></script>

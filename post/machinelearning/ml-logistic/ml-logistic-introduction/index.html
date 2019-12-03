@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "8cd9e2df"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。">
+<meta name="keywords" content="AI,MachineLearning,人工智能,机器学习,Logistic回归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML入门——Logistic回归简介">
+<meta property="og:url" content="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-introduction/index.html">
+<meta property="og:site_name" content="SLLiu&#39;s Blogs">
+<meta property="og:description" content="（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/classify_demo.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/sigmoid.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/linear_classify.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/decision_separating_hyperplane.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/some_loss_functions.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/cross_entropy_and_pt.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/sigmoid.png">
+<meta property="og:updated_time" content="2019-12-03T13:24:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ML入门——Logistic回归简介">
+<meta name="twitter:description" content="（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。">
+<meta name="twitter:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/classify_demo.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SLLiu's Blogs" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-introduction/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ML入门——Logistic回归简介 | SLLiu's Blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SLLiu's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Learn, or Lose</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="开/关导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-plannings">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/plannings/" rel="section"><i class="menu-item-icon fa fa-fw fa-list-alt"></i> <br>计划</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/slliu96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+
+  
+  
+  
+  <div class="post-block">
+
+    
+    
+    
+    
+      <div class="bottom-divider">
+        <style>
+          .bottom-divider {
+            display: table;
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+            width: 100%;
+            border-bottom: 1px solid #eee;
+          }
+        </style>
+        <div class="post-nav-next post-nav-item">
+          
+            <a href="/post/machinelearning/ml-linear/ml-linear-loss-regular/" rel="next" title="ML入门——损失和正则的概率解释">
+              <i class="fa fa-chevron-left"></i> ML入门——损失和正则的概率解释
+            </a>
+          
+        </div>
+
+        <span class="post-nav-divider"></span>
+
+        <div class="post-nav-prev post-nav-item">
+          
+            <a href="/post/machinelearning/ml-logistic/ml-logistic-optimization/" rel="prev" title="ML入门——Logistic优化求解与牛顿法">
+              ML入门——Logistic优化求解与牛顿法 <i class="fa fa-chevron-right"></i>
+            </a>
+          
+        </div>
+      </div>
+    
+
+    
+    
+    
+    
+    
+
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="description" content="Learn, or Lose">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SLLiu's Blogs">
+    </span>
+
+
+    
+    
+    
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ML入门——Logistic回归简介
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-04 07:52:06" itemprop="dateCreated datePublished" datetime="2019-02-04T07:52:06+08:00">2019-02-04</time>
+            
+
+            
+            
+          </span>
+
+
+          
+            
+            
+          
+
+
+          
+          
+          
+          
+            <div class="post-symbolscount" style="display: inline">
+
+              <span class="post-meta-divider">|</span>
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文字数：</span>
+                
+                <span title="全文字数">23k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">26 分钟</span>
+              
+            </div>
+          
+
+
+          
+          
+          
+          
+            <span id="/post/machinelearning/ml-logistic/ml-logistic-introduction/" class="leancloud_visitors" data-flag-title="ML入门——Logistic回归简介">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读量：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+
+          
+          
+          
+          
+
+
+
+          
+          
+          
+          
+            <p>
+              <font color="#999999">
+                【注】本文全部内容均为原创，引用链接仅做学习指导，转载前请务必联系授权。
+              </font>
+            </p>
+          
+
+
+
+          
+          
+          
+          
+            
+            
+              <div></div>
+            
+          
+
+
+
+          
+          
+          
+          
+            <span class="post-category">
+              <span class="post-meta-item-icon" style="text-align:center;font-size:12px;vertical-align:middle;display:inline-block;">
+                  <i class="fa fa-th"></i>
+              </span>
+              
+                <span class="post-meta-item-text" style="text-align:center;font-size:12px;vertical-align:middle;display:inline-block;">
+                  Categories:&ensp;
+                </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a style="vertical-align:middle;display:inline-block;" href="/categories/MachineLearning/" itemprop="url" rel="index"><span itemprop="name" style="text-decoration: none; font-size:12px">MachineLearning</span></a></span>
+
+                
+                
+                  &ensp;
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a style="vertical-align:middle;display:inline-block;" href="/categories/MachineLearning/LogisticRegression/" itemprop="url" rel="index"><span itemprop="name" style="text-decoration: none; font-size:12px">LogisticRegression</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+
+          
+          
+          
+          
+
+            
+              <span class="post-meta-divider" style="vertical-align: middle;display:inline-block;">|</span>
+            
+
+            <div class="post-tags" style="display: inline">
+
+              <div style="text-align:center;vertical-align: middle;display:inline-block;font-size:12px;">
+                <i class="fa fa-tags"></i>&ensp;Tags:&ensp;
+              </div>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/AI/" rel="tag"># AI&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/MachineLearning/" rel="tag"># MachineLearning&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/人工智能/" rel="tag"># 人工智能&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/机器学习/" rel="tag"># 机器学习&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/Logistic回归/" rel="tag"># Logistic回归&ensp;</a></span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+      
+
+      
+
+
+
+        
+        <div style="color: #EB6D39; text-align: center">Tips : Safari 浏览器对 LaTeX 的支持不太好。&emsp;LaTeX not supported well in Safari.</div>
+        <br>
+        
+
+
+        
+        
+        
+        
+        
+          <div class="post-description"><span style="color: #EB6D39">
+                  简介：
+                </span>（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。</div>
+        
+
+        <a id="more"></a>
+
+<hr>
+<h1 id="1-Logistic回归简介"><a href="#1-Logistic回归简介" class="headerlink" title="1. Logistic回归简介"></a>1. Logistic回归简介</h1><p> 回归任务和分类任务都属于有监督学习（Supervised Learning），其训练数据的格式为：$D = \{ X_i, y_i \}^N_{i = 1}$。回归任务中 $y_i \in R$，而分类任务中 $y_i \in C, C = \{ 1, \cdots c \}$，任务目标都为：学习一个从输入 $X$ 到输出 $y$ 的映射 $f$。分类任务的图示如下：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-introduction/classify_demo.png" alt="分类任务图示" title="TOPICS"></p>
+</center>
+
+<p>典型的分类任务有：垃圾邮件过滤、手写数字/文本识别、语音识别、人脸识别、医疗诊断、金融风控等。</p>
+<p>贝努力（Bernoulli）分布：$y \sim Bernoulli(\mu)$，其中 $\mu$ 为分布的期望，表示 $y = 1$ 的概率。则该分布的概率密度函数为：</p>
+<p>$<br>p(y; \mu) = \mu^y (1 - \mu)^{(1 - y)}<br>$</p>
+<p>以两类分类为例。两类分类任务中，假设样本的输出为 $y_i \in \{ 0, 1 \}$，当给定输入 $X$ 的情况下，输出 y 符合贝努力分布：</p>
+<p>$<br>y | X \sim Bernoulli(\mu (X))<br>$</p>
+<p>其中期望 $\mu (X)$ 表示在给定 $X$ 的情况下，$y = 1$ 的概率。则其概率密度函数为：</p>
+<p>$<br>p(y | X; \mu) = \mu (X)^y (1 - \mu (X))^{1 - y}<br>$</p>
+<p>$<br>p(y = 1) = \mu(X), \quad p(y = 0) = 1 - \mu (X)<br>$</p>
+<br>
+
+<h2 id="1-1-Sigmoid函数"><a href="#1-1-Sigmoid函数" class="headerlink" title="1.1 Sigmoid函数"></a>1.1 Sigmoid函数</h2><p>当选择最简单的线性模型来表示期望 $\mu (X)$ 时，即 $\mu (X) = W^T X$，期望 $\mu(X)$ 表示 $y = 1$ 的概率，因此 $\mu (X) \in [0, 1]$，而 $W^T X \in (- \infty, + \infty)$，因此需要把 $(- \infty, + \infty)$ 缩放到 $[0, 1]$：Sigmoid 函数。</p>
+<p>Sigmoid 函数表达式为：$\sigma (z) = \dfrac {1} {1 + e^{-z}}$，其图形如下：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-introduction/sigmoid.png" alt="Sigmoid 函数" title="TOPICS"></p>
+</center>
+
+<p><strong>Sigmoid 函数亦被称为 Logistic 函数或 Logit 函数，Logistic 回归亦被称为 Logit 回归。</strong></p>
+<p>※ 注 | LogisticRegression 虽然名字上用了“回归”，但实际上是分类算法。</p>
+<p>使用 Sigmoid 函数对 $W^T X$ 缩放后得到：</p>
+<p>$<br>p(y = 1 | X) = \mu (X) = \sigma (W^T X)<br>$</p>
+<p>$<br>p(y = 0 | X) = 1 - \mu (x) = 1 - \sigma (W^T X)<br>$</p>
+<p>定义一个事件的几率（Odd，与概率 Probability 不是一个概念）为该事件发生的概率与不发生的概率的比值：</p>
+<p>$<br>\dfrac {p(y = 1 | X)} {p(y = 0 | X)} = \dfrac {\sigma (W^T X)} {1 - \sigma (W^T X)} = \dfrac {\dfrac {1} {1 + e^{- W^T X}}} {\dfrac {e^{- W^T X}} {1 + e^{- W^T X}}} = e^{W^T X}<br>$</p>
+<p>两边同取 $\log$ 运算，得到 <strong>对数几率</strong>：$\log \dfrac {p(y = 1 | X)} {p(y = 0 | X)} = \log (e^{W^T X}) = W^T X$。</p>
+<p>当 $p(y = 1 | X) &gt; p(y = 0 | X)$ 时，如果取最大后验概率，即输入 $X$ 的类别取 $y = 1$，则有：</p>
+<p>$<br>\dfrac {p(y = 1 | X)} {p(y = 0 | X)} &gt; 0, \Longrightarrow \log \dfrac {p(y = 1 | X)} {p(y = 0 | X)} = W^T X &gt; 0<br>$</p>
+<p>  ① 当 $W^T X &gt; 0$ 时，$p(y = 1 | X) &gt; p(y = 0 | X)$，因此可以认为输入 $X$ 对应的类别为 $y = 1$。</p>
+<p>  ② 当 $W^T X &lt; 0$ 时，$p(y = 1 | X) &lt; p(y = 0 | X)$，因此可以认为输入 $X$ 对应的类别为 $y = 0$。</p>
+<p>  ③ 当 $W^T X = 0$ 时，$p(y = 1 | X) = p(y = 0 | X)$，输入 $X$ 对应的类别可以是 1 或 0，此时 $X$ 位于决策面上，可以将 $X$ 分类到任意类别，或拒绝作出判断。</p>
+<p>令决策函数 $f(X) = W^T X$，其根据 $W^T X$ 的符号将输入控件 $X$ 分出两个区域。由于 $W^T X$ 为线性函数，因此 Logistic 回归模型是一个线性分类器。一个线性分类模型实例如下：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-introduction/linear_classify.png" alt="线性分类实例" title="TOPICS"></p>
+</center>
+
+<br>
+
+<h2 id="1-2-决策边界"><a href="#1-2-决策边界" class="headerlink" title="1.2 决策边界"></a>1.2 决策边界</h2><p>更一般地：根据需要划分的类别，分类器将输入控件 $X$ 划分为一些互不相交的区域。这些区域的边界叫决策边界（Decision Boundaries）。根据预测函数 $f$ 的不同，会使得决策面或光滑、或粗糙。</p>
+<p>当决策面是输入 $X$ 的线性函数时，称为线性决策面，对应的分类器就是线性分类器。</p>
+<p>分类器为每个类别分配一个判别函数，根据判别函数来判断一个新样本属于该类别的可能性，然后将新样本归类为可能性最大的一类。假设有 C 个类别，则对应有 C 个判别函数：$\delta_c (X), c \in \{ 1, \cdots, C \}$。</p>
+<p>对一个新样本 $X$，通常是找到最大的 $\delta_c (X)$，即该样本的类别为：</p>
+<p>$$<br>\hat{y} = \arg_c \max \delta_c (X)<br>$$</p>
+<p>判别函数 $\delta_c (X)$ 和  $\delta_k (X)$ 相等的点的集合，就是分类 C 和分类 K 之间的决策面：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-introduction/decision_separating_hyperplane.png" alt="分类决策面" title="TOPICS"></p>
+</center>
+
+<p>例如两类分类问题中，决策函数 $f_1 = p(y = 1 | X)$ 即为类别 $y = 1$ 的判别函数，决策函数 $f_0 = p(y = 0 | X)$ 即为类别 $y = 0$ 的判别函数。若对一新样本 $X$，有 $f_1 (X) &gt; f_0 (X)$，则新样本 $X$ 被分入类别 $y = 1$。</p>
+<hr>
+<h1 id="2-Logistic损失函数"><a href="#2-Logistic损失函数" class="headerlink" title="2. Logistic损失函数"></a>2. Logistic损失函数</h1><br>
+
+<h2 id="2-1-负log似然损失"><a href="#2-1-负log似然损失" class="headerlink" title="2.1 负log似然损失"></a>2.1 负log似然损失</h2><p>以两类分类问题为例，直观地，可以定义一种损失：0 / 1 损失，预测类别正确时预测损失为 0，否则为 1。记为：</p>
+<p>$<br>L(y, \hat{y}) = \left \{<br>\begin{aligned}<br>0, &amp;&amp; {y = \hat{y}}<br>\\<br>1, &amp;&amp; {y \ne \hat{y}}<br>\end{aligned}<br>\right.<br>$</p>
+<p>但 0 / 1 损失不连续，优化计算不方便。因此需要寻找其他 <strong>替代损失函数（Surrogate Loss Function）</strong>。替代损失函数应当符合几个特征：</p>
+<ul>
+<li>通常是凸函数，计算方便。</li>
+<li>与 0 / 1 损失函数具有等效性。</li>
+</ul>
+<p>下图列举了几种不同的损失函数：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-introduction/some_loss_functions.png" alt="多种损失函数图" title="TOPICS"></p>
+</center>
+
+<p>图中横轴为 $y \hat{y}$ 取值，纵轴为损失。</p>
+<p>定义两类分类中，真值 $y$ 只有两种取值：$y \in \{ 1, -1 \}$，而预测值可取连续值：$\hat{y} \in \{ - \infty, + \infty \}$，以符号区分预测值的预测类别（正数对应类别 1，负数对应类别 -1），当 $y$ 和 $\hat{y}$ 符号相同时（即 $y \hat{y} &gt; 0$，对应图中横坐标右半部分）表示预测正确，此时损失为 0。反之亦然。</p>
+<p>可以看出，浅蓝色曲线 L2 损失并不能很好地代替 0 / 1 损失，因此优化 L2 损失并不能很好地优化模型的准确度。</p>
+<p>整理 Logistic 回归模型：$y | X \sim Bernoulli (\mu (X))$，对应的概率密度函数为：</p>
+<p>$<br>p(y | X; \mu (X)) = \mu (X)^y (1 - \mu (X))^{(1 - y)}<br>$</p>
+<p>其中，$\mu (X)$ 是线性模型经过 Sigmoid 变化而来：$\mu (X) = \sigma (W^T X)$。</p>
+<p>Logistic 的似然函数为：$likelihood (f) = p(D) = \prod^N_{i = 1} p(y_i | x_i)$，则 $\log$ 似然函数为：</p>
+<p>$<br>\begin{aligned}<br>l(\mu) &amp;= \log p(D) = \log \prod^N_{i = 1} p(y_i | x_i) = \sum^N_{i = 1} \log p(y_i | x_i)<br>\\<br>&amp;= \sum^N_{i = 1} \log \left( \mu (X_i)^{y_i} (1 - \mu (X_i))^{(1 - y_i)} \right)<br>\\<br>&amp;= \sum^N_{i = 1} y_i \log (\mu (X_i)) + (1 - y_i) \log (1 - \mu (X_i))<br>\end{aligned}<br>$</p>
+<p>取极大似然估计        ：</p>
+<p>$<br>\begin{aligned}<br>\max l(\mu) &amp;= - \min l(\mu)<br>\\<br>&amp;= \min - \left( \sum^N_{i = 1} y_i \log (\mu (X_i)) + (1 - y_i) \log (1 - \mu (X_i)) \right)<br>\\<br>&amp;= \min \sum^N_{i = 1} - y_i \log (\mu (X_i)) - (1 - y_i) \log (1 - \mu (X_i))<br>\end{aligned}<br>$</p>
+<p><strong><font color="red">因此极大似然估计等价于最小训练集上的负 $\log$ 损失。而负 $\log$ 似然损失亦被称为 Logistic 损失。</font></strong></p>
+<br>
+
+<h2 id="2-2-交叉熵损失"><a href="#2-2-交叉熵损失" class="headerlink" title="2.2 交叉熵损失"></a>2.2 交叉熵损失</h2><p>Logistic 损失亦被称为 <strong>交叉熵损失（Corss Entropy Loss, CE）</strong>。</p>
+<p>交叉熵损失：两个分布之间的差异（已知真实分布的情况下，预测分布与真实分布之间的差异）。定义交叉熵 $H(p, q)$ 如下：</p>
+<p>$$<br>\begin{aligned}<br>H(p, q) &amp;= \sum_x p(x) \log (\dfrac {1} {q(x)})<br>\\<br>&amp;= - \sum_x p(x) \log (q(x))<br>\end{aligned}<br>$$</p>
+<p>假设预测值 $\hat{y} = 1$ 的概率为 $\mu (X)$，即 $\hat{y} \sim Bernoulli (\mu (X))$，则预测值 $\hat{y} = 0$ 的概率为 $1 - \mu (X)$。</p>
+<p>（1）假设已知真值 $y = 1$，即 $y | X \sim Bernoulli (1)$，即在已知真值 $y = 1$ 的情况下，$y$ 取 1 的概率 $\mu = p(y = 1) = 1$，因此 $y = 0$ 的概率 $p(y = 0) = 0$。则这两个分布之间的交叉熵为：</p>
+<p>$<br>\begin{aligned}<br>CE(y = 1, \hat{y}) &amp;= - \sum_y p(y | X) \log p(\hat{y} | X)<br>\\<br>&amp;= \left( - p(y = 1 | X) \log p(\hat{y} = 1 | X) \right) + \left( - p(y = 0 | X) \log p(\hat{y} = 0 | X) \right)<br>\\<br>&amp;= - \log \mu (X)<br>\end{aligned}<br>$</p>
+<p>（2）同理，假设已知真值 $y = 0$，即 $y | X \sim Bernoulli (0)$，因此 $\mu = p(y = 1) = 0$，$p(y = 0) = 1$，此时这两个分布之间的交叉熵为：</p>
+<p>$<br>\begin{aligned}<br>CE(y = 0, \hat{y}) &amp;= - \sum_y p(y | X) \log p(\hat{y} | X)<br>\\<br>&amp;= \left( - p(y = 1 | X) \log p(\hat{y} = 1 | X) \right) + \left( - p(y = 0 | X) \log p(\hat{y} = 0 | X) \right)<br>\\<br>&amp;= - \log (1 - \mu (X))<br>\end{aligned}<br>$</p>
+<p>整理合并得：</p>
+<p>$<br>CE(y, \hat{y}) = \left \{<br>\begin{aligned}<br>&amp; - \log \mu (X), &amp;&amp; {y = 1}<br>\\<br>&amp; - \log (1 - \mu (X)), &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$</p>
+<p>定义 $p_t$（Probability of Ground Truth Class）为：</p>
+<p>$<br>p_t = \left \{<br>\begin{aligned}<br>&amp; \mu (X), &amp;&amp; {if (y = 1)}<br>\\<br>&amp; 1 - \mu (X), &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$</p>
+<p>则可得到交叉熵损失简洁表达式：</p>
+<p>$$<br>CE(y, \hat{y}) = - \log (p_t)<br>$$</p>
+<p>交叉熵损失与 $p_t$ 的关系曲线如下：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-introduction/cross_entropy_and_pt.png" alt="交叉熵损失曲线" title="TOPICS"></p>
+</center>
+
+<p><strong>※ 注 | 对 $p_t$ 的理解：根据 $p_t$ 的表达式，当真实值 $y = 1$ 时，$p_t = \mu (X)$。由于 $\mu (X)$ 表示的是预测值 $\hat{y} = 1$ 的概率，因此 <font color="EB6D39">$p_t$ 即表示预测分布接近真实分布的概率</font>。因此 $p_t$ 越大，表示预测越准确，同时对应的交叉熵损失 $Loss = - \log (p_t)$ 也就越小，与图中曲线含义相同。</strong></p>
+<hr>
+<h1 id="3-Logistic正则项"><a href="#3-Logistic正则项" class="headerlink" title="3. Logistic正则项"></a>3. Logistic正则项</h1><p>Logistic 回归采用 Logistic 损失 / 交叉熵损失，由于预测值 $\hat{y} = 1$ 的概率为 $\mu (X)$，因此可使用 $\mu (X)$ 表示 $\hat{y}$：</p>
+<p>$<br>\begin{aligned}<br>&amp; L(y, \mu(X)) = -y \log (\mu (X)) - (1- y) \log (1 - \mu (X))<br>\\<br>&amp; \mu (X) = \sigma (W^T X)<br>\end{aligned}<br>$</p>
+<p>Logistic 回归的目标函数同样包括训练集上的损失和与正则项，正则项同样可选 L1 正则、L2 正则、或 L1 + L2 正则。</p>
+<p>假设有一个两类分类任务，且训练样本完全可分（即所有同类样本均可被分对），为了使 Logistic 损失和最小（完全可分时最小损失和即为 0），则对每个样本有：$L(y_i, \mu (x_i)) = 0$。当想要使得每个样本损失均为 0 时，即：</p>
+<blockquote>
+<p>① 对于每个真实值 $y_i = 1$ 的样本，其预测值 $\hat{y} = 1$ 的概率为 1（必定预测分类为 1），也即 $\mu (X) = 1$。</p>
+<p>② 而对于每个真实值 $y_i = 0$ 的样本，其预测值 $\hat{y} = 1$ 的概率为 0（不可能预测分类为 1），也即 $\mu (X) = 0$。</p>
+</blockquote>
+<p>由于 $\mu (X) = \sigma (W^T X)$ 是将线性模型 $W^T X$ 经过 Sigmoid 变化而来，Sigmoid 图形如下：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-introduction/sigmoid.png" alt="Sigmoid 函数" title="TOPICS"></p>
+</center>
+
+<p><strong><font color="EB6D39">当 $\mu (X)$ 取 $\pm 1$ 时，$W^T X$ 取 $\pm \infty$，也即 $|W_j| = \infty$，这样的模型是无意义的。</font></strong></p>
+<center>
+
+<p><strong><font color="red">因此 Logistic 回归必须加正则！</font></strong></p>
+</center>
+
+<p>※ 注 | Scikit-Learn 中实现的 Logistic 回归 <code>LogisticRegression</code> 默认为 L2 正则。</p>
+<p>与 SVM 类似的是，Logistic 回归的超参数 $C$ 加在损失函数上：</p>
+<p>$$<br>J(W; \lambda) = C \sum^N_{i = 1} L(y_i, \mu (x_i; W)) + R(W)<br>$$</p>
+<hr>
+<h1 id="4-Scikit-Learn中的Logistic"><a href="#4-Scikit-Learn中的Logistic" class="headerlink" title="4. Scikit-Learn中的Logistic"></a>4. Scikit-Learn中的Logistic</h1><p>Scikit-Learn 中实现了 3 种 Logistic 回归：</p>
+<ul>
+<li><code>LogisticRegression</code></li>
+<li><code>LogisticRegressionCV</code></li>
+<li><code>SGDClassifier</code></li>
+</ul>
+<p>① <code>LogisticRegression</code> 是最原始的 Logistic 回归模型，超参数调优时需要手动搭配 <code>GridSearchCV</code> 使用。② <code>LogisticRegressionCV</code> 是 Scikit-Learn 提供的已集成了交叉验证的 Logistic 回归模型，可以直接使用内置的交叉验证对超参数调优。③ <code>SGDClassifier</code>（随机梯度下降分类）则是在样本数很大（样本数 $N &gt; 10^5$，特征数 $M &gt; 10^5$）时效果更好。</p>
+<br>
+
+<h2 id="4-1-LogitsicRegression"><a href="#4-1-LogitsicRegression" class="headerlink" title="4.1 LogitsicRegression"></a>4.1 LogitsicRegression</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.LogisticRegression</span></span><br><span class="line"></span><br><span class="line">LogisticRegression(penalty=<span class="string">'l2'</span>,</span><br><span class="line">                   dual=<span class="literal">False</span>,</span><br><span class="line">                   tol=<span class="number">0.0001</span>,</span><br><span class="line">                   C=<span class="number">1.0</span>,</span><br><span class="line">                   fit_intercept=<span class="literal">True</span>,</span><br><span class="line">                   intercept_scaling=<span class="number">1</span>,</span><br><span class="line">                   class_weight=<span class="literal">None</span>,</span><br><span class="line">                   random_state=<span class="literal">None</span>,</span><br><span class="line">                   solver=<span class="string">'liblinear'</span>,</span><br><span class="line">                   max_iter=<span class="number">100</span>,</span><br><span class="line">                   multi_class=<span class="string">'ovr'</span>,</span><br><span class="line">                   verbose=<span class="number">0</span>,</span><br><span class="line">                   warm_start=<span class="literal">False</span>,</span><br><span class="line">                   n_jobs=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>（1）<code>LogitsicRegression</code> 的参数</strong></p>
+<p><code>penalty</code>：<br>惩罚函数 / 正则函数，默认：’L2’。<br>支持 L2 正则和 L1 正则。选择 L1 正则时优化器可选 ‘liblinear’ 和 ‘saga’。</p>
+<p><code>dual</code>：<br>是否是对偶问题求解，默认：<code>False</code>。<br>是原问题（primal）还是对偶问题（dual）求解。对偶问题只支持 L2 正则和 ‘liblinear’ 优化器。</p>
+<p><code>tol</code>：<br>迭代终止判据的误差范围，默认：$10^{-4}$。</p>
+<p><code>C</code>：<br>交叉熵损失函数系数，默认：1。</p>
+<p><code>fit_intercept</code>：<br>是否在决策函数中加入截距项。默认：<code>True</code>。<br>如果数据已经中心化，则不需要拟合截距项。</p>
+<p><code>intercept_scaling</code>：<br>截距缩放因子。<br>当 <code>fit_intercept</code> 为 <code>True</code> 且优化器 <code>solver</code> 设置为 <code>liblinear</code> 时有效。输入为 <code>[X, self.intercept_scaling]</code>，即对输入特征插入 1 维常数项。由于增加的常数项系数也受到 L1 / L2 正则的惩罚，因此要适当增大常数项。</p>
+<p><code>class_weight</code>：<br>不同类别样本的权重。默认：<code>None</code>。<br>可指定每类样本权重，或设置为 ‘balanced’，则每类样本权重与该类别样本数比例成反比。</p>
+<p><code>random_state</code>：<br>随机种子，默认：<code>None</code>。</p>
+<p><code>solver</code>：<br>优化求解算法，默认：’liblinear’。<br>可选：’newton-cg’，’lbfgs’，’liblinear’，’sag’，’saga’。<br>L1 正则优化器仅可选 ‘liblinear’ 和 ‘saga’，L2 正则可使用所有优化器。</p>
+<p><code>max_iter</code>：<br>最大迭代次数，默认：100。<br>仅当 <code>solver</code> 设置为 ‘newton-cg’，’sag’，或 ‘lbfgs’ 时有效。</p>
+<p><code>multi_class</code>：<br>多类分类处理策略，默认：’ovr’。<br>可选：’ovr’，’multinomial’。<br>‘ovr’：One-Versus-Rest，一对多。将 C 类分类问题转化为 C 个两类分类问题，每一次分类当前类别样本为正样本，其余样本视为负样本。<br>‘multinomial’：即 softmax 分类器。使用 ‘multinomial’ 时，优化器仅可选 ‘newton-cg’，’lbfgs’，’sag’。<br>※ OVO：One-Versus-One，一对一。<br>OVR 相对简单但分类效果相对略差。MVM 分类相对精确，但分类速度比 OVR 慢。</p>
+<p><code>verbose</code>：<br>是否详细输出。</p>
+<p><code>warm_start</code>：<br>是否热启动，默认：<code>False</code>。<br><code>solver</code> 设置为 ‘liblinear’ 时无效。</p>
+<p><code>n_jobs</code>：<br>多线程控制，默认：-1.<br>取 -1 时算法自动检测可用 CPU 核，并使用全部核。</p>
+<p><strong>（2）<code>LogitsicRegression</code> 的属性</strong></p>
+<p><code>coef</code>：<br>回归系数 / 权重。<br>与特征的维数相同。如果是多任务回归，标签 $y$ 为 m 维数组，则回归系数也为 m 维数组。</p>
+<p><code>intercept_</code>：<br>截距项。</p>
+<p><code>n_iter_</code>：<br>每个类的迭代此时。</p>
+<p><strong>（3）<code>LogitsicRegression</code> 的方法</strong></p>
+<p><code>fit(X, y[, sample_weight])</code>：<br>模型训练。<br>参数 X，y 为训练数据，也可以通过 <code>sample_weight</code> 设置每个样本的权重。</p>
+<p><code>predict(X)</code>：<br>返回 X 对应的预测值（类别标签）。</p>
+<p><code>predict_log_proba(X)</code>：<br>返回 X 对应的预测值（每个类别对应的概率的 $log$ 值）。</p>
+<p><code>predict_proba(X)</code>：<br>返回 X 对应的预测值（每个类别对应的概率）。</p>
+<p><code>score(X, y[, sample_weight])</code>：<br>评估模型预测性能，返回模型预测的正确率。</p>
+<p><code>decision_function(X)</code>：<br>预测的置信度（样本到分类超平面的带符号距离）。<br>在分对的情况下，正样本得到的应为正值，负样本得到的应为负值。</p>
+<p><code>densify()</code>：<br>如果之前将系数矩阵变成了稀疏模式，再将其变回稠密模式（<code>fit</code> 函数要求系数矩阵为稠密模式）。</p>
+<p><code>sparsify()</code>：<br>将系数矩阵变成了稀疏模式。</p>
+<br>
+
+<h2 id="4-2-LogisticRegressionCV"><a href="#4-2-LogisticRegressionCV" class="headerlink" title="4.2 LogisticRegressionCV"></a>4.2 LogisticRegressionCV</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.LogisticRegressionCV</span></span><br><span class="line"></span><br><span class="line">LogisticRegressionCV(Cs=<span class="number">10</span>,</span><br><span class="line">                     fit_intercept=<span class="literal">True</span>,</span><br><span class="line">                     cv=<span class="literal">None</span>,</span><br><span class="line">                     dual=<span class="literal">False</span>,</span><br><span class="line">                     penalty=<span class="string">'l2'</span>,</span><br><span class="line">                     scoring=<span class="literal">None</span>,</span><br><span class="line">                     solver=<span class="string">'lbfgs'</span>,</span><br><span class="line">                     tol=<span class="number">0.0001</span>,</span><br><span class="line">                     max_iter=<span class="number">100</span>,</span><br><span class="line">                     class_weight=<span class="literal">None</span>,</span><br><span class="line">                     n_jobs=<span class="number">1</span>,</span><br><span class="line">                     verbose=<span class="number">0</span>,</span><br><span class="line">                     refit=<span class="literal">True</span>, i</span><br><span class="line">                     ntercept_scaling=<span class="number">1.0</span>,</span><br><span class="line">                     multi_class=<span class="string">'ovr'</span>,</span><br><span class="line">                     random_state=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>（1）<code>LogisticRegressionCV</code> 的参数</strong></p>
+<p><code>Cs</code>：<br>超参数调优范围。<br>在区间 $[10^{-4}, 10^4]$ 的 $log$ 域均匀取 Cs 个值作为正则参数 C 的搜索空间。</p>
+<p><code>cv</code>：<br>交叉校验划分策略。</p>
+<p><code>solver</code>：<br>与 <code>LogisticRegression</code> 相同，但默认为 ‘lbfgs’。</p>
+<p><code>multi_class</code>：<br>对多类分类问题，采用的是 ‘ovr’ 的方式，用交叉验证得到每个类的最佳正则参数。</p>
+<p>其余参数与 <code>LogisticRegression</code> 相同。</p>
+<p><strong>（2）<code>LogisticRegressionCV</code> 的属性</strong></p>
+<p>与 <code>LogisticRegression</code> 相同。</p>
+<p><strong>（3）<code>LogisticRegressionCV</code> 的方法</strong></p>
+<p>与 <code>LogisticRegression</code> 相同。</p>
+<br>
+
+<h2 id="4-3-SGDClassifier"><a href="#4-3-SGDClassifier" class="headerlink" title="4.3 SGDClassifier"></a>4.3 SGDClassifier</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.SGDClassifier</span></span><br><span class="line"></span><br><span class="line">SGDClassifier(loss=<span class="string">'hinge'</span>,</span><br><span class="line">              penalty=<span class="string">'l2'</span>,</span><br><span class="line">              alpha=<span class="number">0.0001</span>,</span><br><span class="line">              l1_ratio=<span class="number">0.15</span>,</span><br><span class="line">              fit_intercept=<span class="literal">True</span>,</span><br><span class="line">              max_iter=<span class="literal">None</span>,</span><br><span class="line">              tol=<span class="literal">None</span>,</span><br><span class="line">              shuffle=<span class="literal">True</span>,</span><br><span class="line">              verbose=<span class="number">0</span>,</span><br><span class="line">              epsilon=<span class="number">0.1</span>,</span><br><span class="line">              n_jobs=<span class="number">1</span>,</span><br><span class="line">              random_state=<span class="literal">None</span>,</span><br><span class="line">              learning_rate=<span class="string">'optimal'</span>, </span><br><span class="line">              ta0=<span class="number">0.0</span>,</span><br><span class="line">              power_t=<span class="number">0.5</span>,</span><br><span class="line">              class_weight=<span class="literal">None</span>,</span><br><span class="line">              warm_start=<span class="literal">False</span>,</span><br><span class="line">              average=<span class="literal">False</span>,</span><br><span class="line">              n_iter=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>（1）<code>SGDClassifier</code> 的参数</strong></p>
+<p><code>lose</code>：<br>损失函数。<br>可选：’hinge’（合页损失，SVM 中常用），’log’（负 $log$ 似然损失，即 Logistic 回归使用的损失），’modified_huber’（对噪声不损失），’squared_hinge’，’perceptron’，还有回归中使用的损失函数：’squared_loss’，’huber’，’epsilon_insensitive’，’squared_epsilon_insensitive’。<br>使用回归的方式也可以实现分类。在分类中，$f(X)$ 表示样本输入 $X$ 取某个类别的概率，当使用回归的方式进行分类时，$f(X)$ 为一具体数值，可通过数值判断分类。例如二分类任务中，对 $f(X) &gt; 0.5$，分为类别 1，对 $f(X) &lt; 0.5$，分为类别 0。</p>
+<p><code>epsilon</code>：<br>额外参数项。<br>某些损失函数（huber、epsilon_insensitive、squared_epsilon_insensitive）所需要的额外参数。</p>
+<p><code>penalty</code>：<br>正则项。<br>可选：’none’，’l2’，’l1’，’elasticnet’（弹性网络，L1 + L2）。</p>
+<p><code>alpha</code>：<br>正则惩罚系数。<br>对应为目标函数中的 $\lambda$，也用于学习率的计算。</p>
+<p><code>l1_ratio</code>：<br>L1 正则比例。<br>仅当正则项为 ‘elasticnet’ 时有效，用于控制 L1 正则所占比例。</p>
+<p>优化相关参数如下：</p>
+<p><code>max_iter</code>：<br>最大迭代次数（访问所有训练数据的次数 / epoches 次数），默认：5。<br>SGD 在接近 $10^6$ 的训练样本时收敛，因此可将 <code>max_iter</code> 设置为 <code>np.ceil(10^6 / N)</code>（$\dfrac {10^6} {N}$），其中 N 为训练集样本数。</p>
+<p><code>tol</code>：<br>迭代停止条件。<br>若非 <code>None</code>，则当 (loss &gt; previous_loss - tol) 时迭代终止。</p>
+<p><code>learning_rate</code>：<br>学习率。<br>对应为迭代优化算法中的 $\alpha$。<br>可选：’constant’，’optimal’，’invscaling’。<br>‘constant’：eta = eta0<br>‘optimal’：eta = 1.0 / (alpha * (t + t0))<br>‘invscaling’：eta = eta0 / pow(t, power_t)</p>
+<p><code>shuffle</code>：<br>每轮 SGD 之前是否洗牌。<br>默认为 <code>True</code>。</p>
+<p><code>warm_start</code>：<br>是否热启动。<br>随机梯度下降中初始值可以是之前的训练结果，支持在线学习。初始值可在 <code>fit()</code> 函数中作为参数传递。</p>
+<p><code>average</code>：<br>是否采用平均随机梯度下降法（随机梯度下降法的改进）ASGD。</p>
+<p>其他参数与 <code>LogisticRegression</code> 相同。</p>
+<p>关于“随机梯度下降实现”的参考文献：</p>
+<blockquote>
+<ul>
+<li>“Stochastic Gradient Descent” L. Bottou - Website, 2010</li>
+<li>“The Tradeoffs of Large Scale Machine Learning” L. Bottou - Website, 2011</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+    
+    
+    <div>
+      
+        <div>
+    
+	<br> <br> <br>
+	<div style="text-align:center;color: #678;font-size:18px;">======================</div>
+        <div style="text-align:center;color: #678;font-size:18px;">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;感 谢 阅 读</div>
+	<div style="text-align:center;color: #678;font-size:18px;">======================</div>
+    
+</div>
+      
+    </div>
+
+    
+    
+    
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>SLLiu</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-introduction/" title="ML入门——Logistic回归简介">https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-introduction/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>感谢鼓励</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    赞赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="SLLiu 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="SLLiu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+    
+    
+    <footer class="post-footer">
+
+    
+
+      
+      
+      
+
+      
+      
+      
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/machinelearning/ml-linear/ml-linear-loss-regular/" rel="next" title="ML入门——损失和正则的概率解释">
+                <i class="fa fa-chevron-left"></i> ML入门——损失和正则的概率解释
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/machinelearning/ml-logistic/ml-logistic-optimization/" rel="prev" title="ML入门——Logistic优化求解与牛顿法">
+                ML入门——Logistic优化求解与牛顿法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+      
+        
+        <div class="underline" style="width: 100%; display: inline-block">
+          <style>
+          .underline{ padding-bottom:1px; border-bottom:1px solid #EB6D39}
+          </style>
+          <span style="width: 100%; font-size: 13px; color: #EB6D39;">
+            
+            <div style="cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block" onclick="window.location='#';">
+            页首
+            </div>
+            &ensp;|&ensp;
+            
+            <div style="cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block" onclick="window.location='/';">
+            主页
+            </div>
+            &ensp;|&ensp;
+            
+            <div style="cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block" onclick="window.scrollBy(0, document.getElementsByTagName('BODY')[0].scrollHeight);">
+            评论
+            </div>
+          </span>
+        </div>
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            本文目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            博客信息
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SLLiu">
+            
+              <p class="site-author-name" itemprop="name">SLLiu</p>
+              <div class="site-description motion-element" itemprop="description">Learn, or Lose</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+
+              
+              <div class="site-state-item">
+                
+                <span class="site-state-item-count">692</span>
+                <span class="site-state-item-name">版本</span>
+              </div>
+
+              
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    
+                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-name">文章</span>
+                  </a>
+                </div>
+              
+
+              
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/slliu96" title="GitHub &rarr; https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/about/" title="Chats &rarr; /about/"><i class="fa fa-fw fa-comments"></i>Chats</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/1842855041" title="Weibo &rarr; https://weibo.com/u/1842855041" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:luislsl@163.com" title="EMail &rarr; mailto:luislsl@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>EMail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-users"></i>
+                
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://renxingkai.github.io" title="https://renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://me.csdn.net/singwhatiwanna" title="https://me.csdn.net/singwhatiwanna" rel="noopener" target="_blank">任玉刚</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Logistic回归简介"><span class="nav-text">1. Logistic回归简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Sigmoid函数"><span class="nav-text">1.1 Sigmoid函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-决策边界"><span class="nav-text">1.2 决策边界</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Logistic损失函数"><span class="nav-text">2. Logistic损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-负log似然损失"><span class="nav-text">2.1 负log似然损失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-交叉熵损失"><span class="nav-text">2.2 交叉熵损失</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Logistic正则项"><span class="nav-text">3. Logistic正则项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Scikit-Learn中的Logistic"><span class="nav-text">4. Scikit-Learn中的Logistic</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-LogitsicRegression"><span class="nav-text">4.1 LogitsicRegression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-LogisticRegressionCV"><span class="nav-text">4.2 LogisticRegressionCV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-SGDClassifier"><span class="nav-text">4.3 SGDClassifier</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="博客总字数">293k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="博客总阅读时长">5:25</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'aff3b6b8b0835b7a6bbb',
+    clientSecret: '1dafdc5eedb3fc7c5917667a3867c014a2d69da6',
+    repo: 'slliu96.gitalk.io',
+    owner: 'slliu96',
+    admin: ['slliu96'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
+                'X-LC-Key': 'YRRibTsHhmelPnfq41YO6B1r',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!--动态浏览器标题-->
+<script type="text/javascript" src="/custom/dynamic_title.js"></script>

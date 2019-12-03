@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "8cd9e2df"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。">
+<meta name="keywords" content="AI,MachineLearning,人工智能,机器学习,Logistic回归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML入门——Logistic优化求解与牛顿法">
+<meta property="og:url" content="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-optimization/index.html">
+<meta property="og:site_name" content="SLLiu&#39;s Blogs">
+<meta property="og:description" content="（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-optimization/newton_iteration.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-optimization/double_circle_direction.png">
+<meta property="og:updated_time" content="2019-12-03T13:24:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ML入门——Logistic优化求解与牛顿法">
+<meta name="twitter:description" content="（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。">
+<meta name="twitter:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-optimization/newton_iteration.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SLLiu's Blogs" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-optimization/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ML入门——Logistic优化求解与牛顿法 | SLLiu's Blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SLLiu's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Learn, or Lose</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="开/关导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-plannings">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/plannings/" rel="section"><i class="menu-item-icon fa fa-fw fa-list-alt"></i> <br>计划</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/slliu96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+
+  
+  
+  
+  <div class="post-block">
+
+    
+    
+    
+    
+      <div class="bottom-divider">
+        <style>
+          .bottom-divider {
+            display: table;
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+            width: 100%;
+            border-bottom: 1px solid #eee;
+          }
+        </style>
+        <div class="post-nav-next post-nav-item">
+          
+            <a href="/post/machinelearning/ml-logistic/ml-logistic-introduction/" rel="next" title="ML入门——Logistic回归简介">
+              <i class="fa fa-chevron-left"></i> ML入门——Logistic回归简介
+            </a>
+          
+        </div>
+
+        <span class="post-nav-divider"></span>
+
+        <div class="post-nav-prev post-nav-item">
+          
+            <a href="/post/machinelearning/ml-logistic/ml-logistic-multiclassify/" rel="prev" title="ML入门——多类分类任务">
+              ML入门——多类分类任务 <i class="fa fa-chevron-right"></i>
+            </a>
+          
+        </div>
+      </div>
+    
+
+    
+    
+    
+    
+    
+
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="description" content="Learn, or Lose">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SLLiu's Blogs">
+    </span>
+
+
+    
+    
+    
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ML入门——Logistic优化求解与牛顿法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-04 11:02:39" itemprop="dateCreated datePublished" datetime="2019-02-04T11:02:39+08:00">2019-02-04</time>
+            
+
+            
+            
+          </span>
+
+
+          
+            
+            
+          
+
+
+          
+          
+          
+          
+            <div class="post-symbolscount" style="display: inline">
+
+              <span class="post-meta-divider">|</span>
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文字数：</span>
+                
+                <span title="全文字数">24k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">27 分钟</span>
+              
+            </div>
+          
+
+
+          
+          
+          
+          
+            <span id="/post/machinelearning/ml-logistic/ml-logistic-optimization/" class="leancloud_visitors" data-flag-title="ML入门——Logistic优化求解与牛顿法">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读量：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+
+          
+          
+          
+          
+
+
+
+          
+          
+          
+          
+            <p>
+              <font color="#999999">
+                【注】本文全部内容均为原创，引用链接仅做学习指导，转载前请务必联系授权。
+              </font>
+            </p>
+          
+
+
+
+          
+          
+          
+          
+            
+            
+              <div></div>
+            
+          
+
+
+
+          
+          
+          
+          
+            <span class="post-category">
+              <span class="post-meta-item-icon" style="text-align:center;font-size:12px;vertical-align:middle;display:inline-block;">
+                  <i class="fa fa-th"></i>
+              </span>
+              
+                <span class="post-meta-item-text" style="text-align:center;font-size:12px;vertical-align:middle;display:inline-block;">
+                  Categories:&ensp;
+                </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a style="vertical-align:middle;display:inline-block;" href="/categories/MachineLearning/" itemprop="url" rel="index"><span itemprop="name" style="text-decoration: none; font-size:12px">MachineLearning</span></a></span>
+
+                
+                
+                  &ensp;
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a style="vertical-align:middle;display:inline-block;" href="/categories/MachineLearning/LogisticRegression/" itemprop="url" rel="index"><span itemprop="name" style="text-decoration: none; font-size:12px">LogisticRegression</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+
+          
+          
+          
+          
+
+            
+              <span class="post-meta-divider" style="vertical-align: middle;display:inline-block;">|</span>
+            
+
+            <div class="post-tags" style="display: inline">
+
+              <div style="text-align:center;vertical-align: middle;display:inline-block;font-size:12px;">
+                <i class="fa fa-tags"></i>&ensp;Tags:&ensp;
+              </div>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/AI/" rel="tag"># AI&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/MachineLearning/" rel="tag"># MachineLearning&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/人工智能/" rel="tag"># 人工智能&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/机器学习/" rel="tag"># 机器学习&ensp;</a></span>
+              
+                <span style="display:inline-block;vertical-align: middle;" itemscope itemtype="http://schema.org/Thing"><a href="/tags/Logistic回归/" rel="tag"># Logistic回归&ensp;</a></span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+      
+
+      
+
+
+
+        
+        <div style="color: #EB6D39; text-align: center">Tips : Safari 浏览器对 LaTeX 的支持不太好。&emsp;LaTeX not supported well in Safari.</div>
+        <br>
+        
+
+
+        
+        
+        
+        
+        
+          <div class="post-description"><span style="color: #EB6D39">
+                  未完待续：
+                </span>（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。</div>
+        
+
+        <a id="more"></a>
+
+<hr>
+<p>在机器学习的优化求解算法中，梯度下降法是无约束优化问题优化求解最常用的方法之一，还有一种求解方法就是牛顿法。相比梯度下降法，牛顿法的收敛速度更快，但同时，每次迭代需要的计算量也更大。</p>
+<p>在牛顿法之前，需要先了解：<a href="https://baike.baidu.com/item/泰勒公式/7681487?fr=aladdin" title="TOLINKS" target="_blank" rel="noopener">泰勒公式</a>。泰勒公式通俗地讲，就是当函数 $f$ 在点 $x$ 处的一阶导数、二阶导数……n 阶导数已知时，即可使用 n 阶泰勒展开来逼近函数 $f$ 在点 $x$ 的 <font color="red">邻域</font> 的函数值，因此泰勒公式求的是一个点的邻域的近似函数值。</p>
+<p>对应优化求解中，通常我们习惯于使用迭代法来求解，而迭代法的本质即：每次向正确的方向移动一小段，直到达到给定条件。这就与泰勒公式不谋而合——每次移动一小段之后的函数值可以使用移动前该点的泰勒展开来逼近，因此牛顿法或拟牛顿法都是在泰勒公式的基础上进行的。</p>
+<h1 id="1-牛顿法"><a href="#1-牛顿法" class="headerlink" title="1. 牛顿法"></a>1. 牛顿法</h1><p>牛顿法（Newton - Raphson，牛顿 - 拉夫逊）是牛顿在 17 世纪提出的用于求解方程的根的方法。其求解思想如下：</p>
+<p>① 假设点 $x^{\ast}$ 为函数 $f(x)$ 的根，则 $f(x) = 0$。</p>
+<p>② 将函数 $f(x)$ 在点 $x_0$ 处进行一阶泰勒展开有：$f(x) \approx f(x_0) + (x - x_0) f’(x_0)$</p>
+<p>③ 假设点 $x$ 为 $x_0$ 邻域内一点，且 $x$ 为函数的根，则有：$f(x) \approx f(x_0) + (x - x_0) f’(x_0) = 0$</p>
+<p>④ 将上式变换即可得：$x = x_0 - \dfrac {f(x_0)} {f’(x_0)}$</p>
+<p>上述牛顿法得到的结论，拓展到迭代的过程中，假设当前处在迭代第 t 轮，则可以得到下一轮 (t + 1) 时刻的解的表达式为：</p>
+<p>$<br>x^{(t + 1)} = x^{(t)} - \dfrac {f(x^{(t)})} {f’(x^{(t)})}<br>$</p>
+<p>这就是牛顿法优化求解的基本思想。下图展示了牛顿法求解方程 $f(x) = 0$ 的根的过程（图自 Wiki）：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-optimization/newton_iteration.png" alt="牛顿法迭代过程" title="TOPICS"></p>
+</center>
+
+<p>回到最优化问题中，通常会将问题转化成求极小值（误差、损失最小等），极小值对应了函数的导数为 0，因此需要适当调整牛顿法的目标，从求 $f(x) = 0$ 变为求 $f’(x) = 0$，因此原问题变为求 $f’(x)$ 的根。</p>
+<p>令 $g(x) = f’(x)$，则关于 $x$ 的迭代条件变为：</p>
+<p>$<br>x^{(t + 1)} = x^{(t)} - \dfrac {g(x^{(t)})} {g’(x^{(t)})} = x^{(t)} - \dfrac {f’(x^{(t)})} {f’’(x^{(t)})}<br>$</p>
+<p>在实际问题中，通常输入 $X$ 的维度都大于 1，因此将一阶导数替换为梯度（即 $f$ 分别对每个 $x_i$ 求偏导后组成向量）：</p>
+<p>$<br>\nabla f(x_1, \cdots, x_D)<br>$</p>
+<p>将二阶导数替换为海森（Hessian）矩阵 H：</p>
+<p>$<br>H(X) = \left[<br>\begin{matrix}<br>\dfrac {\partial^2 f} {\partial^2 x^2_1} &amp; \dfrac {\partial^2 f} {\partial x_1 \partial x_2} &amp; \cdots &amp; \dfrac {\partial^2 f} {\partial x_1 \partial x_D}<br>\\<br>\dfrac {\partial^2 f} {\partial x_2 \partial x_1} &amp; \dfrac {\partial^2 f} {\partial^2 x^2_2} &amp; \cdots &amp; \dfrac {\partial^2 f} {\partial x_2 \partial x_D}<br>\\<br>\vdots &amp; \vdots &amp; \ddots &amp; \vdots<br>\\<br>\dfrac {\partial^2 f} {\partial x_D \partial x_1} &amp; \dfrac {\partial^2 f} {\partial x_D \partial x_2} &amp; \cdots &amp; \dfrac {\partial^2 f} {\partial^2 x^2_D}<br>\end{matrix}<br>\right]<br>$</p>
+<p>Hessian 矩阵即：第 i 行第 j 列的元素为 $f$ 先对 $x_i$ 求偏导后再对 $x_j$ 求偏导。由于 $f$ 先对 $x_i$ 再对 $x_j$ 求偏导和 $f$ 先对 $x_j$ 再对 $x_i$ 求偏导相等，即 $\dfrac {\partial^2 f} {\partial x_i \partial x_j} = \dfrac {\partial^2 f} {\partial x_j \partial x_i}$，因此 Hessian 矩阵是对称的。</p>
+<p>这样，牛顿法的迭代公式就变换为：</p>
+<p>$$<br>x^{(t + 1)} = x^{(t)} - H^{-1} (X^{(t)}) \ \nabla f(X^{(t)})<br>$$</p>
+<p>※ 注 | 二阶导转换为 Hessian 矩阵 $H(X^{(t)})$ 后作为分母，使用逆运算 $H^{-1} (X^{(t)})$ 来表示。</p>
+<p>总结牛顿法求解目标函数极值的迭代步骤如下：</p>
+<p>① 从 $t = 0$ 开始，初始化 $X^{(0)}$ 为随机值</p>
+<p>② 计算目标函数 $f(X)$ 在点 $X^{(t)}$ 的梯度：$g^{(t)} = \nabla f(X^{(t)})$，以及 Hessian 矩阵：$H^{(t)} = H(X^{(t)})$</p>
+<p>③ 计算移动方向：$d^{(t)} = (H^{(t)})^{-1} \ g^{(t)}$</p>
+<p>④ 根据迭代公式更新 $X$ 的值：$X^{(t + 1)} = X^{(t)} - d^{(t)}$</p>
+<p>⑤ 判断是否满足迭代终止条件（是否到达最大迭代次数，或相邻两次迭代的相对变化量或绝对变化量小于预设值，通常使用绝对量：$\dfrac {f(X^{(t + 1)}) - f(X^{(t)})} {f(X^{(t)})} \le \varepsilon$），若满足则循环计数，返回最佳参数 $X^{(t + 1)}$ 和目标函数极小值 $f(X^{(t + 1)})$，否则跳转到第 2 步</p>
+<p>其中，第 ③ 步计算移动方向 $d^{(t)}$ 时，由于矩阵的逆求解困难，因此常用线性方程组计算：$H^{(t)} d^{(t)} = g^{(t)}$，当 $X$ 维度比较小时，可采用解析法求解 $d^{(t)}$，当 $X$ 维度比较高时，可采用梯度下降法或共而梯度下降法求解，因此对 $d^{(t)}$ 的求解又是一个迭代的计算过程。</p>
+<p>对比梯度下降法中的移动方向：$d^{(t)} = - \eta g^{(t)}$，牛顿法：$d^{(t)} = - (H^{(t)})^{-1} \ g^{(t)}$，Hessian 矩阵相比学习率（步长）$\eta$ 包含的信息更多，因此牛顿法收敛速度更快，但从上述步骤也可明显看出牛顿法每次迭代的计算量都大幅增加。</p>
+<p>由于梯度下降法仅使用了一阶导数，而牛顿法使用了二阶导数矩阵，因此梯度下降法是一阶最优化算法，而牛顿法是二阶最优化算法。</p>
+<hr>
+<h1 id="2-拟牛顿法"><a href="#2-拟牛顿法" class="headerlink" title="2. 拟牛顿法"></a>2. 拟牛顿法</h1><p>牛顿法虽然收敛速度比梯度下降法更快，但在高维的情况下，计算目标函数二阶偏导数的复杂度很大，而且有时候目标函数的 Hessian 矩阵无法保持正定，不存在逆矩阵，此时牛顿法将不再能使用。</p>
+<p>为此提出：拟牛顿法（Quasi-Newton Methods），拟牛顿法旨在：不用二阶偏导数，而构造出可以近似 Hessian 矩阵（或 Hessian 矩阵的逆矩阵）的正定对称矩阵，再逐步优化目标函数。不同的近似 Hessian 矩阵构造方法产生了不同的拟牛顿法：BFGS / L-BFGS。</p>
+<blockquote>
+<p>扩展阅读：</p>
+<ol>
+<li><a href="https://blog.csdn.net/aws3217150/article/details/50548177" title="TOLINKS" target="_blank" rel="noopener">谈谈常见的迭代优化方法</a></li>
+<li><a href="https://www.scipy-lectures.org/advanced/mathematical_optimization/" title="TOLINKS" target="_blank" rel="noopener">Mathematical optimization: finding minima of functions</a></li>
+</ol>
+</blockquote>
+<p>重新考虑迭代条件，假设有某点 $x_0$，目标函数 $f(x)$ 在该点（已知点）进行二阶泰勒展开：</p>
+<p>$<br>f(x) \approx f(x_0) + f’(x_0) (x - x_0) + \dfrac {1} {2} f’’(x_0) (x - x_0)^2<br>$</p>
+<p>当 $X$ 为 向量 / 矩阵 时，导数即为梯度，上式转换为：</p>
+<p>$<br>f(X) \approx f(X_0) + \nabla f(X_0) (X - X_0) + \dfrac {1} {2} (X - X_0)^T \nabla^2 f(X_0) (X - X_0)<br>$</p>
+<p>对上式取梯度运算（$X_0$ 为已知点，因此其与其导数均可视为常数项）得：</p>
+<p>$<br>\nabla f(X) \approx \nabla f(X_0) + \nabla^2 f(X_0) (X - X_0)<br>$</p>
+<p>由于函数在点 $X_0$ 处的泰勒展开可以近似 $X_0$ 邻域内的函数值，假设 $X_0$ 即为迭代 t 次后得到的 $X^{(t + 1)}$，则迭代前一轮的 $X^{(t)}$ 即为邻域内一点，可用二阶泰勒展开逼近，因此可得迭代关系：</p>
+<p>$<br>\nabla f(X^{(t)}) \approx \nabla f(X^{(t + 1)}) + \nabla^2 f(X^{(t + 1)}) (X^{(t)} - X^{(t + 1)})<br>$</p>
+<p>再使用 gradiant 和 Hessian 分别表示 $X$ 的一阶梯度和二阶梯度矩阵：$g^{(t)} = \nabla f(X^{(t)})$，$H^{(t)} = \nabla^2 f(X^{(t)})$，整理可得：</p>
+<p>$<br>g^{(t + 1)} - g^{(t)} \approx H^{(t + 1)} (X^{(t + 1)} - X^{(t)})<br>$</p>
+<p>进一步，引入记号：$s^{(t)} = X^{(t + 1)} - X^{(t)}$ 表示 $X$ 的变化量，$y^{(t)} = g^{(t + 1)} - g^{(t)}$ 表示梯度变化量，则可得简洁迭代关系：</p>
+<p>$$<br>y^{(t)} \approx H^{(t + 1)} s^{(t)}<br>$$</p>
+<p>由于牛顿法中 Hessian 矩阵的逆难以计算，因此在拟牛顿法中，令 $B$ 表示 $H$ 的近似，$D$ 表示 $H^{-1}$ 的近似，代入上式即可得到 <font color="EB6D39">拟牛顿法的条件</font> 为：</p>
+<font color="EB6D39">
+<center>
+
+<p>$$<br>y^{(t)} = B^{(t + 1)} s^{(t)}<br>$$</p>
+<p>或</p>
+<p>$$<br>s^{(t)} = D^{(t + 1)} y^{(t)}<br>$$</p>
+</center>
+
+<p>实际上，拟牛顿法的条件给出了 Hessian 矩阵的近似需要满足的条件。</p>
+</font>
+
+<br>
+
+<h2 id="2-1-BFGS"><a href="#2-1-BFGS" class="headerlink" title="2.1 BFGS"></a>2.1 BFGS</h2><p>BFGS（Broyden, Fletcher, Glodfarb, Shanno）被认为是数值效果最好的拟牛顿法，且具有全局收敛性和超线性收敛速度。</p>
+<p>BFGS 算法采用迭代法逼近 Hessian 矩阵：$B^{(t + 1)} = B^{(t)} + \Delta B^{(t)}$，初始值 $B^{(0)} = I$ 为单位矩阵，因此关键在于如何构造 $\Delta B^{(t)}$。</p>
+<p>为保证矩阵 $B$ 的正定性，令 $\Delta B^{(t)} = \alpha u u^T + \beta v v^T$，代入上述拟牛顿法条件可得：</p>
+<p>$<br>\begin{aligned}<br>y^{(t)} &amp;= B^{(t + 1)} s^{(t)} = (B^{(t)} + \Delta B^{(t)}) s^{(t)} = B^{(t)} s^{(t)} + \Delta B^{(t)} s^{(t)}<br>\\<br>&amp;= B^{(t)} s^{(t)} + \alpha u u^T s^{(t)} + \beta v v^T s^{(t)}<br>\\<br>&amp;= B^{(t)} s^{(t)} + u (\alpha u^T s^{(t)}) + v (\beta v^T s^{(t)})<br>\end{aligned}<br>$</p>
+<p>※ 注 | 当 $u^T$ 或 $v^T$ 的维数与 $s^{(t)}$ 的维数一致（由于 $\Delta B^{(t)}$ 是构造的，因此可以构造为相同维数）时，$u^T s^{(t)}$ 以及 $v^T s^{(t)}$ 均为一个标量数值（向量的转置 x 向量 = 数值）。</p>
+<p>令 $\alpha u^T s^{(t)} = 1$，$\beta v^T s^{(t)} = -1$，即 $\alpha = \dfrac {1} {u^T s^{(t)}}$，$\beta = - \dfrac {1} {v^T s^{(t)}}$，得到：</p>
+<p>$<br>u - v = y^{(t)} - B^{(t)} s^{(t)}<br>$</p>
+<p>不妨令 $u = y^{(t)}$，$v = B^{(t)} s^{(t)}$，代入 $\alpha$ 和 $\beta$ 的表达式得：</p>
+<p>$<br>\alpha = \dfrac {1} {u^T s^{(t)}} = \dfrac {1} {(y^{(t)})^T s^{(t)}}<br>$</p>
+<p>$<br>\beta = - \dfrac {1} {v^T s^{(t)}} = - \dfrac {1} {(B^{(t)} s^{(t)})^T s^{(t)}} = - \dfrac {1} {(s^{(t)})^T (B^{(t)})^T s^{(t)}}<br>$</p>
+<p>代入 $\Delta B^{(t)}$ 的表达式得：</p>
+<font color="EB6D39">
+
+<p>$$<br>\begin{aligned}<br>\Delta B^{(t)} &amp;= \alpha u u^T + \beta v v^T<br>\\<br>&amp;= \dfrac {y^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}} - \dfrac {B^{(t)} s^{(t)} (B^{(t)} s^{(t)})^T} {(s^{(t)})^T (B^{(t)})^T s^{(t)}}<br>\end{aligned}<br>$$</p>
+</font>
+
+<p>※ 注 | Sherman-Morrison 公式：若 $A$ 为非奇异方阵，$1 + v^T A^{-1} u \ne 0$，则有：</p>
+<p>$<br>(A + uv^T)^{-1} = A^{-1} - \dfrac {A^{-1} u v^T A^{-1}} {1 + v^T A^{-1}}<br>$</p>
+<p>由于牛顿法迭代过程需要计算 Hessian 矩阵的逆矩阵，因此根据 Sherman-Morrison 公式可得：</p>
+<font color="EB6D39">
+
+<p>$$<br>(B^{(t + 1)})^{-1} = D^{(t + 1)} = \left( I - \dfrac {s^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}} \right) D^{(t)} \left( I - \dfrac {y^{(t)} (s^{(t)})^T} {(y^{(t)})^T s^{(t)}} \right) + \dfrac {s^{(t)} (s^{(t)})^T} {(y^{(t)})^T s^{(t)}}<br>$$</p>
+</font>
+
+<p>综上，对于 $\Delta B^{(t)}$ 和 $D^{(t + 1)}$，均可使用 $s^{(t)}$（$X$ 的变化量）和 $y^{(t)}$（函数梯度的变化量）表示，而初始化 $B^{(0)} = D^{(0)} = I$ 是一指的，$s^{(t)}$ 和 $y^{(t)}$ 在 $X$ 已知（优化求解的目的是寻找最优的 $X$，而 $X$ 本来就是已知的）时均是可计算的。</p>
+<p>整理得 BFGS 更新参数的流程如下：</p>
+<p>① 从 $t = 0$ 开始，初始化 $D^{(0)} = I$</p>
+<p>② 计算移动方向：$d^{(t)} = D^{(t)} g^{(t)}$</p>
+<blockquote>
+<p>※ 注 | 先用 $B^{(t)} = B^{(t - 1)} + \Delta B^{(t - 1)}$ 迭代解出 $B^{(t)}$，再用 Sherman-Morrison 公式解出 $D^{(t)}$。</p>
+</blockquote>
+<p>③ 更新 $X$ 的值：$X^{(t + 1)} = X^{(t)} - d^{(t)}$</p>
+<p>④ $s^{(t)} = d^{(t)}$</p>
+<p>⑤ 若 $||g^{(t + 1)}|| \le \varepsilon$，则迭代终止</p>
+<p>⑥ 计算：$y^{(t)} = g^{(t + 1)} - g^{(t)}$</p>
+<p>⑦ $t = t + 1$，跳转第 2 步</p>
+<br>
+
+<h2 id="2-2-L-BFGS"><a href="#2-2-L-BFGS" class="headerlink" title="2.2 L-BFGS"></a>2.2 L-BFGS</h2><p>在 BFGS 中，每一轮迭代需要存储 Hessian 矩阵或其近似（$B^{(t)}$ 或 $D^{(t)}$），但当 $X$ 维数很高时，矩阵的维度也会很高，需要耗费大量存储空间。</p>
+<p>L-BFGS（Limited memory BFGS）不直接存储 Hessian 矩阵或其近似（$B^{(t)}$ 或 $D^{(t)}$），而是存储迭代计算过程中的 $s^{(t)}$ 和 $y^{(t)}$ 来计算，从而减少参数存储所需空间。</p>
+<p>在 BFGS 中，Hessian 矩阵的更新公式为：</p>
+<p>$<br>(B^{(t + 1)})^{-1} = D^{(t + 1)} = \left( I - \dfrac {s^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}} \right) D^{(t)} \left( I - \dfrac {y^{(t)} (s^{(t)})^T} {(y^{(t)})^T s^{(t)}} \right) + \dfrac {s^{(t)} (s^{(t)})^T} {(y^{(t)})^T s^{(t)}}<br>$</p>
+<p>令 $\rho^{(t)} = \dfrac {1} {(y^{(t)})^T s^{(t)}}$，$V^{(t)} = \left( I - \dfrac {y^{(t)} (s^{(t)})^T} {(y^{(t)})^T s^{(t)}} \right) = I - \rho^{(t)} y^{(t)} (s^{(t)})^T$</p>
+<blockquote>
+<p>※ 注 | 由于向量 $s^{(t)}$（X的变化量）和向量 $y^{(t)}$（梯度变化量）的维数相同（都与 $X$ 维度相等），因此 $s^{(t)} (y^{(t)})^T$ 和 $s^{(t)} (s^{(t)})^T$ 是矩阵，而 $(y^{(t)})^T s^{(t)}$ 是一个数值，因此 $\rho^{(t)}$ 是一个常数。</p>
+</blockquote>
+<p>则有：</p>
+<p>$<br>\begin{aligned}<br>(V^{(t)})^T &amp;= \left( I - \rho^{(t)} y^{(t)} (s^{(t)})^T \right)^T<br>\\<br>&amp;= I - \rho^{(t)} \left( y^{(t)} (s^{(t)})^T \right)^T<br>\\<br>&amp;= I - \rho^{(t)} s^{(t)} (y^{(t)})^T<br>\\<br>&amp;= I - \dfrac {s^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}}<br>\end{aligned}<br>$</p>
+<p>因此原 Hessian 更新公式变为：</p>
+<font color="EB6D39">
+
+<p>$$<br>D^{(t + 1)} = (V^{(t)})^T D^{(t)} V^{(t)} + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>$$</p>
+</font>
+
+<p>将上述迭代更新公式展开得：</p>
+<p>$<br>\begin{aligned}<br>D^{(t + 1)} &amp;= (V^{(t)})^T D^{(t)} V^{(t)} + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>\\<br>&amp; \Downarrow<br>\\<br>D^{(1)} &amp;= (V^{(0)})^T D^{(0)} V^{(0)} + \rho^{(0)} s^{(0)} (s^{(0)})^T<br>\\ \\<br>D^{(2)} &amp;= (V^{(1)})^T D^{(1)} V^{(1)} + \rho^{(1)} s^{(1)} (s^{(1)})^T<br>\\<br>&amp;= (V^{(1)})^T \left( (V^{(0)})^T D^{(0)} V^{(0)} + \rho^{(0)} s^{(0)} (s^{(0)})^T \right) V^{(1)} + \rho^{(1)} s^{(1)} (s^{(1)})^T<br>\\<br>&amp;= (V^{(1)})^T (V^{(0)})^T D^{(0)} V^{(0)} V^{(1)} + (V^{(1)})^T \rho^{(0)} s^{(0)} (s^{(0)})^T V^{(1)} + \rho^{(1)} s^{(1)} (s^{(1)})^T<br>\\<br>&amp; \ \ \vdots<br>\\<br>D^{(t + 1)} &amp;= \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(0)})^T \right] D^{(0)} \left[ V^{(0)} V^{(1)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(1)})^T \right] \left[ \rho^{(0)} s^{(0)} (s^{(0)})^T \right] \left[ V^{(1)} V^{(2)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(2)})^T \right] \left[ \rho^{(1)} s^{(1)} (s^{(1)})^T \right] \left[ V^{(2)} V^{(3)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \ \cdots \cdots<br>\\<br>&amp; \ + (V^{(t)})^T \left[ \rho^{(t - 1)} s^{(t - 1)} (s^{(t - 1)})^T \right] V^{(t)}<br>\\<br>&amp; \ + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>\end{aligned}<br>$</p>
+<p>从上述迭代过程可知，计算 $D^{(t + 1)}$ 需要用到 $\left \{ s^{(k)} y^{(k)} \right \}^t_{k = 0}$，若存储空间有限，仅能存储 m 组 $\left \{ s^{(k)} y^{(k)} \right \}$，当 $t &gt; m$ 时，应当丢弃较早生成的 $\left \{ s^{(k)} y^{(k)} \right \}$。当然，由于丢弃了部分信息，此时计算的 $D^{(m + 1)}$ 是 $D^{(t + 1)}$ 的近似，也即 Hessian 矩阵的逆矩阵的进一步近似。</p>
+<p>当 $t &gt; m + 1$ 时，构造近似公式：</p>
+<p>$<br>\begin{aligned}<br>D^{(t + 1)} &amp;= \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(t - m + 1)})^T \right] D^{(0)} \left[ V^{(t - m + 1)} V^{(1)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(t - m + 2)})^T \right] \left[ \rho^{(0)} s^{(0)} (s^{(0)})^T \right] \left[ V^{(t - m + 2)} V^{(2)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \ \cdots \cdots<br>\\<br>&amp; \ + (V^{(t)})^T \left[ \rho^{(t - 1)} s^{(t - 1)} (s^{(t - 1)})^T \right] V^{(t)}<br>\\<br>&amp; \ + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>\end{aligned}<br>$</p>
+<p>$D^{(t)}$ 的迭代计算很繁琐，但计算 $D^{(t)}$ 的目的是为了得到搜索方向 $d^{(t)} = D^{(t)} g^{(t)}$，因此可以设计快速计算 $D^{(t)} g^{(t)}$ 的方法：</p>
+<center>
+
+<p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-optimization/double_circle_direction.png" alt="双向循环快速求解搜索方向" title="TOPICS"></p>
+</center>
+
+<p>算法中还有部分不太明白，暂时只放上图片，待研究透彻后改为 Python 代码形式。另有几篇关于该双向循环快速求解 $D^{(t)} g^{(t)}$ 算法的参考文章如下：</p>
+<blockquote>
+<ol>
+<li><a href="https://blog.csdn.net/red_stone1/article/details/80821760" title="TOLINKS" target="_blank" rel="noopener">机器学习中牛顿法凸优化的通俗解释（作者：红色石头Will）</a></li>
+<li><a href="https://blog.csdn.net/itplus/article/details/21897715" title="TOLINKS" target="_blank" rel="noopener">牛顿法与拟牛顿法学习笔记（五）L-BFGS 算法（作者：皮果提）</a></li>
+<li><a href="https://blog.csdn.net/snaillup/article/details/53524415" title="TOLINKS" target="_blank" rel="noopener">spark L-BFGS实现（作者：snaillup）</a></li>
+<li><a href="https://github.com/scalanlp/breeze/blob/master/math/src/main/scala/breeze/optimize/LBFGS.scala" title="TOLINKS" target="_blank" rel="noopener">LBFGS.scala（作者：ScalaNLP）</a></li>
+<li><a href="https://liuxiaofei.com.cn/blog/lbfgs方法推导/#lbfgs方法推导" title="TOLINKS" target="_blank" rel="noopener">LBFGS方法推导（作者：慢慢的回味）</a></li>
+</ol>
+</blockquote>
+<hr>
+<h1 id="3-Logistic优化求解算法"><a href="#3-Logistic优化求解算法" class="headerlink" title="3. Logistic优化求解算法"></a>3. Logistic优化求解算法</h1><p>Logistic 回归采用 Logistic 损失 / 交叉熵损失：</p>
+<p>$<br>L(y, \mu (X)) = - y \log (\mu (X)) - (1 - y) \log (1 - \mu (X))<br>$</p>
+<p>其中 $y$ 为真值， $\mu (X)$ 为预测值为 1 的概率。</p>
+<p>与其他机器学习一样，Logistic 回归的目标函数也包括两项：训练集上的损失和 + 正则项。</p>
+<p>$<br>J(W; \lambda) = \sum^N_{i = 1} L(y_i, \mu (X_i; W)) + \lambda R(W)<br>$</p>
+<blockquote>
+<p>※ 注 | 由于 L1 正则在零点不可导，因此当正则项中含有 L1 正则时，不能直接使用基于梯度、Hessian 矩阵的优化求解算法，而通常使用坐标轴下降法求解，或也可使用次梯度法。</p>
+</blockquote>
+<p>在给定正则参数 $\lambda$ 的情况下，目标函数的最优解为：$\hat{W} = \arg_W \min J(W, \lambda)$，取得最优解的必要条件即一阶导数为零：$\dfrac {\partial J(W, \lambda)} {\partial W} = 0$。</p>
+<p>与线性回归模型不同的是，Logistic 回归模型的参数无法用解析法求解，因此可使用迭代法逼近求解。</p>
+<p>其中一阶近似有与梯度相关的几个算法：</p>
+<ul>
+<li>梯度下降（Logistic 使用梯度下降法收敛速度较慢）</li>
+<li>随机梯度下降（SGD）</li>
+<li>随机平均梯度法（SAG）</li>
+<li>随机平均梯度法改进版（SAGA）</li>
+<li>共轭梯度</li>
+<li>坐标轴下降</li>
+</ul>
+<p>二阶近似有：</p>
+<ul>
+<li>牛顿法</li>
+<li>拟牛顿法（BFGS、L-BFGS）</li>
+</ul>
+<p>观察目标函数的损失和部分：</p>
+<p>$<br>J_1 (W) = \sum^N_{i = 1} \left( - y_i \log (\mu (X_i; W)) - (1 - y_i) \log (1 - \mu (X_i; W)) \right)<br>$</p>
+<br>
+
+<h2 id="3-1-梯度"><a href="#3-1-梯度" class="headerlink" title="3.1 梯度"></a>3.1 梯度</h2><p>最优化问题的求解离不开梯度的计算，由于目标函数中包含了 $\mu$，即 Sigmoid 变换，记 $\mu_i = \mu (X_i; W) = \sigma (W^T X_i)$，令 $z_i = W^T X_i$，根据复合函数的求导，$\dfrac {\partial \mu_i} {\partial W}$ 的求解如下：</p>
+<p>$<br>\begin{aligned}<br>\dfrac {\partial \mu_i} {\partial W} &amp;= \dfrac {\partial \sigma (W^T X_i)} {\partial W} = \dfrac {\partial \sigma {z_i}} {\partial W}<br>\\<br>&amp;= \dfrac {d \sigma (z_i)} {d z_i} \dfrac {\partial z_i} {\partial W}<br>\end{aligned}<br>$</p>
+<p>其中 ① 复合函数外层 $\sigma (z_i)$ 求导：</p>
+<p>$<br>\begin{aligned}<br>\dfrac {d \sigma (z_i)} {d z_i} &amp;= \dfrac {d (\dfrac {1} {1 + e^{- z_i}})} {d z_i}<br>\\<br>&amp;= - \dfrac {1} {(1 + e^{- z_i})^2} \times \dfrac {d (1 + e^{- z_i})} {d z_i}<br>\\<br>&amp;= - \dfrac {1} {(1 + e^{- z_i})^2} \times (- e^{- z_i})<br>\\<br>&amp;= \dfrac {1} {(1 + e^{- z_i})^2} \times (e^{- z_i})<br>\\<br>&amp;= \dfrac {1} {1 + e^{- z_i}} \times \dfrac {(1 + e^{- z_i}) - 1} {1 + e^{- z_i}}<br>\\<br>&amp;= \sigma (z_i) \times (1 - \sigma (z_i))<br>\end{aligned}<br>$</p>
+<p>② 复合函数内层 $z_i$ 求导：</p>
+<p>$<br>\dfrac {\partial z_i} {\partial W} = \dfrac {\partial (W^T X_i)} {\partial W} = X_i<br>$</p>
+<p>综合上述 2 式得：</p>
+<p>$<br>\begin{aligned}<br>\dfrac {\partial \mu_i} {\partial W} &amp;= \dfrac {d \sigma (z_i)} {d z_i} \dfrac {\partial z_i} {\partial W}<br>\\<br>&amp;= \sigma (z_i) \times (1 - \sigma (z_i)) \times X_i<br>\\<br>&amp;= \mu_i \times (1 - \mu_i) \times X_i<br>\end{aligned}<br>$</p>
+<p>回到目标函数梯度，将上式代入求导得：</p>
+<p>$<br>\begin{aligned}<br>J_1 (W) &amp;= \sum^N_{i = 1} \left( - y_i \log (\mu (X_i; W)) - (1 - y_i) \log (1 - \mu (X_i; W)) \right)<br>\\<br>&amp;= \sum^N_{i = 1} \left( - y_i \log \mu_i - (1 - y_i) \log (1 - \mu_i) \right)<br>\\<br>&amp;= - \sum^N_{i = 1} \left(y_i \log \mu_i + (1 - y_i) \log (1 - \mu_i) \right)<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>g_1 (W) &amp;= \nabla J_1 (W) = \dfrac {d J_1 (W)} {d W}<br>\\<br>&amp;= - d \left( \sum^N_{i = 1} \left( y_i \log \mu_i + (1 - y_i) \log (1 - \mu_i) \right) \right) / d W<br>\\<br>&amp;= - \sum^N_{i = 1} \left( y_i \dfrac {1} {\mu_i} \times \dfrac {\partial \mu_i} {\partial W} + (1 - y_i) \dfrac {1} {1 - \mu_i} \times - \dfrac {\partial \mu_i} {\partial W} \right)<br>\\<br>&amp;= - \sum^N_{i = 1} \left( y_i \dfrac {1} {\mu_i} - (1 - y_i) \dfrac {1} {1 - \mu_i} \right) \times \mu_i (1 - \mu_i) X_i<br>\\<br>&amp;= - \sum^N_{i = 1} \left( y_i (1 - \mu_i) - (1 - y_i) \mu_i \right) \times X_i<br>\\<br>&amp;= - \sum^N_{i = 1} (y_i - \mu_i) \times X_i<br>\\<br>&amp;= (\mu - y) X<br>\end{aligned}<br>$</p>
+<p>整理可得 Logistic 回归损失和部分的梯度表达式：</p>
+<font color="EB6D39">
+
+<p>$$<br>g_1 (W) = X^T (\mu - y)<br>$$</p>
+<p>※ 注 | 这里直接解出来的结果是 $(\mu - y) X$，但表达式使用的是 $X^T (\mu - y)$，对此我有些自己的理解方式如下。</p>
+<p>首先要提一下矩阵的形式。在机器学习中有一个很重要的工具包 <code>numpy</code>，这个工具包里其中两个很重要的类：<code>numpy.matrix</code> 和 <code>numpy.array</code>也即矩阵和向量，通常手动创建一个矩阵的时候可以用如下方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>A = np.matrix([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(A)</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>这就可以视为一个 2 x 2 的矩阵：$\left[ \begin{matrix} 1 &amp; 2 \\ 3 &amp; 4 \end{matrix} \right]$，但是当我们如下创建一个向量时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>B = np.array([<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(B)</span><br><span class="line">[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(B.shape)</span><br><span class="line">(<span class="number">2</span>,)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，尽管输出的 B 的形式还是 <code>[1 2]</code>，但这是一个 2 行（也即 1 列）的向量（之所以没有标出 <code>(2, 1)</code> 是因为向量要么只有 1 行要么只有 1 列，防止与矩阵的 n x m 搞混了）。也就是说，默认情况下的向量是列向量，这也符合机器学习中的直觉，例如标签 y，预测值，或单个特征等都是列向量。</p>
+<p>回到原问题的梯度表达式中，假设训练数据共有 D 维特征 N 个样本，则 X 是 N x D 维的矩阵，$\mu$ 和 y 均为 N 行的列向量，都知道矩阵的乘法 (A x B) 需要满足 A 的列数 = B 的行数时才有意义，而当作为矩阵运算 $(\mu - y) X$ 时，$(\mu - y)$ 列数为 1，此时无论 $X$ 是否转置，$(\mu - y) X$ 都无意义，不能做乘法运算。因此 $\sum^N_{i = 1} (\mu_i - y_i) \times X_i$ 转换为矩阵表达式时，将 $X$ 提到左乘并转置，不仅 $X^T$ 的列数恰好为 N，与 $\mu$ 和 $y$ 的行数相等，可以做乘法，而且从矩阵的乘法运算规则上符合直观地计算过程（$X$ 转置后，每一列为一个样本，分别与每个 $(\mu_i - y_i)$ 相乘）。</p>
+<p>因此，梯度的表达式为：$g_1 (W) = X^T (\mu - y)$。</p>
+</font>
+
+<br>
+
+<h2 id="3-2-Hessian矩阵"><a href="#3-2-Hessian矩阵" class="headerlink" title="3.2 Hessian矩阵"></a>3.2 Hessian矩阵</h2><p>Logistic 损失和部分的梯度为 $g_1 (W) = X^T (\mu - y)$，由此求解 Hessian 矩阵：</p>
+<p>$<br>\begin{aligned}<br>H_1 (W) &amp;= \dfrac {\partial g_1 (W)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} (\mu_i - y_i) X_i \right)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} X^T_i (\mu_i - y_i) \right)} {\partial W}<br>\\<br>&amp;= \sum^N_{i = 1} X^T_i \dfrac {\partial (\mu_i)} {\partial W}<br>\\<br>&amp;= \sum^N_{i = 1} X^T_i \mu_i (1 - \mu_i) X_i<br>\end{aligned}<br>$</p>
+<blockquote>
+<p>※ 注 | 说明：$\dfrac {\partial (a^T y)} {\partial y} = a^T$</p>
+</blockquote>
+<p>令矩阵 $S \triangleq \mu_i (1 - \mu_i)$，即 $S$ 为对角阵，对角元素为 $\mu_i (1 - \mu_i)$。可得 Hessian 矩阵表达式：</p>
+<font color="EB6D39">
+
+<p>$$<br>H_1 (W) = X^T S X<br>$$</p>
+</font>
+
+<br>
+
+<h2 id="3-3-牛顿法求解Logistic损失函数和极小值：IRLS"><a href="#3-3-牛顿法求解Logistic损失函数和极小值：IRLS" class="headerlink" title="3.3 牛顿法求解Logistic损失函数和极小值：IRLS"></a>3.3 牛顿法求解Logistic损失函数和极小值：IRLS</h2><p>当解得梯度 $g_1 (W) = X^T (\mu - y)$ 和 Hessian 矩阵 $H_1 (W) = X^T S X$ 后，即可代入牛顿迭代公式中：</p>
+<p>$<br>\begin{aligned}<br>W^{(t + 1)} &amp;= W^{(t)} - H(W^{(t)})^{-1} g(W)<br>\\<br>&amp;= W^{(t)} - (X^T S^{(t)} X)^{-1} X^T (\mu - y)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} (X^T S^{(t)} X) \times W^{(t)} - (X^T S^{(t)} X)^{-1} X^T (\mu - y)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} \times \left( X^T S^{(t)} X W^{(t)} - X^T (\mu - y) \right)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} \times \left( X^T S^{(t)} X W^{(t)} - X^T S^{(t)} {S^{(t)}}^{-1} (\mu - y) \right)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} X^T S^{(t)} \times \left( X W^{(t)} - {S^{(t)}}^{-1} (\mu - y) \right)<br>\end{aligned}<br>$</p>
+<p>令 $z^{(t)} \triangleq X W^{(t)} - {S^{(t)}}^{-1} (\mu - y)$，则得到牛顿法迭代求 Logistic 损失函数和极小值的解：</p>
+<font color="EB6D39">
+
+<p>$$<br>W^{(t + 1)} = (X^T S^{(t)} X)^{-1} X^T S^{(t)} z^{(t)}<br>$$</p>
+</font>
+
+<p>对比线性回归 $X W = y$ 方程中最小二乘的解：$\hat{W}_{OLS} = (X^T X)^{-1} X^T y$，给每个样本加权（每个样本的权重为 $S_i$）即可得加权最小二乘的解：</p>
+<p>$<br>\hat{W}_{OLS_weight} = (X^T S X)^{-1} X^T y<br>$</p>
+<p>牛顿迭代法求得的 Logistic 损失函数和极小值的解 与 加权最小二乘的解形式类似，因此也称为 <strong><font color="EB6D39">迭代加权最小二乘（Iteratively Reweighted Least Squares, IRLS）</font></strong>，其中每个样本的权重为 $S_i = \mu_i (1 - \mu_i)$。而 IRLS 又通过 共轭梯度（Conjugate Gradient）法 求解，因此 Scikit-Learn 中采用牛顿法求解的优化算法为 <code>&#39;newton-cg&#39;</code>。</p>
+<hr>
+<h1 id="4-Logistic的优化求解器Solver"><a href="#4-Logistic的优化求解器Solver" class="headerlink" title="4. Logistic的优化求解器Solver"></a>4. Logistic的优化求解器Solver</h1><p>Logistic 回归有多种优化求解方法。当使用 L2 正则时，可采用所有优化算法，而由于 L1 正则在零点处不可导，因此次不能使用需要计算梯度 / Hessian 矩阵的方法，此时可以类似 Lasso 求解，采用坐标轴下降法。</p>
+<p>Scikit-Learn 中的 Logistic 类已在：<a href="/post/machinelearning/ml-logistic/ml-logistic-introduction/" title="TOLINKS">《ML入门——Logistic回归简介》</a> 文中介绍，此处展开参数 <code>solver</code> 的一些可选项：</p>
+<p>‘liblinear’：<br>线性求解器，适用于小数据集，支持 L1 正则和 L2 正则。<br>内部使用了坐标轴下降法来迭代优化损失函数，如果模型的特征非常多，希望一些不重要的特征系数归零从而让模型系数稀疏的话，可以使用 L1 正则化。在多类 Logistic 回归任务中仅支持 OvR，不支持多项分布损失（MvM），但 MVM 相对精确。</p>
+<p>‘lbfgs’：<br>拟牛顿法，适用于较大数据集，仅支持 L2 正则。<br>支持 OvR 和 MvM 两种多类 Logistic 回归。</p>
+<p>‘newton-cg’：<br>牛顿法，适用于较大数据集，仅支持 L2 正则。<br>每个大迭代中的加权最小二乘回归部分采用共轭梯度算法实现。支持 OvR 和 MvM 两种多类 Logistic 回归。</p>
+<p>‘sag’：<br>随机平均梯度下降，适用于很大（如大于 5 万）的数据集，仅支持 L2 正则。<br>梯度下降法的变种，支持 OvR 和 MvM 两种多类 Logistic 回归。</p>
+<p>‘saga’：<br>改进的随机平均梯度下降，适用于非常大的数据集，支持 L1 正则。<br>当数据量很大，且选择 L1 正则时，只能采用 ‘saga’ 优化求解器。支持 OvR 和 MvM 两种多类 Logistic 回归。</p>
+<p>其中，’sag’ 和 ‘saga’ 只有在特征尺度大致相等时才能保证收敛，因此需要对数据做缩放（<code>class sklearn.preprocessing</code> 可以实现如：标准化、MinMaxScaler、MaxAbsScaler 等）。在实际任务中，大部分情况下数据预处理时都最好做标准化。实际上，加正则项本身也要求对每维特征做缩放。</p>
+<p>另外，对于大数据集的训练任务，可以使用 <code>SGDClassifier</code>，并使用 LogLoss 作为损失函数。</p>
+<blockquote>
+<p>※ 注 | 若 <code>SGDClassifier</code> 使用 HingeLoss 作为损失函数，则为实现随机梯度下降的 SVM。在回归任务中还有 <code>SDGRegressor</code>。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+    
+    
+    <div>
+      
+        <div>
+    
+	<br> <br> <br>
+	<div style="text-align:center;color: #678;font-size:18px;">======================</div>
+        <div style="text-align:center;color: #678;font-size:18px;">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;感 谢 阅 读</div>
+	<div style="text-align:center;color: #678;font-size:18px;">======================</div>
+    
+</div>
+      
+    </div>
+
+    
+    
+    
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>SLLiu</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-optimization/" title="ML入门——Logistic优化求解与牛顿法">https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-optimization/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>感谢鼓励</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    赞赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="SLLiu 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="SLLiu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+    
+    
+    <footer class="post-footer">
+
+    
+
+      
+      
+      
+
+      
+      
+      
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/machinelearning/ml-logistic/ml-logistic-introduction/" rel="next" title="ML入门——Logistic回归简介">
+                <i class="fa fa-chevron-left"></i> ML入门——Logistic回归简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/machinelearning/ml-logistic/ml-logistic-multiclassify/" rel="prev" title="ML入门——多类分类任务">
+                ML入门——多类分类任务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+      
+        
+        <div class="underline" style="width: 100%; display: inline-block">
+          <style>
+          .underline{ padding-bottom:1px; border-bottom:1px solid #EB6D39}
+          </style>
+          <span style="width: 100%; font-size: 13px; color: #EB6D39;">
+            
+            <div style="cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block" onclick="window.location='#';">
+            页首
+            </div>
+            &ensp;|&ensp;
+            
+            <div style="cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block" onclick="window.location='/';">
+            主页
+            </div>
+            &ensp;|&ensp;
+            
+            <div style="cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block" onclick="window.scrollBy(0, document.getElementsByTagName('BODY')[0].scrollHeight);">
+            评论
+            </div>
+          </span>
+        </div>
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            本文目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            博客信息
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SLLiu">
+            
+              <p class="site-author-name" itemprop="name">SLLiu</p>
+              <div class="site-description motion-element" itemprop="description">Learn, or Lose</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+
+              
+              <div class="site-state-item">
+                
+                <span class="site-state-item-count">692</span>
+                <span class="site-state-item-name">版本</span>
+              </div>
+
+              
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    
+                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-name">文章</span>
+                  </a>
+                </div>
+              
+
+              
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/slliu96" title="GitHub &rarr; https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/about/" title="Chats &rarr; /about/"><i class="fa fa-fw fa-comments"></i>Chats</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/1842855041" title="Weibo &rarr; https://weibo.com/u/1842855041" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:luislsl@163.com" title="EMail &rarr; mailto:luislsl@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>EMail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-users"></i>
+                
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://renxingkai.github.io" title="https://renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://me.csdn.net/singwhatiwanna" title="https://me.csdn.net/singwhatiwanna" rel="noopener" target="_blank">任玉刚</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-牛顿法"><span class="nav-text">1. 牛顿法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-拟牛顿法"><span class="nav-text">2. 拟牛顿法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-BFGS"><span class="nav-text">2.1 BFGS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-L-BFGS"><span class="nav-text">2.2 L-BFGS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Logistic优化求解算法"><span class="nav-text">3. Logistic优化求解算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-梯度"><span class="nav-text">3.1 梯度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Hessian矩阵"><span class="nav-text">3.2 Hessian矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-牛顿法求解Logistic损失函数和极小值：IRLS"><span class="nav-text">3.3 牛顿法求解Logistic损失函数和极小值：IRLS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Logistic的优化求解器Solver"><span class="nav-text">4. Logistic的优化求解器Solver</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="博客总字数">293k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="博客总阅读时长">5:25</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'aff3b6b8b0835b7a6bbb',
+    clientSecret: '1dafdc5eedb3fc7c5917667a3867c014a2d69da6',
+    repo: 'slliu96.gitalk.io',
+    owner: 'slliu96',
+    admin: ['slliu96'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
+                'X-LC-Key': 'YRRibTsHhmelPnfq41YO6B1r',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!--动态浏览器标题-->
+<script type="text/javascript" src="/custom/dynamic_title.js"></script>
