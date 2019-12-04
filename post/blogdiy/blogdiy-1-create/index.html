@@ -56,7 +56,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+  
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="/css/main.css?v=7.1.1">
 
@@ -106,23 +108,26 @@
 
 
 
-  <meta name="description" content="（1）从零开始基于 GitHub Page 建立 Hexo 博客；（2）解决 low severity vulnerability 问题。">
+  <meta name="description" content="（1）从零开始基于 GitHub Page 建立 Hexo 博客；（2）解决 low severity vulnerability 问题；（3）解决 FontAwesome 图标不显示问题。">
 <meta name="keywords" content="Hexo,自定义">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo博客DIY（1）建立基于Hexo的静态博客">
 <meta property="og:url" content="https://www.liushulun.cn/post/blogdiy/blogdiy-1-create/index.html">
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
-<meta property="og:description" content="（1）从零开始基于 GitHub Page 建立 Hexo 博客；（2）解决 low severity vulnerability 问题。">
+<meta property="og:description" content="（1）从零开始基于 GitHub Page 建立 Hexo 博客；（2）解决 low severity vulnerability 问题；（3）解决 FontAwesome 图标不显示问题。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/default_github_page.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/github_add_ssh_key.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/hexo_folder.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/more_info.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/marked_newest_version.png">
-<meta property="og:updated_time" content="2019-12-03T13:24:43.000Z">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/fontawesome_normal.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/fontawesome_error.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/fontawesome_error_info.png">
+<meta property="og:updated_time" content="2019-12-04T02:16:36.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（1）建立基于Hexo的静态博客">
-<meta name="twitter:description" content="（1）从零开始基于 GitHub Page 建立 Hexo 博客；（2）解决 low severity vulnerability 问题。">
+<meta name="twitter:description" content="（1）从零开始基于 GitHub Page 建立 Hexo 博客；（2）解决 low severity vulnerability 问题；（3）解决 FontAwesome 图标不显示问题。">
 <meta name="twitter:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/default_github_page.png">
 
 
@@ -535,7 +540,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">29k</span>
+                <span title="全文字数">31k</span>
               
 
               
@@ -549,7 +554,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">32 分钟</span>
+                <span title="阅读时长">34 分钟</span>
               
             </div>
           
@@ -680,7 +685,7 @@
         
           <div class="post-description"><span style="color: #EB6D39">
                   简介：
-                </span>（1）从零开始基于 GitHub Page 建立 Hexo 博客；（2）解决 low severity vulnerability 问题。</div>
+                </span>（1）从零开始基于 GitHub Page 建立 Hexo 博客；（2）解决 low severity vulnerability 问题；（3）解决 FontAwesome 图标不显示问题。</div>
         
 
         <a id="more"></a>
@@ -868,6 +873,29 @@
 
 <p>OK！成功更新到 0.7.0 版本！<strong><font color="EB6D39">假如执行这两步的时候依然报之前的信息，如果可以确保之前的步骤都是对的，可以暂时不管，通常是缓存信息还没有更新的缘故，把这两步执行完之后，退出并重新打开终端再查看 <code>npm ls marked</code> 即可看到已经更新。假如出现错误信息显示被删除，再执行一次 <code>npm install</code> 即可。</font></strong></p>
 <p>其实挺简单的一个问题，由于没有经验导致折腾了这么久，记录在此望读者少走弯路。另外，此时由于已经卸载了之前手动安装的 marked，因此这个依赖包的位置又回到了：<code>Blog/node_modules/marked</code> 下。</p>
+<hr>
+<h1 id="9-解决FontAwesome不显示"><a href="#9-解决FontAwesome不显示" class="headerlink" title="9. 解决FontAwesome不显示"></a>9. 解决FontAwesome不显示</h1><p>某些情况下，在构建博客后，会出现图标不显示的问题，例如正常情况下我的博客应该是如下图所示：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-1-create/fontawesome_normal.png" alt="FontAwesome 正常显示" title="TOPICS"></p>
+</center>
+
+<p>但可能会出现如下图所示的情况：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-1-create/fontawesome_error.png" alt="FontAwesome 显示异常" title="TOPICS"></p>
+</center>
+
+<p>同时，在页面上检查元素会出现一个报错信息：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-1-create/fontawesome_error_info.png" alt="FontAwesome 显示异常" title="TOPICS"></p>
+</center>
+
+<p>原因是没找到目录下 FontAwesome 的 CSS 文件，但其实我们并不需要手动下载，Next 主题在生成部署时会动态到 FontAwesome 网站上下载相关样式，这时就考虑可能是 FontAwesome 的某个 CDN 连接挂了，可以在 Next 的主题配置文件 <code>next/_config.yml</code> 中切换一下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># Internal version: 4.6.2</span></span><br><span class="line"><span class="comment"># See: https://fontawesome.com</span></span><br><span class="line"><span class="comment"># Example:</span></span><br><span class="line"><span class="comment"># fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css</span></span><br><span class="line"><span class="comment"># fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css</span></span><br><span class="line"><span class="attr">fontawesome:</span> <span class="attr">https://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css</span></span><br></pre></td></tr></table></figure>
+
+<p>重新部署，恢复正常。</p>
 <hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="TOLINKS">博客 DIY 系列</a></p>
 
@@ -1393,7 +1421,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-建立静态博客仓库"><span class="nav-text">1. 建立静态博客仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-连接SSH"><span class="nav-text">2. 连接SSH</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-安装必要环境"><span class="nav-text">3. 安装必要环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-初始化本地静态博客页"><span class="nav-text">4. 初始化本地静态博客页</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-常用Hexo命令"><span class="nav-text">5. 常用Hexo命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-部署博客基本功能"><span class="nav-text">6. 部署博客基本功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-引入Next主题"><span class="nav-text">7. 引入Next主题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-解决low-severity-vulnerability"><span class="nav-text">8. 解决low severity vulnerability</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-建立静态博客仓库"><span class="nav-text">1. 建立静态博客仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-连接SSH"><span class="nav-text">2. 连接SSH</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-安装必要环境"><span class="nav-text">3. 安装必要环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-初始化本地静态博客页"><span class="nav-text">4. 初始化本地静态博客页</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-常用Hexo命令"><span class="nav-text">5. 常用Hexo命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-部署博客基本功能"><span class="nav-text">6. 部署博客基本功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-引入Next主题"><span class="nav-text">7. 引入Next主题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-解决low-severity-vulnerability"><span class="nav-text">8. 解决low severity vulnerability</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-解决FontAwesome不显示"><span class="nav-text">9. 解决FontAwesome不显示</span></a></li></ol></div>
             
 
           </div>
@@ -1436,7 +1464,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:25</span>
+    <span title="博客总阅读时长">5:26</span>
   
 </div>
 
