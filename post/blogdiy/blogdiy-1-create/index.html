@@ -124,7 +124,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/fontawesome_normal.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/fontawesome_error.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-1-create/fontawesome_error_info.png">
-<meta property="og:updated_time" content="2019-12-04T02:16:36.592Z">
+<meta property="og:updated_time" content="2019-12-04T05:11:18.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（1）建立基于Hexo的静态博客">
 <meta name="twitter:description" content="（1）从零开始基于 GitHub Page 建立 Hexo 博客；（2）解决 low severity vulnerability 问题；（3）解决 FontAwesome 图标不显示问题。">
@@ -522,6 +522,19 @@
           
             
             
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/post/blogdiy/blogdiy-1-create/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/post/blogdiy/blogdiy-1-create/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
 
@@ -893,7 +906,7 @@
 </center>
 
 <p>原因是没找到目录下 FontAwesome 的 CSS 文件，但其实我们并不需要手动下载，Next 主题在生成部署时会动态到 FontAwesome 网站上下载相关样式，这时就考虑可能是 FontAwesome 的某个 CDN 连接挂了，可以在 Next 的主题配置文件 <code>next/_config.yml</code> 中切换一下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># Internal version: 4.6.2</span></span><br><span class="line"><span class="comment"># See: https://fontawesome.com</span></span><br><span class="line"><span class="comment"># Example:</span></span><br><span class="line"><span class="comment"># fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css</span></span><br><span class="line"><span class="comment"># fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css</span></span><br><span class="line"><span class="attr">fontawesome:</span> <span class="attr">https://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Internal version: 4.6.2</span></span><br><span class="line"><span class="comment"># See: https://fontawesome.com</span></span><br><span class="line"><span class="comment"># Example:</span></span><br><span class="line"><span class="comment"># fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css</span></span><br><span class="line"><span class="comment"># fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css</span></span><br><span class="line"><span class="attr">fontawesome:</span> <span class="attr">https://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css</span></span><br></pre></td></tr></table></figure>
 
 <p>重新部署，恢复正常。</p>
 <hr>
@@ -1052,7 +1065,7 @@
           
 
   
-    <div class="comments" id="gitalk-container">
+    <div class="comments" id="comments">
     </div>
 
   
@@ -1129,7 +1142,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">704</span>
+                <span class="site-state-item-count">710</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1455,7 +1468,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">293k</span>
+    <span title="博客总字数">299k</span>
   
 
   
@@ -1464,7 +1477,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:26</span>
+    <span title="博客总阅读时长">5:33</span>
   
 </div>
 
@@ -1587,36 +1600,50 @@
   
 
   
-
-
   
-    
 
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
 
 
 
-<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 
 <script>
-  var gitalk = new Gitalk({
-    clientID: 'aff3b6b8b0835b7a6bbb',
-    clientSecret: '1dafdc5eedb3fc7c5917667a3867c014a2d69da6',
-    repo: 'slliu96.gitalk.io',
-    owner: 'slliu96',
-    admin: ['slliu96'],
-    id: md5(location.pathname),
-    
-      language: window.navigator.language || window.navigator.userLanguage,
-    
-    distractionFreeMode: 'true'
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
   });
-  gitalk.render('gitalk-container');
+  var guest_header = 'nick,mail';
+  guest_header = guest_header.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
+    appKey: 'YRRibTsHhmelPnfq41YO6B1r',
+    placeholder: 'Nice !',
+    avatar: 'retro',
+    guest_info: guest_header,
+    meta: guest,
+    pageSize: '5' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn'
+  });
+  // 去除 Valine 版权信息
+  var infoEle = document.querySelector('#comments .info');
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+    infoEle.childNodes.forEach(function(item) {
+      item.parentNode.removeChild(item);
+    });
+  }
 </script>
+
+
+
 
   
 
@@ -1947,71 +1974,6 @@
 
 
   
-  
-  <script>
-    
-    function addCount(Counter) {
-      var $visitors = $('.leancloud_visitors');
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
-        .done(function({ results }) {
-          if (results.length > 0) {
-            var counter = results[0];
-            
-            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
-            
-              .done(function() {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.time + 1);
-              })
-            
-              .fail(function ({ responseJSON }) {
-                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
-              })
-          } else {
-            
-              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
-                .done(function() {
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(1);
-                })
-                .fail(function() {
-                  console.log('Failed to create');
-                });
-            
-          }
-        })
-        .fail(function ({ responseJSON }) {
-          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
-        });
-    }
-    
-
-    $(function() {
-      $.get('https://app-router.leancloud.cn/2/route?appId=' + '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz')
-        .done(function({ api_server }) {
-          var Counter = function(method, url, data) {
-            return $.ajax({
-              method: method,
-              url: 'https://' + api_server + '/1.1' + url,
-              headers: {
-                'X-LC-Id': '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
-                'X-LC-Key': 'YRRibTsHhmelPnfq41YO6B1r',
-                'Content-Type': 'application/json',
-              },
-              data: data
-            });
-          };
-          
-            addCount(Counter);
-          
-        });
-    });
-  </script>
-
-
 
   
 

@@ -108,22 +108,25 @@
 
 
 
-  <meta name="description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 GitHub 账号登陆的文章评论功能。">
+  <meta name="description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能。">
 <meta name="keywords" content="Hexo,自定义">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo博客DIY（4）在线聊天和文章评论">
 <meta property="og:url" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/index.html">
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
-<meta property="og:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 GitHub 账号登陆的文章评论功能。">
+<meta property="og:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/daovoice_apply_to_web.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/github_oauth_apps.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/github_new_oauth_app.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/github_oauth_app_info.png">
-<meta property="og:updated_time" content="2019-12-03T13:24:43.000Z">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_only_nick.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_nick_email_link.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_guest_info_custom.png">
+<meta property="og:updated_time" content="2019-12-04T05:06:14.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（4）在线聊天和文章评论">
-<meta name="twitter:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 GitHub 账号登陆的文章评论功能。">
+<meta name="twitter:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能。">
 <meta name="twitter:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/daovoice_apply_to_web.png">
 
 
@@ -518,6 +521,19 @@
           
             
             
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/post/blogdiy/blogdiy-4-chat-comment/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/post/blogdiy/blogdiy-4-chat-comment/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
 
@@ -536,7 +552,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">8.7k</span>
+                <span title="全文字数">27k</span>
               
 
               
@@ -550,7 +566,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">30 分钟</span>
               
             </div>
           
@@ -681,7 +697,7 @@
         
           <div class="post-description"><span style="color: #EB6D39">
                   简介：
-                </span>（1）添加免登陆的在线对话、聊天功能；（2）使用 GitHub 账号登陆的文章评论功能。</div>
+                </span>（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能。</div>
         
 
         <a id="more"></a>
@@ -702,7 +718,7 @@
 
 <p>配置完成后，在 DaoVoice 控制台的 应用设置 - 聊天设置 中可以自定义欢迎语以及按钮的位置、颜色等。</p>
 <hr>
-<h1 id="2-文章评论"><a href="#2-文章评论" class="headerlink" title="2. 文章评论"></a>2. 文章评论</h1><p>文章评论也有多种方案，Disqus、友言、畅言、Valine（基于 Leancloud）、Gitment、Gitalk 等，不过 Disqus 是韩国的，虽说国内是能有的不过有时候还是会莫名其妙像被墙起来了一样，友言和畅言已经停止维护，<a href="https://github.com/theme-next/hexo-theme-next/releases/tag/v7.2.0" title="TOLINKS" target="_blank" rel="noopener">最新版的 Next</a> 也把 Gitment 移除支持了，不过 Gitalk 和 Gitment 比较类似，都是基于 GitHub 的 Issue 实现的，我个人认为，使用 GitHub 托管的博客，使用 GitHub 自己的 Issue 服务来实现也相当契合，何况 GitHub 不仅免费的已经相当够用，而且还没有流量限制。</p>
+<h1 id="2-Gitalk评论"><a href="#2-Gitalk评论" class="headerlink" title="2. Gitalk评论"></a>2. Gitalk评论</h1><p>文章评论也有多种方案，Disqus、友言、畅言、Valine（基于 Leancloud）、Gitment、Gitalk 等，不过 Disqus 是韩国的，虽说国内是能有的不过有时候还是会莫名其妙像被墙起来了一样，友言和畅言已经停止维护，<a href="https://github.com/theme-next/hexo-theme-next/releases/tag/v7.2.0" title="TOLINKS" target="_blank" rel="noopener">最新版的 Next</a> 也把 Gitment 移除支持了，不过 Gitalk 和 Gitment 比较类似，都是基于 GitHub 的 Issue 实现的，我个人认为，使用 GitHub 托管的博客，使用 GitHub 自己的 Issue 服务来实现也相当契合，何况 GitHub 不仅免费的已经相当够用，而且还没有流量限制。</p>
 <p>Next 主题本身是支持 Gitalk 的，所以引入 Gitalk 只需要像 LeanCloud 和 DaoVoice 一样申请一个 app_id 即可。而由于 Gitalk 本身是基于 GitHub 实现的，所以我们甚至都不需要再另行注册一个账号！</p>
 <p>首先在 GitHub 新建一个仓库，用于存储评论的 Issue，当然如果你愿意也可以直接使用博客的仓库。然后在 GitHub 的设置里面，进入最下面的 <strong>Developer settings</strong>，然后再选择 <strong>OAuth Apps</strong>，然后点击右上角 “New OAuth App” 新建一个应用：</p>
 <center>
@@ -736,6 +752,55 @@
 <li><code>per_page</code>：评论列表一页显示几条评论</li>
 </ul>
 <p>由于是基于 GitHub Issue 的实现，Gitalk 评论支持使用 MarkDown 格式，交流代码会方便很多。不过缺点就是，任何人想要评论则必须使用 GitHub 账号登陆才行。</p>
+<hr>
+<h1 id="3-Valine评论"><a href="#3-Valine评论" class="headerlink" title="3. Valine评论"></a>3. Valine评论</h1><p>Gitalk 评论虽然最符合程序员的喜好，毕竟基于 GitHub 的 Issue，可以自由改动、打 Tag等，但是缺点就是必须登录 GitHub 账号，有时候有些小问题就显得麻烦了，后来发现 LeanCloud 除了可以实现文章阅读统计外，还支持 Valine 评论功能，最关键的是免登陆，而且免费（目前）！于是我的博客最终选择了 Valine 作为评论引擎。</p>
+<p>首先 Valine 评论和 LeanCloud 阅读统计同时开启会有冲突（2019-12-04 无意间发现已经不会冲突了），解决方案是关掉 LeanCloud 独立的阅读统计，并在 Valine 设置项中开启统计功能即可，Valine 相关设置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Valine</span></span><br><span class="line"><span class="comment"># You can get your appid and appkey from https://leancloud.cn</span></span><br><span class="line"><span class="comment"># More info available at https://valine.js.org</span></span><br><span class="line"><span class="attr">valine:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span> <span class="comment"># When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span></span><br><span class="line"><span class="attr">  appid:</span> <span class="string">输入自己在</span> <span class="string">LeanCloud</span> <span class="string">处创建的应用中申请的</span> <span class="string">AppID</span></span><br><span class="line"><span class="attr">  appkey:</span> <span class="string">输入自己在</span> <span class="string">LeanCloud</span> <span class="string">处创建的应用中申请的</span> <span class="string">AppKey</span></span><br><span class="line"><span class="attr">  notify:</span> <span class="literal">false</span> <span class="comment"># mail notifier, See: https://github.com/xCss/Valine/wiki</span></span><br><span class="line"><span class="attr">  verify:</span> <span class="literal">false</span> <span class="comment"># Verification code</span></span><br><span class="line"><span class="attr">  placeholder:</span> <span class="string">Nice</span> <span class="string">!</span> <span class="comment"># comment box placeholder</span></span><br><span class="line">  <span class="comment"># avatar: mm # gravatar style</span></span><br><span class="line"><span class="attr">  avatar:</span> <span class="string">retro</span></span><br><span class="line"><span class="attr">  guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># custom comment header</span></span><br><span class="line"><span class="attr">  pageSize:</span> <span class="number">5</span> <span class="comment"># pagination size</span></span><br><span class="line"><span class="attr">  language:</span> <span class="comment"># language, available values: en, zh-cn</span></span><br><span class="line"><span class="attr">  visitor:</span> <span class="literal">true</span> <span class="comment"># leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same asleancloud_visitors' for counter compatibility. Article reading statistic https://valine.js.org/visitor.html</span></span><br><span class="line"><span class="attr">  comment_count:</span> <span class="literal">false</span> <span class="comment"># if false, comment count will only be displayed in post page, not in home page</span></span><br></pre></td></tr></table></figure>
+
+<p><code>appid</code>、<code>appkey</code> 的设置可以参照系列第三篇中 LeanCloud 阅读统计部分：《<a href="/post/blogdiy/blogdiy-3-counter/#2-访客与阅读量统计" title="TOLINKS">访客与阅读量统计</a>》，其他各个字段的含义在 Valine 官网配置详解（<a href="https://valine.js.org/quickstart.html," title="TOLINKS" target="_blank" rel="noopener">点此直达</a>）中都有说明了，很详细。</p>
+<p>但是当开启了 Valine 并部署后，会发现评论处只支持用户输入昵称评论，不能自己输入邮箱、网址等等，效果如下：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/valine_only_nick.png" alt="Valine 只能输入昵称" title="TOPICS"></p>
+</center>
+
+<p>而官网提供的评论框可以同时输入昵称、邮箱、链接：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/valine_nick_email_link.png" alt="官网 Valine 可输入全部信息" title="TOPICS"></p>
+</center>
+
+<p>这样当需要使用邮件沟通时，就比较麻烦了。后来通过查看官网的配置信息，以及查看了 Next 主题源码之后发现，原来是 Next 源码直接限制了只能输入昵称，找到 <code>next/layout/_third-party/comments/valine.swig</code>，可以发现源码里面有这么一段：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> GUEST = [<span class="string">'nick'</span>, <span class="string">'mail'</span>, <span class="string">'link'</span>];</span><br><span class="line">  <span class="keyword">var</span> guest = <span class="string">'&#123;&#123; theme.valine.guest_info &#125;&#125;'</span>;</span><br><span class="line">  guest = guest.split(<span class="string">','</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> GUEST.indexOf(item) &gt; <span class="number">-1</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">new</span> Valine(&#123;</span><br><span class="line">    el: <span class="string">'#comments'</span>,</span><br><span class="line">    verify: &#123;&#123; theme.valine.verify &#125;&#125;,</span><br><span class="line">    notify: &#123;&#123; theme.valine.notify &#125;&#125;,</span><br><span class="line">    appId: <span class="string">'&#123;&#123; theme.valine.appid &#125;&#125;'</span>,</span><br><span class="line">    appKey: <span class="string">'&#123;&#123; theme.valine.appkey &#125;&#125;'</span>,</span><br><span class="line">    placeholder: <span class="string">'&#123;&#123; theme.valine.placeholder &#125;&#125;'</span>,</span><br><span class="line">    avatar: <span class="string">'&#123;&#123; theme.valine.avatar &#125;&#125;'</span>,</span><br><span class="line">    guest_info:[<span class="string">'nick'</span>] ,  <span class="comment">//评论者只需要提供评论的昵称即可</span></span><br><span class="line">    meta: guest,</span><br><span class="line">    pageSize: <span class="string">'&#123;&#123; theme.valine.pageSize &#125;&#125;'</span> || <span class="number">10</span>,</span><br><span class="line">    visitor: &#123;&#123; theme.valine.visitor &#125;&#125;,</span><br><span class="line">    lang: <span class="string">'&#123;&#123; theme.valine.language &#125;&#125;'</span> || <span class="string">'zh-cn'</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>重点：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">guest_info:[<span class="string">'nick'</span>] ,  <span class="comment">//评论者只需要提供评论的昵称即可</span></span><br></pre></td></tr></table></figure>
+
+<p>也就是这里写死了只能输入昵称，其实作者的本意应该是，怕游客以为要全部输入才能评论，所以只开放一个昵称栏，这里到底是否需要设置其他信息可以自行决定，我是为了方便起见使用了昵称 + 邮箱的方式，首先看到 主题配置文件 <code>next/_config.yml</code> 中 Valine 的设置部分有这么个属性：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># custom comment header</span></span><br></pre></td></tr></table></figure>
+
+<p>这个属性对应在源码 <code>next/layout/_third-party/comments/valine.swig</code> 中传递给了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> guest = <span class="string">'&#123;&#123; theme.valine.guest_info &#125;&#125;'</span>;</span><br><span class="line">guest = guest.split(<span class="string">','</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> GUEST.indexOf(item) &gt; <span class="number">-1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">meta: guest,</span><br></pre></td></tr></table></figure>
+
+<p>这段代码的作用也就是从主体配置文件中获取 <code>guest_info</code> 属性，然后以 ‘,’ 分隔开，再从 <code>[&#39;nick&#39;, &#39;mail&#39;, &#39;link&#39;]</code> 中分别获取对应的字符串并组成数组，然后传给 <code>meta</code>。查看 Valine 官网资料可知，这个 <code>meta</code> 属性是 LeanCloud 存储评论的头部信息，方案 ① 就是输入框直接使用相同的属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">guest_info: guest,</span><br><span class="line">meta: guest,</span><br></pre></td></tr></table></figure>
+
+<p>但是可能我希望所有的评论，在存储到 LeanCloud 中时都带有全部 3 个属性，但用户评论时只可以输入 1 或 2 个信息（比如我），总之就是用户可以输入的信息和 LeanCloud 存储的信息不一致，那么就需要自定义一个属性了。</p>
+<p>首先在主题配置文件 <code>next/_config.yml</code> 的 Valine 设置部分添加一个自定义属性（命名可自定义）：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Valine</span></span><br><span class="line"><span class="comment"># You can get your appid and appkey from https://leancloud.cn</span></span><br><span class="line"><span class="comment"># More info available at https://valine.js.org</span></span><br><span class="line"><span class="attr">valine:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span> <span class="comment"># When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span></span><br><span class="line"><span class="attr">  appid:</span> <span class="number">5</span><span class="string">s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz</span></span><br><span class="line"><span class="attr">  appkey:</span> <span class="string">YRRibTsHhmelPnfq41YO6B1r</span></span><br><span class="line"><span class="attr">  notify:</span> <span class="literal">false</span> <span class="comment"># mail notifier, See: https://github.com/xCss/Valine/wiki</span></span><br><span class="line"><span class="attr">  verify:</span> <span class="literal">false</span> <span class="comment"># Verification code</span></span><br><span class="line"><span class="attr">  placeholder:</span> <span class="string">Nice</span> <span class="string">!</span> <span class="comment"># comment box placeholder</span></span><br><span class="line">  <span class="comment"># avatar: mm # gravatar style</span></span><br><span class="line"><span class="attr">  avatar:</span> <span class="string">retro</span></span><br><span class="line"><span class="attr">  guest_header:</span> <span class="string">nick,mail</span> <span class="comment"># 用户可以自定义输入的信息</span></span><br><span class="line"><span class="attr">  guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># custom comment header</span></span><br><span class="line"><span class="attr">  pageSize:</span> <span class="number">5</span> <span class="comment"># pagination size</span></span><br><span class="line"><span class="attr">  language:</span> <span class="comment"># language, available values: en, zh-cn</span></span><br><span class="line"><span class="attr">  visitor:</span> <span class="literal">true</span> <span class="comment"># leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same as leancloud_visitors' for counter compatibility. Article reading statistic https://valine.js.org/visitor.html</span></span><br><span class="line"><span class="attr">  comment_count:</span> <span class="literal">false</span> <span class="comment"># if false, comment count will only be displayed in post page, not in home page</span></span><br></pre></td></tr></table></figure>
+
+<p>重点：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">guest_header:</span> <span class="string">nick,mail</span> <span class="comment"># 用户可以自定义输入的信息</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在 Next 的 Valine 部署源码 <code>next/layout/_third-party/comments/valine.swig</code> 中修改这一部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> GUEST = [<span class="string">'nick'</span>, <span class="string">'mail'</span>, <span class="string">'link'</span>];</span><br><span class="line"><span class="keyword">var</span> guest = <span class="string">'&#123;&#123; theme.valine.guest_info &#125;&#125;'</span>;</span><br><span class="line">guest = guest.split(<span class="string">','</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> GUEST.indexOf(item) &gt; <span class="number">-1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ↓↓↓↓↓ 重点是以下这部分 ↓↓↓↓↓</span></span><br><span class="line"><span class="keyword">var</span> guest_header = <span class="string">'&#123;&#123; theme.valine.guest_header &#125;&#125;'</span>;</span><br><span class="line">guest_header = guest_header.split(<span class="string">','</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> GUEST.indexOf(item) &gt; <span class="number">-1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// ↑↑↑↑↑ 重点是以上这部分 ↑↑↑↑↑</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Valine(&#123;</span><br><span class="line">  el: <span class="string">'#comments'</span>,</span><br><span class="line">  verify: &#123;&#123; theme.valine.verify &#125;&#125;,</span><br><span class="line">  notify: &#123;&#123; theme.valine.notify &#125;&#125;,</span><br><span class="line">  appId: <span class="string">'&#123;&#123; theme.valine.appid &#125;&#125;'</span>,</span><br><span class="line">  appKey: <span class="string">'&#123;&#123; theme.valine.appkey &#125;&#125;'</span>,</span><br><span class="line">  placeholder: <span class="string">'&#123;&#123; theme.valine.placeholder &#125;&#125;'</span>,</span><br><span class="line">  avatar: <span class="string">'&#123;&#123; theme.valine.avatar &#125;&#125;'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ↓↓↓↓↓ 重点是以下这部分 ↓↓↓↓↓</span></span><br><span class="line">  guest_info: guest_header,</span><br><span class="line">  <span class="comment">// ↑↑↑↑↑ 重点是以上这部分 ↑↑↑↑↑</span></span><br><span class="line"></span><br><span class="line">  meta: guest,</span><br><span class="line">  pageSize: <span class="string">'&#123;&#123; theme.valine.pageSize &#125;&#125;'</span> || <span class="number">10</span>,</span><br><span class="line">  visitor: &#123;&#123; theme.valine.visitor &#125;&#125;,</span><br><span class="line">  lang: <span class="string">'&#123;&#123; theme.valine.language &#125;&#125;'</span> || <span class="string">'zh-cn'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>主要就是获取主题配置文件中设置的 <code>guest_header</code> 然后组合成数组再传给 <code>guest_info</code> 即可。重新部署，效果如下：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/valine_guest_info_custom.png" alt="Valine 自定义用户可输入信息" title="TOPICS"></p>
+</center>
+
 <hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="TOLINKS">博客 DIY 系列</a></p>
 
@@ -892,7 +957,7 @@
           
 
   
-    <div class="comments" id="gitalk-container">
+    <div class="comments" id="comments">
     </div>
 
   
@@ -969,7 +1034,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">704</span>
+                <span class="site-state-item-count">710</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1261,7 +1326,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DaoVoice免登陆聊天功能"><span class="nav-text">1. DaoVoice免登陆聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-文章评论"><span class="nav-text">2. 文章评论</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DaoVoice免登陆聊天功能"><span class="nav-text">1. DaoVoice免登陆聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Gitalk评论"><span class="nav-text">2. Gitalk评论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Valine评论"><span class="nav-text">3. Valine评论</span></a></li></ol></div>
             
 
           </div>
@@ -1295,7 +1360,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">293k</span>
+    <span title="博客总字数">299k</span>
   
 
   
@@ -1304,7 +1369,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:26</span>
+    <span title="博客总阅读时长">5:33</span>
   
 </div>
 
@@ -1427,36 +1492,50 @@
   
 
   
-
-
   
-    
 
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
 
 
 
-<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 
 <script>
-  var gitalk = new Gitalk({
-    clientID: 'aff3b6b8b0835b7a6bbb',
-    clientSecret: '1dafdc5eedb3fc7c5917667a3867c014a2d69da6',
-    repo: 'slliu96.gitalk.io',
-    owner: 'slliu96',
-    admin: ['slliu96'],
-    id: md5(location.pathname),
-    
-      language: window.navigator.language || window.navigator.userLanguage,
-    
-    distractionFreeMode: 'true'
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
   });
-  gitalk.render('gitalk-container');
+  var guest_header = 'nick,mail';
+  guest_header = guest_header.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
+    appKey: 'YRRibTsHhmelPnfq41YO6B1r',
+    placeholder: 'Nice !',
+    avatar: 'retro',
+    guest_info: guest_header,
+    meta: guest,
+    pageSize: '5' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn'
+  });
+  // 去除 Valine 版权信息
+  var infoEle = document.querySelector('#comments .info');
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+    infoEle.childNodes.forEach(function(item) {
+      item.parentNode.removeChild(item);
+    });
+  }
 </script>
+
+
+
 
   
 
@@ -1787,71 +1866,6 @@
 
 
   
-  
-  <script>
-    
-    function addCount(Counter) {
-      var $visitors = $('.leancloud_visitors');
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
-        .done(function({ results }) {
-          if (results.length > 0) {
-            var counter = results[0];
-            
-            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
-            
-              .done(function() {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.time + 1);
-              })
-            
-              .fail(function ({ responseJSON }) {
-                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
-              })
-          } else {
-            
-              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
-                .done(function() {
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(1);
-                })
-                .fail(function() {
-                  console.log('Failed to create');
-                });
-            
-          }
-        })
-        .fail(function ({ responseJSON }) {
-          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
-        });
-    }
-    
-
-    $(function() {
-      $.get('https://app-router.leancloud.cn/2/route?appId=' + '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz')
-        .done(function({ api_server }) {
-          var Counter = function(method, url, data) {
-            return $.ajax({
-              method: method,
-              url: 'https://' + api_server + '/1.1' + url,
-              headers: {
-                'X-LC-Id': '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
-                'X-LC-Key': 'YRRibTsHhmelPnfq41YO6B1r',
-                'Content-Type': 'application/json',
-              },
-              data: data
-            });
-          };
-          
-            addCount(Counter);
-          
-        });
-    });
-  </script>
-
-
 
   
 

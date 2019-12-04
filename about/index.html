@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="邮箱：luislsl@163.comGitHub：SLLiu96 各位 Geeks，最近发现 DaoVoice 的免费版实在是有些不友好，经常有朋友在 DaoVoice 用非注册方式联系我，又没有留下回访方式，我在控制台回复之后也收不到，结果导致反复询问或者觉得我不看留言。 未来 DaoVoice 可能会慢慢停用了，本文现在开启了留言功能，还是更建议大家在本文下方用 Gitalk 留言，毕竟做技术">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-03T13:24:43.000Z">
+<meta property="og:updated_time" content="2019-12-04T05:10:53.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SLLiu&#39;s Blogs">
 <meta name="twitter:description" content="邮箱：luislsl@163.comGitHub：SLLiu96 各位 Geeks，最近发现 DaoVoice 的免费版实在是有些不友好，经常有朋友在 DaoVoice 用非注册方式联系我，又没有留下回访方式，我在控制台回复之后也收不到，结果导致反复询问或者觉得我不看留言。 未来 DaoVoice 可能会慢慢停用了，本文现在开启了留言功能，还是更建议大家在本文下方用 Gitalk 留言，毕竟做技术">
@@ -451,8 +451,8 @@
         
           <p><font color="#EB6D39">邮箱</font>：<strong><a href="mailto:luislsl@163.com" target="_blank" rel="noopener">luislsl@163.com</a></strong><br><font color="#EB6D39">GitHub</font>：<a href="https://github.com/slliu96" title="TOLINKS" target="_blank" rel="noopener"><strong>SLLiu96</strong></a></p>
 <p>各位 Geeks，最近发现 DaoVoice 的免费版实在是有些不友好，经常有朋友在 DaoVoice 用非注册方式联系我，又没有留下回访方式，我在控制台回复之后也收不到，结果导致反复询问或者觉得我不看留言。</p>
-<p>未来 DaoVoice 可能会慢慢停用了，本文现在开启了留言功能，还是更建议大家在本文下方用 Gitalk 留言，毕竟做技术的，GitHub 还是常用的嘛。而且可以使用 Markdown 格式，可以引用代码，更方便一些。</p>
-<p>或者如果我的 Gitalk 仓库出了问题，也可以通过邮箱联系，联系方式在上方，个人信息侧栏也可以直接发起邮箱会话。</p>
+<p><del>未来 DaoVoice 可能会慢慢停用了，本文现在开启了留言功能，还是更建议大家在本文下方用 Gitalk 留言，毕竟做技术的，GitHub 还是常用的嘛。而且可以使用 Markdown 格式，可以引用代码，更方便一些。或者如果我的 Gitalk 仓库出了问题，也可以通过邮箱联系，联系方式在上方，个人信息侧栏也可以直接发起邮箱会话。</del></p>
+<p>更新：由于比较多反馈必须用 GitHub 登陆太麻烦，目前关闭了 Gitalk 仓库，使用 LeanCloud 的 Valine 免登陆评论服务。目前来看 Valine 体验还不错，昵称和邮件都可以选填，如果有问题想交流的，强烈建议留一个回访邮箱。</p>
 
         
       </div>
@@ -474,7 +474,7 @@
           
 
   
-    <div class="comments" id="gitalk-container">
+    <div class="comments" id="comments">
     </div>
 
   
@@ -519,7 +519,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">704</span>
+                <span class="site-state-item-count">710</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -828,7 +828,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">293k</span>
+    <span title="博客总字数">299k</span>
   
 
   
@@ -837,7 +837,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:26</span>
+    <span title="博客总阅读时长">5:33</span>
   
 </div>
 
@@ -960,36 +960,50 @@
   
 
   
-
-
   
-    
 
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
 
 
 
-<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 
 <script>
-  var gitalk = new Gitalk({
-    clientID: 'aff3b6b8b0835b7a6bbb',
-    clientSecret: '1dafdc5eedb3fc7c5917667a3867c014a2d69da6',
-    repo: 'slliu96.gitalk.io',
-    owner: 'slliu96',
-    admin: ['slliu96'],
-    id: md5(location.pathname),
-    
-      language: window.navigator.language || window.navigator.userLanguage,
-    
-    distractionFreeMode: 'true'
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
   });
-  gitalk.render('gitalk-container');
+  var guest_header = 'nick,mail';
+  guest_header = guest_header.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
+    appKey: 'YRRibTsHhmelPnfq41YO6B1r',
+    placeholder: 'Nice !',
+    avatar: 'retro',
+    guest_info: guest_header,
+    meta: guest,
+    pageSize: '5' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn'
+  });
+  // 去除 Valine 版权信息
+  var infoEle = document.querySelector('#comments .info');
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+    infoEle.childNodes.forEach(function(item) {
+      item.parentNode.removeChild(item);
+    });
+  }
 </script>
+
+
+
 
   
 
@@ -1320,74 +1334,6 @@
 
 
   
-  
-  <script>
-    
-    function showTime(Counter) {
-      var entries = [];
-      var $visitors = $('.leancloud_visitors');
-
-      $visitors.each(function() {
-        entries.push( $(this).attr('id').trim() );
-      });
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { '$in': entries } }) })
-        .done(function({ results }) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.url;
-            var time = item.time;
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for (var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if (countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function ({ responseJSON }) {
-          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
-        });
-    }
-    
-
-    $(function() {
-      $.get('https://app-router.leancloud.cn/2/route?appId=' + '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz')
-        .done(function({ api_server }) {
-          var Counter = function(method, url, data) {
-            return $.ajax({
-              method: method,
-              url: 'https://' + api_server + '/1.1' + url,
-              headers: {
-                'X-LC-Id': '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
-                'X-LC-Key': 'YRRibTsHhmelPnfq41YO6B1r',
-                'Content-Type': 'application/json',
-              },
-              data: data
-            });
-          };
-          
-            if ($('.post-title-link').length >= 1) {
-              showTime(Counter);
-            }
-          
-        });
-    });
-  </script>
-
-
 
   
 

@@ -513,6 +513,19 @@
           
             
             
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/post/android/android-messagequeue/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/post/android/android-messagequeue/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
 
@@ -932,7 +945,7 @@
           
 
   
-    <div class="comments" id="gitalk-container">
+    <div class="comments" id="comments">
     </div>
 
   
@@ -1009,7 +1022,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">704</span>
+                <span class="site-state-item-count">710</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1335,7 +1348,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">293k</span>
+    <span title="博客总字数">299k</span>
   
 
   
@@ -1344,7 +1357,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:26</span>
+    <span title="博客总阅读时长">5:33</span>
   
 </div>
 
@@ -1467,36 +1480,50 @@
   
 
   
-
-
   
-    
 
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
 
 
 
-<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 
 <script>
-  var gitalk = new Gitalk({
-    clientID: 'aff3b6b8b0835b7a6bbb',
-    clientSecret: '1dafdc5eedb3fc7c5917667a3867c014a2d69da6',
-    repo: 'slliu96.gitalk.io',
-    owner: 'slliu96',
-    admin: ['slliu96'],
-    id: md5(location.pathname),
-    
-      language: window.navigator.language || window.navigator.userLanguage,
-    
-    distractionFreeMode: 'true'
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
   });
-  gitalk.render('gitalk-container');
+  var guest_header = 'nick,mail';
+  guest_header = guest_header.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
+    appKey: 'YRRibTsHhmelPnfq41YO6B1r',
+    placeholder: 'Nice !',
+    avatar: 'retro',
+    guest_info: guest_header,
+    meta: guest,
+    pageSize: '5' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn'
+  });
+  // 去除 Valine 版权信息
+  var infoEle = document.querySelector('#comments .info');
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+    infoEle.childNodes.forEach(function(item) {
+      item.parentNode.removeChild(item);
+    });
+  }
 </script>
+
+
+
 
   
 
@@ -1827,71 +1854,6 @@
 
 
   
-  
-  <script>
-    
-    function addCount(Counter) {
-      var $visitors = $('.leancloud_visitors');
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
-        .done(function({ results }) {
-          if (results.length > 0) {
-            var counter = results[0];
-            
-            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
-            
-              .done(function() {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.time + 1);
-              })
-            
-              .fail(function ({ responseJSON }) {
-                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
-              })
-          } else {
-            
-              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
-                .done(function() {
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(1);
-                })
-                .fail(function() {
-                  console.log('Failed to create');
-                });
-            
-          }
-        })
-        .fail(function ({ responseJSON }) {
-          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
-        });
-    }
-    
-
-    $(function() {
-      $.get('https://app-router.leancloud.cn/2/route?appId=' + '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz')
-        .done(function({ api_server }) {
-          var Counter = function(method, url, data) {
-            return $.ajax({
-              method: method,
-              url: 'https://' + api_server + '/1.1' + url,
-              headers: {
-                'X-LC-Id': '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
-                'X-LC-Key': 'YRRibTsHhmelPnfq41YO6B1r',
-                'Content-Type': 'application/json',
-              },
-              data: data
-            });
-          };
-          
-            addCount(Counter);
-          
-        });
-    });
-  </script>
-
-
 
   
 
