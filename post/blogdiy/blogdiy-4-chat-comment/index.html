@@ -123,7 +123,9 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_only_nick.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_nick_email_link.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_guest_info_custom.png">
-<meta property="og:updated_time" content="2019-12-04T05:06:14.079Z">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_show_system_info.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_hide_system_info.png">
+<meta property="og:updated_time" content="2019-12-04T06:22:47.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（4）在线聊天和文章评论">
 <meta name="twitter:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能。">
@@ -552,7 +554,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">27k</span>
+                <span title="全文字数">29k</span>
               
 
               
@@ -566,7 +568,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">30 分钟</span>
+                <span title="阅读时长">32 分钟</span>
               
             </div>
           
@@ -753,7 +755,9 @@
 </ul>
 <p>由于是基于 GitHub Issue 的实现，Gitalk 评论支持使用 MarkDown 格式，交流代码会方便很多。不过缺点就是，任何人想要评论则必须使用 GitHub 账号登陆才行。</p>
 <hr>
-<h1 id="3-Valine评论"><a href="#3-Valine评论" class="headerlink" title="3. Valine评论"></a>3. Valine评论</h1><p>Gitalk 评论虽然最符合程序员的喜好，毕竟基于 GitHub 的 Issue，可以自由改动、打 Tag等，但是缺点就是必须登录 GitHub 账号，有时候有些小问题就显得麻烦了，后来发现 LeanCloud 除了可以实现文章阅读统计外，还支持 Valine 评论功能，最关键的是免登陆，而且免费（目前）！于是我的博客最终选择了 Valine 作为评论引擎。</p>
+<h1 id="3-Valine评论"><a href="#3-Valine评论" class="headerlink" title="3. Valine评论"></a>3. Valine评论</h1><br>
+
+<h2 id="3-1-开启Valine"><a href="#3-1-开启Valine" class="headerlink" title="3.1 开启Valine"></a>3.1 开启Valine</h2><p>Gitalk 评论虽然最符合程序员的喜好，毕竟基于 GitHub 的 Issue，可以自由改动、打 Tag等，但是缺点就是必须登录 GitHub 账号，有时候有些小问题就显得麻烦了，后来发现 LeanCloud 除了可以实现文章阅读统计外，还支持 Valine 评论功能，最关键的是免登陆，而且免费（目前）！于是我的博客最终选择了 Valine 作为评论引擎。</p>
 <p>首先 Valine 评论和 LeanCloud 阅读统计同时开启会有冲突（2019-12-04 无意间发现已经不会冲突了），解决方案是关掉 LeanCloud 独立的阅读统计，并在 Valine 设置项中开启统计功能即可，Valine 相关设置如下：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Valine</span></span><br><span class="line"><span class="comment"># You can get your appid and appkey from https://leancloud.cn</span></span><br><span class="line"><span class="comment"># More info available at https://valine.js.org</span></span><br><span class="line"><span class="attr">valine:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span> <span class="comment"># When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span></span><br><span class="line"><span class="attr">  appid:</span> <span class="string">输入自己在</span> <span class="string">LeanCloud</span> <span class="string">处创建的应用中申请的</span> <span class="string">AppID</span></span><br><span class="line"><span class="attr">  appkey:</span> <span class="string">输入自己在</span> <span class="string">LeanCloud</span> <span class="string">处创建的应用中申请的</span> <span class="string">AppKey</span></span><br><span class="line"><span class="attr">  notify:</span> <span class="literal">false</span> <span class="comment"># mail notifier, See: https://github.com/xCss/Valine/wiki</span></span><br><span class="line"><span class="attr">  verify:</span> <span class="literal">false</span> <span class="comment"># Verification code</span></span><br><span class="line"><span class="attr">  placeholder:</span> <span class="string">Nice</span> <span class="string">!</span> <span class="comment"># comment box placeholder</span></span><br><span class="line">  <span class="comment"># avatar: mm # gravatar style</span></span><br><span class="line"><span class="attr">  avatar:</span> <span class="string">retro</span></span><br><span class="line"><span class="attr">  guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># custom comment header</span></span><br><span class="line"><span class="attr">  pageSize:</span> <span class="number">5</span> <span class="comment"># pagination size</span></span><br><span class="line"><span class="attr">  language:</span> <span class="comment"># language, available values: en, zh-cn</span></span><br><span class="line"><span class="attr">  visitor:</span> <span class="literal">true</span> <span class="comment"># leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same asleancloud_visitors' for counter compatibility. Article reading statistic https://valine.js.org/visitor.html</span></span><br><span class="line"><span class="attr">  comment_count:</span> <span class="literal">false</span> <span class="comment"># if false, comment count will only be displayed in post page, not in home page</span></span><br></pre></td></tr></table></figure>
 
@@ -799,6 +803,26 @@
 <center>
 
 <p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/valine_guest_info_custom.png" alt="Valine 自定义用户可输入信息" title="TOPICS"></p>
+</center>
+
+<br>
+
+<h2 id="3-2-隐藏Valine系统信息"><a href="#3-2-隐藏Valine系统信息" class="headerlink" title="3.2 隐藏Valine系统信息"></a>3.2 隐藏Valine系统信息</h2><p>常规配置好 Valine 后，会发现评论时自动读取了用户的系统信息等，不仅不美观而且暴露隐私，非常不友好：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/valine_show_system_info.png" alt="Valine 显示系统信息" title="TOPICS"></p>
+</center>
+
+<p>想要隐藏系统信息可修改 <code>next/source/css/_custom/custom.styl</code>，在末尾添加如下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Valine 隐藏系统信息</span></span><br><span class="line">.vsys&#123;</span><br><span class="line">  display:none !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：<code>custom.styl</code> 这个文件会在 <code>next/source/css/main.styl</code> 中被引入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Custom Layer</span></span><br><span class="line"><span class="comment">// --------------------------------------------------</span></span><br><span class="line">@<span class="keyword">import</span> <span class="string">"_custom/"</span> + $custom_styles;</span><br></pre></td></tr></table></figure>
+
+<p>隐藏后的效果：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/valine_hide_system_info.png" alt="Valine 隐藏系统信息" title="TOPICS"></p>
 </center>
 
 <hr>
@@ -1034,7 +1058,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">715</span>
+                <span class="site-state-item-count">716</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1326,7 +1350,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DaoVoice免登陆聊天功能"><span class="nav-text">1. DaoVoice免登陆聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Gitalk评论"><span class="nav-text">2. Gitalk评论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Valine评论"><span class="nav-text">3. Valine评论</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DaoVoice免登陆聊天功能"><span class="nav-text">1. DaoVoice免登陆聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Gitalk评论"><span class="nav-text">2. Gitalk评论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Valine评论"><span class="nav-text">3. Valine评论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-开启Valine"><span class="nav-text">3.1 开启Valine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-隐藏Valine系统信息"><span class="nav-text">3.2 隐藏Valine系统信息</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1360,7 +1384,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">299k</span>
+    <span title="博客总字数">300k</span>
   
 
   

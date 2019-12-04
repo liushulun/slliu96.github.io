@@ -1960,7 +1960,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fff;
+  background: #71ff47;
 }
 .feed-link,
 .chat {
@@ -3174,4 +3174,7 @@ body {
 }
 .header-inner {
   background: rgba(221,221,221,0.8);
+}
+.vsys {
+  display: none !important;
 }
