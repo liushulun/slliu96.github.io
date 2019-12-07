@@ -214,6 +214,7 @@ $(document).ready(function() {
       var $image = $('.custom-logo-image');
       var $title = $('.site-title');
       var $subtitle = $('.site-subtitle');
+      var $titleContact = $('.site-titleContact')
       var $logoLineTop = $('.logo-line-before i');
       var $logoLineBottom = $('.logo-line-after i');
 
@@ -275,6 +276,13 @@ $(document).ready(function() {
       hasElement($subtitle) && sequence.push({
         e: $subtitle,
         p: {opacity: 1, top: 0},
+        // o: {duration: 200}
+        o: {duration: 100}
+      });
+
+      hasElement($titleContact) && sequence.push({
+        e: $titleContact,
+        p: {opacity: 1, top: 5},
         // o: {duration: 200}
         o: {duration: 100}
       });

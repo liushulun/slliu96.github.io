@@ -1133,14 +1133,12 @@ pre .javascript .function {
   font-size: 13px;
   color: #ddd;
 }
-.site-contact {
-  position: relative;
-  top: 5px;
+.site-titleContact {
   font-size: 13px;
   color: #eb6d39;
   border-bottom-color: #eb6d39;
 }
-.site-contact:hover {
+.site-titleContact:hover {
   color: #ddd;
   border-bottom-color: #ddd;
 }
@@ -1154,6 +1152,11 @@ pre .javascript .function {
   opacity: 0;
   position: relative;
   top: -10px;
+}
+.use-motion .site-titleContact {
+  opacity: 0;
+  position: relative;
+  top: -5px;
 }
 .site-nav-toggle {
   display: none;
@@ -1971,7 +1974,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #46781f;
+  background: #ff9e3b;
 }
 .feed-link,
 .chat {
