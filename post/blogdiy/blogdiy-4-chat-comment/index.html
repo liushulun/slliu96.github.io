@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能。">
+  <meta name="description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）将博客二级标题替换为留言链接。">
 <meta name="keywords" content="Hexo,自定义">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo博客DIY（4）在线聊天和文章评论">
 <meta property="og:url" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/index.html">
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
-<meta property="og:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能。">
+<meta property="og:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）将博客二级标题替换为留言链接。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/daovoice_apply_to_web.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/github_oauth_apps.png">
@@ -125,10 +125,13 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_guest_info_custom.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_show_system_info.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/valine_hide_system_info.png">
-<meta property="og:updated_time" content="2019-12-04T06:22:47.748Z">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/blog_subtitle.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/hide_subtitle.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/custom_subtitle.png">
+<meta property="og:updated_time" content="2019-12-07T20:31:56.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（4）在线聊天和文章评论">
-<meta name="twitter:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能。">
+<meta name="twitter:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）将博客二级标题替换为留言链接。">
 <meta name="twitter:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/daovoice_apply_to_web.png">
 
 
@@ -212,9 +215,12 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+
+    <a href="/about/" class="site-contact">&ensp;留 言&ensp;</a>
+
     
       
-        <p class="site-subtitle">Learn, or Lose</p>
+        <h1 style="opacity: 0; font-size: 0px; margin: 0px;" itemprop="description">Learn, or Lose</h1>
       
     
     
@@ -485,11 +491,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo博客DIY（4）在线聊天和文章评论
+          <h2 class="post-title" itemprop="name headline">Hexo博客DIY（4）在线聊天和文章评论
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -523,19 +529,6 @@
           
             
             
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/post/blogdiy/blogdiy-4-chat-comment/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/post/blogdiy/blogdiy-4-chat-comment/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
 
@@ -554,7 +547,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">29k</span>
+                <span title="全文字数">36k</span>
               
 
               
@@ -568,7 +561,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">32 分钟</span>
+                <span title="阅读时长">40 分钟</span>
               
             </div>
           
@@ -699,7 +692,7 @@
         
           <div class="post-description"><span style="color: #EB6D39">
                   简介：
-                </span>（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能。</div>
+                </span>（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）将博客二级标题替换为留言链接。</div>
         
 
         <a id="more"></a>
@@ -823,6 +816,46 @@
 <center>
 
 <p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/valine_hide_system_info.png" alt="Valine 隐藏系统信息" title="TOPICS"></p>
+</center>
+
+
+<hr>
+<h1 id="4-二级标题替换为留言链接"><a href="#4-二级标题替换为留言链接" class="headerlink" title="4. 二级标题替换为留言链接"></a>4. 二级标题替换为留言链接</h1><p>Next 主题的博客二级标题其实就是正标题下面的这一小段文字：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/blog_subtitle.png" alt="Next 主题二级标题" title="TOPICS"></p>
+</center>
+
+<p>但是像我的博客其实并没有二级标题的必要，所以如图所示设置的和博客描述是一样的。但是这个标题区作为一个信息展示栏可以起到置顶的作用，根绝我的个人需求，将二级标题改成了“留言区”的引导链接。</p>
+<p>首先需要注意的地方是，通常为了使得博客能被搜索到，都会在主题配置文件 <code>next/_config.yml</code> 中开启 SEO：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Change headers hierarchy on site-subtitle (will be main site description) and on all post / page titles for better SEO-optimization.</span></span><br><span class="line"><span class="attr">seo:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>因此这个二级标题还是不要直接删掉的好，可以通过让它在网页上不显示，而在页面元素中依然存在的方式巧妙地隐藏掉。在 <code>/next/layout/_partials/header/brand.swig</code> 中找到二级标题相关部分的源码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> subtitle %&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> theme.seo %&#125;</span><br><span class="line">    &lt;h1 <span class="class"><span class="keyword">class</span></span>=<span class="string">"site-subtitle"</span> itemprop=<span class="string">"description"</span>&gt;&#123;&#123; subtitle &#125;&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">  &#123;% else %&#125;</span></span><br><span class="line"><span class="regexp">    &lt;p class="site-subtitle"&gt;&#123;&#123; subtitle &#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把其中的 <code>&lt;h1&gt;</code> 标签和 <code>&lt;p&gt;</code> 标签使用的样式 <code>site-subtitle</code> 替换掉，改为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> subtitle %&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> theme.seo %&#125;</span><br><span class="line">    &lt;h1 style=<span class="string">"opacity: 0; font-size: 0px; margin: 0px;"</span> itemprop=<span class="string">"description"</span>&gt;&#123;&#123; subtitle &#125;&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">  &#123;% else %&#125;</span></span><br><span class="line"><span class="regexp">    &lt;p style="opacity: 0; font-size: 0px; margin: 0px;"&gt;&#123;&#123; subtitle &#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是改成透明，且去掉四周边距，这样在网页上就不会显示了，但实际上在页面元素中还是存在的，这样就不会影响 SEO 了：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/hide_subtitle.png" alt="隐藏二级标题" title="TOPICS"></p>
+</center>
+
+<p>然后仿照二级标题的方式，首先在博客站点配置文件 <code>blog/_config.yml</code> 中增加两个字段：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Custom Subtitle</span></span><br><span class="line"><span class="attr">contact:</span> <span class="string">"&amp;ensp;留 言&amp;ensp;"</span></span><br><span class="line"><span class="attr">contact_url:</span> <span class="string">/about/</span></span><br></pre></td></tr></table></figure>
+
+<p>这里具体显示名称和链接地址以自定义的为准。然后再在 <code>next/source/css/_common/components/header/site-meta.styl</code> 中增加一个 CSS 样式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.site-contact &#123;</span><br><span class="line">  position: relative;</span><br><span class="line">  top: <span class="number">5</span>px;</span><br><span class="line">  font-size: $subtitle-font-size;</span><br><span class="line">  color: #EB6D39;</span><br><span class="line">  border-bottom-color: #EB6D39;</span><br><span class="line">  &amp;:hover &#123;</span><br><span class="line">    color: $subtitle-color;</span><br><span class="line">    border-bottom-color: $subtitle-color;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然，这里的样式也可以随意根据自己的喜好调整。其中 <code>subtitle-font-size</code> 和 <code>subtitle-color</code> 都是原本二级标题已经定义好的变量，可以直接用。</p>
+<p>最后在 <code>/next/layout/_partials/header/brand.swig</code> 中增加一条链接，使用上面定义的样式和数据：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"custom-logo-site-title"</span>&gt;</span><br><span class="line">......</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;a href="&#123;&#123; config.contact_url &#125;&#125;" class="site-contact"&gt;&#123;&#123; config.contact &#125;&#125;&lt;/</span>a&gt;</span><br><span class="line"></span><br><span class="line">&#123;% <span class="keyword">if</span> subtitle %&#125;</span><br><span class="line">......</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>放的位置以自定义为准。重新部署即可看到效果：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/custom_subtitle.png" alt="自定义二级标题" title="TOPICS"></p>
 </center>
 
 <hr>
@@ -1058,7 +1091,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">716</span>
+                <span class="site-state-item-count">720</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1350,7 +1383,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DaoVoice免登陆聊天功能"><span class="nav-text">1. DaoVoice免登陆聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Gitalk评论"><span class="nav-text">2. Gitalk评论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Valine评论"><span class="nav-text">3. Valine评论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-开启Valine"><span class="nav-text">3.1 开启Valine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-隐藏Valine系统信息"><span class="nav-text">3.2 隐藏Valine系统信息</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DaoVoice免登陆聊天功能"><span class="nav-text">1. DaoVoice免登陆聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Gitalk评论"><span class="nav-text">2. Gitalk评论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Valine评论"><span class="nav-text">3. Valine评论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-开启Valine"><span class="nav-text">3.1 开启Valine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-隐藏Valine系统信息"><span class="nav-text">3.2 隐藏Valine系统信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-二级标题替换为留言链接"><span class="nav-text">4. 二级标题替换为留言链接</span></a></li></ol></div>
             
 
           </div>
@@ -1384,7 +1417,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">300k</span>
+    <span title="博客总字数">302k</span>
   
 
   
@@ -1393,7 +1426,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:33</span>
+    <span title="博客总阅读时长">5:35</span>
   
 </div>
 

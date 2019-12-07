@@ -1133,6 +1133,17 @@ pre .javascript .function {
   font-size: 13px;
   color: #ddd;
 }
+.site-contact {
+  position: relative;
+  top: 5px;
+  font-size: 13px;
+  color: #eb6d39;
+  border-bottom-color: #eb6d39;
+}
+.site-contact:hover {
+  color: #ddd;
+  border-bottom-color: #ddd;
+}
 .use-motion .brand {
   opacity: 0;
 }
@@ -1960,7 +1971,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #71ff47;
+  background: #46781f;
 }
 .feed-link,
 .chat {
@@ -3083,13 +3094,14 @@ ul.breadcrumb li+li:last-child {
 }
 .post-body h3 {
   font-size: 1.3em;
-  border-bottom: 1px dotted transparent;
+  border-bottom: 1px solid transparent;
 }
 .post-body h3 code {
   font-size: 1em;
 }
 .post-body h4 {
   font-size: 1.2em;
+  border-bottom: 1px dotted transparent;
 }
 .post-body h4 code {
   font-size: 1em;
