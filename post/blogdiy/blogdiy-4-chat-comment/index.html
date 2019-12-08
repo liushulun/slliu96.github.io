@@ -128,7 +128,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/blog_subtitle.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/hide_subtitle.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/custom_subtitle.png">
-<meta property="og:updated_time" content="2019-12-07T21:11:31.917Z">
+<meta property="og:updated_time" content="2019-12-08T16:01:01.932Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（4）在线聊天和文章评论">
 <meta name="twitter:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）将博客二级标题替换为留言链接。">
@@ -527,9 +527,6 @@
 
 
           
-            
-            
-          
 
 
           
@@ -547,7 +544,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">46k</span>
+                <span title="全文字数">48k</span>
               
 
               
@@ -561,7 +558,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">51 分钟</span>
+                <span title="阅读时长">54 分钟</span>
               
             </div>
           
@@ -692,7 +689,24 @@
         
           <div class="post-description"><span style="color: #EB6D39">
                   简介：
-                </span>（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）将博客二级标题替换为留言链接。</div>
+                </span>（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）将博客二级标题替换为留言链接。
+            
+              <p>
+                <style type="text/css">
+                  .toContact {
+                      color: #EB6D39;
+                      font-size: 10px;
+                      border-bottom-color: #EB6D39;
+                  }
+                  .toContact:hover {
+                    color: #FFFFFF;
+                    border-bottom-color: #FFFFFF;
+                  }
+                </style>
+                <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+              </p>
+            
+          </div>
         
 
         <a id="more"></a>
@@ -818,6 +832,10 @@
 <p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/valine_hide_system_info.png" alt="Valine 隐藏系统信息" title="TOPICS"></p>
 </center>
 
+<br>
+
+<h2 id="3-3-文首增加留言区跳转"><a href="#3-3-文首增加留言区跳转" class="headerlink" title="3.3 文首增加留言区跳转"></a>3.3 文首增加留言区跳转</h2><p>附加一个小记录，当文章未开启评论功能时，在文首显示一条跳转留言区的功能。我个人是放在了显示 Description 的下方，直接放进一个链接即可：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> not post.comments and not is_index %&#125;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    &lt;style type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">      .toContact &#123;</span><br><span class="line">          color: #EB6D39;</span><br><span class="line">          font-size: <span class="number">10</span>px;</span><br><span class="line">          border-bottom-color: #EB6D39;</span><br><span class="line">      &#125;</span><br><span class="line">      .toContact:hover &#123;</span><br><span class="line">        color: #FFFFFF;</span><br><span class="line">        border-bottom-color: #FFFFFF;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">    &lt;a href="/</span>about/<span class="string">" class="</span>toContact<span class="string">"&gt;本文未开启评论，点击前往留言区&lt;/a&gt;</span></span><br><span class="line"><span class="string">  &lt;/p&gt;</span></span><br><span class="line"><span class="string">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
 
 <hr>
 <h1 id="4-二级标题替换为留言链接"><a href="#4-二级标题替换为留言链接" class="headerlink" title="4. 二级标题替换为留言链接"></a>4. 二级标题替换为留言链接</h1><p>Next 主题的博客二级标题其实就是正标题下面的这一小段文字：</p>
@@ -1026,14 +1044,6 @@
           </div>
           
 
-  
-    <div class="comments" id="comments">
-    </div>
-
-  
-
-
-
         </div>
         
           
@@ -1104,7 +1114,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">722</span>
+                <span class="site-state-item-count">730</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1396,7 +1406,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DaoVoice免登陆聊天功能"><span class="nav-text">1. DaoVoice免登陆聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Gitalk评论"><span class="nav-text">2. Gitalk评论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Valine评论"><span class="nav-text">3. Valine评论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-开启Valine"><span class="nav-text">3.1 开启Valine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-隐藏Valine系统信息"><span class="nav-text">3.2 隐藏Valine系统信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-二级标题替换为留言链接"><span class="nav-text">4. 二级标题替换为留言链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DaoVoice免登陆聊天功能"><span class="nav-text">1. DaoVoice免登陆聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Gitalk评论"><span class="nav-text">2. Gitalk评论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Valine评论"><span class="nav-text">3. Valine评论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-开启Valine"><span class="nav-text">3.1 开启Valine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-隐藏Valine系统信息"><span class="nav-text">3.2 隐藏Valine系统信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-文首增加留言区跳转"><span class="nav-text">3.3 文首增加留言区跳转</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-二级标题替换为留言链接"><span class="nav-text">4. 二级标题替换为留言链接</span></a></li></ol></div>
             
 
           </div>
@@ -1439,7 +1449,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:38</span>
+    <span title="博客总阅读时长">5:39</span>
   
 </div>
 
@@ -1606,8 +1616,6 @@
 
 
 
-
-  
 
 
   
