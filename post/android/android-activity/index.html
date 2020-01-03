@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="Activity的生命周期，开启及退出，Context 等。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-08T16:00:07.910Z">
+<meta property="og:updated_time" content="2020-01-03T11:52:55.213Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android四大组件——Activity">
 <meta name="twitter:description" content="Activity的生命周期，开启及退出，Context 等。">
@@ -531,7 +531,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">9.2k</span>
+                <span title="全文字数">14k</span>
               
 
               
@@ -545,7 +545,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">16 分钟</span>
               
             </div>
           
@@ -773,10 +773,188 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android.util.AndroidRuntimeException: Calling startActivity from outside of an Activity context <span class="keyword">requires</span> the FLAG_ACTIVITY_NEW_TASK flag. Is <span class="keyword">this</span> really what you want?</span><br></pre></td></tr></table></figure>
 
 <p>因为 ApplicationContext 和 Service 并没有任务栈。</p>
-<p>以 Standard 方式启动 Activity 时，如果：A 启动 B，B 启动 C，则返回的顺序即为：C - B - A。</p>
+<p>Standard 启动方式任务栈的行为实例如下（其中 “/” 表示 <font color="red">栈底</font>，“&gt;” 表示 <font color="red">栈顶</font>）：</p>
+<table>
+<thead>
+<tr>
+<th align="left">当前任务栈</th>
+<th align="left">如果返回</th>
+<th align="center">执行任务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">/A&gt;</td>
+<td align="left">退出</td>
+<td align="center">Standard Start B</td>
+</tr>
+<tr>
+<td align="left">/AB&gt;</td>
+<td align="left">/A&gt;</td>
+<td align="center">Standard Start B</td>
+</tr>
+<tr>
+<td align="left">/ABB&gt;</td>
+<td align="left">/AB&gt;</td>
+<td align="center">Standard Start A</td>
+</tr>
+<tr>
+<td align="left">/ABBA&gt;</td>
+<td align="left">/ABB&gt;</td>
+<td align="center">-</td>
+</tr>
+</tbody></table>
 <br>
 
-<h2 id="3-2-SingleTop模式"><a href="#3-2-SingleTop模式" class="headerlink" title="3.2 SingleTop模式"></a>3.2 SingleTop模式</h2><p>SingleTop 模式</p>
+<h2 id="3-2-SingleTop模式"><a href="#3-2-SingleTop模式" class="headerlink" title="3.2 SingleTop模式"></a>3.2 SingleTop模式</h2><p>SingleTop 即栈顶唯一模式，启动一个 Activity 时，如果该 Activity 已在栈顶则不会新建一个 Activity 实例而是复用它，否则其行为和 Standard 模式一致。</p>
+<p>SingleTop 启动方式任务栈的行为实例如下（其中 “/” 表示 <font color="red">栈底</font>，“&gt;” 表示 <font color="red">栈顶</font>）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="left">当前任务栈</th>
+<th align="left">如果返回</th>
+<th align="center">执行任务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td align="left">/A&gt;</td>
+<td align="left">退出</td>
+<td align="center">SingleTop Start B</td>
+</tr>
+<tr>
+<td>2</td>
+<td align="left">/AB&gt;</td>
+<td align="left">/A&gt;</td>
+<td align="center">SingleTop Start B</td>
+</tr>
+<tr>
+<td>3</td>
+<td align="left">/AB&gt;</td>
+<td align="left">/A&gt;</td>
+<td align="center">SingleTop Start A</td>
+</tr>
+<tr>
+<td>4</td>
+<td align="left">/ABA&gt;</td>
+<td align="left">/AB&gt;</td>
+<td align="center">SingleTop Start B</td>
+</tr>
+<tr>
+<td>5</td>
+<td align="left">/ABAB&gt;</td>
+<td align="left">/ABA&gt;</td>
+<td align="center">-</td>
+</tr>
+</tbody></table>
+<br>
+
+<h2 id="3-3-SingleTask模式"><a href="#3-3-SingleTask模式" class="headerlink" title="3.3 SingleTask模式"></a>3.3 SingleTask模式</h2><p>SingleTask 即任务栈唯一模式，启动一个 Activity 时，如果任务栈中存在该 Activity 实例，则复用它，否则才创建一个新的 Activity 实例。SingleTask 和 SingleTop 的区别在于，SingleTop 只在栈顶 Activity 和要启动的 Activity 相同时才复用，而 SingleTask 是每个 Activity 在当前整个任务栈中都只有一个实例。</p>
+<p>SingleTask 启动方式任务栈的行为实例如下（其中 “/” 表示 <font color="red">栈底</font>，“&gt;” 表示 <font color="red">栈顶</font>）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="left">当前任务栈</th>
+<th align="left">如果返回</th>
+<th align="center">执行任务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td align="left">/A&gt;</td>
+<td align="left">退出</td>
+<td align="center">SingleTask Start B</td>
+</tr>
+<tr>
+<td>2</td>
+<td align="left">/AB&gt;</td>
+<td align="left">/A&gt;</td>
+<td align="center">SingleTask Start B</td>
+</tr>
+<tr>
+<td>3</td>
+<td align="left">/AB&gt;</td>
+<td align="left">/A&gt;</td>
+<td align="center">SingleTask Start A</td>
+</tr>
+<tr>
+<td>4</td>
+<td align="left">/BA&gt;</td>
+<td align="left">/B&gt;</td>
+<td align="center">Standard Start B</td>
+</tr>
+<tr>
+<td>5</td>
+<td align="left">/BAB&gt;</td>
+<td align="left">/BA&gt;</td>
+<td align="center">-</td>
+</tr>
+</tbody></table>
+<br>
+
+<h2 id="3-4-SingleInstance模式"><a href="#3-4-SingleInstance模式" class="headerlink" title="3.4 SingleInstance模式"></a>3.4 SingleInstance模式</h2><p>SingleInstance 即唯一实例模式），启动一个 Activity 时，寻找所有的任务栈，如果某个任务栈中存在该 Activity 实例，则切换到该任务栈，否则新建一个任务栈并创建该 Activity 实例。</p>
+<p>重点在于：任务栈不是唯一的，一个 App 可以有多个任务栈，就像 Android 系统的后台应用列表一样，里面包括了多个应用，而每个应用又管理自己的多个任务栈（可以理解为<font color="#EB6D39">任务栈的总栈</font>），每个任务栈又分别管理包含的 Activity。</p>
+<p>SingleInstance 启动方式任务栈的行为实例如下（其中 “/” 表示 <font color="red">栈底</font>，“&gt;” 表示 <font color="red">栈顶</font>，任务栈之间用 “-” 连接，右侧的任务栈为最新任务栈，M 为最开始以 Standard 启动的 Activity）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="left">当前任务栈</th>
+<th align="left">如果返回</th>
+<th align="center">执行任务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td align="left">/M&gt;</td>
+<td align="left">退出</td>
+<td align="center">SingleInstance Start A</td>
+</tr>
+<tr>
+<td>2</td>
+<td align="left">/M&gt; - /A&gt;</td>
+<td align="left">/M&gt;</td>
+<td align="center">SingleInstance Start B</td>
+</tr>
+<tr>
+<td>3</td>
+<td align="left">/M&gt; - /A&gt; - /B&gt;</td>
+<td align="left">/M&gt; - /A&gt;</td>
+<td align="center">SingleInstance Start A</td>
+</tr>
+<tr>
+<td>4</td>
+<td align="left">/M&gt; - /B&gt; - /A&gt;</td>
+<td align="left">/M&gt; - /B&gt;</td>
+<td align="center">Standard Start C</td>
+</tr>
+<tr>
+<td>5</td>
+<td align="left">/B&gt; - /A&gt; - /MB&gt;</td>
+<td align="left">/B&gt; - /A&gt; - /M&gt;</td>
+<td align="center">返回</td>
+</tr>
+<tr>
+<td>6</td>
+<td align="left">/B&gt; - /A&gt; - /M&gt;</td>
+<td align="left">/B&gt; - /A&gt;</td>
+<td align="center">返回</td>
+</tr>
+<tr>
+<td>7</td>
+<td align="left">/B&gt; - /A&gt;</td>
+<td align="left">/B&gt;</td>
+<td align="center">返回</td>
+</tr>
+<tr>
+<td>8</td>
+<td align="left">/B&gt;</td>
+<td align="left">退出</td>
+<td align="center">-</td>
+</tr>
+</tbody></table>
+<p>前 3 步都比较好理解，反正就是整个 App 所有任务栈都只允许有一个实例。重点在从第 4 步开始，由于最开始的 M 是 Standard 模式启动的，而第 4 步中 C 也是 Standard 模式，也就导致本来在最底下的任务栈 <code>/M&gt;</code> 被移到了 “任务栈的总栈” 的栈顶，并将 C 压入了 <code>/M&gt;</code> 所在的这个栈顶，因此从 C 返回的时候会先返回到 M，然后才是按顺序下来的 A → B。</p>
 
       
     </div>
@@ -1011,7 +1189,7 @@
                   <a href="/archives/">
                 
                     
-                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-count">49</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1181,7 +1359,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">58</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1292,7 +1480,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Activity"><span class="nav-text">1. Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Activity生命周期"><span class="nav-text">1.1 Activity生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Context"><span class="nav-text">1.2 Context</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Activity的启动和退出"><span class="nav-text">2. Activity的启动和退出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-启动Activity"><span class="nav-text">2.1 启动Activity</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-退出Activity"><span class="nav-text">2.2 退出Activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Activity启动模式"><span class="nav-text">3. Activity启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Standard模式"><span class="nav-text">3.1 Standard模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-SingleTop模式"><span class="nav-text">3.2 SingleTop模式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Activity"><span class="nav-text">1. Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Activity生命周期"><span class="nav-text">1.1 Activity生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Context"><span class="nav-text">1.2 Context</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Activity的启动和退出"><span class="nav-text">2. Activity的启动和退出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-启动Activity"><span class="nav-text">2.1 启动Activity</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-退出Activity"><span class="nav-text">2.2 退出Activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Activity启动模式"><span class="nav-text">3. Activity启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Standard模式"><span class="nav-text">3.1 Standard模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-SingleTop模式"><span class="nav-text">3.2 SingleTop模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-SingleTask模式"><span class="nav-text">3.3 SingleTask模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-SingleInstance模式"><span class="nav-text">3.4 SingleInstance模式</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1326,7 +1514,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">311k</span>
+    <span title="博客总字数">325k</span>
   
 
   
@@ -1335,7 +1523,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:46</span>
+    <span title="博客总阅读时长">6:01</span>
   
 </div>
 
