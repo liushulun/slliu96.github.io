@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-6-avatar-title/avatar_rotate_hover.gif">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-6-avatar-title/avatar_rotate_normal.gif">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-6-avatar-title/animate_browser_title.gif">
-<meta property="og:updated_time" content="2019-12-08T16:01:05.479Z">
+<meta property="og:updated_time" content="2020-03-12T14:13:07.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（6）动态头像与动态浏览器标题">
 <meta name="twitter:description" content="（1）给博客侧栏的头像添加旋转动画；（2）给博客的浏览器标签页添加动态改变效果。">
@@ -739,11 +739,11 @@
 <p><img src="/post_files/blogdiy/blogdiy-6-avatar-title/animate_browser_title.gif" alt="浏览器标签页动态标题" title="TOPICS"></p>
 </center>
 
-<p>首先在 <code>next/source/custom/</code> 下找一个地方新建一个 dynamic_title.js 文件（路径和文件名均可自定义），输入以下内容：</p>
+<p>首先在 <code>next/source/custom/</code> 下找一个地方新建一个 animator_title.js 文件（路径和文件名均可自定义），输入以下内容：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--动态浏览器标签--&gt;</span><br><span class="line"> <span class="keyword">var</span> OriginTitle = <span class="built_in">document</span>.title;</span><br><span class="line"> <span class="keyword">var</span> titleTime;</span><br><span class="line"> <span class="keyword">var</span> titleTime2;</span><br><span class="line"> <span class="keyword">var</span> titleTime3;</span><br><span class="line"> <span class="built_in">document</span>.addEventListener(<span class="string">'visibilitychange'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (<span class="built_in">document</span>.hidden) &#123;</span><br><span class="line">         $(<span class="string">'[rel="icon"]'</span>).attr(<span class="string">'href'</span>, <span class="string">"/images/favicon-32x32-next.png"</span>);</span><br><span class="line">         <span class="built_in">document</span>.title = <span class="string">"Waiting..."</span>;</span><br><span class="line">         clearTimeout(titleTime);</span><br><span class="line">         clearTimeout(titleTime2);</span><br><span class="line">         clearTimeout(titleTime3);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="built_in">document</span>.title = <span class="string">"Welcome"</span>;</span><br><span class="line">         titleTime = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">             <span class="built_in">document</span>.title = <span class="string">"Back"</span>;</span><br><span class="line">             titleTime2 = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                 <span class="built_in">document</span>.title = <span class="string">"Welcome Back !"</span>;</span><br><span class="line">                 titleTime3 = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                     <span class="built_in">document</span>.title = OriginTitle;</span><br><span class="line">                 &#125;, <span class="number">800</span>);</span><br><span class="line">             &#125;, <span class="number">500</span>);</span><br><span class="line">         &#125;, <span class="number">500</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
 
 <p>然后打开 <code>next/layout/_layout.swig</code> ，在最底下定格加入如下代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"/custom/dynamic_title.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"/custom/animator_title.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
 <p>具体的文件名和路径请按照自己的实际情况修改。其实我这个效果做的太 Low 了，从别的网页切回来就是三个定时器的嵌套，不知道有没有办法可以重用定时器，还望大佬指明。</p>
 <p>另外，<code>icon</code> 处可以自定义一个小图像，可以是本地图像也可以是网络图片。不过需要注意的是，这里如果选择本地图片，“/”表示的就不是博客根目录了，而是主题根目录，所以“/images/”其实和“blog/themes/next/images/”是等价的。同理，在主题配置文件中的 <code>favicon</code> 选项设置的也是浏览器标签页小图标，指定的路径也是以主题根目录为起始路径的。</p>
@@ -989,7 +989,7 @@
                   <a href="/archives/">
                 
                     
-                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-count">50</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1025,7 +1025,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1167,7 +1169,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">64</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1312,7 +1318,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">311k</span>
+    <span title="博客总字数">312k</span>
   
 
   
@@ -1321,7 +1327,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:45</span>
+    <span title="博客总阅读时长">5:47</span>
   
 </div>
 
@@ -1866,4 +1872,4 @@
 </html>
 
 <!--动态浏览器标题-->
-<script type="text/javascript" src="/custom/dynamic_title.js"></script>
+<script type="text/javascript" src="/custom/animator_title.js"></script>
