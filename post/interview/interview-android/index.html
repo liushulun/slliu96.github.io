@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="Android 开发中涉及到的知识体系。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-12T14:36:34.949Z">
+<meta property="og:updated_time" content="2020-03-13T20:00:42.807Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android面试题汇总">
 <meta name="twitter:description" content="Android 开发中涉及到的知识体系。">
@@ -442,8 +442,8 @@
         </style>
         <div class="post-nav-next post-nav-item">
           
-            <a href="/post/interview/interview-java/" rel="next" title="Java面试题汇总">
-              <i class="fa fa-chevron-left"></i> Java面试题汇总
+            <a href="/post/interview/interview-network/" rel="next" title="Network面试题汇总">
+              <i class="fa fa-chevron-left"></i> Network面试题汇总
             </a>
           
         </div>
@@ -451,6 +451,10 @@
         <span class="post-nav-divider"></span>
 
         <div class="post-nav-prev post-nav-item">
+          
+            <a href="/post/note/Android面试/" rel="prev" title="Android面试临时总结">
+              Android面试临时总结 <i class="fa fa-chevron-right"></i>
+            </a>
           
         </div>
       </div>
@@ -536,7 +540,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">8.3k</span>
+                <span title="全文字数">13k</span>
               
 
               
@@ -550,7 +554,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">9 分钟</span>
+                <span title="阅读时长">14 分钟</span>
               
             </div>
           
@@ -792,6 +796,16 @@
 <h1 id="同步锁"><a href="#同步锁" class="headerlink" title="同步锁"></a>同步锁</h1><hr>
 <h1 id="Java反射"><a href="#Java反射" class="headerlink" title="Java反射"></a>Java反射</h1><hr>
 <h1 id="其他细节-1"><a href="#其他细节-1" class="headerlink" title="其他细节"></a>其他细节</h1><h2 id="finally什么时候执行"><a href="#finally什么时候执行" class="headerlink" title="- finally什么时候执行"></a>- finally什么时候执行</h2><p>当 <code>try - catch</code> 中使用 <code>break</code> 或 <code>return</code> 返回时，<code>finally</code> 会执行，当调用了 <code>System.exit(0)</code> 退出时，由于直接终止了 JVM，因此 <code>finally</code> 不会执行。</p>
+<p>在 try - catch 中的 return 语句执行之后、方法返回之前，程序会将 return 的返回值写入内存中，然后等待 finally 语句执行完，如果在 finally 代码块中，只改变了引用（例如对变量重新赋值），由于 return 时已经将返回值写入了内存中，则不会改变，而如果是改变了同一个变量的值，则会改变。如果 finally 中包含 return 语句，则会覆盖原本的return。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123;</span><br><span class="line">        i = <span class="number">20</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(getValue());</span><br></pre></td></tr></table></figure>
+
+<p>输出 10。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123;</span><br><span class="line">        i = <span class="number">20</span>;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(getValue());</span><br></pre></td></tr></table></figure>
+
+<p>输出 20。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"AAA"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> sb.append(<span class="string">"BBB"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123;</span><br><span class="line">        sb.append(<span class="string">"CCC"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(getValue());</span><br></pre></td></tr></table></figure>
+
+<p>输出 “AAABBBCCC”。</p>
 <h2 id="为什么方法参数要加final才能在子线程内使用"><a href="#为什么方法参数要加final才能在子线程内使用" class="headerlink" title="- 为什么方法参数要加final才能在子线程内使用"></a>- 为什么方法参数要加final才能在子线程内使用</h2><hr>
 <h1 id="App架构"><a href="#App架构" class="headerlink" title="App架构"></a>App架构</h1><p>App 架构的核心思想，主要就是为了降低 UI 逻辑和数据业务逻辑之间的耦合度。</p>
 <br>
@@ -934,8 +948,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/interview/interview-java/" rel="next" title="Java面试题汇总">
-                <i class="fa fa-chevron-left"></i> Java面试题汇总
+              <a href="/post/interview/interview-network/" rel="next" title="Network面试题汇总">
+                <i class="fa fa-chevron-left"></i> Network面试题汇总
               </a>
             
           </div>
@@ -943,6 +957,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/note/Android面试/" rel="prev" title="Android面试临时总结">
+                Android面试临时总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -1045,7 +1063,7 @@
                   <a href="/archives/">
                 
                     
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1229,7 +1247,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">64</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1374,7 +1400,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">312k</span>
+    <span title="博客总字数">351k</span>
   
 
   
@@ -1383,7 +1409,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:47</span>
+    <span title="博客总阅读时长">6:29</span>
   
 </div>
 

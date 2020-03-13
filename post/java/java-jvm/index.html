@@ -100,19 +100,19 @@
 
 
 
-  <meta name="description" content="（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（3）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（4）JDK 1.8 之前和之后 JVM 内存模型的区别。">
+  <meta name="description" content="（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 的内存模型；（3）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（4）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（5）JDK 1.8 之前和之后 JVM 内存模型的区别。">
 <meta name="keywords" content="Java,数据结构,内存模型,JVM内存区">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM内存模型">
+<meta property="og:title" content="JVM内存模型和内存分区">
 <meta property="og:url" content="https://www.liushulun.cn/post/java/java-jvm/index.html">
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
-<meta property="og:description" content="（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（3）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（4）JDK 1.8 之前和之后 JVM 内存模型的区别。">
+<meta property="og:description" content="（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 的内存模型；（3）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（4）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（5）JDK 1.8 之前和之后 JVM 内存模型的区别。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/java/java-jvm/complete_binary_tree.jpg">
-<meta property="og:updated_time" content="2019-12-08T16:03:22.484Z">
+<meta property="og:updated_time" content="2020-03-13T22:10:53.409Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM内存模型">
-<meta name="twitter:description" content="（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（3）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（4）JDK 1.8 之前和之后 JVM 内存模型的区别。">
+<meta name="twitter:title" content="JVM内存模型和内存分区">
+<meta name="twitter:description" content="（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 的内存模型；（3）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（4）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（5）JDK 1.8 之前和之后 JVM 内存模型的区别。">
 <meta name="twitter:image" content="https://www.liushulun.cn/post_files/java/java-jvm/complete_binary_tree.jpg">
 
 
@@ -133,7 +133,7 @@
   };
 </script>
 
-  <title>JVM内存模型 | SLLiu's Blogs</title>
+  <title>JVM内存模型和内存分区 | SLLiu's Blogs</title>
   
 
 
@@ -489,7 +489,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">JVM内存模型
+          <h2 class="post-title" itemprop="name headline">JVM内存模型和内存分区
 
               
             
@@ -542,7 +542,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">12k</span>
+                <span title="全文字数">13k</span>
               
 
               
@@ -556,7 +556,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">13 分钟</span>
+                <span title="阅读时长">15 分钟</span>
               
             </div>
           
@@ -566,7 +566,7 @@
           
           
           
-            <span id="/post/java/java-jvm/" class="leancloud_visitors" data-flag-title="JVM内存模型">
+            <span id="/post/java/java-jvm/" class="leancloud_visitors" data-flag-title="JVM内存模型和内存分区">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -691,7 +691,7 @@
         
           <div class="post-description"><span style="color: #EB6D39">
                   简介：
-                </span>（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（3）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（4）JDK 1.8 之前和之后 JVM 内存模型的区别。
+                </span>（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 的内存模型；（3）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（4）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（5）JDK 1.8 之前和之后 JVM 内存模型的区别。
             
               <p>
                 <style type="text/css">
@@ -713,7 +713,7 @@
 
         <a id="more"></a>
 
-<p>前言：Java 和 Android 面试中，堆、栈、JVM 内存模型等几乎是必问题，但其实平时口头上，对堆、栈、堆栈、堆区、栈区等等的概念是混淆的，因此专门用一篇文章来记录总结。</p>
+<p>前言：Java 和 Android 面试中，堆、栈、JVM 内存模型等几乎是必问题，但其实平时口头上，对堆、栈、堆栈、堆区、栈区、内存模型等等的概念是混淆的，因此专门用一篇文章来记录总结。</p>
 <hr>
 <h1 id="1-堆、栈和队列"><a href="#1-堆、栈和队列" class="headerlink" title="1. 堆、栈和队列"></a>1. 堆、栈和队列</h1><p>首先需要明确的是，堆、栈、队列是数据结构，堆是一种优先队列，可以采用二叉树实现；栈是一种线性表，其特点是：后进先出（Last In First Out，LIFO）；队列也是一种线性表，其特点是：先进先出（First In First Out，FIFO）。</p>
 <br>
@@ -733,12 +733,31 @@
 
 <h2 id="1-3-队列（Queue）"><a href="#1-3-队列（Queue）" class="headerlink" title="1.3 队列（Queue）"></a>1.3 队列（Queue）</h2><p>队列（Queue）和栈类似，都是线性表，不同的是数据存取的顺序。队列中插入数据和取出数据分别在表的两端，且先插入的数据最先被取出。</p>
 <hr>
-<h1 id="2-JVM中的5个区"><a href="#2-JVM中的5个区" class="headerlink" title="2. JVM中的5个区"></a>2. JVM中的5个区</h1><p>在 JDK 1.8（不含）之前，JVM 的内存模型分为 5 个区：堆区、栈区、方法区、本地方法区、程序计数器。</p>
+<h1 id="2-JVM内存模型"><a href="#2-JVM内存模型" class="headerlink" title="2. JVM内存模型"></a>2. JVM内存模型</h1><p>首先需要强调一点：<font color="#EB6D39">JVM 的内存模型和 JVM 的内存分区（内存结构）<font color="red">不是一回事</font>！</font></p>
+<p>JVM 内存模型描述了 Java 程序各类型变量的访问规则，以及在 JVM 中将变量从内存中存储或读取的底层标准。</p>
+<p>JVM 内存模型有两个重要准则：</p>
+<ul>
+<li><p>所有的变量都存储在主内存中。</p>
+</li>
+<li><p>每个线程都有自己的工作内存，里面保存了该线程使用到的变量在主内存中的一个副本。</p>
+</li>
+</ul>
+<p>并且 JVM 的内存模型还规定：</p>
+<ul>
+<li><p>线程对共享变量的所有操作都必须在自己的工作内存中进行，不能直接从主内存中读写。</p>
+</li>
+<li><p>不同线程之间无法访问其他线程工作内存中的变量，线程间变量值的传递需要通过主内存来完成。</p>
+</li>
+</ul>
+<p>为了在多个线程访问同一个共享变量时，能保证共享变量具有实时性，JVM 内存模型还遵循：缓存一致性协议。该协议规定，如果一个线程将共享变量回写进主内存，该动作会导致其他线程中的该共享变量的 Cache 失效，但线程在修改完一个共享变量时，并不一定会马上将其回写进主内存，而 <code>volatile</code> 修饰符即是用来声明，一个变量在被修改（写入）后，立即回写进主内存，并更新到其他线程中。</p>
+<p>可参考：<a href="https://www.jianshu.com/p/bf158fbb2432" title="TOLINSK" target="_blank" rel="noopener">什么是Java内存模型</a></p>
+<hr>
+<h1 id="3-JVM中的5个区"><a href="#3-JVM中的5个区" class="headerlink" title="3. JVM中的5个区"></a>3. JVM中的5个区</h1><p>在 JDK 1.8（不含）之前，JVM 的内存分为 5 个区：堆区、栈区、方法区、本地方法区、程序计数器。</p>
 <p>堆区（Heap）和栈区（Stack）是内存模型，虽然英文一样，而且也常常被简称为堆和栈，但实际上他们和数据结构中的堆、栈是完全不一样的概念，底层也并不是直接使用数据结构中的堆和栈的存储方式来实现，只是比较类似。</p>
 <p>堆区是存储的单位，而栈区是运行时的单位。通俗地说：堆区解决程序数据存储的问题，负责管理数据怎么放、放在哪；而栈区解决程序运行的问题，负责管理程序怎么运行、怎么处理堆中的数据。</p>
 <br>
 
-<h2 id="2-1-堆区（Heap-Area）"><a href="#2-1-堆区（Heap-Area）" class="headerlink" title="2.1 堆区（Heap Area）"></a>2.1 堆区（Heap Area）</h2><p>堆区通常和进程相关，进程建立初始化时会分配默认堆区，运行过程中也可以申请额外的堆区空间，但在需要手动释放，否则会导致内存泄漏，未释放的内存在进程结束时由 OS 回收。堆区分为全局堆和局部堆，全局堆就是所有未分配的堆区空间，局部堆则是用户分配的堆区空间。多个线程可以访问同一个堆区，当然也可以申请额外的堆区空间。</p>
+<h2 id="3-1-堆区（Heap-Area）"><a href="#3-1-堆区（Heap-Area）" class="headerlink" title="3.1 堆区（Heap Area）"></a>3.1 堆区（Heap Area）</h2><p>堆区通常和进程相关，进程建立初始化时会分配默认堆区，运行过程中也可以申请额外的堆区空间，但在需要手动释放，否则会导致内存泄漏，未释放的内存在进程结束时由 OS 回收。堆区分为全局堆和局部堆，全局堆就是所有未分配的堆区空间，局部堆则是用户分配的堆区空间。多个线程可以访问同一个堆区，当然也可以申请额外的堆区空间。</p>
 <p>在 Android 中，堆是 Dalvik 的内存数据区，用于存储：对象实例数据、方法内部的复杂类型变量、动态属性。</p>
 <ul>
 <li>（1）对象实例数据：包括对象实例的属性、属性类型、对象本身的类型标记等，但是并不会保存对象实例的方法（类方法），实例方法属于数据指令，保存在方法区中。</li>
@@ -770,7 +789,7 @@
 <p>（3）永久代：一般用来存放类的信息（包括类名、类方法、字段信息等）、静态变量、常量池等不会改变的数据，但在 JDK 1.8 开始就使用元数据区取代了了永久代。</p>
 <br>
 
-<h2 id="2-2-栈区（Stack-Area）"><a href="#2-2-栈区（Stack-Area）" class="headerlink" title="2.2 栈区（Stack Area）"></a>2.2 栈区（Stack Area）</h2><p>栈区和线程相关，每个线程有自己独立的栈区且不共享，因此栈区是线程安全的。OS 在切换线程时会自动切换栈区（即切换 SS / ESP 寄存器）。栈区内存不需要手动分配和释放。</p>
+<h2 id="3-2-栈区（Stack-Area）"><a href="#3-2-栈区（Stack-Area）" class="headerlink" title="3.2 栈区（Stack Area）"></a>3.2 栈区（Stack Area）</h2><p>栈区和线程相关，每个线程有自己独立的栈区且不共享，因此栈区是线程安全的。OS 在切换线程时会自动切换栈区（即切换 SS / ESP 寄存器）。栈区内存不需要手动分配和释放。</p>
 <p>在 Android 中，栈是 Dalvik 的内存指令区，用于存储：基本数据类型、方法内部的简单类型变量、对象地址。</p>
 <ul>
 <li>（1）基本数据类型：包括 byte，short，int，long，float，double，char，boolean，需要注意的是，直接在类成员变量中声明的基本数据类型属性，依然随对象实例一起存放在堆中。</li>
@@ -789,7 +808,7 @@
 
 <br>
 
-<h2 id="2-3-方法区（Method-Area）"><a href="#2-3-方法区（Method-Area）" class="headerlink" title="2.3 方法区（Method Area）"></a>2.3 方法区（Method Area）</h2><p>方法区和堆一样，是线程间共享的。方法区用于存放：类的信息、静态成员变量、运行时常量池等。</p>
+<h2 id="3-3-方法区（Method-Area）"><a href="#3-3-方法区（Method-Area）" class="headerlink" title="3.3 方法区（Method Area）"></a>3.3 方法区（Method Area）</h2><p>方法区和堆一样，是线程间共享的。方法区用于存放：类的信息、静态成员变量、运行时常量池等。</p>
 <ul>
 <li>（1）类的信息：包括类名、方法信息、字段信息等，调用 <code>Class.getName()</code> 和 <code>Class.isInterface</code> 等方法时返回的数据都是来自方法区。</li>
 <li>（2）静态成员变量：Java 局部变量没有静态的概念，只有成员变量、成员方法可以设置为静态。</li>
@@ -805,22 +824,28 @@
 
 <br>
 
-<h2 id="2-4-本地方法栈（Native-Method-Stack）"><a href="#2-4-本地方法栈（Native-Method-Stack）" class="headerlink" title="2.4 本地方法栈（Native Method Stack）"></a>2.4 本地方法栈（Native Method Stack）</h2><p>本地方法区和方法栈（也即栈区）比较类似，区别在于栈区是针对普通方法的，而本地方法栈是针对 Native 方法的。JVM 规范中没有强行规定本地方法栈的实现方式和数据结构，虚拟机可以自由实现，HotSpot 虚拟机就直接把栈区和本地方法栈合二为一。</p>
+<h2 id="3-4-本地方法栈（Native-Method-Stack）"><a href="#3-4-本地方法栈（Native-Method-Stack）" class="headerlink" title="3.4 本地方法栈（Native Method Stack）"></a>3.4 本地方法栈（Native Method Stack）</h2><p>本地方法区和方法栈（也即栈区）比较类似，区别在于栈区是针对普通方法的，而本地方法栈是针对 Native 方法的。JVM 规范中没有强行规定本地方法栈的实现方式和数据结构，虚拟机可以自由实现，HotSpot 虚拟机就直接把栈区和本地方法栈合二为一。</p>
 <br>
 
-<h2 id="2-5-程序计数器（Program-Counter-Register）"><a href="#2-5-程序计数器（Program-Counter-Register）" class="headerlink" title="2.5 程序计数器（Program Counter Register）"></a>2.5 程序计数器（Program Counter Register）</h2><p>JVM 中的程序计数器和汇编中的程序计数器（CPU 中的寄存器）概念类似，都是用于指示下一条需要执行的指令，只不过 JVM 中的程序计数器并不是指向物理意义上的真实 CPU 内存地址。JVM 中的程序计数器是线程独有的，指向的是当前线程正在执行的字节码代码的行号，如果当前线程执行的是 Native 方法，则值为 <code>null</code>。</p>
+<h2 id="3-5-程序计数器（Program-Counter-Register）"><a href="#3-5-程序计数器（Program-Counter-Register）" class="headerlink" title="3.5 程序计数器（Program Counter Register）"></a>3.5 程序计数器（Program Counter Register）</h2><p>JVM 中的程序计数器和汇编中的程序计数器（CPU 中的寄存器）概念类似，都是用于指示下一条需要执行的指令，只不过 JVM 中的程序计数器并不是指向物理意义上的真实 CPU 内存地址。JVM 中的程序计数器是线程独有的，指向的是当前线程正在执行的字节码代码的行号，如果当前线程执行的是 Native 方法，则值为 <code>null</code>。</p>
 <hr>
-<h1 id="3-JVM中的4个Segment"><a href="#3-JVM中的4个Segment" class="headerlink" title="3. JVM中的4个Segment"></a>3. JVM中的4个Segment</h1><p>如果在网上查阅 JVM 分区的内容，会出现两种回答：</p>
+<h1 id="4-JVM中的4个Segment"><a href="#4-JVM中的4个Segment" class="headerlink" title="4. JVM中的4个Segment"></a>4. JVM中的4个Segment</h1><p>如果在网上查阅 JVM 分区的内容，会出现两种回答：</p>
 <ul>
 <li>（1）JVM 内存模型分为 4 个区：Heap、Stack、Data Segment、Code Segment</li>
 <li>（2）JVM 内存模型分为 5 个区：Heap、Stack、Method、Native Method、Program Counter Register</li>
 </ul>
 <p>其实这两种分法都对，只不过是针对不同的场景分的，个人认为分为 5 个区的更加全面一些。两种分类中，Heap 和 Stack 都是一一对应的，关键是其他部分，方法区是一个特例。在 HotSpot 虚拟机中，由于早期（JDK 1.8（不含）之前）是直接将方法区设置为永久代（Permanent Generation），也即方法区内的所有数据都不会被 GC，因此方法区也被习惯称为永久代。而方法区同时对应了 Data Segment 和 Code Segment，方法区中存储字节码的位置称为 代码段（Code Segment），存储静态常量和字符串常量的位置称为数据段（Data Segment）。</p>
 <hr>
-<h1 id="4-JDK8内存模型的变化"><a href="#4-JDK8内存模型的变化" class="headerlink" title="4. JDK8内存模型的变化"></a>4. JDK8内存模型的变化</h1><p>在 JDK 1.8 中，对之前 5 个内存区的划分做了一些改变。</p>
+<h1 id="5-JDK8内存分区的变化"><a href="#5-JDK8内存分区的变化" class="headerlink" title="5. JDK8内存分区的变化"></a>5. JDK8内存分区的变化</h1><p>在 JDK 1.8 中，对之前 5 个内存区的划分做了一些改变。</p>
 <p>首先是使用 <font color="#EB6D39">元数据区 </font> 取代了方法区，但实际上元数据区的作用和原来方法区的作用是几乎一样的，只不过不再是永久代（针对 HotSpot 虚拟机，其他虚拟机例如 Oracle 的 JRockit 和 IDM 的 J9 本来就没有永久代）。</p>
 <p>其次，元数据区不再存放在虚拟机内存中了，而是直接使用本地内存（由 OS 管理的内存）。</p>
 <p>另外，原来的字符串常量池存放在方法区中，新版 JDK 放到了堆区。</p>
+<hr>
+<h1 id="6-附录-参考指导"><a href="#6-附录-参考指导" class="headerlink" title="6. 附录[参考指导]"></a>6. 附录[参考指导]</h1><blockquote>
+<ul>
+<li><a href="https://www.jianshu.com/p/bf158fbb2432" title="TOLINSK" target="_blank" rel="noopener">【1】什么是Java内存模型（作者：占小狼）<sup>【注】</sup></a></li>
+</ul>
+</blockquote>
 
       
     </div>
@@ -867,7 +892,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://www.liushulun.cn/post/java/java-jvm/" title="JVM内存模型">https://www.liushulun.cn/post/java/java-jvm/</a>
+    <a href="https://www.liushulun.cn/post/java/java-jvm/" title="JVM内存模型和内存分区">https://www.liushulun.cn/post/java/java-jvm/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -1055,7 +1080,7 @@
                   <a href="/archives/">
                 
                     
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1239,7 +1264,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">64</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1350,7 +1383,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-堆、栈和队列"><span class="nav-text">1. 堆、栈和队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-堆（Heap）"><span class="nav-text">1.1 堆（Heap）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-栈（Stack）"><span class="nav-text">1.2 栈（Stack）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-队列（Queue）"><span class="nav-text">1.3 队列（Queue）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-JVM中的5个区"><span class="nav-text">2. JVM中的5个区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-堆区（Heap-Area）"><span class="nav-text">2.1 堆区（Heap Area）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-栈区（Stack-Area）"><span class="nav-text">2.2 栈区（Stack Area）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-方法区（Method-Area）"><span class="nav-text">2.3 方法区（Method Area）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-本地方法栈（Native-Method-Stack）"><span class="nav-text">2.4 本地方法栈（Native Method Stack）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-程序计数器（Program-Counter-Register）"><span class="nav-text">2.5 程序计数器（Program Counter Register）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-JVM中的4个Segment"><span class="nav-text">3. JVM中的4个Segment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-JDK8内存模型的变化"><span class="nav-text">4. JDK8内存模型的变化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-堆、栈和队列"><span class="nav-text">1. 堆、栈和队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-堆（Heap）"><span class="nav-text">1.1 堆（Heap）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-栈（Stack）"><span class="nav-text">1.2 栈（Stack）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-队列（Queue）"><span class="nav-text">1.3 队列（Queue）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-JVM内存模型"><span class="nav-text">2. JVM内存模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-JVM中的5个区"><span class="nav-text">3. JVM中的5个区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-堆区（Heap-Area）"><span class="nav-text">3.1 堆区（Heap Area）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-栈区（Stack-Area）"><span class="nav-text">3.2 栈区（Stack Area）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-方法区（Method-Area）"><span class="nav-text">3.3 方法区（Method Area）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-本地方法栈（Native-Method-Stack）"><span class="nav-text">3.4 本地方法栈（Native Method Stack）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-程序计数器（Program-Counter-Register）"><span class="nav-text">3.5 程序计数器（Program Counter Register）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-JVM中的4个Segment"><span class="nav-text">4. JVM中的4个Segment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-JDK8内存分区的变化"><span class="nav-text">5. JDK8内存分区的变化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-附录-参考指导"><span class="nav-text">6. 附录[参考指导]</span></a></li></ol></div>
             
 
           </div>
@@ -1384,7 +1417,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">312k</span>
+    <span title="博客总字数">351k</span>
   
 
   
@@ -1393,7 +1426,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">5:47</span>
+    <span title="博客总阅读时长">6:29</span>
   
 </div>
 
