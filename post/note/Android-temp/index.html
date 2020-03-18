@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="N/A">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-14T00:31:18.036Z">
+<meta property="og:updated_time" content="2020-03-18T23:42:00.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android面试临时总结">
 <meta name="twitter:description" content="N/A">
@@ -442,8 +442,8 @@
         </style>
         <div class="post-nav-next post-nav-item">
           
-            <a href="/post/interview/interview-java/" rel="next" title="Java面试题汇总">
-              <i class="fa fa-chevron-left"></i> Java面试题汇总
+            <a href="/post/interview/interview-android/" rel="next" title="Android面试题汇总">
+              <i class="fa fa-chevron-left"></i> Android面试题汇总
             </a>
           
         </div>
@@ -536,7 +536,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">90k</span>
+                <span title="全文字数">111k</span>
               
 
               
@@ -550,7 +550,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1:40</span>
+                <span title="阅读时长">2:03</span>
               
             </div>
           
@@ -722,13 +722,56 @@
 <li><a href="/post/android/android-handler/" title="TOLINKS">Handler</a></li>
 </ul>
 <hr>
-<h1 id="4-介绍一下FFmpeg"><a href="#4-介绍一下FFmpeg" class="headerlink" title="4. 介绍一下FFmpeg"></a>4. 介绍一下FFmpeg</h1><p>JNI调用FFmpeg压缩：FFmpeg的命令如：<br>mCmds = “ffmpeg -y -i “ + selectedAviFile + “ -strict -2 -vcodec libx264 -preset ultrafast -crf 20 -acodec copy -ar 44100 -ac 2 -b:a 96k -vf scale=-1:800 “ + compressedFile;<br>把这些命令按参数分成指令数组：<br>String[] cmds = mCmds.split(“ “);<br>再调用FFmpeg执行：<br>FfmpegKit.exec(cmds, new FfmpegKit.OnExecListener() {public void onExecuted(int ret)})</p>
+<h1 id="FFmpeg"><a href="#FFmpeg" class="headerlink" title="FFmpeg"></a>FFmpeg</h1><p>JNI调用FFmpeg压缩：FFmpeg的命令如：<br>mCmds = “ffmpeg -y -i “ + selectedAviFile + “ -strict -2 -vcodec libx264 -preset ultrafast -crf 20 -acodec copy -ar 44100 -ac 2 -b:a 96k -vf scale=-1:800 “ + compressedFile;<br>把这些命令按参数分成指令数组：<br>String[] cmds = mCmds.split(“ “);<br>再调用FFmpeg执行：<br>FfmpegKit.exec(cmds, new FfmpegKit.OnExecListener() {public void onExecuted(int ret)})</p>
 <hr>
 <h1 id="四大组件√"><a href="#四大组件√" class="headerlink" title="四大组件√"></a>四大组件√</h1><ul>
-<li><a href="/post/android/android-activity/" title="TOLINKS">Activity</a></li>
-<li><a href="/post/android/android-service/" title="TOLINKS">Service</a></li>
-<li><a href="/post/android/android-broadcastreceiver/" title="TOLINKS">BroadcastReceiver</a></li>
-<li><a href="/post/android/android-contentprovider/" title="TOLINKS">ContentProvider</a></li>
+<li><p><a href="/post/android/android-activity/" title="TOLINKS">Activity</a></p>
+</li>
+<li><p><a href="/post/android/android-service/" title="TOLINKS">Service</a></p>
+</li>
+<li><p><a href="/post/android/android-broadcastreceiver/" title="TOLINKS">BroadcastReceiver</a></p>
+</li>
+<li><p><a href="/post/android/android-contentprovider/" title="TOLINKS">ContentProvider</a></p>
+</li>
+<li><p>service的保活</p>
+</li>
+</ul>
+<p>Android8开始，Google针对资源控制限制了后台服务，不允许后台应用启动后台服务（startService），只能startForgroundService启动前台服务，创建Service后，必须在5s内调用startForeground()，否则会抛出ANR（启动Service时，会调用ActiveServices.setServiceForegroundInnerLocked()，创建一个5s的定时任务，startForeground()中将fgRequired设置为false，setServiceForegroundInnerLocked()会if判断，如果fgRequired==false则说明已经安全处理），一般在onStartCommand()中调用。而且源码中，foreground的notification==null或id==0都会抛出null notification异常，因此启动前台服务一定会创建一个通知。</p>
+<p>而想要Service保活，可以由某个前台Activity启动Service，且onStartCommand()返回<code>return START_STICKY;</code>，当Activity转至后台，则Service1分钟左右就会被系统杀死，并回调onDestroy()方法，可以在该方法中，启动一个新的Activity，并在新的Activity的onCreate()中将当前Activity设置为只有一个像素大小的透明的背景（getWindow，window.setGravity，params=window.getAttributes，params.x，params.y，params.width，params.height，window.setAttributes(params)），并且设置（getwindow().addFlags()）不可点击（WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE）以及不关心外部触摸事件（WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH），然后再在该Activity中启动Service并finish掉自己。</p>
+<p>或者，同族的应用，可以互相唤醒。</p>
+<hr>
+<h1 id="五大存储"><a href="#五大存储" class="headerlink" title="五大存储"></a>五大存储</h1><ul>
+<li>SharedPreference</li>
+</ul>
+<p>Context.getSharedPreferences(String name, int mode);</p>
+<p>其中mode有：私有（MODE_PRIVATE）、公共读（MODE_WORLD_READABLE，已弃用）、公共写（MODE_WORLD_WRITEABLE，已弃用）、跨进程（MODE_MULTI_PROCESS，已弃用）</p>
+<p>SP的本质是HashMap，存储的是键值对数据，在本地存储中以xml文件的形式保存。</p>
+<p>SP本身是线程安全的，读写都用synchronized锁住了，但由于每次修改都会生成一个EditorImpl对象，因此最好是批量处理，最后统一提交。</p>
+<p>提交时有两种方案，commit在UI线程，apply在子线程，使用commit如果耗时太长超过5s，会导致ANR，使用commit，如果提交时关闭Activity，会检查一个工作任务队列sPendingWorkFinishers中的任务是否全部完成，如果有未完成的任务，就会一直等待，所以如果commit太大量的数据导致Activity结束时等待超过5s，一样会导致ANR。</p>
+<p>由于读取本地文件的性能开销很大，所以SP读取数据后，会一直保存在内存，因此如果存放了过大的数据，会导致频繁GC甚至OOM。</p>
+<p>如果SP数据较多，频繁读取的数据和非频繁读取的数据最好分成不同的SP文件。</p>
+<ul>
+<li>SQLite</li>
+</ul>
+<p>（1）插入数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TableName <span class="keyword">VALUES</span> (<span class="string">'data'</span>, <span class="string">'data'</span>, ...);</span><br></pre></td></tr></table></figure>
+
+<p>（2）删除数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> TableName <span class="keyword">WHERE</span> <span class="keyword">attr</span>=<span class="string">'data'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>（3）更新数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> TableName <span class="keyword">set</span> attr1=<span class="string">'data'</span> <span class="keyword">WHERE</span> attr2=<span class="string">'data2'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>（4）查询数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> TableName;</span><br><span class="line"><span class="keyword">SELECT</span> attr1, attr2 <span class="keyword">FROM</span> TableName <span class="keyword">WHERE</span> <span class="keyword">attr</span>=<span class="string">'data'</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>文件存储</p>
+</li>
+<li><p>网络存储</p>
+</li>
+<li><p><a href="/post/android/android-contentprovider/" title="TOLINKS">ContentProvider</a></p>
+</li>
 </ul>
 <hr>
 <h1 id="getWidth和getMeasureWidth的区别√"><a href="#getWidth和getMeasureWidth的区别√" class="headerlink" title="- getWidth和getMeasureWidth的区别√"></a>- getWidth和getMeasureWidth的区别√</h1><p><code>getMeasureWidth</code> 是 View 自己测量自己的宽度，<code>getWidth</code> 是 View 的父布局测量的高度，当屏幕可显示范围小于 View 本身的宽高时，<code>getMeasureWidth</code> 得到的仍然是 View 本身的宽高，而 <code>getWidth</code> 得到的是屏幕实际显示的宽高</p>
@@ -739,9 +782,19 @@
 <hr>
 <h1 id="Java引用的实现√"><a href="#Java引用的实现√" class="headerlink" title="Java引用的实现√"></a>Java引用的实现√</h1><p><a href="/post/interview/interview-java/#Java引用的实现" title="TOLINKS">跳转</a></p>
 <hr>
-<h1 id="HashMap√"><a href="#HashMap√" class="headerlink" title="- HashMap√"></a>- HashMap√</h1><p>答：<a href="/post/java/java-hashmap/" title="TOLINKS">HashMap</a></p>
+<h1 id="HashMap√"><a href="#HashMap√" class="headerlink" title="HashMap√"></a>HashMap√</h1><p>答：<a href="/post/java/java-hashmap/" title="TOLINKS">HashMap</a></p>
+<p>hashmap hasTable ConcurrentHashMap的区别</p>
+<p>HashTable 的 Key 和 Value 都不能为 null，线程安全，在修改数据时给 put() 加锁锁住整个HashTable。</p>
+<p>hashmap key 和 value 都可以是 null，线程不安全。</p>
+<p>concurrentHashMap 将整个 Map 分段为 N 个 Segment，每个 Segment 独立加锁，对于需要跨段的操作（如 size() 和 containsValue()）则按顺序锁住所有段，操作完毕后再按顺序释放所有段的锁。且 Entry.value 添加了 volatile 字段，确保读操作获取到的是最新的数据，因此是线程安全的。</p>
 <hr>
 <h1 id="JVM的内存模型和分区√"><a href="#JVM的内存模型和分区√" class="headerlink" title="JVM的内存模型和分区√"></a>JVM的内存模型和分区√</h1><p>答：<a href="/post/java/java-jvm/" title="TOLINKS">JVM内存模型和内存分区</a></p>
+<ul>
+<li><p>三级缓存机制（内存LRUCache、本地DiskLRUCache、网络）</p>
+</li>
+<li><p>volatile，final（修饰域，方法，类，哪儿运用了），finally，finalize，static</p>
+</li>
+</ul>
 <hr>
 <h1 id="方法区是否会OOM√"><a href="#方法区是否会OOM√" class="headerlink" title="方法区是否会OOM√"></a>方法区是否会OOM√</h1><p>答：会。在 JDK 1.8 以前，HotSpot 虚拟机的方法区是用永久代实现的，方法区的内存固定，因此如果频繁调用 <code>String.intern()</code> 方法，或者一次性加载太多类，会导致OOM。JDK 1.8 之后，虽然用元数据取代了方法区，直接使用本地内存，支持扩容，也取消了永久代，但并不是无限扩容的，所以仍然会，只是几率会小一些。</p>
 <hr>
@@ -750,16 +803,61 @@
 <h1 id="5-StringBuffer和StringBuilder"><a href="#5-StringBuffer和StringBuilder" class="headerlink" title="5. StringBuffer和StringBuilder"></a>5. StringBuffer和StringBuilder</h1><p>StringBuffer 与 StringBuilder 中的方法和功能完全是等价的，只是StringBuffer 中的方法大都采用了 synchronized 关键字进行修饰，因此是线程安全的，而 StringBuilder 没有这个修饰，可以被认为是线程不安全的。在单线程程序下，StringBuilder效率更快，因为它不需要加锁，不具备多线程安全而StringBuffer则每次都需要判断锁，效率相对更低。StringBuffer()的初始容量可以容纳16个字符，当该对象的实体存放的字符的长度大于16时，实体容量就自动增加。StringBuffer对象可以通过length()方法获取实体中存放的字符序列长度，通过capacity()方法来获取当前实体的实际容量。StringBuffer(int size)可以指定分配给该对象的实体的初始容量参数为参数size指定的字符个数。当该对象的实体存放的字符序列的长度大于size个字符时，实体的容量就自动的增加。以便存放所增加的字符。StringBuffer(String s)可以指定给对象的实体的初始容量为参数字符串s的长度额外再加16个字符。当该对象的实体存放的字符序列长度大于size个字符时，实体的容量自动的增加，以便存放所增加的字符。扩容算法：使用append()方法在字符串后面追加东西的时候，如果长度超过了该字符串存储空间大小了就需要进行扩容：构建新的存储空间更大的字符串，将旧的复制过去；在进行字符串append添加的时候，会先计算添加后字符串大小，传入一个方法：ensureCapacityInternal 这个方法进行是否扩容的判断，需要扩容就调用expandCapacity方法进行扩容，尝试将新容量扩为大小变成2倍+2   if 判断一下 容量如果不够，直接扩充到需要的容量大小。</p>
 <hr>
 <h1 id="6-Android触摸事件"><a href="#6-Android触摸事件" class="headerlink" title="6. Android触摸事件"></a>6. Android触摸事件</h1><p>Android 的触摸事件有两个方向，一个是向下分发（子控件），一个是向上传递（父控件），onInterceptTouchEvent 表示是否拦截向下分发，返回 true 则子控件不会响应触摸事件，返回 false 则子控件的 onInterceptTouchEvent 被调用。onTouchEvent 表示是否处理事件，返回 true 则表示触摸事件在该 View 处理，不再向上传递。通常，ViewGroup 的 onInterceptTouchEvent 返回 false，onTouchEvent 返回 false，子 View 如果不是 ViewGroup，则没有 onInterceptTouchEvent 方法，onTouchEvent 返回 true，需要处理事件的子 View 如果在 ACTION_DOWN 时 onTouchEvent 不返回 true，表示没有消费 ACTION_DOWN，则将无法响应 ACTION_MOVE 和 ACTION_UP。</p>
+<ul>
+<li>ViewRootImpl接受事件吗</li>
+</ul>
+<p>接收。事件的传递顺序：硬件（屏幕）、ViewRootImpl、DecorView、PhoneWindow、Activity。</p>
 <hr>
-<h1 id="7-TCP三次握手"><a href="#7-TCP三次握手" class="headerlink" title="7. TCP三次握手"></a>7. TCP三次握手</h1><p>TCP 第一次握手：C 向 S 发送一个连接请求，包括一个 SYN=1，seq=随机数i，C 进入 SYN_SENT 状态；第二次握手：S 收到请求后，回应一个：SYN=1，ACK=1，ack=i+1，seq=随机数j，S 进入 SYN_RCVD 状态；第三次握手：C 收到回应后，发送一个 ACK=1，ack=j+1，S 接收并确认后，双方建立连接，进入 ESTABLISHED 状态</p>
+<h1 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h1><p>TCP是可靠传输，使用流量控制和拥塞控制，仅支持一对一，首部最小20字节最大60字节。</p>
+<h2 id="TCP三次握手和四次挥手"><a href="#TCP三次握手和四次挥手" class="headerlink" title="TCP三次握手和四次挥手"></a>TCP三次握手和四次挥手</h2><p>（1）三次握手</p>
+<p>TCP 第一次握手：C 向 S 发送一个连接请求，包括一个 SYN=1，seq=随机数i，C 进入 SYN_SENT 状态；第二次握手：S 收到请求后，回应一个：SYN=1，ACK=1，ack=i+1，seq=随机数j，S 进入 SYN_RCVD 状态；第三次握手：C 收到回应后，发送一个 ACK=1，ack=j+1，S 接收并确认后，双方建立连接，进入 ESTABLISHED 状态</p>
+<p>（2）四次挥手</p>
+<p>TCP 第一次挥手：C 发送一个 FIN=随机数k，C 进入 FIN_WAIT_1 状态，此时 C 已停止发送数据，但 S 还在监听，还能发送数据；第二次挥手：S 回应一个 ack=k+1，S 进入 CLOSE_WAIT 状态，C 确认后进入 FIN_WAIT_2 状态，此时服务器已经获取到 C 即将断开的信号，但 S 仍在活跃状态；第三次挥手：S 发送一个 FIN=随机数l，S 进入 LAST_ACK 状态，S 停止监听，进入等待断开状态，此时 C 和 S 均已停止数据交互；第四次挥手：C 确认了 S 的 FIN 后，C 进入 TIME_WAIT 状态，再发送一个 ACK=1，ack=l+1，S 进入 CLOSED 状态，挥手完成，连接断开。</p>
+<h2 id="TCP流量控制和拥塞控制"><a href="#TCP流量控制和拥塞控制" class="headerlink" title="TCP流量控制和拥塞控制"></a>TCP流量控制和拥塞控制</h2><p>（1）TCP流量控制</p>
+<p>接收端通知发送端自己可接受的数据大小，叫窗口大小，TCP首部有个16位的窗口大小字段，16位最大表示65535，但在TCP的40字节首部选项中还有个窗口扩大因子M，实际的窗口大小等于窗口大小左移M位。</p>
+<p>接收端通过窗口大小告知发送端可发送的数据大小，通常可将缓冲区的大小设置为窗口大小，当缓冲区快满了，接收端就逐渐减小窗口大小，直到为0，则发送端不再发送数据，但会定期发送一个窗口探测数据段，以保持获取接收端的窗口大小。如果接收端回复探测数据段的数据帧丢失，就会导致连接中断，所以发送端如果超时未接收到回复，就会重新发送探测数据段。</p>
+<p>（2）TCP拥塞控制</p>
+<p>除了考虑到流量控制的情况，还需要考虑到：接收方的窗口大小是在ACK的时候才回传的，可以理解为，发送方总是慢半拍才知道接收方的窗口大小，因此不能每次都贸然发送最大的数据后再获取窗口大小来调整。为此TCP引入慢启动机制，核心思想就是先从少量数据开始发送，如果网络通畅则逐步增大，否则就逐步减少。</p>
+<p>发送方维护一个拥塞窗口（cwnd），cwnd初始为较小的一个数，通常为最大分段大小（Maximum segment size，MSS）的两倍，也即“慢启动”，但如果收到了ACK，则cwnd增大一倍（指数增长），因此慢启动只是启动初值低，而增长速度很快。如果cwnd增大到了慢启动阈值（Slow Start Threshold，SSThresh），则再次收到ACK时不再以指数增长，而是以cwnd = cwnd + (1 / cwnd)，每次增长自身的倒数，且每经过一次数据包往返时间（Round Trip Time，RTT），就自增1：cwnd = cwnd++，变成线性增长，以避免出现拥塞。</p>
+<p>如果发生超时重传（Retransmission TimeOut，RTO），则认为出现了拥塞，则将ssthresh设置为当前cwnd的一半：ssthresh = cwnd / 2，并重置cwnd变回初始值。</p>
+<p>因此，当cwnd＜ssthresh时，可以认为需要慢启动，进入快速增长，当cwnd＞ssthresh时，可以认为需要避免拥塞，进入线性增长，当cwnd＝ssthresh时，可以使用慢启动算法，也可以使用拥塞算法。</p>
+<p>接收方在接收数据后，会回复一个确认帧，确认帧包括了期待下一次接收的数据的序列号，发送方在接收到该确认帧后，会将下一个数据帧的序列号设置为接收方期待的序列号。而如果接收方接收到的数据中的序列号，不是自己所期待的，说明自己所期待的数据发生了丢失导致未能接收到，则需要根据所设置的重复阈值N（例如3），连续N次向发送方发送ACK，且ACK中包含了已丢失的那份自己所期待的数据的序列号，发送方在连续N次接收到了这样的ACK后，则认为发生了数据丢失，而不是拥塞，则进入快速重传阶段，立即发送中间缺失的数据（也即发送方没有收到对应ACK导致RTT的数据），同时执行快速恢复算法，将ssthresh调整为当前cwnd的一半，由于调整后cwnd＞ssthresh，因此执行拥塞避免算法。</p>
+<ul>
+<li>TCP/IP四层模型，网络层和传输层有什么区别？网络层的主要工作是什么？</li>
+</ul>
+<p>OSI模型对应TCP/IP四层模型（从上到下）：<br>应用层、表示层、会话层 - 应用层<br>传输层 - 传输层<br>网络层 - 网络互联层<br>数据链路层、物理层 - 主机到网络层</p>
+<p>网络层面向的是设备与设备之间的通信，而传输层面向的是设备与设备上运行的进程之间的通信。例如，IP属于网络（互联）层，它负责定位一个网络中的各个设备，设备和设备之间的数据交互不一定使用TCP或UDP，但需要知道IP地址。而TCP、UDP属于传输层，负责将数据从某个端口（也可以映射成一个进程）到另一端口（另一个进程），以区分不同的进程，实现不同的应用服务之间的数据传输服务。</p>
 <hr>
-<h1 id="8-TCP四次挥手"><a href="#8-TCP四次挥手" class="headerlink" title="8. TCP四次挥手"></a>8. TCP四次挥手</h1><p>TCP 第一次挥手：C 发送一个 FIN=随机数k，C 进入 FIN_WAIT_1 状态，此时 C 已停止发送数据，但 S 还在监听，还能发送数据；第二次挥手：S 回应一个 ack=k+1，S 进入 CLOSE_WAIT 状态，C 确认后进入 FIN_WAIT_2 状态，此时服务器已经获取到 C 即将断开的信号，但 S 仍在活跃状态；第三次挥手：S 发送一个 FIN=随机数l，S 进入 LAST_ACK 状态，S 停止监听，进入等待断开状态，此时 C 和 S 均已停止数据交互；第四次挥手：C 确认了 S 的 FIN 后，C 进入 TIME_WAIT 状态，再发送一个 ACK=1，ack=l+1，S 进入 CLOSED 状态，挥手完成，连接断开。</p>
+<h1 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h1><p>UDP是不可靠传输，没有流量控制和拥塞控制，UDP支持单播（一对一）、多播（一对多和多对一）、广播（多对多），首部开销小（8字节），适用于实时应用（IP电话、视频会议、直播等）。</p>
+<p>远程视频流传输，可以分别利用UDP的可靠传输和不可靠传输。</p>
+<p>视频中的帧有关键帧和普通帧，关键帧是可以直接解码出帧图像的帧，它包含了一个帧所有的信息，而普通帧，是根据其依附的关键帧，只记录了与之相差的部分，不能直接解码出帧图像，这样做的好处，是大大缩小了视频的体积，因为每个关键帧之间的普通帧，只需要记录自己和所依附的关键帧之间的差别，然后在播放的时候只需要改变显示有差别的地方即可。因此，远程视频传输，可以在传输关键帧的时候，使用可靠传输，确保关键帧传输到位，而普通帧使用不可靠传输，这样即使普通帧丢包，也不会影响整体显示效果。</p>
+<p>UDP如果想要实现可靠传输，可以在数据段手动添加ACK和SEQ机制，自行判断ACK和SEQ是否符合，并配合发送和接收缓冲区以及维护一个超时重传表来实现。</p>
+<p>已有的可靠UDP有：RUDP（实现了TCP中的流量控制）、RTP（）等。</p>
 <hr>
-<h1 id="9-基于-TCP-的-Socket："><a href="#9-基于-TCP-的-Socket：" class="headerlink" title="9. 基于 TCP 的 Socket："></a>9. 基于 TCP 的 Socket：</h1><p>Socket socket = new Socket(String ip, int port); // 本地进程间通信使用 “localhost”<br>boolean isConnected = socket.isConnected();<br>BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));<br>writer.write(byte[] data);<br>writer.flush();<br>writer.close();</p>
+<h1 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h1><h2 id="基于TCP的Socket"><a href="#基于TCP的Socket" class="headerlink" title="基于TCP的Socket"></a>基于TCP的Socket</h2><p>Socket socket = new Socket(String ip, int port); // 本地进程间通信使用 “localhost”<br>boolean isConnected = socket.isConnected();<br>BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));<br>writer.write(byte[] data);<br>writer.flush();<br>writer.close();</p>
 <p>DataInputStream input = new DataInputStream(new BufferedInputStream(socked.getInputStream));<br>byte[] bytes = new byte[MAX_LENGTH_EACH_TIME];<br>while(input.read(bytes) != -1) {</p>
 <p>}<br>服务端：<br>ServerSocket serverSocket = new ServerSocket(int port);<br>Socket socket = ServerSocket.accept();<br>InputStream ……</p>
+<ul>
+<li>socket.accept()函数对应着TCP三次握手中哪一次握手，哪个函数代表连接建立完毕，四次挥手的过程？</li>
+</ul>
+<p>没有对应关系。accept()发生在三次握手之后。服务器监听请求连接，成功三次握手的连接会被存放到连接队列中，accept()方法只是从服务器的连接队列中取出了具体的一个连接实例。</p>
+<h2 id="基于UDP的Socket"><a href="#基于UDP的Socket" class="headerlink" title="基于UDP的Socket"></a>基于UDP的Socket</h2><p>// 发送<br>DatagramSocket socket = new DatagramSocket();<br>socket.connect(String ip, int port);<br>DatagramPacket  sendPacket = new DatagramPacket(byte[] data, int data.length, String ip, int port);<br>socket.send(sendPacket);<br>// 接收<br>while(socket.isConnect()) {<br>    byte[] data = new byte[MAX_LENGTH_EACH_TIME];<br>    DatagramPacket rcvPacket = new DatagramPacket(data, data.length);<br>    socket.receive(rcvPacket);<br>    rcvPacket.getData().length // 等效于 data.length，等于 MAX_LENGTH_EACH_TIME<br>    rcvPacket.getLength() // 实际接收的数据长度，最大 64k<br>    ……<br>}</p>
+<h2 id="Socket长连接"><a href="#Socket长连接" class="headerlink" title="Socket长连接"></a>Socket长连接</h2><p>isClosed()、isConnected()、isInputStreamShutdown()、isOutputStreamShutdown()都是本地判断，只是本地操作connect()或close()方法后保存的状态，无法判断服务端是否主动断开，OutputStream.write()在服务端关闭时也能照常发送不会报错。</p>
+<p>采用服务端心跳回复的机制，客户端发送心跳后，服务端需要回复心跳，并设置中断超时，超过几次心跳后仍然没有回复则主动断开连接。</p>
 <hr>
-<h1 id="10-基于-UDP-的-Socket："><a href="#10-基于-UDP-的-Socket：" class="headerlink" title="10. 基于 UDP 的 Socket："></a>10. 基于 UDP 的 Socket：</h1><p>// 发送<br>DatagramSocket socket = new DatagramSocket();<br>socket.connect(String ip, int port);<br>DatagramPacket  sendPacket = new DatagramPacket(byte[] data, int data.length, String ip, int port);<br>socket.send(sendPacket);<br>// 接收<br>while(socket.isConnect()) {<br>    byte[] data = new byte[MAX_LENGTH_EACH_TIME];<br>    DatagramPacket rcvPacket = new DatagramPacket(data, data.length);<br>    socket.receive(rcvPacket);<br>    rcvPacket.getData().length // 等效于 data.length，等于 MAX_LENGTH_EACH_TIME<br>    rcvPacket.getLength() // 实际接收的数据长度，最大 64k<br>    ……<br>}</p>
+<h1 id="HTTP和HTTPS"><a href="#HTTP和HTTPS" class="headerlink" title="HTTP和HTTPS"></a>HTTP和HTTPS</h1><h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h3 id="HTTP报文格式"><a href="#HTTP报文格式" class="headerlink" title="HTTP报文格式"></a>HTTP报文格式</h3><p>（1）HTTP 请求报文</p>
+<p>HTTP 请求报文包括：请求行（Request Line）、请求头（Request Header）、请求数据（Request Data）、空行四个部分。</p>
+<p><a href="https://blog.csdn.net/zx_emily/article/details/83024065" target="_blank" rel="noopener">https://blog.csdn.net/zx_emily/article/details/83024065</a></p>
+<h3 id="Http缓存"><a href="#Http缓存" class="headerlink" title="Http缓存"></a>Http缓存</h3><ul>
+<li>常见端口号（80、443、23等）对应的含义</li>
+</ul>
+<p>23：远程登录 Telnet 服务。</p>
+<p>80：HTTP服务的端口号</p>
+<p>443：HTTPS服务的端口号</p>
+<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><h3 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h3><p><a href="https://www.cnblogs.com/jesse131/p/9080925.html" target="_blank" rel="noopener">https://www.cnblogs.com/jesse131/p/9080925.html</a></p>
+<p>对称加密：发送和接收用同一个秘钥加解密。<br>非对称加密：发送方用公钥加密，接收方用私钥解密。</p>
+<p>发送方发送一个协议版本号和一个随机数，以及客户端支持的加密算法。<br>接收方选择一个公钥，并给出数字证书以及一个新的随机数。<br>发送方确认证书有效，使用接收到的公钥发送一个新的随机数<br>接收方用私钥解密随机数，并使用之前的三个随机数生成一个对话秘钥，用这个秘钥加密接下来的整个会话数据。</p>
+<h3 id="HTTPS流程"><a href="#HTTPS流程" class="headerlink" title="HTTPS流程"></a>HTTPS流程</h3><p>客户端访问HTTPS请求，连接到Server的443端口<br>Server回应证书和公钥<br>客户端TLS验证公钥，如果有异常则弹出警告提示<br>客户端根据证书查找本地对应的证书，如果找不到，说明证书不可信。<br>如果找到了，取出本地证书对应的公钥，对Server发来的证书的签名进行解密。<br>客户端使用hash算法计算Server传来的证书的Hash值，并和解密出来的证书中的签名作对比。<br>如果一致，说明公钥没有被替换，则可以用该公钥继续后面的加密会话了。<br>客户端用公钥加密一个随机数，发送给服务端。<br>Server使用私钥解密随机值，然后将会话数据通过该值进行对称加密。<br>客户端可以同样用之前生成的随机值解密Server发过来的数据。<br>整个过程，即使被第三方监听，也无法改变。</p>
 <hr>
 <h1 id="12-隐式启动Service"><a href="#12-隐式启动Service" class="headerlink" title="12. 隐式启动Service"></a>12. 隐式启动Service</h1><p>Android5.0之前才能隐式启动Service，也即可以只定义ActionName，不定义包名：setPackage()和不定义Component：setComponent()。在Service端创建一个服务类继承自Service，然后在manifest中声明，定义好actionname，如果actionName就是Service的全路径，则默认exported:true，然后在客户端，实例化一个Intent，设置Action即为Service的ActionName，如果Service不属于当前App进程，则还需要指定Service的包名setPackage()。<br>5.0之后如果采用隐式，会抛出一个异常，提示“Service Intent must be explicit”，官方解释是：“To ensure your app is secure”，主要应该是避免App恶意启动<br>Service不论前台后台，都运行在主线程中。如果需要执行耗时操作，需要在Service中手动启动一个子线程。</p>
 <hr>
@@ -838,11 +936,135 @@
 
 <h2 id="15-4-中介者模式"><a href="#15-4-中介者模式" class="headerlink" title="15.4 中介者模式"></a>15.4 中介者模式</h2><p>当程序存在大量的类时，多个对象之间存在着依赖的关系，呈现出网状结构，那么程序的可读性和可维护性就变差了，并且修改一个类需要牵涉到其他类，不符合开闭原则。</p>
 <p>当多个类之间有复杂交互时，通过创建一个中介者类，用于处理其他类之间的交互问题，提高耦合但也提高了代码逻辑清晰度和可读性，在类和类交互时，也不需要针对不同的类定制专用的接口，只需要通过中介者提供的公用接口调用即可。</p>
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>（1）Observable（抽象被观察者）</p>
+<p>util包下的类，需要继承并根据不同功能重写Observable，表示被观察者。使用单例模式，由静态内部类管理一个实例，将构造方法私有化。</p>
+<p>Observable的实例（单例）对象也就是被观察者，在内部根据需要添加方法，方法内部调用setChanged()和notifyObservers(Object data)。</p>
+<p>而被观察者需要通过调用Observable.addObserver(Object observer)来添加观察者。</p>
+<p>notifyObservers(Object data)方法内部会遍历所有添加给被观察者的观察者，并调用观察者的update(Observable o, Object arg)方法，也即表示带着数据data通知所有观察者。</p>
+<p>因此充当观察者的类（添加给被观察者的类）需要实现Observe接口，重写update(Observable o, Object arg)方法，用instanceof判断参数o到底是哪一个被观察者，然后用数据arg做相应的操作。</p>
+<p>观察者模式中，一个被观察者可以被多个观察者观察，也即给被观察者add多个观察者，并添加业务方法，当业务执行的时候，业务方法内部会通知所有被添加的观察者，所有被添加的观察者都会收到通知，但一个被观察者可以有多个业务，并不是每个观察者都需要用到每个业务，因此可以在不同业务的方法内的notifyObservers(Object data)中，传不同类型的数据data,在观察者的update(Observable o, Object arg)方法内，需要用instanceof判断数据arg的类型，来判断自己是否需要处理。</p>
+<p>并且，一个观察者可以观察多个被观察者，也就是，多个被观察者Observable.addObserver()的时候，可以添加同一个观察者，因此当观察者的update(Observable o, Object arg)方法被调用时，还要先用instanceof来判断参数o到底是来自哪个被观察者，然后再用instanceof判断数据arg是由被观察者中哪个业务方法调用传递过来的，这样才能唯一确定一个业务逻辑。</p>
+<p>（2）RXJava：<a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="noopener">http://gank.io/post/560e15be2dca930e00da1083</a></p>
+<h2 id="接口回调与观察者模式的选择"><a href="#接口回调与观察者模式的选择" class="headerlink" title="接口回调与观察者模式的选择"></a>接口回调与观察者模式的选择</h2><p>回调是一对一的关系，只监听一个事件；观察者模式则是可以一对多也可以多对一，因此观察者模式的数据流图是网状结构，如果业务逻辑比较简单的时候，用回调反而能提升代码可读性以及降低开发复杂度。</p>
 <hr>
-<h1 id="16-开源框架"><a href="#16-开源框架" class="headerlink" title="16. 开源框架"></a>16. 开源框架</h1><p>Glide</p>
+<h1 id="开源框架"><a href="#开源框架" class="headerlink" title="开源框架"></a>开源框架</h1><h2 id="Glide"><a href="#Glide" class="headerlink" title="Glide"></a>Glide</h2><p>glide虚拟碎片监视时间周期</p>
+<h2 id="Retrofit"><a href="#Retrofit" class="headerlink" title="Retrofit"></a>Retrofit</h2><h2 id="Volley"><a href="#Volley" class="headerlink" title="Volley"></a>Volley</h2><h2 id="EventBus"><a href="#EventBus" class="headerlink" title="EventBus"></a>EventBus</h2><h2 id="OKHttp"><a href="#OKHttp" class="headerlink" title="OKHttp"></a>OKHttp</h2><p>Okhttp的拦截器链的设计模式</p>
 <hr>
-<h1 id="17-多线程"><a href="#17-多线程" class="headerlink" title="17. 多线程"></a>17. 多线程</h1><p>线程池参数详解：</p>
-<p>（1）corePoolSize 线程池核心线程大小</p>
+<h1 id="为什么View移动后点击事件还在原来的位置"><a href="#为什么View移动后点击事件还在原来的位置" class="headerlink" title="为什么View移动后点击事件还在原来的位置"></a>为什么View移动后点击事件还在原来的位置</h1><p><a href="https://www.jianshu.com/p/45e8efcd1f5d" target="_blank" rel="noopener">https://www.jianshu.com/p/45e8efcd1f5d</a><br><a href="https://blog.csdn.net/u011387817/article/details/80313184" target="_blank" rel="noopener">https://blog.csdn.net/u011387817/article/details/80313184</a></p>
+<p>因为采用补间动画Animation动画改变了View的位置后，只改变了View的显示位置，也就是只是在绘制时通过改变Matrix增加了平移，并没有改变在父布局中的位置。</p>
+<p>可以使用属性动画，改变实际上的View的空间位置。</p>
+<hr>
+<h1 id="20-LRU算法"><a href="#20-LRU算法" class="headerlink" title="20. LRU算法"></a>20. LRU算法</h1><h2 id="20-1-LRU算法原理"><a href="#20-1-LRU算法原理" class="headerlink" title="20.1 LRU算法原理"></a>20.1 LRU算法原理</h2><p>LRU（Least Recently Used，最近最少使用）的本质是一个链表，新数据插入到链表头部，每当缓存命中，则将数据移到链表头部，当链表满了或者需要清理内存时，将链表尾部的数据丢弃。</p>
+<p>特点：当存在热点数据时，LRU 的效率很高，但偶发性的、周期性的批量操作会导致 LRU 命中率急剧下降，产生缓存污染的（将不常用的数据也存入缓存，降低了缓存效率）问题，且每次缓存命中时，都需要遍历链表，找到命中的数据块索引并移到头部。</p>
+<h2 id="20-2-LRU-K"><a href="#20-2-LRU-K" class="headerlink" title="20.2 LRU-K"></a>20.2 LRU-K</h2><p>为了改善 LRU 算法的缓存污染问题，额外维护一个队列用于记录所有缓存数据被访问的历史，只有当数据的访问次数打到 K 次，才存入缓存中。当数据被访问次数不到 K 次时，按照一定规则（FIFO、LRU 等）淘汰，当历史队列中的数据访问达到 K 次后，将其从队列中删除转移到缓存中，并按照时间顺序重新排列缓存数据，且缓存中的数据每次被访问后重新排序。当需要清理缓存时，淘汰缓存中排在末尾的数据，也即淘汰距离上次访问最久的数据。</p>
+<p>特点：LRU-K 降低了缓存污染带来的代价，命中率比 LRU 高，但由于其历史队列和缓存中的数据都具有优先级（可以即时排序也可以在需要淘汰数据时才排序），因此其算法复杂度和性能代价较高。尤其当有大量存入历史队列却还未存入缓存中的数据时，内存消耗较大。</p>
+<p>通常，LRU-2 是综合因素下的最优选择，LRU-3 或更高 K 值会提高命中率，但适应性较差，需要大量的数据访问才能冲洗历史队列表。</p>
+<h2 id="20-3-LRU-Two-Queues"><a href="#20-3-LRU-Two-Queues" class="headerlink" title="20.3 LRU-Two Queues"></a>20.3 LRU-Two Queues</h2><p>LRU-2Q 祛除了历史队列，而是直接使用两个缓存队列进行管理，其中一个缓存队列采用 FIFO 淘汰规则，另一个缓存队列采用 LRU 淘汰规则。一个新的数据首次被访问时，假如 FIFO 队列，当该数据再次被访问时，则转移到 LRU 队列中，LRU 队列中的数据再次被访问时，则移至 LRU 队列的头部，两个队列分别根据对应的淘汰规则按需淘汰数据。</p>
+<p>L特点：RU-2Q 的命中率高于 LRU，尽管需要两个队列，但两个队列的维护算法都比较简单。LRU-2Q 和 LRU-2 命中率、内存消耗都比较接近，不同处在于，LRU-2 中，数据首次被访问加入历史队列后，需要被访问 2 次才转移至缓存中，而 LRU-2Q 在数据首次被访问加入 FIFO 队列后，仅需再被访问 1 次即转移到缓存中。</p>
+<h2 id="20-4-LRU-Multi-Queues"><a href="#20-4-LRU-Multi-Queues" class="headerlink" title="20.4 LRU-Multi Queues"></a>20.4 LRU-Multi Queues</h2><p>LRU-MQ 拥有一个 LRU 历史队列 和 K 个 LRU 缓存队列，均采用 LRU 淘汰规则。当一个数据首次被访问时，加入到最低优先级的 LRU 缓存队列中，队列中的数据每次被访问则重新计算优先级并排序，当低优先级的队列中，当某个数据优先级达到下一级 LRU 缓存队列时，将其从当前 LRU 缓存队列转移到更高级的 LRU 缓存队列的头部。为避免高优先级的数据永不淘汰，当高优先级的 LRU 缓存队列中某个数据在指定时间内未被访问时，降低其优先级并转移到低优先级的 LRU 缓存队列的头部。所有 K 个 LRU 缓存队列中被淘汰的数据，均转移到 LRU 历史队列的头部，若 LRU 历史队列中的数据重新被访问，则重新计算优先级，并根据优先级转移到目标 LRU 缓存队列的头部，否则根据 LRU 算法直到被完全淘汰，</p>
+<p>LRU-MQ 进一步降低了缓存污染的问题，着重突出了“优先缓存访问次数多的数据”的思想，但由于具有多个队列，且每个队列都需要维护每个数据的访问时间，当 LRU-MQ 中队列数和数据量过多时，具有较高的复杂度。不过，尽管 LRU-MQ 的队列数量较多，但由于内存是有限的，因此所有的队列所占内存之和仍是受限的，因此多个短队列的长度之和与单个长队列的长度相差不大，其队列扫描性能仍然比较接近。</p>
+<h2 id="20-5-LRUCache"><a href="#20-5-LRUCache" class="headerlink" title="20.5 LRUCache"></a>20.5 LRUCache</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> LruCache&lt;String, Bitmap&gt; mLruCache = <span class="keyword">new</span> LruCache&lt;String, Bitmap&gt;(cacheSize) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">sizeOf</span><span class="params">(String key, Bitmap value)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//计算一个元素的缓存大小</span></span><br><span class="line">        <span class="keyword">return</span> value.getByteCount();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">addBitmap(String key, Bitmap bitmap) &#123;&#125;</span><br><span class="line">getBitmap(String key) &#123;&#125;</span><br><span class="line">removeBitmapFromMemory(String key) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="22-wait-和sleep"><a href="#22-wait-和sleep" class="headerlink" title="22. wait()和sleep()"></a>22. wait()和sleep()</h1><p><a href="https://www.cnblogs.com/loren-Yang/p/7538482.html" target="_blank" rel="noopener">https://www.cnblogs.com/loren-Yang/p/7538482.html</a></p>
+<p>sleep属于Thread，wait属于Object，因此所有的对象都能调用wait方法，wait释放了锁，所以一旦一个对象被wait，其他线程可以通过notify或notyfyAll来唤醒，而sleep不释放锁，因此其他线程无法使用同步控制块。</p>
+<hr>
+<h1 id="Java线程同步机制与原理"><a href="#Java线程同步机制与原理" class="headerlink" title="Java线程同步机制与原理"></a>Java线程同步机制与原理</h1><p>（1）volatile</p>
+<p>volatile一般用在多个线程访问同一个变量时，对该变量进行唯一性约束，volatile保证了变量的可见性，不能保证原子性。</p>
+<p>用法（例）：<code>private volatile boolean flag = false;</code></p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Thread write = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">        flag = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Thread read = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(flag) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">write.start();</span><br><span class="line">read.start();</span><br></pre></td></tr></table></figure>
+
+<p>上述代码，在某些极端情况下，可能会输出 1，也就是：write 线程中，先执行了 <code>flag = true</code>，然后 read 线程执行了 <code>if</code> 判断并通过，输出 1，然后 write 线程才执行 <code>i = 2</code>，为了避免这个情况，可以如下改写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Thread write = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">        flag = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Thread read = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(flag) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">write.start();</span><br><span class="line">read.start();</span><br></pre></td></tr></table></figure>
+
+<p>volatile用于告诉JVM变量不允许线程缓存以及代码重排序，会使得其所在域的写操作一定发生在读操作之前，且每次有写操作后，都将所在域中的写入值同步到主内存中，从而避免其他线程从缓存中拿到旧数据。</p>
+<p>（2）Synchronized</p>
+<p>synchronized只会同步尝试获取同一个monitor对象的线程，如果一个线程已经持有该monitor，则后续所有尝试持有该monitor的线程都需要依次等待前面的线程释放monitor才能继续执行。</p>
+<ul>
+<li>synchronized的监视器应该怎么设置?</li>
+</ul>
+<p>非静态方法加锁相当于对象锁，静态方法加锁相等于类锁。<br>常量池和自动装箱的基本变量作为监视器，一旦改变了值相当于改变了监视器。</p>
+<p>（3）Lock</p>
+<p>Lock lock = new ReentrantLock();<br>可以通过lock.lock()和lock.unlock()手动加锁、释放锁。性能很差。注意在finally中释放锁。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"><span class="keyword">int</span> value = <span class="number">1</span>;</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    value++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">    lock.unlock;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Lock的实现原理？</li>
+</ul>
+<p><a href="https://yq.aliyun.com/articles/640868" target="_blank" rel="noopener">https://yq.aliyun.com/articles/640868</a></p>
+<p>Lock本质还是通过CAS乐观锁实现的，一个线程尝试去获取锁，如果获取到，则更新一个state字段，表示当前是正在等待锁还是持有锁还是释放锁的状态，然后去执行操作。否则如果没获取到，则将该线程放到记录等待线程的双向链表中，然后线程做自旋，直到获取到锁。lock建议在低锁冲突的情况下用，否则非必要（例如需要公平锁）的情况下，还是使用synchronized更好。</p>
+<hr>
+<h1 id="synchronized如何保证原子性"><a href="#synchronized如何保证原子性" class="headerlink" title="synchronized如何保证原子性"></a>synchronized如何保证原子性</h1><p>所谓原子性指的是不会被线程调度机制打断的操作，java中对基本数据类型的读和写是原子性操作，但自增自减不是。例如：i++ 在 JVM 中实际上是三步：① 取出 i 的值，② 对值 +1 操作，③ 重新赋值给 i，虽然其中的每一步都是原子性操作，但这个过程并不是原子性的。如果需要保证原子性，可以：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;i++;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者使用原子类：java.util.concurrent下的AtomicInteger、AtomicLong、AtomicReference等，其中AtomicInteger.getAndIncrement()效果相当于i++，AtomicInteger.getAndDecrement()效果相当于i–，AtomicInteger.incrementAndGet()效果相当于++i，其内部原理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = get();</span><br><span class="line">        <span class="keyword">int</span> next = current + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, next))</span><br><span class="line">            <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Java中的锁"><a href="#Java中的锁" class="headerlink" title="Java中的锁"></a>Java中的锁</h1><p><a href="https://blog.csdn.net/qq_41931837/article/details/82314478" target="_blank" rel="noopener">https://blog.csdn.net/qq_41931837/article/details/82314478</a></p>
+<h2 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h2><p>悲观锁认为一定会有别的线程抢占数据，因此操作数据前都要先获取数据的锁，<code>synchronized</code> 和 <code>lock</code> 都是悲观锁，适用于写操作较多的场景。</p>
+<p>乐观锁认为不会有别的线程抢占数据，因此只在写操作前判断是否有其他线程更新了数据，CAS（Compare And Swap）就是乐观锁的一种实现方式，适用于读操作较多的场景。</p>
+<h2 id="公平锁和非公平锁"><a href="#公平锁和非公平锁" class="headerlink" title="公平锁和非公平锁"></a>公平锁和非公平锁</h2><p>公平锁是多个线程按照申请锁的顺序来获取锁，非公平锁则不规定线程顺序。synchronized是非公平锁，ReentrantLock可以通过指定构造方法的参数来创建公平或非公平锁。</p>
+<h2 id="独享锁和共享锁"><a href="#独享锁和共享锁" class="headerlink" title="独享锁和共享锁"></a>独享锁和共享锁</h2><p>独享锁即一次只能被一个线程持有，共享锁一次可以被多个线程池有，synchronized和ReentrantLock都是独享锁，ReentrantReadWriteLock的读锁是共享锁，写锁是独享锁。</p>
+<h2 id="互斥锁和读写锁"><a href="#互斥锁和读写锁" class="headerlink" title="互斥锁和读写锁"></a>互斥锁和读写锁</h2><p>和独享、共享是一个意思。</p>
+<h2 id="可重入锁和不可重入锁"><a href="#可重入锁和不可重入锁" class="headerlink" title="可重入锁和不可重入锁"></a>可重入锁和不可重入锁</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> sychrnozied <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    xxxxxx;</span><br><span class="line">    test2();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> sychronized <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    yyyyy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Reentrant就是可重入的意思，所以Reentrant和synchronized都是可重入锁，也即上面的代码可以顺利执行，test方法获取了对象锁后，再调用test2时，可以直接用已持有的对象锁直接进入test2。</p>
+<p>如果是不可重入锁则会发生死锁。</p>
+<h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>自旋锁就是使用循环尝试获取来替代线程阻塞等待，好处是减少线程切换的消耗，但会增加CPU资源消耗。</p>
+<h2 id="锁粗化和锁消除"><a href="#锁粗化和锁消除" class="headerlink" title="锁粗化和锁消除"></a>锁粗化和锁消除</h2><p>锁粗化和锁消除的本意都是尽量减少锁的获取和释放，节约资源。</p>
+<p>锁消除是虚拟机在编译阶段做逃逸分析时，判断到某段代码，虽然加了锁，但不可能会被其他线程访问到，因此加锁是没必要的，则在编译阶段就去除加锁部分。</p>
+<p>锁粗化可以理解为扩展锁的域，例如在一个循环内部对一个操作加锁，由于重复获取和释放锁会带来很大的开销，因此虚拟机在编译阶段，将锁粗化，加载循环体外部。</p>
+<h2 id="偏向锁、轻量级锁、重量级锁"><a href="#偏向锁、轻量级锁、重量级锁" class="headerlink" title="偏向锁、轻量级锁、重量级锁"></a>偏向锁、轻量级锁、重量级锁</h2><p>这是三种锁的状态，是针对synchronized字段优化的，通过对象监视器在内存中的头部字段来标明。</p>
+<p>偏向锁是指，如果一段同步代码一直被一个线程访问，则该线程会自动获取锁而不需要申请，以降低获取锁的资源消耗。</p>
+<p>轻量锁是指如果锁是偏向锁时，有另一个线程访问了同步代码块，则将偏向锁改为轻量锁。此时另外的线程不会阻塞等待，而是通过自旋来尝试获取锁。</p>
+<p>重量级锁则是，如果锁是轻量锁，另一个线程虽然是自旋，但不会一直持续下去，当自旋超过一定次数还没有获取到锁，就会进入阻塞状态，该锁膨胀为重量级锁。</p>
+<h2 id="分段锁"><a href="#分段锁" class="headerlink" title="分段锁"></a>分段锁</h2><p>分段锁不是一种具体的锁，也不是锁的形式，只是一种设计方案，在ConcurrentHashMap内部使用，通过将数据分段并分别加锁，来提升并发情况下的写入性能。</p>
+<h2 id="同步锁"><a href="#同步锁" class="headerlink" title="同步锁"></a>同步锁</h2><p>（1）对象锁（方法锁）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(Object object) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当多个线程使用同一个对象锁则可以达到同步的效果，否则无效。</p>
+<p>当 <code>synchronized</code> 修饰方法时，实际上等同于获取该方法所在的外部类对象的对象锁。</p>
+<p>（2）类锁（静态锁）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(DemoClass.class) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>同一个类只有一个类锁，但每个类的实例对象都有自己的对象锁，因此当使用类锁时，所有该类的实例对象拿到的都是同一把锁，而使用对象锁时，不同实例对象之间是无关的。</p>
+<p><code>synchronized</code> 修饰静态方法时，即为静态锁。由于非静态方法会自动持有其所在外部类对象的引用，因此非静态方法加锁等同于其所在外部类实例对象的对象锁，而静态方法不会持有其外部类对象的引用，因此是使用其外部类的字节码对象作为锁。</p>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><ul>
+<li>死锁的产生条件，如何避免死锁？</li>
+</ul>
+<p>死锁产生的四个必要条件：</p>
+<p>互斥（线程要求的资源仅能被一个线程所独占）、保持（线程因请求被其他线程独占的资源而阻塞时，保持已获得的资源不释放）、不剥夺（线程独占的资源未使用完之前，不可剥夺该线程对资源的独占）、环路等待（发生死锁时，必然存在线程-资源的环形请求链）。</p>
+<p>预防死锁：</p>
+<p>避免运行中请求资源，县城所需的资源一次性分配。<br>一个线程如果请求独占某个资源失败，则其他的资源也拒绝被该线程独占。<br>如果一个线程请求独占某个资源失败，则释放该线程原有的独占资源。<br>给资源进行编号，线程按顺序请求资源，逆序释放资源。<br>超时放弃，尝试获取锁一段时间不成功，则放弃自身独占的资源（如Lock接口的tryLock(long time, TimeUnit unit)方法）。</p>
+<ul>
+<li>自己基于原生方法实现一个公平锁</li>
+</ul>
+<p><a href="https://blog.csdn.net/sddh1988/article/details/68068971" target="_blank" rel="noopener">https://blog.csdn.net/sddh1988/article/details/68068971</a></p>
+<p>使用队列，在lock()内按顺序添加等待的线程名currentThread().getName()，然后peek出最前的线程名，自旋对比当前线程是否是peek出来的线程，如果不是则一直循环。</p>
+<hr>
+<h1 id="多进程及进程间通信"><a href="#多进程及进程间通信" class="headerlink" title="多进程及进程间通信"></a>多进程及进程间通信</h1><p>（1）Socket</p>
+<p>见上文，本机的进程间通信，相当于本机 IP，通过指定相同的端口号即可建立连接，是很多 App 偏底层功能的进程间通信机制。</p>
+<p>（2）广播接收</p>
+<p>（3）ContentProvider</p>
+<p>（4）Service</p>
+<p>（5）AIDL</p>
+<p>（6）Bundle</p>
+<p>发送进程创建一个Messenger实例，然后存进Message的replyTo中，然后把数据存进Bundle，再把Bundle存进Message，最后通过componentName指定接收进程，调用Messenger.send(Msg)发送Message，在接收进程通过Msg.replyTo可以取出Messenger实例，就能直接用这个Messenger实例来send自己的Msg给发送进程。</p>
+<p>只能传输 Bundle 支持的数据类型，对数据的大小有限制，通常四大组件之间的进程间通信是采用 Bundle 的形式，例如：使用 Intent 调用的各项四大组件。</p>
+<ul>
+<li>多进程的场景：大内存占用的时候，将不同功能分配至多个进程中，则每个进程可以单独申请资源，不容易发生OOM问题，且子模块发生Crash不会导致主进程崩溃。</li>
+</ul>
+<p>通过Manifest中指定组件的android:process属性来定义所在进程，冒号开头为私有进程，其他开头为公有，相同公有进程名的组件可以运行在同一进程中。</p>
+<ul>
+<li><p>为什么推送要用多进程？有什么优势？</p>
+</li>
+<li><p>如何保证进程不被杀死？</p>
+</li>
+</ul>
+<hr>
+<h1 id="多线程及线程间通信"><a href="#多线程及线程间通信" class="headerlink" title="多线程及线程间通信"></a>多线程及线程间通信</h1><h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>（1）corePoolSize 线程池核心线程大小</p>
 <p>线程池中会维护一个最小的线程数量，即使这些线程处理空闲状态，他们也不会被销毁，除非设置了allowCoreThreadTimeOut。这里的最小线程数量即是corePoolSize。</p>
 <p>（2）maximumPoolSize 线程池最大线程数量</p>
 <p>一个任务被提交到线程池后，首先会缓存到工作队列（后面会介绍）中，如果工作队列满了，则会创建一个新线程，然后从工作队列中的取出一个任务交由新线程来处理，而将刚提交的任务放入工作队列。线程池不会无限制的去创建新线程，它会有一个最大线程数量的限制，这个数量即由maximunPoolSize来指定。</p>
@@ -872,27 +1094,50 @@
 <p>该策略下，直接丢弃任务，什么都不做。</p>
 <p>④ DiscardOldestPolicy</p>
 <p>该策略下，抛弃进入队列最早的那个任务，然后尝试把这次拒绝的任务放入队列。</p>
+<ul>
+<li>线程池的原理</li>
+</ul>
+<p>线程池底层是通过HashSet维护的，可以确保不会不会出现一个线程的多个实例，并且集合无序，可以保持高效率。多余的任务用一个阻塞队列来管理，阻塞队列满了才会激活非核心线程。</p>
+<h2 id="线程间通信"><a href="#线程间通信" class="headerlink" title="线程间通信"></a>线程间通信</h2><p>（1）Handler</p>
+<ul>
+<li><p>主线程向子线程发消息：① 主线程中实例化 Handler，并在子线程中发送消息。② 子线程中实例化 Handler，但传入 MainLooper。</p>
+</li>
+<li><p>子线程向主线程发消息：子线程中实例化 Looper，并用在主线程中实例化 Handler。</p>
+</li>
+<li><p>子线程间通信：借助主线程，将接收消息的子线程的 Looper 实例化对象传给发送消息的子线程并用于实例化 Handler。</p>
+</li>
+</ul>
+<p>（2）<code>runOnUiThread()</code></p>
+<p>直接将指定代码运行在主线程。</p>
+<p>（3）<code>View.post()</code></p>
+<p>（4）AsyncTask</p>
+<p>在主线程中调用开启后台任务，然后通过继承自 AsyncTask 的类并重写 <code>doInBackground(Object[] objs)</code> 和 <code>onPostExecute(Object obj)</code> 分别指定后台任务以及任务执行完毕后的步骤。</p>
+<ul>
+<li>asynctask默认有几个线程？asyncTask的内存泄露？</li>
+</ul>
+<p>至少两个，最多CPU数的两倍加一个，核心线程数最少2个，最大4个，空闲线程存活时间30秒。内部维护了一个线程池和一个Handler，</p>
+<ul>
+<li>为什么只能在UI线程更新UI？</li>
+</ul>
+<p>因为UI更新会消耗很大的资源，如果允许多线程更新UI，很容易导致死锁。</p>
+<p>且UI绘制是一个耗时操作，如果允许多线程，为了避免错误，还需要给当前绘制线程加锁，这又违反了多线程的意义，而且加锁操作反过来还会消耗过多资源，这又和UI更新要尽可能减少耗时不相符。</p>
 <hr>
-<h1 id="18-HTTP和HTTPS"><a href="#18-HTTP和HTTPS" class="headerlink" title="18. HTTP和HTTPS"></a>18. HTTP和HTTPS</h1><h2 id="18-1-HTTP"><a href="#18-1-HTTP" class="headerlink" title="18.1 HTTP"></a>18.1 HTTP</h2><h2 id="18-1-1-HTTP报文格式"><a href="#18-1-1-HTTP报文格式" class="headerlink" title="18.1.1 HTTP报文格式"></a>18.1.1 HTTP报文格式</h2><p>（1）HTTP 请求报文</p>
-<p>HTTP 请求报文包括：请求行（Request Line）、请求头（Request Header）、请求数据（Request Data）、空行四个部分。</p>
-<p><a href="https://blog.csdn.net/zx_emily/article/details/83024065" target="_blank" rel="noopener">https://blog.csdn.net/zx_emily/article/details/83024065</a></p>
-<p>SSL：<br><a href="https://www.cnblogs.com/jesse131/p/9080925.html" target="_blank" rel="noopener">https://www.cnblogs.com/jesse131/p/9080925.html</a></p>
-<hr>
-<h1 id="19-为什么View移动后点击事件还在原来的位置"><a href="#19-为什么View移动后点击事件还在原来的位置" class="headerlink" title="19. 为什么View移动后点击事件还在原来的位置"></a>19. 为什么View移动后点击事件还在原来的位置</h1><p>因为View平移后，只改变了View的显示位置，也就是只是在绘制时通过改变Matrix增加了平移，并没有改变在父布局中的位置。</p>
-<hr>
-<h1 id="20-LRU算法"><a href="#20-LRU算法" class="headerlink" title="20. LRU算法"></a>20. LRU算法</h1><h2 id="20-1-LRU算法原理"><a href="#20-1-LRU算法原理" class="headerlink" title="20.1 LRU算法原理"></a>20.1 LRU算法原理</h2><p>LRU（Least Recently Used，最近最少使用）的本质是一个链表，新数据插入到链表头部，每当缓存命中，则将数据移到链表头部，当链表满了或者需要清理内存时，将链表尾部的数据丢弃。</p>
-<p>特点：当存在热点数据时，LRU 的效率很高，但偶发性的、周期性的批量操作会导致 LRU 命中率急剧下降，产生缓存污染的（将不常用的数据也存入缓存，降低了缓存效率）问题，且每次缓存命中时，都需要遍历链表，找到命中的数据块索引并移到头部。</p>
-<h2 id="20-2-LRU-K"><a href="#20-2-LRU-K" class="headerlink" title="20.2 LRU-K"></a>20.2 LRU-K</h2><p>为了改善 LRU 算法的缓存污染问题，额外维护一个队列用于记录所有缓存数据被访问的历史，只有当数据的访问次数打到 K 次，才存入缓存中。当数据被访问次数不到 K 次时，按照一定规则（FIFO、LRU 等）淘汰，当历史队列中的数据访问达到 K 次后，将其从队列中删除转移到缓存中，并按照时间顺序重新排列缓存数据，且缓存中的数据每次被访问后重新排序。当需要清理缓存时，淘汰缓存中排在末尾的数据，也即淘汰距离上次访问最久的数据。</p>
-<p>特点：LRU-K 降低了缓存污染带来的代价，命中率比 LRU 高，但由于其历史队列和缓存中的数据都具有优先级（可以即时排序也可以在需要淘汰数据时才排序），因此其算法复杂度和性能代价较高。尤其当有大量存入历史队列却还未存入缓存中的数据时，内存消耗较大。</p>
-<p>通常，LRU-2 是综合因素下的最优选择，LRU-3 或更高 K 值会提高命中率，但适应性较差，需要大量的数据访问才能冲洗历史队列表。</p>
-<h2 id="20-3-LRU-Two-Queues"><a href="#20-3-LRU-Two-Queues" class="headerlink" title="20.3 LRU-Two Queues"></a>20.3 LRU-Two Queues</h2><p>LRU-2Q 祛除了历史队列，而是直接使用两个缓存队列进行管理，其中一个缓存队列采用 FIFO 淘汰规则，另一个缓存队列采用 LRU 淘汰规则。一个新的数据首次被访问时，假如 FIFO 队列，当该数据再次被访问时，则转移到 LRU 队列中，LRU 队列中的数据再次被访问时，则移至 LRU 队列的头部，两个队列分别根据对应的淘汰规则按需淘汰数据。</p>
-<p>L特点：RU-2Q 的命中率高于 LRU，尽管需要两个队列，但两个队列的维护算法都比较简单。LRU-2Q 和 LRU-2 命中率、内存消耗都比较接近，不同处在于，LRU-2 中，数据首次被访问加入历史队列后，需要被访问 2 次才转移至缓存中，而 LRU-2Q 在数据首次被访问加入 FIFO 队列后，仅需再被访问 1 次即转移到缓存中。</p>
-<h2 id="20-4-LRU-Multi-Queues"><a href="#20-4-LRU-Multi-Queues" class="headerlink" title="20.4 LRU-Multi Queues"></a>20.4 LRU-Multi Queues</h2><p>LRU-MQ 拥有一个 LRU 历史队列 和 K 个 LRU 缓存队列，均采用 LRU 淘汰规则。当一个数据首次被访问时，加入到最低优先级的 LRU 缓存队列中，队列中的数据每次被访问则重新计算优先级并排序，当低优先级的队列中，当某个数据优先级达到下一级 LRU 缓存队列时，将其从当前 LRU 缓存队列转移到更高级的 LRU 缓存队列的头部。为避免高优先级的数据永不淘汰，当高优先级的 LRU 缓存队列中某个数据在指定时间内未被访问时，降低其优先级并转移到低优先级的 LRU 缓存队列的头部。所有 K 个 LRU 缓存队列中被淘汰的数据，均转移到 LRU 历史队列的头部，若 LRU 历史队列中的数据重新被访问，则重新计算优先级，并根据优先级转移到目标 LRU 缓存队列的头部，否则根据 LRU 算法直到被完全淘汰，</p>
-<p>LRU-MQ 进一步降低了缓存污染的问题，着重突出了“优先缓存访问次数多的数据”的思想，但由于具有多个队列，且每个队列都需要维护每个数据的访问时间，当 LRU-MQ 中队列数和数据量过多时，具有较高的复杂度。不过，尽管 LRU-MQ 的队列数量较多，但由于内存是有限的，因此所有的队列所占内存之和仍是受限的，因此多个短队列的长度之和与单个长队列的长度相差不大，其队列扫描性能仍然比较接近。</p>
-<h2 id="20-5-LRUCache"><a href="#20-5-LRUCache" class="headerlink" title="20.5 LRUCache"></a>20.5 LRUCache</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> LruCache&lt;String, Bitmap&gt; mLruCache = <span class="keyword">new</span> LruCache&lt;String, Bitmap&gt;(cacheSize) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">sizeOf</span><span class="params">(String key, Bitmap value)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//计算一个元素的缓存大小</span></span><br><span class="line">        <span class="keyword">return</span> value.getByteCount();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">addBitmap(String key, Bitmap bitmap) &#123;&#125;</span><br><span class="line">getBitmap(String key) &#123;&#125;</span><br><span class="line">removeBitmapFromMemory(String key) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ANR和OOM"><a href="#ANR和OOM" class="headerlink" title="ANR和OOM"></a>ANR和OOM</h1><h2 id="ANR"><a href="#ANR" class="headerlink" title="ANR"></a>ANR</h2><p>ANR（Application Not Responding）出现的原因有：</p>
+<p>（1）输入事件（如触摸和按键等）在 5s 内未响应。</p>
+<p>（2）BroadcastReceiver 在规定时间内（前台广播 10s，后台广播 60s）未执行完 <code>onReceive()</code>，因此在 <code>onReceive()</code> 中不要执行耗时操作。</p>
+<p>（3）Service 在规定时间内（前台服务 20s，后台服务 10s）未完成启动（<code>onCreate()</code>）。</p>
+<p>（4）ContentProvider 在 10s 内未完成启动（<code>onCreate()</code>）。</p>
+<p>发生 ANR 时，Android 会在 <code>/data/anr/</code> 下生成一个 <code>traces.txt</code>，可通过 Adb 命令导出：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>adb pull data/anr/traces.txt</span><br></pre></td></tr></table></figure>
 
+<p>打开文本，找到对应的进程名，在下面查找发生 ANR 相关的类、方法。</p>
+<p>也有可能是 CPU 满负载、IO 阻塞、内存泄漏等等。</p>
+<h2 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h2><p>OOM（Out Of Memory）出现的原因有：</p>
+<p>（1）单次加载过大的对象，如图片。可以压缩、加载小图、绘制局部、使用第三方框架等。</p>
+<p>（2）内存中资源过多，无法为新的数据开辟内存。对不用的数据及时回收、减少内存泄漏等。</p>
+<p>（3）Dalvik 虚拟机分配的 Heap Size 太小。适当调整 HeapSize，可在 Manifest 中标注 <code>largeheap=true</code> 属性。</p>
 <hr>
-<h1 id="21-内存泄漏和内存抖动检测"><a href="#21-内存泄漏和内存抖动检测" class="headerlink" title="21. 内存泄漏和内存抖动检测"></a>21. 内存泄漏和内存抖动检测</h1><h2 id="21-1-检测内存泄漏"><a href="#21-1-检测内存泄漏" class="headerlink" title="21.1 检测内存泄漏"></a>21.1 检测内存泄漏</h2><p>（1）内存泄漏的原因：</p>
+<h1 id="内存泄漏和内存抖动"><a href="#内存泄漏和内存抖动" class="headerlink" title="内存泄漏和内存抖动"></a>内存泄漏和内存抖动</h1><h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>（1）内存泄漏的原因：</p>
 <ul>
 <li><p>Handler 发送的消息未被处理则会导致 MessageQueue 一直持有 Handler 和 Message 的引用，解决办法：创建静态内部 Handler 类继承自 Handler，并实例化该内部的 Handler，并且在 <code>onDestroy()</code> 方法中手动移除所有未处理的消息、或者使用进程唯一的 MainLooper 来实例化 Handler。</p>
 </li>
@@ -910,8 +1155,15 @@
 </li>
 </ul>
 <p>（2）内存泄漏的检测：</p>
-<p>主要是引入 LeakCanary，然后在 Application 中初始化和安装，之后在设备上运行 App 即可在 LeakCanary 中自动检测。</p>
-<h2 id="21-2-检测内存抖动"><a href="#21-2-检测内存抖动" class="headerlink" title="21.2 检测内存抖动"></a>21.2 检测内存抖动</h2><p>内存抖动主要是短时间内有大量对象产生和销毁，伴随着频繁的 GC，占用大量 CPU 和 UI 线程资源，导致 App 卡顿。</p>
+<p>主要是引入 LeakCanary，然后在 Application 中初始化和安装，之后在设备上运行 App 即可在 LeakCanary 中自动检测。还有MAT、Lint等。</p>
+<ul>
+<li><p>LeakCanary原理</p>
+</li>
+<li><p>利用logging监听方法耗时，会不会让app增大延迟</p>
+</li>
+</ul>
+<p>通过Looper.setMessageLogging(Printer)来设置自己的Printer，Printer会在Looper处理一个事件的开始和结束输出Msg的相关信息。</p>
+<h2 id="内存抖动"><a href="#内存抖动" class="headerlink" title="内存抖动"></a>内存抖动</h2><p>内存抖动主要是短时间内有大量对象产生和销毁，伴随着频繁的 GC，占用大量 CPU 和 UI 线程资源，导致 App 卡顿。</p>
 <p>（1）内存抖动的原因：</p>
 <ul>
 <li><p>在循环中声明和创建对象，可以改为在外部创建对象，然后在循环内实例化。</p>
@@ -927,22 +1179,7 @@
 <p>使用 AndroidStudio 自带的工具 Android Profile，选择 Memory 栏，当出现 GC 时，会显示一个垃圾桶图标，如果 GC 出现的频繁，则很可能是内存抖动。</p>
 <p>使用 AndroidStudio 自带的工具：Tools - Android - Android Device Monitor，打开 App，在 Monitor 工具中选择 App 对应的进程，然后运行对应的功能后，选择 DDMS 工具，查看一个 .trace 文件，在“main”栏会显示具体的抖动，找到发生抖动（柱状图起伏很大的一段）放大后，对应的找到相关的方法（方法被调用时，调用者的方法序号小于其调用的方法的序号），根据实际情况追溯到对应的方法中去查看有没有可能导致内存抖动的代码并修改。</p>
 <hr>
-<h1 id="22-wait-和sleep"><a href="#22-wait-和sleep" class="headerlink" title="22. wait()和sleep()"></a>22. wait()和sleep()</h1><p>sleep属于Thread，wait属于Object，因此所有的对象都能调用wait方法，而一旦一个对象被wait，必须手动通过notify或notyfyAll来唤醒，而sleep只需要指定唤醒的时间就能自我唤醒。</p>
-<hr>
-<h1 id="23-Java中的锁"><a href="#23-Java中的锁" class="headerlink" title="23. Java中的锁"></a>23. Java中的锁</h1><h2 id="23-1-乐观锁和悲观锁"><a href="#23-1-乐观锁和悲观锁" class="headerlink" title="23.1 乐观锁和悲观锁"></a>23.1 乐观锁和悲观锁</h2><p>悲观锁认为一定会有别的线程抢占数据，因此操作数据前都要先获取数据的锁，<code>synchronized</code> 和 <code>lock</code> 都是悲观锁，适用于写操作较多的场景。</p>
-<p>乐观锁认为不会有别的线程抢占数据，因此只在写操作前判断是否有其他线程更新了数据，CAS（Compare And Swap）就是乐观锁的一种实现方式，适用于读操作较多的场景。</p>
-<h2 id="23-2-同步锁"><a href="#23-2-同步锁" class="headerlink" title="23.2 同步锁"></a>23.2 同步锁</h2><p>（1）对象锁（方法锁）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(Object object) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
-
-<p>当多个线程使用同一个对象锁则可以达到同步的效果，否则无效。</p>
-<p>当 <code>synchronized</code> 修饰方法时，实际上等同于获取该方法所在的外部类对象的对象锁。</p>
-<p>（2）类锁（静态锁）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(DemoClass.class) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
-
-<p>同一个类只有一个类锁，但每个类的实例对象都有自己的对象锁，因此当使用类锁时，所有该类的实例对象拿到的都是同一把锁，而使用对象锁时，不同实例对象之间是无关的。</p>
-<p><code>synchronized</code> 修饰静态方法时，即为静态锁。由于非静态方法会自动持有其所在外部类对象的引用，因此非静态方法加锁等同于其所在外部类实例对象的对象锁，而静态方法不会持有其外部类对象的引用，因此是使用其外部类的字节码对象作为锁。</p>
-<hr>
-<h1 id="25-如何优化性能"><a href="#25-如何优化性能" class="headerlink" title="25. 如何优化性能"></a>25. 如何优化性能</h1><p>（1）逻辑层</p>
+<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><p>（1）逻辑层</p>
 <p>尽可能消除或减少内存泄漏、内存抖动。</p>
 <p>（2）UI 层</p>
 <ul>
@@ -976,71 +1213,26 @@
 <p>稀疏数组是针对替换 <code>HashMap&lt;Integer, Object&gt;</code> 的，其意义在于：如果一个 HashMap 里面存的数据很少，会浪费很多空闲的内存空间，因此可以使用一个压缩后的矩阵来表示。SparseArray 矩阵，分为上下两个部分，共三列。上部分只有第一行，从左到右三列分别是：原 HashMap 的行数、原 HashMap 的列数、原 HashMap 共使用了几个元素。下部分则分别记录了原 HashMap 中使用了的元素分别在原 HashMap 中的行下标、列下标、取值。</p>
 <p>ArrayMap使用两个数组来存放键值对，一个数组存放Key，另一个存放Value。</p>
 <p>如果Key确定是Int，可使用SparseArray，Long可使用LongSparseArray，其他使用ArrayMap，但数据量大时，还是使用HashMap，因为SparseArray和ArrayMap使用二分法，将计算后的Hash值按从小到大的顺序排列插入和读取。</p>
+<p>（5）启动优化</p>
+<p>利用window background快速展示一个界面给用户快速的心理预期，启动的过程，如第一个Activity的onCreate中避免繁重的初始化任务，IO、网络等耗时操作懒加载，减少布局嵌套等。</p>
+<p>（6）APK体积优化</p>
+<p>资源文件方面：使用webp代替传统jpg和png格式，单色背景或简单几何图形使用drawable或者Vector代替图片，大型媒体文件使用动态联网加载代替打进APK包，多Module之间复用的资源避免冗余。</p>
+<p>代码层，去除无用的第三方依赖，减少枚举类，代码混淆，</p>
 <hr>
-<h1 id="26-数据库常用增删改查语句"><a href="#26-数据库常用增删改查语句" class="headerlink" title="26. 数据库常用增删改查语句"></a>26. 数据库常用增删改查语句</h1><p>（1）插入数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TableName <span class="keyword">VALUES</span> (<span class="string">'data'</span>, <span class="string">'data'</span>, ...);</span><br></pre></td></tr></table></figure>
-
-<p>（2）删除数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> TableName <span class="keyword">WHERE</span> <span class="keyword">attr</span>=<span class="string">'data'</span>;</span><br></pre></td></tr></table></figure>
-
-<p>（3）更新数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> TableName <span class="keyword">set</span> attr1=<span class="string">'data'</span> <span class="keyword">WHERE</span> attr2=<span class="string">'data2'</span>;</span><br></pre></td></tr></table></figure>
-
-<p>（4）查询数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> TableName;</span><br><span class="line"><span class="keyword">SELECT</span> attr1, attr2 <span class="keyword">FROM</span> TableName <span class="keyword">WHERE</span> <span class="keyword">attr</span>=<span class="string">'data'</span>;</span><br></pre></td></tr></table></figure>
-
+<h1 id="ListView和RecyclerView性能对比和性能优化"><a href="#ListView和RecyclerView性能对比和性能优化" class="headerlink" title="ListView和RecyclerView性能对比和性能优化"></a>ListView和RecyclerView性能对比和性能优化</h1><p>ListView 开发成本低，性能和功能上 RecyclerView 更优。</p>
+<p>RecyclerView在很多方面能取代ListView，Google为什么还不弃用ListView？</p>
+<p>在某些轻量级场景下，例如纯文字的列表时，RecyclerView强制使用Holder的形式芳儿增加了开销，而且开发成本也更高一些。</p>
+<p>（1）ListView：</p>
+<p>Adapter.getView中，ConvertView==null时，说明当前的Item的View还没创建，LayoutInflate一个View，否则说明View可复用，直接让View=convertView。</p>
+<p>根据每个Item都有的布局创建一个ViewHolder，这个ViewHolder保存了每一个Item通用的布局的View的对象，如果ConvertView==null，说明当前Item的View还没创建，则新建一个ViewHolder并将该Holder存入View.tag里，否则说明可复用，直接getTag取出holder，然后重新给里面的View对象赋值。</p>
+<p>（2）RecyclerView：</p>
+<p>onBindViewHolder运行在UI线程中，尽量避免耗时操作</p>
+<p>数据量较大时，用DiffUtil代替notifyDataSetChanged，只刷新局部数据：<br>DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallBack(oldDatas, newDatas), true);<br>diffResult.dispatchUpdatesTo(mAdapter);<br>其本质是计算出新旧数据具体在哪些地方和哪一段发生了变化，然后根据实际情况调用：<br>mAdapter.notifyItemRangeInserted(position, count);<br>mAdapter.notifyItemRangeRemoved(position, count);<br>mAdapter.notifyItemMoved(fromPosition, toPosition);<br>mAdapter.notifyItemRangeChanged(position, count, payload);<br>来实现的。</p>
+<p>布局优化，减少Item的过度绘制、减少Item的层级</p>
+<p>RecyclerView的Item很灵活，因此每一次加载，都会调用requestLayout来刷新父布局，如果所有Item的高度固定，可以调用RecyclerView.setHasFixedSize(true);避免</p>
+<p>如果RecyclerView嵌套了RecyclerView，且可以使用相同的Adapter，则可以设置RecyclerView.setRecycledViewPool(pool)来共用一个RecycledViewPool，如果LayoutManager是LinearLayoutManager或其子类，需要手动开启：layout.setRecycleChildrenOnDetach(true)</p>
 <hr>
-<h1 id="27-进程间通信"><a href="#27-进程间通信" class="headerlink" title="27. 进程间通信"></a>27. 进程间通信</h1><p>（1）Socket</p>
-<p>见上文，本机的进程间通信，相当于本机 IP，通过指定相同的端口号即可建立连接，是很多 App 偏底层功能的进程间通信机制。</p>
-<p>（2）广播接收</p>
-<p>（3）ContentProvider</p>
-<p>（4）Service</p>
-<p>（5）AIDL</p>
-<p>（6）Bundle</p>
-<p>智能传输 Bundle 支持的数据类型，对数据的大小有限制，通常四大组件之间的进程间通信是采用 Bundle 的形式，例如：使用 Intent 调用的各项四大组件。</p>
-<hr>
-<h1 id="28-线程间通信"><a href="#28-线程间通信" class="headerlink" title="28. 线程间通信"></a>28. 线程间通信</h1><p>（1）Handler</p>
-<ul>
-<li><p>主线程向子线程发消息：① 主线程中实例化 Handler，并在子线程中发送消息。② 子线程中实例化 Handler，但传入 MainLooper。</p>
-</li>
-<li><p>子线程向主线程发消息：子线程中实例化 Looper，并用在主线程中实例化 Handler。</p>
-</li>
-<li><p>子线程间通信：借助主线程，将接收消息的子线程的 Looper 实例化对象传给发送消息的子线程并用于实例化 Handler。</p>
-</li>
-</ul>
-<p>（2）<code>runOnUiThread()</code></p>
-<p>直接将指定代码运行在主线程。</p>
-<p>（3）<code>View.post()</code></p>
-<p>（4）AsyncTask</p>
-<p>在主线程中调用开启后台任务，然后通过继承自 AsyncTask 的类并重写 <code>doInBackground(Object[] objs)</code> 和 <code>onPostExecute(Object obj)</code> 分别指定后台任务以及任务执行完毕后的步骤。</p>
-<hr>
-<h1 id="29-ANR和OOM及如何避免"><a href="#29-ANR和OOM及如何避免" class="headerlink" title="29. ANR和OOM及如何避免"></a>29. ANR和OOM及如何避免</h1><h2 id="29-1-ANR"><a href="#29-1-ANR" class="headerlink" title="29.1 ANR"></a>29.1 ANR</h2><p>ANR（Application Not Responding）出现的原因有：</p>
-<p>（1）输入事件（如触摸和按键等）在 5s 内未响应。</p>
-<p>（2）BroadcastReceiver 在规定时间内（前台广播 10s，后台广播 60s）未执行完 <code>onReceive()</code>，因此在 <code>onReceive()</code> 中不要执行耗时操作。</p>
-<p>（3）Service 在规定时间内（前台服务 20s，后台服务 10s）未完成启动（<code>onCreate()</code>）。</p>
-<p>（4）ContentProvider 在 10s 内未完成启动（<code>onCreate()</code>）。</p>
-<p>发生 ANR 时，Android 会在 <code>/data/anr/</code> 下生成一个 <code>traces.txt</code>，可通过 Adb 命令导出：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>adb pull data/anr/traces.txt</span><br></pre></td></tr></table></figure>
-
-<p>打开文本，找到对应的进程名，在下面查找发生 ANR 相关的类、方法。</p>
-<p>也有可能是 CPU 满负载、IO 阻塞、内存泄漏等等。</p>
-<h2 id="29-2-OOM"><a href="#29-2-OOM" class="headerlink" title="29.2 OOM"></a>29.2 OOM</h2><p>OOM（Out Of Memory）出现的原因有：</p>
-<p>（1）单次加载过大的对象，如图片。可以压缩、加载小图、绘制局部、使用第三方框架等。</p>
-<p>（2）内存中资源过多，无法为新的数据开辟内存。对不用的数据及时回收、减少内存泄漏等。</p>
-<p>（3）Dalvik 虚拟机分配的 Heap Size 太小。适当调整 HeapSize，可在 Manifest 中标注 <code>largeheap=true</code> 属性。</p>
-<hr>
-<h1 id="30-Android为什么有签名机制以及如何理解"><a href="#30-Android为什么有签名机制以及如何理解" class="headerlink" title="30. Android为什么有签名机制以及如何理解"></a>30. Android为什么有签名机制以及如何理解</h1><p><a href="https://www.jianshu.com/p/fa0e2273f2a0" target="_blank" rel="noopener">https://www.jianshu.com/p/fa0e2273f2a0</a></p>
-<hr>
-<h1 id="31-App沙箱化"><a href="#31-App沙箱化" class="headerlink" title="31. App沙箱化"></a>31. App沙箱化</h1><p><a href="https://blog.csdn.net/ljheee/article/details/53191397" target="_blank" rel="noopener">https://blog.csdn.net/ljheee/article/details/53191397</a></p>
-<hr>
-<h1 id="32-权限管理系统"><a href="#32-权限管理系统" class="headerlink" title="32. 权限管理系统"></a>32. 权限管理系统</h1><p><a href="https://blog.csdn.net/zengruiyue/article/details/96295592" target="_blank" rel="noopener">https://blog.csdn.net/zengruiyue/article/details/96295592</a></p>
-<hr>
-<h1 id="33-常见排序算法"><a href="#33-常见排序算法" class="headerlink" title="33. 常见排序算法"></a>33. 常见排序算法</h1><hr>
-<h1 id="34-热修复的原理"><a href="#34-热修复的原理" class="headerlink" title="34. 热修复的原理"></a>34. 热修复的原理</h1><p>在编译 Android 代码时，会把代码编译成 dex 字节码，Android 在运行一个 App 时，会通过 ClassLoader 来加载 dex 文件，加载时，如果一个类或方法已经被加载，后面再加载到重复的就会跳过，因此可以通过把热更新后的类或方法编译成的 dex 文件插入到 <code>dexElements</code> 数组的头部</p>
-<hr>
-<h1 id="35-ListView和RecyclerView性能对比和性能优化"><a href="#35-ListView和RecyclerView性能对比和性能优化" class="headerlink" title="35. ListView和RecyclerView性能对比和性能优化"></a>35. ListView和RecyclerView性能对比和性能优化</h1><p>ListView 开发成本低，性能和功能上 RecyclerView 更优。</p>
-<hr>
-<h1 id="36-Bitmap加载大图"><a href="#36-Bitmap加载大图" class="headerlink" title="36. Bitmap加载大图"></a>36. Bitmap加载大图</h1><p><a href="https://www.jianshu.com/p/73aecb2b85e6" target="_blank" rel="noopener">https://www.jianshu.com/p/73aecb2b85e6</a></p>
+<h1 id="Bitmap加载大图（加载局部）"><a href="#Bitmap加载大图（加载局部）" class="headerlink" title="Bitmap加载大图（加载局部）"></a>Bitmap加载大图（加载局部）</h1><p><a href="https://www.jianshu.com/p/73aecb2b85e6" target="_blank" rel="noopener">https://www.jianshu.com/p/73aecb2b85e6</a></p>
 <p>（1）设置 <code>inJustDecodeBounds</code> 来预检测图片大小。</p>
 <p>（2）大图尝试先压缩显示预览图。</p>
 <p>（3）当放大显示时，测量当前 ImageView 实际可显示的范围，按照实际可显示范围加载局部图（<code>BitmapRegionDecoder</code>）。</p>
@@ -1048,6 +1240,24 @@
 <p>（5）编码局部：<code>bitmapRegionDecoder.decodeRegion(Rect, BitmapFactory.Options);</code></p>
 <p>（6）绘制：<code>canvas.drawBitmap()</code></p>
 <p>（7）通过手势监听类 GestureDetector 的实例对象在 <code>onTouch(View v, MotionEvent event)</code> 中调用 <code>gestureDetector.onTouchEvent(event)</code>，并继承重写 <code>GestureDetector.onScroll(motionEvent e1, MotionEvent e2, float distanceX, float distanceY)</code> 来监听手势变化，并重新计算需要显示的矩形范围，然后在 <code>onDraw()</code> 中重新绘制对应区域的 Bitmap。</p>
+<hr>
+<h1 id="ClassLoader原理"><a href="#ClassLoader原理" class="headerlink" title="ClassLoader原理"></a>ClassLoader原理</h1><p><a href="http://blog.sina.com.cn/s/blog_6383597b0100fsiw.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_6383597b0100fsiw.html</a></p>
+<p>ClassLoader 查找类的步骤：<a href="https://blog.csdn.net/hngmduyi/article/details/84292549" target="_blank" rel="noopener">https://blog.csdn.net/hngmduyi/article/details/84292549</a></p>
+<p>JVM启动时，运行BootStrap ClassLoader，用于加载Java核心API，BootStrap ClassLoader还会加载另外两个ClassLoader：Extension ClassLoader（用于加载扩展的Java Class，例如JavaX开头的包和存放在JRE的ext目录下的类等）、Application ClassLoader（也叫System ClassLoader，用于加载应用程序自身的类，比如ClassPath目录下定义的Class文件），这三个ClassLoader在加载Class文件时采用双亲委托模式，每一个ClassLoader都继承自ClassLoader抽象类，且都有一个parent ClassLoader，有一个getParent()方法用于返回双亲ClassLoader，如果getParent()为null，则认为该ClassLoader的Parent就直接是BootStrap ClassLoader。所有的ClassLoader在加载class之前，都会先委托它的双亲ClassLoader加载，只有Parent无法加载时，才由它加载。</p>
+<ul>
+<li>为什么要用双亲委托式？</li>
+</ul>
+<p>出于安全考虑。假如不使用双亲委托，用户自己写了一个java.lang.system的类并加入到ClassPath中，就会被System ClassLoader加载进来，那用户就能随意操控系统了。而使用双亲委托后，即使用户把这样的Class放进了ClassPath中，System ClassLoader会首先请求它的Parent，也就是BootStrap ClassLoader来加载这样的类，但是由于Android关键的一些类，都已经被封装进了系统，因此BootStrap ClassLoader已经加载过了系统里面的关键类，则会跳过这样的非法加载。</p>
+<hr>
+<h1 id="34-热修复（热更新）的原理"><a href="#34-热修复（热更新）的原理" class="headerlink" title="34. 热修复（热更新）的原理"></a>34. 热修复（热更新）的原理</h1><h2 id="代码替换"><a href="#代码替换" class="headerlink" title="代码替换"></a>代码替换</h2><p>两个方案：Native替换和Dex插桩。</p>
+<p>（1）Native替换</p>
+<p>例如阿里的AndFix，是先在Native层找到需要修复的方法的结构体，然后改变其NativeFunc字段值，这个值是用来指定JVM执行方法时在Native层对应的指针位置，也即：Native层在执行代码的时候，不同的方法存在内存中由Native层的指针指向不同的地址里，修改了某个方法后，将新的方法的NativeFunc字段指定为旧方法的，使得Native指针指向的方法所在的内存为新方法所在的内存，来达到替换的效果。</p>
+<p>优点是不需要重启就能生效，是基于方法级别的修复。<br>缺点是不能新增变量和类、方法等，因为如果新增了方法或类，就会导致编译后的Dex中方法数发生变化，则 <code>dexElements[]</code> 中方法的索引就会变化，原来的索引对应的方法就可能发生错乱。</p>
+<p>（2）Dex插桩</p>
+<p>在编译 Android 代码时，会把代码编译成 dex 字节码，Android 在运行一个 App 时，会通过 ClassLoader 来加载 dex 文件，加载时，越靠前的Dex优先被使用，因此可以通过把热更新后的类或方法编译成的 patch.dex 文件插入到 <code>dexElements[]</code> 数组的头部使得虚拟机只加载修复后的类。</p>
+<p>优点是可以做较大的改动，稳定性高，不会侵入进程（因为需要重启才生效）。<br>缺点是影响性能，安装APK时，如果某个Dex中的类，在static方法、private方法、构造方法、override方法中引用的对象，也在同一个Dex文件内，则虚拟机会给该Class打上CLASS_ISPREVERIFIED已验证标签，运行时对应的对象就直接在当前Dex中找，否则没有打上标签的类，在运行时，就需要遍历所有的Dex查找，会影响性能。但热修复时，打出来的patch.dex，只包含了修复的class，所以绝大部分情况下，是不能打CLASS_ISPREVERIFIED标志的，否则在运行时，在patch.dex中找不到引用的对象，会抛出IllegalAccessError: Class ref in pre-verified class resolved to unexpected implementation错误。所以需要强制不打标志，不打标志就会导致在加载的时候要遍历所有的Dex，因此影响性能。</p>
+<h2 id="资源替换"><a href="#资源替换" class="headerlink" title="资源替换"></a>资源替换</h2><p>（1）资源的加载是通过 AssetManager 实现的，通过反射调用addAssetPath，将完整的新资源包加入到AssetManager中来替换掉整个AssetManager中持有的资源。然后查找所有引用了旧AssetManager的地方，通过反射替换为新的AssetManager的引用。</p>
+<p>（2）SO库的修复本质上就是对Native方法的修复和替换，把新SO库的路径插入到<code>NativeLibraryDirectories[]</code> 数组的最前面，就能使得Native层加载SO时加载的是新的SO库。</p>
 <hr>
 <h1 id="37-Java中的引用"><a href="#37-Java中的引用" class="headerlink" title="37. Java中的引用"></a>37. Java中的引用</h1><h2 id="37-1-四种引用关系"><a href="#37-1-四种引用关系" class="headerlink" title="37.1 四种引用关系"></a>37.1 四种引用关系</h2><p>（1）强引用</p>
 <p>直接 new 出来的对象就是强引用。只要强引用还存在，则不会被 GC，若内存不足，则 JVM 会直接抛出 OOM，可通过置为 null 来尝试回收。</p>
@@ -1064,8 +1274,23 @@
 <h2 id="37-2-Java中引用的实现"><a href="#37-2-Java中引用的实现" class="headerlink" title="37.2 Java中引用的实现"></a>37.2 Java中引用的实现</h2><hr>
 <h1 id="38-强引用置null是否回收"><a href="#38-强引用置null是否回收" class="headerlink" title="38. 强引用置null是否回收"></a>38. 强引用置null是否回收</h1><p>是。</p>
 <hr>
-<h1 id="39-介绍NDK和JNI"><a href="#39-介绍NDK和JNI" class="headerlink" title="39. 介绍NDK和JNI"></a>39. 介绍NDK和JNI</h1><hr>
-<h1 id="40-多进程的场景"><a href="#40-多进程的场景" class="headerlink" title="40. 多进程的场景"></a>40. 多进程的场景</h1><hr>
+<h1 id="NDK和JNI"><a href="#NDK和JNI" class="headerlink" title="NDK和JNI"></a>NDK和JNI</h1><ul>
+<li>为什么java可以调用c/c++的函数，调用jni发生的事情说一下</li>
+</ul>
+<p><a href="https://blog.csdn.net/Ithink213/article/details/88580558" target="_blank" rel="noopener">https://blog.csdn.net/Ithink213/article/details/88580558</a></p>
+<p>编译的时候，会把JNI层的代码编译为SO库，然后在运行到JNI层的方法时，其实是链接到了编译出来的SO库中运行。</p>
+<ul>
+<li>怎么定位native crash？如果上报过程中再次产生Crash能不能捕捉到？</li>
+</ul>
+<p><a href="https://www.oschina.net/question/2241352_213433" target="_blank" rel="noopener">https://www.oschina.net/question/2241352_213433</a></p>
+<p>利用NDK/ndk-stack工具。发生NativeCrash时，可在Log信息中心，看到报错的地方显示的是某个SO文件，并且会标出JNI方法名，然后根据发生Crash时运行的手机平台，比如x86或者armeabi，执行adb shell logcat | ndk-stack -sym 项目/obj/local/armeabi（平台），然后就能看到日志中标注了具体哪个JNI方法中的第几行发生Crash。</p>
+<ul>
+<li><p>Linux是怎么知道app崩溃的,如果想要在被kill前做一些耗时操作,该怎么做？</p>
+</li>
+<li><p>考虑设计一个crash捕捉模块？</p>
+</li>
+</ul>
+<hr>
 <h1 id="41-JVM相关"><a href="#41-JVM相关" class="headerlink" title="41. JVM相关"></a>41. JVM相关</h1><p>参见博客。</p>
 <hr>
 <h1 id="42-equals和-的区别"><a href="#42-equals和-的区别" class="headerlink" title="42. equals和==的区别"></a>42. equals和==的区别</h1><p><code>==</code> 仅在相比较的对象就是自己本身时，才返回 <code>true</code>。而 <code>equals</code> 是 Object 类中的方法，其返回值可以根据需求定义，默认情况下，<code>equals</code> 返回的也是 <code>==</code> 的值，但在像 HashMap、Array 中等则会返回 key 或 value 是否相等。</p>
@@ -1074,56 +1299,56 @@
 
 <hr>
 <h1 id="为什么重写了-equals还要重写hashcode"><a href="#为什么重写了-equals还要重写hashcode" class="headerlink" title="为什么重写了 equals还要重写hashcode"></a>为什么重写了 equals还要重写hashcode</h1><p>默认情况下，equals比较的是两个对象的内存地址是否相等，重写equals 方法通常是转换成比较值是否相等，如果重写了equals方法而不重写hashcode方法，默认情况下hashcode是根据对象的内存地址计算的，则可能出现equals为true而hashcode不相等的情况，这和hashcode的本意是不符的。HashCode不相等的两个对象一定不相等，相等的两个对象HashCode一定向等。</p>
+<ul>
+<li>为什么要有HashCode方法，hash算法的原理，在Java中哪些地方用到？</li>
+</ul>
+<p>可以根据HashCode来判断两个对象是否相等，而不需要依次比较equals。switch判断String时，判断的时hashCode</p>
 <hr>
-<h1 id="43-自己设计一个图片浏览器"><a href="#43-自己设计一个图片浏览器" class="headerlink" title="43. 自己设计一个图片浏览器"></a>43. 自己设计一个图片浏览器</h1><p>首先要考虑到会加载多图和大图的情况。</p>
+<h1 id="Binder"><a href="#Binder" class="headerlink" title="Binder"></a>Binder</h1><p>Binder的原理，为什么是内存拷贝一次，还知道哪些IPC方式</p>
+<hr>
+<h1 id="Android动画"><a href="#Android动画" class="headerlink" title="Android动画"></a>Android动画</h1><p>动画种类，使用动画的步骤，有没有看过动画框架的源码</p>
+<h2 id="帧动画（Frame-Animation）"><a href="#帧动画（Frame-Animation）" class="headerlink" title="帧动画（Frame Animation）"></a>帧动画（Frame Animation）</h2><p>通过连续播放帧来实现动画效果。</p>
+<h2 id="补间动画（Tweened-Animation）"><a href="#补间动画（Tweened-Animation）" class="headerlink" title="补间动画（Tweened Animation）"></a>补间动画（Tweened Animation）</h2><p>动画不会实际改变View的位置，且如果不停止动画，会使得Activity无法回收导致内存泄漏。</p>
+<h2 id="属性动画（Property-Animation）"><a href="#属性动画（Property-Animation）" class="headerlink" title="属性动画（Property Animation）"></a>属性动画（Property Animation）</h2><p>动画会实际改变View的位置</p>
+<hr>
+<h1 id="自己设计一个图片浏览器（图片加载器）"><a href="#自己设计一个图片浏览器（图片加载器）" class="headerlink" title="自己设计一个图片浏览器（图片加载器）"></a>自己设计一个图片浏览器（图片加载器）</h1><p>首先要考虑到会加载多图和大图的情况。</p>
 <p>（1）对于多图，采用预览图和本地缓存的形式，首次进入后，先从本地读取图片并加载预览小图，然后写入本地缓存，下次进入时，先从本地加载小图缓存，然后异步获取图片的更新，图片有更新时再重新缓存。并且在进入 App 后，根据显示的范围，缓存上下两行或者左右两列的图片，滑动时能提供更好的视觉效果，如果是纯粹的图片浏览器，其图片变动不大，则还可以将预览小图缓存到内存中。</p>
 <p>（2）对于大图，采用优化加载的方式，点击小图进入大图时，先预加载图片的宽高信息，如果图片和实际显示范围差别不大，则可以直接加载进来，如果图片远大于实际可显示范围，则首先压缩到当前可显示范围的大小，或者将 BitMap 裁剪到当前的显示范围再显示，然后用户双击放大的时候，利用 <code>BitmapRegionDecoder</code> 绘制实际原图的局部，并且配合 GestureDetector 监听手势滑动，来不断的绘制不同的位置，用户在缩小后，如果用户马上切换另一个大图，则将前一个大图的 Bitmap 清空，然后复用，否则设置一个定时方法，在一定时间内，保存前一个大图 Bitmap 的缓存，这样用户再次打开时就不用重复加载，如果超时，再回收该 Bitmap 对象。</p>
 <p>（3）对于 App 整体，还要有个队列或者链表，用来记录整体内存占用，例如在大图模式下，假如内存占用接近或超过了预期的最大值，则释放掉之前小图模式下的内存，用户再退出大图模式后再重新加载图片列表。</p>
 <hr>
+<h1 id="自己设计一个文件下载器"><a href="#自己设计一个文件下载器" class="headerlink" title="自己设计一个文件下载器"></a>自己设计一个文件下载器</h1><hr>
 <h1 id="44-VersionCode和VersionName"><a href="#44-VersionCode和VersionName" class="headerlink" title="44. VersionCode和VersionName"></a>44. VersionCode和VersionName</h1><p>VersionCode 是唯一标识 App 版本迭代的号码，只能是整数，是面向程序、系统、应用市场和开发人员内部的，VersionCode 更大的 App 更新。</p>
 <p>VersionName 更像是提供给用户的信息，可以按照不同的规定写，是 String 类型的。</p>
 <hr>
-<h1 id="45-JVM五个区"><a href="#45-JVM五个区" class="headerlink" title="45. JVM五个区"></a>45. JVM五个区</h1><p>参见博客。</p>
-<hr>
-<h1 id="46-方法区是否会OOM"><a href="#46-方法区是否会OOM" class="headerlink" title="46. 方法区是否会OOM"></a>46. 方法区是否会OOM</h1><p>会。在 JDK 1.8 以前，HotSpot 虚拟机的方法区是用永久代实现的，方法区的内存固定，因此如果频繁调用 String.intern() 方法，或者一次性加载太多类，会导致OOM。JDK 1.8 之后，虽然用元数据取代了方法区，直接使用本地内存，支持扩容，也取消了永久代，但并不是无限扩容的，所以仍然会，只是几率会小一些。</p>
-<hr>
 <h1 id="内部类为什么要用final修饰变量"><a href="#内部类为什么要用final修饰变量" class="headerlink" title="内部类为什么要用final修饰变量"></a>内部类为什么要用final修饰变量</h1><p>局部变量在传递给内部类，实际上在编译时，是给内部类的构造方法增加了一个参数，并原来的将局部变量传入了构造方法，如果不加 final，可能会出现，原来的局部变量在传入之后，改变了引用，但因为内部类的构造方法接收到的是原来的变量的引用的拷贝，就会导致内部类使用的这个传进来的变量的引用和原本局部变量的引用不一样，则执行的结果就不是预期的，所以需要加上 final，强制使得其引用不可改变。而成员变量则不需要是因为，内部类会持有外部类的引用，外部类的成员变量，在内部类使用时，是通过所持有的外部类的引用对象来调用的，并没有创建引用的拷贝，所以和外部类成员变量的引用是一致的。</p>
+<hr>
+<h1 id="为什么静态内部类不会持有外部对象"><a href="#为什么静态内部类不会持有外部对象" class="headerlink" title="为什么静态内部类不会持有外部对象"></a>为什么静态内部类不会持有外部对象</h1><p>非静态的内部类，在编译时，实际上会把外部类对象通过构造方法传递给内部类，这样内部类可以通过外部对象的引用调用外部类的属性。static字段使得该内部类可以直接通过类名调用，是线程共享的方法，因此不会传递外部对象的引用，也因此静态内部类无法调用外部类的非静态成员变量和非静态方法。</p>
+<ul>
+<li>使用内部类需要注意什么问题，为什么要这么设计</li>
+</ul>
+<p>内部类可以访问外部类的数据，而且具有较好的封装性，而且多个内部类分别继承不同的父类，再由外部类调用，可以间接实现多继承的效果，某些情况下可以简化代码逻辑，但内部类有可能会因为执行耗时操作使得外部类无法回收导致内存溢出，这时可以考虑改用静态内部类实现。</p>
 <hr>
 <h1 id="final关键字修饰方法，变量，类有什么作用"><a href="#final关键字修饰方法，变量，类有什么作用" class="headerlink" title="final关键字修饰方法，变量，类有什么作用"></a>final关键字修饰方法，变量，类有什么作用</h1><p>final 修饰方法，则该方法不可被重写，例如 Handler 中所有的post和send方法<br>final 修饰变量，则该变量的引用不可改变（但是值可以改变，例如final HashMap）<br>final 修饰类，则该类不可被继承，例如System类</p>
 <hr>
-<h1 id="ListView、RecyclerView优化方法"><a href="#ListView、RecyclerView优化方法" class="headerlink" title="ListView、RecyclerView优化方法"></a>ListView、RecyclerView优化方法</h1><p>ListView：</p>
-<p>Adapter.getView中，ConvertView==null时，说明当前的Item的View还没创建，LayoutInflate一个View，否则说明View可复用，直接让View=convertView。</p>
-<p>根据每个Item都有的布局创建一个ViewHolder，这个ViewHolder保存了每一个Item通用的布局的View的对象，如果ConvertView==null，说明当前Item的View还没创建，则新建一个ViewHolder并将该Holder存入View.tag里，否则说明可复用，直接getTag取出holder，然后重新给里面的View对象赋值。</p>
-<p>RecyclerView：</p>
-<p>onBindViewHolder运行在UI线程中，尽量避免耗时操作</p>
-<p>数据量较大时，用DiffUtil代替notifyDataSetChanged，只刷新局部数据：<br>DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallBack(oldDatas, newDatas), true);<br>diffResult.dispatchUpdatesTo(mAdapter);<br>其本质是计算出新旧数据具体在哪些地方和哪一段发生了变化，然后根据实际情况调用：<br>mAdapter.notifyItemRangeInserted(position, count);<br>mAdapter.notifyItemRangeRemoved(position, count);<br>mAdapter.notifyItemMoved(fromPosition, toPosition);<br>mAdapter.notifyItemRangeChanged(position, count, payload);<br>来实现的。</p>
-<p>布局优化，减少Item的过度绘制、减少Item的层级</p>
-<p>RecyclerView的Item很灵活，因此每一次加载，都会调用requestLayout来刷新父布局，如果所有Item的高度固定，可以调用RecyclerView.setHasFixedSize(true);避免</p>
-<p>如果RecyclerView嵌套了RecyclerView，且可以使用相同的Adapter，则可以设置RecyclerView.setRecycledViewPool(pool)来共用一个RecycledViewPool，如果LayoutManager是LinearLayoutManager或其子类，需要手动开启：layout.setRecycleChildrenOnDetach(true)</p>
+<h1 id="常见数据结构"><a href="#常见数据结构" class="headerlink" title="常见数据结构"></a>常见数据结构</h1><p>Collection、Queue、List、Map、红黑树、二叉树</p>
+<p>（1）数组和链表的区别</p>
+<p>数组静态分配，链表动态分配；数组在栈分配内存，链表在堆中分配；数组插入、删除数据O(n)，但查找数据O(1)，链表数量级刚好相反，数组的开销小，链表开销大因为占用指针域）</p>
 <hr>
-<h1 id="Java线程同步机制与原理"><a href="#Java线程同步机制与原理" class="headerlink" title="Java线程同步机制与原理"></a>Java线程同步机制与原理</h1><p>（1）volatile</p>
-<p>volatile一般用在多个线程访问同一个变量时，对该变量进行唯一性约束，volatile保证了变量的可见性，不能保证原子性。</p>
-<p>用法（例）：<code>private volatile boolean flag = false;</code></p>
-<p>例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Thread write = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">        flag = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Thread read = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(flag) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">write.start();</span><br><span class="line">read.start();</span><br></pre></td></tr></table></figure>
-
-<p>上述代码，在某些极端情况下，可能会输出 1，也就是：write 线程中，先执行了 <code>flag = true</code>，然后 read 线程执行了 <code>if</code> 判断并通过，输出 1，然后 write 线程才执行 <code>i = 2</code>，为了避免这个情况，可以如下改写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Thread write = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">        flag = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Thread read = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(flag) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">write.start();</span><br><span class="line">read.start();</span><br></pre></td></tr></table></figure>
-
-<p>volatile用于告诉JVM变量不允许线程缓存以及代码重排序，会使得其所在域的写操作一定发生在读操作之前，且每次有写操作后，都将所在域中的写入值同步到主内存中，从而避免其他线程从缓存中拿到旧数据。</p>
-<p>（2）Synchronized</p>
-<p>synchronized只会同步尝试获取同一个monitor对象的线程，如果一个线程已经持有该monitor，则后续所有尝试持有该monitor的线程都需要依次等待前面的线程释放monitor才能继续执行。</p>
-<p>（3）Lock</p>
-<p>Lock lock = new ReentrantLock();<br>可以通过lock.lock()和lock.unlock()手动加锁、释放锁。性能很差。注意在finally中释放锁。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"><span class="keyword">int</span> value = <span class="number">1</span>;</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    value++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">    lock.unlock;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="synchronized如何保证原子性"><a href="#synchronized如何保证原子性" class="headerlink" title="synchronized如何保证原子性"></a>synchronized如何保证原子性</h1><p>所谓原子性指的是不会被线程调度机制打断的操作，java中对基本数据类型的读和写是原子性操作，但自增自减不是。例如：i++ 在 JVM 中实际上是三步：① 取出 i 的值，② 对值 +1 操作，③ 重新赋值给 i，虽然其中的每一步都是原子性操作，但这个过程并不是原子性的。如果需要保证原子性，可以：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;i++;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>或者使用原子类：java.util.concurrent下的AtomicInteger、AtomicLong、AtomicReference等，其中AtomicInteger.getAndIncrement()效果相当于i++，AtomicInteger.getAndDecrement()效果相当于i–，AtomicInteger.incrementAndGet()效果相当于++i，其内部原理：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = get();</span><br><span class="line">        <span class="keyword">int</span> next = current + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, next))</span><br><span class="line">            <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="时间复杂度和空间复杂度"><a href="#时间复杂度和空间复杂度" class="headerlink" title="时间复杂度和空间复杂度"></a>时间复杂度和空间复杂度</h2><h2 id="常见算法"><a href="#常见算法" class="headerlink" title="常见算法"></a>常见算法</h2><p>排序算法</p>
+<p>数组最大堆</p>
+<p>LCS</p>
+<p>洗牌功能</p>
+<p>二叉树遍历</p>
+<p>二叉树中两个节点的最近公共父节点</p>
+<p>大数相乘</p>
+<p>int变量存ip地址</p>
+<p>10亿数据找到出现最多次数的数字</p>
+<p>100万个数字求100个最大值</p>
+<p>打印回环数组</p>
+<p>递归非递归反转链表</p>
+<p>找到一个字符串中出现最多的字母</p>
+<p>给定无序数组和一个值，找到两个数和为值的元素，不能使用额外空间复杂度（不要使用HashMap）：<a href="https://blog.csdn.net/suibianshen2012/article/details/51923477" target="_blank" rel="noopener">https://blog.csdn.net/suibianshen2012/article/details/51923477</a></p>
+<p>已知两条链表都是升序的，合并这两条链表，并保持升序状态</p>
 <hr>
 <h1 id="接口和类的区别和联系"><a href="#接口和类的区别和联系" class="headerlink" title="接口和类的区别和联系"></a>接口和类的区别和联系</h1><p>接口没有构造方法，不能实例化对象。在实际使用中，有时也可以通过 new 接口并实现其内部方法，但其实是通过匿名内部类实现的，所以本质上还是类的实例化。</p>
 <p>接口中的方法必须是抽象方法，尽管可以不用 abstract 修饰，但在接口内不能实现具体的方法，而实现接口时也必须实现接口的全部方法。</p>
@@ -1134,24 +1359,34 @@
 
 <p>抽象类中的方法可以有方法体，接口中的方法不能。</p>
 <p>接口中的方法会被隐式指定为 public abstract，也即接口是暴露给其他对象使用的，所以方法只能是public</p>
+<ul>
+<li>接口暴露,但是不让别人调用,有哪些办法？</li>
+</ul>
+<p>把接口内的方法声明为static，则实现该接口的类不能继承接口中的static方法。因为如果可以继承，由于Java允许实现多个接口，如果多个接口中的static方法重名，都被继承，编译器就无法确定到底来自于哪个接口。</p>
 <hr>
 <h1 id="抽象类和接口的区别"><a href="#抽象类和接口的区别" class="headerlink" title="抽象类和接口的区别"></a>抽象类和接口的区别</h1><p>从使用上来讲：</p>
 <p>1、抽象类使用abstract修饰；<br>2、抽象类不能实例化，即不能使用new关键字来实例化对象；<br>3、含有抽象方法（使用abstract关键字修饰的方法）的类是抽象类，必须使用abstract关键字修饰；<br>4、抽象类可以含有抽象方法，也可以不包含抽象方法，抽象类中可以有具体的方法；<br>5、如果一个子类实现了父类（抽象类）的所有抽象方法，那么该子类可以不必是抽象类，否则就是抽象类</p>
 <p>从逻辑上来讲：</p>
 <p>抽象类的本质还是一个类，可以为子类定义所需的逻辑，本质上是对子类的抽象，也能通过实际实现方法，直接统一子类的行为，而接口更像是预先安排一些功能，而对于实现了这个接口的类的外部而言，其他类并不需要关心这个类具体的功能或实现，只需要根据其实现的接口就能调用相关的功能。</p>
-<hr>
-<h1 id="hashmap-hasTable-ConcurrentHashMap的区别"><a href="#hashmap-hasTable-ConcurrentHashMap的区别" class="headerlink" title="hashmap hasTable ConcurrentHashMap的区别"></a>hashmap hasTable ConcurrentHashMap的区别</h1><p>HashTable 的 Key 和 Value 都不能为 null，线程安全，在修改数据时给 put() 加锁锁住整个HashTable。</p>
-<p>hashmap key 和 value 都可以是 null，线程不安全。</p>
-<p>concurrentHashMap 将整个 Map 分段为 N 个 Segment，每个 Segment 独立加锁，对于需要跨段的操作（如 size() 和 containsValue()）则按顺序锁住所有段，操作完毕后再按顺序释放所有段的锁。且 Entry.value 添加了 volatile 字段，确保读操作获取到的是最新的数据，因此是线程安全的。</p>
-<hr>
-<h1 id="ClassLoader原理"><a href="#ClassLoader原理" class="headerlink" title="ClassLoader原理"></a>ClassLoader原理</h1><p><a href="http://blog.sina.com.cn/s/blog_6383597b0100fsiw.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_6383597b0100fsiw.html</a></p>
-<p>ClassLoader 查找类的步骤：<a href="https://blog.csdn.net/hngmduyi/article/details/84292549" target="_blank" rel="noopener">https://blog.csdn.net/hngmduyi/article/details/84292549</a></p>
+<ul>
+<li>抽象类的优缺点</li>
+</ul>
+<p>抽象类可以定义方法的默认实现，也即可以预定义其子类的主体功能。但一个类只能继承自一个父类，所以抽象类需要高度抽象才具有价值，但高度抽象又会降低对子类主体功能的控制性。</p>
+<ul>
+<li>接口的优缺点</li>
+</ul>
+<p>一个雷可以实现多个接口，接口可以定义一个类的行为。但实现一个接口时，就必须实现该接口内的所有方法。</p>
 <hr>
 <h1 id="Fragment-懒加载"><a href="#Fragment-懒加载" class="headerlink" title="Fragment 懒加载"></a>Fragment 懒加载</h1><p>关键点在于 setUserVisibleHint()，会在 onCreateView 之前执行，当 Fragment 可见状态改变时调用，设置一个 boolean 成员变量，用于标志是否已经加载过，在setUserVisibleHint()中，如果没加载过且可见，则加载数据，并将boolean标志为已加载。再把实际加载 View 的部分放进加载的方法里面。</p>
 <hr>
-<h1 id="RecyclerView在很多方面能取代ListView，Google为什么还不弃用ListView？"><a href="#RecyclerView在很多方面能取代ListView，Google为什么还不弃用ListView？" class="headerlink" title="RecyclerView在很多方面能取代ListView，Google为什么还不弃用ListView？"></a>RecyclerView在很多方面能取代ListView，Google为什么还不弃用ListView？</h1><p>在某些轻量级场景下，例如纯文字的列表时，RecyclerView强制使用Holder的形式芳儿增加了开销，而且开发成本也更高一些。</p>
-<hr>
+<h1 id="沉浸式状态栏"><a href="#沉浸式状态栏" class="headerlink" title="沉浸式状态栏"></a>沉浸式状态栏</h1><hr>
+<h1 id="Java继承和多态"><a href="#Java继承和多态" class="headerlink" title="Java继承和多态"></a>Java继承和多态</h1><hr>
 <h1 id="Java泛型的作用"><a href="#Java泛型的作用" class="headerlink" title="Java泛型的作用"></a>Java泛型的作用</h1><p>泛型即<code>&lt;T&gt;</code>，</p>
+<ul>
+<li>泛型的擦除</li>
+</ul>
+<p><a href="https://blog.csdn.net/briblue/article/details/76736356" target="_blank" rel="noopener">https://blog.csdn.net/briblue/article/details/76736356</a></p>
+<p>泛型指定了接收范围后，并不会改变类的类型，例如<code>List&lt;Integer&gt;</code>和<code>List&lt;String&gt;</code>的Type都是List.class，泛型指定的类型被擦除了，这就叫类型擦除。类型擦除时，泛型参数如果没有指定上线（<code>&lt;T&gt;</code>），则<code>&lt;T&gt;</code>会被转移为Object类型，如果制定了上限（<code>&lt;T extends XXX&gt;</code>），则<code>&lt;T&gt;</code>会被指定为对应的XXX类型。</p>
 <hr>
 <h1 id="Object方法"><a href="#Object方法" class="headerlink" title="Object方法"></a>Object方法</h1><ul>
 <li>Object()<br>构造函数。</li>
@@ -1181,6 +1416,10 @@
 <p>（6）迪米特原则</p>
 <p>1.最少知识原则：一个对象应该对其他对象有最少的了解。因为关系越密切，则耦合度越大<br>2.只与直接的朋友通信</p>
 <hr>
+<h1 id="Java语法糖"><a href="#Java语法糖" class="headerlink" title="Java语法糖"></a>Java语法糖</h1><h2 id="switch支持String"><a href="#switch支持String" class="headerlink" title="switch支持String"></a>switch支持String</h2><p>因为switch内部比较的是String的hashCode。</p>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><h2 id="自动装箱和拆箱"><a href="#自动装箱和拆箱" class="headerlink" title="自动装箱和拆箱"></a>自动装箱和拆箱</h2><p>自动装箱：int i = 0; Integer n = i;内部调用：n = Integer.valueOf(i);<br>自动拆箱：Integer i = 0; int n = i;内部调用：n = i.intValue();</p>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><h2 id="ForEach原理"><a href="#ForEach原理" class="headerlink" title="ForEach原理"></a>ForEach原理</h2><p>使用了迭代器，迭代器可以将List等集合中的值全部取出来形成一个迭代数组。</p>
+<hr>
 <h1 id="Java反射"><a href="#Java反射" class="headerlink" title="Java反射"></a>Java反射</h1><h2 id="反射的使用："><a href="#反射的使用：" class="headerlink" title="反射的使用："></a>反射的使用：</h2><p>（1）已经编译成 .class 的类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">aClass</span> </span>= AClass.class;</span><br></pre></td></tr></table></figure>
 
@@ -1197,9 +1436,30 @@
 
 <p>invoke第一个参数为需要调用方法的对象，第二个参数为需要传入的参数，如有多个参数则使用数组。</p>
 <hr>
-<h1 id="接口回调与观察者模式的选择"><a href="#接口回调与观察者模式的选择" class="headerlink" title="接口回调与观察者模式的选择"></a>接口回调与观察者模式的选择</h1><p>回调是一对一的关系，只监听一个事件；观察者模式则是一个主题，可以有多个监听，当主题变化时，向所有（也可以试部分）这些监听发出变化通知，观察者模式是一对多的关系。</p>
+<h1 id="Java序列化"><a href="#Java序列化" class="headerlink" title="Java序列化"></a>Java序列化</h1><hr>
+<h1 id="Android新特性"><a href="#Android新特性" class="headerlink" title="Android新特性"></a>Android新特性</h1><hr>
+<h1 id="Android签名机制"><a href="#Android签名机制" class="headerlink" title="Android签名机制"></a>Android签名机制</h1><p><a href="https://www.jianshu.com/p/fa0e2273f2a0" target="_blank" rel="noopener">https://www.jianshu.com/p/fa0e2273f2a0</a></p>
+<ul>
+<li>V1,V2 签名区别</li>
+</ul>
 <hr>
-<h1 id><a href="#" class="headerlink" title></a></h1>
+<h1 id="Android编译打包"><a href="#Android编译打包" class="headerlink" title="Android编译打包"></a>Android编译打包</h1><ul>
+<li><p>apk编译打包流程</p>
+</li>
+<li><p>方法数超过65535怎么办？分包是哪个版本开始支持的，之前的版本不支持，如何加载dex文件</p>
+</li>
+</ul>
+<hr>
+<h1 id="App启动流程"><a href="#App启动流程" class="headerlink" title="App启动流程"></a>App启动流程</h1><hr>
+<h1 id="App沙箱化"><a href="#App沙箱化" class="headerlink" title="App沙箱化"></a>App沙箱化</h1><p><a href="https://blog.csdn.net/ljheee/article/details/53191397" target="_blank" rel="noopener">https://blog.csdn.net/ljheee/article/details/53191397</a></p>
+<hr>
+<h1 id="权限管理系统"><a href="#权限管理系统" class="headerlink" title="权限管理系统"></a>权限管理系统</h1><p><a href="https://blog.csdn.net/zengruiyue/article/details/96295592" target="_blank" rel="noopener">https://blog.csdn.net/zengruiyue/article/details/96295592</a></p>
+<hr>
+<h1 id="Kotlin和Flutter"><a href="#Kotlin和Flutter" class="headerlink" title="Kotlin和Flutter"></a>Kotlin和Flutter</h1><hr>
+<h1 id="如何防止DNS劫持"><a href="#如何防止DNS劫持" class="headerlink" title="如何防止DNS劫持"></a>如何防止DNS劫持</h1><hr>
+<h1 id="View标签"><a href="#View标签" class="headerlink" title="View标签"></a>View标签</h1><p>include</p>
+<p>viewstub</p>
+
       
     </div>
 
@@ -1318,8 +1578,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/interview/interview-java/" rel="next" title="Java面试题汇总">
-                <i class="fa fa-chevron-left"></i> Java面试题汇总
+              <a href="/post/interview/interview-android/" rel="next" title="Android面试题汇总">
+                <i class="fa fa-chevron-left"></i> Android面试题汇总
               </a>
             
           </div>
@@ -1418,7 +1678,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">764</span>
+                <span class="site-state-item-count">765</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1740,7 +2000,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Handler工作原理√"><span class="nav-text">1. Handler工作原理√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-介绍一下FFmpeg"><span class="nav-text">4. 介绍一下FFmpeg</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四大组件√"><span class="nav-text">四大组件√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#getWidth和getMeasureWidth的区别√"><span class="nav-text">- getWidth和getMeasureWidth的区别√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#finally什么时候执行√"><span class="nav-text">finally什么时候执行√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App架构√"><span class="nav-text">App架构√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java引用的实现√"><span class="nav-text">Java引用的实现√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap√"><span class="nav-text">- HashMap√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM的内存模型和分区√"><span class="nav-text">JVM的内存模型和分区√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法区是否会OOM√"><span class="nav-text">方法区是否会OOM√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GC垃圾回收机制√"><span class="nav-text">GC垃圾回收机制√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-StringBuffer和StringBuilder"><span class="nav-text">5. StringBuffer和StringBuilder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Android触摸事件"><span class="nav-text">6. Android触摸事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-TCP三次握手"><span class="nav-text">7. TCP三次握手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-TCP四次挥手"><span class="nav-text">8. TCP四次挥手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-基于-TCP-的-Socket："><span class="nav-text">9. 基于 TCP 的 Socket：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-基于-UDP-的-Socket："><span class="nav-text">10. 基于 UDP 的 Socket：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-隐式启动Service"><span class="nav-text">12. 隐式启动Service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-View的绘制流程"><span class="nav-text">14. View的绘制流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#15-了解的设计模式"><span class="nav-text">15. 了解的设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#15-1-单例模式"><span class="nav-text">15.1 单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-1-饿汉式"><span class="nav-text">15.1.1 饿汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-2-懒汉式"><span class="nav-text">15.1.2 懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-3-线程安全的懒汉式"><span class="nav-text">15.1.3 线程安全的懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-4-双锁检测"><span class="nav-text">15.1.4 双锁检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-5-静态内部类"><span class="nav-text">15.1.5 静态内部类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-2-工厂模式"><span class="nav-text">15.2 工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#15-2-1-简单工厂模式"><span class="nav-text">15.2.1 简单工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-2-2-抽象工厂模式"><span class="nav-text">15.2.2 抽象工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-2-3-工厂方法模式"><span class="nav-text">15.2.3 工厂方法模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-3-建造者模式"><span class="nav-text">15.3 建造者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-4-中介者模式"><span class="nav-text">15.4 中介者模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#16-开源框架"><span class="nav-text">16. 开源框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#17-多线程"><span class="nav-text">17. 多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#18-HTTP和HTTPS"><span class="nav-text">18. HTTP和HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#18-1-HTTP"><span class="nav-text">18.1 HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-1-1-HTTP报文格式"><span class="nav-text">18.1.1 HTTP报文格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#19-为什么View移动后点击事件还在原来的位置"><span class="nav-text">19. 为什么View移动后点击事件还在原来的位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#20-LRU算法"><span class="nav-text">20. LRU算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#20-1-LRU算法原理"><span class="nav-text">20.1 LRU算法原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-2-LRU-K"><span class="nav-text">20.2 LRU-K</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-3-LRU-Two-Queues"><span class="nav-text">20.3 LRU-Two Queues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-4-LRU-Multi-Queues"><span class="nav-text">20.4 LRU-Multi Queues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-5-LRUCache"><span class="nav-text">20.5 LRUCache</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-内存泄漏和内存抖动检测"><span class="nav-text">21. 内存泄漏和内存抖动检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-1-检测内存泄漏"><span class="nav-text">21.1 检测内存泄漏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-2-检测内存抖动"><span class="nav-text">21.2 检测内存抖动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#22-wait-和sleep"><span class="nav-text">22. wait()和sleep()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#23-Java中的锁"><span class="nav-text">23. Java中的锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#23-1-乐观锁和悲观锁"><span class="nav-text">23.1 乐观锁和悲观锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-2-同步锁"><span class="nav-text">23.2 同步锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#25-如何优化性能"><span class="nav-text">25. 如何优化性能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#26-数据库常用增删改查语句"><span class="nav-text">26. 数据库常用增删改查语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#27-进程间通信"><span class="nav-text">27. 进程间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#28-线程间通信"><span class="nav-text">28. 线程间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#29-ANR和OOM及如何避免"><span class="nav-text">29. ANR和OOM及如何避免</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#29-1-ANR"><span class="nav-text">29.1 ANR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#29-2-OOM"><span class="nav-text">29.2 OOM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#30-Android为什么有签名机制以及如何理解"><span class="nav-text">30. Android为什么有签名机制以及如何理解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#31-App沙箱化"><span class="nav-text">31. App沙箱化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#32-权限管理系统"><span class="nav-text">32. 权限管理系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#33-常见排序算法"><span class="nav-text">33. 常见排序算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#34-热修复的原理"><span class="nav-text">34. 热修复的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#35-ListView和RecyclerView性能对比和性能优化"><span class="nav-text">35. ListView和RecyclerView性能对比和性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#36-Bitmap加载大图"><span class="nav-text">36. Bitmap加载大图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#37-Java中的引用"><span class="nav-text">37. Java中的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#37-1-四种引用关系"><span class="nav-text">37.1 四种引用关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37-2-Java中引用的实现"><span class="nav-text">37.2 Java中引用的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#38-强引用置null是否回收"><span class="nav-text">38. 强引用置null是否回收</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#39-介绍NDK和JNI"><span class="nav-text">39. 介绍NDK和JNI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#40-多进程的场景"><span class="nav-text">40. 多进程的场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#41-JVM相关"><span class="nav-text">41. JVM相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#42-equals和-的区别"><span class="nav-text">42. equals和==的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么重写了-equals还要重写hashcode"><span class="nav-text">为什么重写了 equals还要重写hashcode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#43-自己设计一个图片浏览器"><span class="nav-text">43. 自己设计一个图片浏览器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#44-VersionCode和VersionName"><span class="nav-text">44. VersionCode和VersionName</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#45-JVM五个区"><span class="nav-text">45. JVM五个区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#46-方法区是否会OOM"><span class="nav-text">46. 方法区是否会OOM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部类为什么要用final修饰变量"><span class="nav-text">内部类为什么要用final修饰变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#final关键字修饰方法，变量，类有什么作用"><span class="nav-text">final关键字修饰方法，变量，类有什么作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ListView、RecyclerView优化方法"><span class="nav-text">ListView、RecyclerView优化方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java线程同步机制与原理"><span class="nav-text">Java线程同步机制与原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#synchronized如何保证原子性"><span class="nav-text">synchronized如何保证原子性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口和类的区别和联系"><span class="nav-text">接口和类的区别和联系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象类和接口的区别"><span class="nav-text">抽象类和接口的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hashmap-hasTable-ConcurrentHashMap的区别"><span class="nav-text">hashmap hasTable ConcurrentHashMap的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ClassLoader原理"><span class="nav-text">ClassLoader原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fragment-懒加载"><span class="nav-text">Fragment 懒加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RecyclerView在很多方面能取代ListView，Google为什么还不弃用ListView？"><span class="nav-text">RecyclerView在很多方面能取代ListView，Google为什么还不弃用ListView？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java泛型的作用"><span class="nav-text">Java泛型的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Object方法"><span class="nav-text">Object方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java面向对象六大原则："><span class="nav-text">Java面向对象六大原则：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java反射"><span class="nav-text">Java反射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反射的使用："><span class="nav-text">反射的使用：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口回调与观察者模式的选择"><span class="nav-text">接口回调与观察者模式的选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-text"></span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Handler工作原理√"><span class="nav-text">1. Handler工作原理√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FFmpeg"><span class="nav-text">FFmpeg</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四大组件√"><span class="nav-text">四大组件√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五大存储"><span class="nav-text">五大存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#getWidth和getMeasureWidth的区别√"><span class="nav-text">- getWidth和getMeasureWidth的区别√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#finally什么时候执行√"><span class="nav-text">finally什么时候执行√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App架构√"><span class="nav-text">App架构√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java引用的实现√"><span class="nav-text">Java引用的实现√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap√"><span class="nav-text">HashMap√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM的内存模型和分区√"><span class="nav-text">JVM的内存模型和分区√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法区是否会OOM√"><span class="nav-text">方法区是否会OOM√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GC垃圾回收机制√"><span class="nav-text">GC垃圾回收机制√</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-StringBuffer和StringBuilder"><span class="nav-text">5. StringBuffer和StringBuilder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Android触摸事件"><span class="nav-text">6. Android触摸事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP"><span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP三次握手和四次挥手"><span class="nav-text">TCP三次握手和四次挥手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP流量控制和拥塞控制"><span class="nav-text">TCP流量控制和拥塞控制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP"><span class="nav-text">UDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Socket"><span class="nav-text">Socket</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于TCP的Socket"><span class="nav-text">基于TCP的Socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于UDP的Socket"><span class="nav-text">基于UDP的Socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket长连接"><span class="nav-text">Socket长连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP和HTTPS"><span class="nav-text">HTTP和HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP报文格式"><span class="nav-text">HTTP报文格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Http缓存"><span class="nav-text">Http缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS"><span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL"><span class="nav-text">SSL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS流程"><span class="nav-text">HTTPS流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-隐式启动Service"><span class="nav-text">12. 隐式启动Service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-View的绘制流程"><span class="nav-text">14. View的绘制流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#15-了解的设计模式"><span class="nav-text">15. 了解的设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#15-1-单例模式"><span class="nav-text">15.1 单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-1-饿汉式"><span class="nav-text">15.1.1 饿汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-2-懒汉式"><span class="nav-text">15.1.2 懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-3-线程安全的懒汉式"><span class="nav-text">15.1.3 线程安全的懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-4-双锁检测"><span class="nav-text">15.1.4 双锁检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-1-5-静态内部类"><span class="nav-text">15.1.5 静态内部类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-2-工厂模式"><span class="nav-text">15.2 工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#15-2-1-简单工厂模式"><span class="nav-text">15.2.1 简单工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-2-2-抽象工厂模式"><span class="nav-text">15.2.2 抽象工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-2-3-工厂方法模式"><span class="nav-text">15.2.3 工厂方法模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-3-建造者模式"><span class="nav-text">15.3 建造者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-4-中介者模式"><span class="nav-text">15.4 中介者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口回调与观察者模式的选择"><span class="nav-text">接口回调与观察者模式的选择</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开源框架"><span class="nav-text">开源框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Glide"><span class="nav-text">Glide</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Retrofit"><span class="nav-text">Retrofit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Volley"><span class="nav-text">Volley</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus"><span class="nav-text">EventBus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OKHttp"><span class="nav-text">OKHttp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么View移动后点击事件还在原来的位置"><span class="nav-text">为什么View移动后点击事件还在原来的位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#20-LRU算法"><span class="nav-text">20. LRU算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#20-1-LRU算法原理"><span class="nav-text">20.1 LRU算法原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-2-LRU-K"><span class="nav-text">20.2 LRU-K</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-3-LRU-Two-Queues"><span class="nav-text">20.3 LRU-Two Queues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-4-LRU-Multi-Queues"><span class="nav-text">20.4 LRU-Multi Queues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-5-LRUCache"><span class="nav-text">20.5 LRUCache</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#22-wait-和sleep"><span class="nav-text">22. wait()和sleep()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java线程同步机制与原理"><span class="nav-text">Java线程同步机制与原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#synchronized如何保证原子性"><span class="nav-text">synchronized如何保证原子性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java中的锁"><span class="nav-text">Java中的锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#乐观锁和悲观锁"><span class="nav-text">乐观锁和悲观锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公平锁和非公平锁"><span class="nav-text">公平锁和非公平锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#独享锁和共享锁"><span class="nav-text">独享锁和共享锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互斥锁和读写锁"><span class="nav-text">互斥锁和读写锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重入锁和不可重入锁"><span class="nav-text">可重入锁和不可重入锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自旋锁"><span class="nav-text">自旋锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁粗化和锁消除"><span class="nav-text">锁粗化和锁消除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏向锁、轻量级锁、重量级锁"><span class="nav-text">偏向锁、轻量级锁、重量级锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分段锁"><span class="nav-text">分段锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步锁"><span class="nav-text">同步锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-text">死锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多进程及进程间通信"><span class="nav-text">多进程及进程间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程及线程间通信"><span class="nav-text">多线程及线程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程间通信"><span class="nav-text">线程间通信</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ANR和OOM"><span class="nav-text">ANR和OOM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ANR"><span class="nav-text">ANR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOM"><span class="nav-text">OOM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存泄漏和内存抖动"><span class="nav-text">内存泄漏和内存抖动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏"><span class="nav-text">内存泄漏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存抖动"><span class="nav-text">内存抖动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化"><span class="nav-text">性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ListView和RecyclerView性能对比和性能优化"><span class="nav-text">ListView和RecyclerView性能对比和性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bitmap加载大图（加载局部）"><span class="nav-text">Bitmap加载大图（加载局部）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ClassLoader原理"><span class="nav-text">ClassLoader原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#34-热修复（热更新）的原理"><span class="nav-text">34. 热修复（热更新）的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码替换"><span class="nav-text">代码替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源替换"><span class="nav-text">资源替换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#37-Java中的引用"><span class="nav-text">37. Java中的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#37-1-四种引用关系"><span class="nav-text">37.1 四种引用关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37-2-Java中引用的实现"><span class="nav-text">37.2 Java中引用的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#38-强引用置null是否回收"><span class="nav-text">38. 强引用置null是否回收</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NDK和JNI"><span class="nav-text">NDK和JNI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#41-JVM相关"><span class="nav-text">41. JVM相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#42-equals和-的区别"><span class="nav-text">42. equals和==的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么重写了-equals还要重写hashcode"><span class="nav-text">为什么重写了 equals还要重写hashcode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Binder"><span class="nav-text">Binder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android动画"><span class="nav-text">Android动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#帧动画（Frame-Animation）"><span class="nav-text">帧动画（Frame Animation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补间动画（Tweened-Animation）"><span class="nav-text">补间动画（Tweened Animation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性动画（Property-Animation）"><span class="nav-text">属性动画（Property Animation）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自己设计一个图片浏览器（图片加载器）"><span class="nav-text">自己设计一个图片浏览器（图片加载器）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自己设计一个文件下载器"><span class="nav-text">自己设计一个文件下载器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#44-VersionCode和VersionName"><span class="nav-text">44. VersionCode和VersionName</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部类为什么要用final修饰变量"><span class="nav-text">内部类为什么要用final修饰变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么静态内部类不会持有外部对象"><span class="nav-text">为什么静态内部类不会持有外部对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#final关键字修饰方法，变量，类有什么作用"><span class="nav-text">final关键字修饰方法，变量，类有什么作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见数据结构"><span class="nav-text">常见数据结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度和空间复杂度"><span class="nav-text">时间复杂度和空间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见算法"><span class="nav-text">常见算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口和类的区别和联系"><span class="nav-text">接口和类的区别和联系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象类和接口的区别"><span class="nav-text">抽象类和接口的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fragment-懒加载"><span class="nav-text">Fragment 懒加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#沉浸式状态栏"><span class="nav-text">沉浸式状态栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java继承和多态"><span class="nav-text">Java继承和多态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java泛型的作用"><span class="nav-text">Java泛型的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Object方法"><span class="nav-text">Object方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java面向对象六大原则："><span class="nav-text">Java面向对象六大原则：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java语法糖"><span class="nav-text">Java语法糖</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#switch支持String"><span class="nav-text">switch支持String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型"><span class="nav-text">泛型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动装箱和拆箱"><span class="nav-text">自动装箱和拆箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举"><span class="nav-text">枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类"><span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ForEach原理"><span class="nav-text">ForEach原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java反射"><span class="nav-text">Java反射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反射的使用："><span class="nav-text">反射的使用：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java序列化"><span class="nav-text">Java序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android新特性"><span class="nav-text">Android新特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android签名机制"><span class="nav-text">Android签名机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android编译打包"><span class="nav-text">Android编译打包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App启动流程"><span class="nav-text">App启动流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App沙箱化"><span class="nav-text">App沙箱化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#权限管理系统"><span class="nav-text">权限管理系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kotlin和Flutter"><span class="nav-text">Kotlin和Flutter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何防止DNS劫持"><span class="nav-text">如何防止DNS劫持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#View标签"><span class="nav-text">View标签</span></a></li></ol></div>
             
 
           </div>
@@ -1774,7 +2034,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">360k</span>
+    <span title="博客总字数">373k</span>
   
 
   
@@ -1783,7 +2043,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:40</span>
+    <span title="博客总阅读时长">6:55</span>
   
 </div>
 
