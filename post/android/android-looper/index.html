@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-01T18:26:21.802Z">
+<meta property="og:updated_time" content="2020-03-21T15:53:50.967Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android——Looper">
 <meta name="twitter:description" content="（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。">
@@ -771,7 +771,9 @@
 <p>（2）即使在子线程中，也可以不显式调用 <code>prepare()</code> 方法，这时 Handler 的初始化方式为：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Handler mainHandler = <span class="keyword">new</span> Handler(Looper.getMainLooper()) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(@NonNull Message msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.handleMessage(msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>※ 注 | 这里是 <code>void handleMessage(Message)</code>和（1）中使用匿名 Callback 的 <code>boolean handleMessage(Message)</code> 不同。</p>
+<blockquote>
+<p>@注：这里是 <code>void handleMessage(Message)</code>和（1）中使用匿名 Callback 的 <code>boolean handleMessage(Message)</code> 不同。</p>
+</blockquote>
 <p>这里不需要显式调用 <code>prepare()</code> 的原因是给 Handler 传了一个 <code>Looper.getMainLooper()</code> 的参数，源码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Returns the application's main looper, which lives in the main thread of the application.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Looper <span class="title">getMainLooper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (Looper.class) &#123;</span><br><span class="line">        <span class="keyword">return</span> sMainLooper;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1005,7 +1007,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">765</span>
+                <span class="site-state-item-count">766</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1361,7 +1363,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">373k</span>
+    <span title="博客总字数">375k</span>
   
 
   
@@ -1370,7 +1372,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:55</span>
+    <span title="博客总阅读时长">6:56</span>
   
 </div>
 

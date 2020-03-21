@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）哈希散列表；（2）哈希碰撞的解决方案（开放定址法、再散列函数法、链地址法）；（3）HashMap 源码分析。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-13T22:32:08.586Z">
+<meta property="og:updated_time" content="2020-03-21T15:55:56.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap源码浅析">
 <meta name="twitter:description" content="（1）哈希散列表；（2）哈希碰撞的解决方案（开放定址法、再散列函数法、链地址法）；（3）HashMap 源码分析。">
@@ -754,10 +754,14 @@
 <li><p><code>threshold</code>：阈值。</p>
 </li>
 <li><p><code>transient volatile int modCount;</code>：HashMao 被改变的次数，用于快速失败。</p>
+<blockquote>
+<p>@注：<code>volatile</code> 关键字修饰的成员变量，可以阻禁止代码重排序，保证所有的写操作都在读操作之前，使得变量在内存中的变化可以被多线程所知。由于 HashMap 线程不安全，<code>modCount</code> 用于快速失败机制，所以写线程执行时带来的变化需要及时被读线程所知。</p>
+</blockquote>
+<blockquote>
+<p>@注：put 操作时，若 key 已存在替换 value 时，<code>modCount</code> 不会增加，不存在新增时才会增加。也即，只有 HashMap 中元素的数量增多或减少时，才认为 HashMap 的结构发生了变化。</p>
+</blockquote>
 </li>
 </ul>
-<p>※ | 注：<code>volatile</code> 关键字修饰的成员变量，可以阻禁止代码重排序，保证所有的写操作都在读操作之前，使得变量在内存中的变化可以被多线程所知。由于 HashMap 线程不安全，<code>modCount</code> 用于快速失败机制，所以写线程执行时带来的变化需要及时被读线程所知。</p>
-<p>※ | 注：put 操作时，若 key 已存在替换 value 时，<code>modCount</code> 不会增加，不存在新增时才会增加。也即，只有 HashMap 中元素的数量增多或减少时，才认为 HashMap 的结构发生了变化。</p>
 <br>
 
 <h2 id="2-3-HashMap长度必须为2的幂"><a href="#2-3-HashMap长度必须为2的幂" class="headerlink" title="2.3 HashMap长度必须为2的幂"></a>2.3 HashMap长度必须为2的幂</h2><p>HashMap 在将一个 key 经过 hash 后映射进数组节点中时，经过了如下运算：</p>
@@ -1038,7 +1042,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">765</span>
+                <span class="site-state-item-count">766</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1394,7 +1398,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">373k</span>
+    <span title="博客总字数">375k</span>
   
 
   
@@ -1403,7 +1407,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:55</span>
+    <span title="博客总阅读时长">6:56</span>
   
 </div>
 

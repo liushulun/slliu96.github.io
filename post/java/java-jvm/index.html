@@ -109,7 +109,7 @@
 <meta property="og:description" content="（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 的内存模型；（3）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（4）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（5）JDK 1.8 之前和之后 JVM 内存模型的区别。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/java/java-jvm/complete_binary_tree.jpg">
-<meta property="og:updated_time" content="2020-03-13T22:10:53.409Z">
+<meta property="og:updated_time" content="2020-03-21T15:56:18.221Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM内存模型和内存分区">
 <meta name="twitter:description" content="（1）Java 中常见的数据结构（堆、栈、队列）；（2）JVM 的内存模型；（3）JVM 中的 5 个区（堆区、栈区、方法区、本地方法区、程序计数器）；（4）JVM 中 4 个分段（Segment）和 5 个区的对应关系；（5）JDK 1.8 之前和之后 JVM 内存模型的区别。">
@@ -719,7 +719,9 @@
 <br>
 
 <h2 id="1-1-堆（Heap）"><a href="#1-1-堆（Heap）" class="headerlink" title="1.1 堆（Heap）"></a>1.1 堆（Heap）</h2><p>堆（Heap）总是一颗完全二叉树，且某个节点的值总是不大于或不小于父节点的值。若某节点总是不大于父节点的值（即父节点大于等于子节点），称为最大堆或大根堆（Max Heap）；反之称为最小堆或小根堆（Min Heap）。常见的堆有：二叉堆、斐波那契堆等。</p>
-<p>※ | 注：完全二叉树可以这么理解：如果有一棵二叉树，只有最末端的节点可以有 0、1、2 个子节点，倒数第二层的节点要么没有子节点，要么必须有 2 个子节点，并且末端的节点都集中在左侧若干位置上，则该树称为完全二叉树。完全二叉树如下图所示：</p>
+<blockquote>
+<p>@注：完全二叉树可以这么理解：如果有一棵二叉树，只有最末端的节点可以有 0、1、2 个子节点，倒数第二层的节点要么没有子节点，要么必须有 2 个子节点，并且末端的节点都集中在左侧若干位置上，则该树称为完全二叉树。完全二叉树如下图所示：</p>
+</blockquote>
 <center>
 
 <p><img src="/post_files/java/java-jvm/complete_binary_tree.jpg" alt="完全二叉树图示" title="TOPICS"></p>
@@ -767,7 +769,9 @@
 <font color="#EB6D39">
 
 <p>堆区的内存是不连续且无序的，分配和释放内存的成本都比较高。例如在分配堆内存时，可能需要在堆区搜索多个空间，如果内存碎片（多次分配和释放后，会造成占用内存和可用内存互相掺杂）太多，则会消耗较长时间来搜索可用内存区，甚至需要向 OS 申请分配新的堆区空间，因此堆区的效率较低，但是内存分配更加自由，内存的分配和释放可以手动控制。</p>
-<p>※ | 注：实际上，如果 JVM 开启了 <strong>逃逸分析（Escape Analysis）</strong>，会在满足一定条件时，将本应存在堆区中的变量存在栈区，便于内存的释放。例如：</p>
+<blockquote>
+<p>@注：实际上，如果 JVM 开启了 <strong>逃逸分析（Escape Analysis）</strong>，会在满足一定条件时，将本应存在堆区中的变量存在栈区，便于内存的释放。例如：</p>
+</blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">demoFun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    DemoClass demoClass = <span class="keyword">new</span> DemoClass();</span><br><span class="line">    demoClass.demoData = <span class="number">5</span>;  <span class="comment">// int 型</span></span><br><span class="line">    System.out.println(<span class="string">"Demo data is : "</span> + demoClass.demoData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>本来，<code>demoClass.demoData</code> 虽然是基本数据类型 int，但由于它是一个类成员动态属性，因此随所属对象 <code>demoClass</code> 被分配在堆区。如果 JVM 开启了逃逸分析，则优化后会将该段代码转换为如下的形式运行：</p>
@@ -800,7 +804,9 @@
 <font color="#EB6D39">
 
 <p>由于栈区中存储的都是内存占用较小，且固定长度的变量，例如基本数据类型、对象的引用（仅仅只是一个地址，通常为 4 位，指向堆区或常量池中实际存放的对象），因此栈区的内存是连续、且在创建栈帧时就提前分配好的，所以栈区的内存不需要也无法手动管理，当调用所需变量时，仅需将指针按预定义的长度移动即可，因此分配和释放内存的效率都比堆区快得多。</p>
-<p>※ | 注：Java 中，对于 byte、short、char 这些基本数据类型，本来比 int 占用的内存更少，对一些标志位、临时变量等，使用这些代替 int 似乎应该效率更高，实际上 JVM 中，在处理这些数据的加法操作时，会先隐式转换成 int 类型再操作。例如以下代码会编译报错：</p>
+<blockquote>
+<p>@注：Java 中，对于 byte、short、char 这些基本数据类型，本来比 int 占用的内存更少，对一些标志位、临时变量等，使用这些代替 int 似乎应该效率更高，实际上 JVM 中，在处理这些数据的加法操作时，会先隐式转换成 int 类型再操作。例如以下代码会编译报错：</p>
+</blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">byte</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">byte</span> c = a + b;  <span class="comment">// 编译报错：Type mismatch: cannot convert from int to byte</span></span><br></pre></td></tr></table></figure>
 
 <p>这么做的意义其实是在于，Java 中 int 和 float 是 4 字节 32 位，long 和 double 是 8 字节 64 位，这些类型都能以 4 字节为单位，位移 1 倍或 2 倍得到，而 byte、short、char 分别只有 1、2、2 字节，如果先统一转为 4 字节 int 类型，寻址的时候就能极大提高效率。当然选择 int 作为标准的原因主要也是因为 int 的长度在中间，如果选择 8 字节的 long 或 double，则会大量浪费内存空间，选择 2 字节的 char 或 short，则很多变量都需要不止一个内存块来存储，降低效率。</p>
@@ -1069,7 +1075,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">765</span>
+                <span class="site-state-item-count">766</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1425,7 +1431,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">373k</span>
+    <span title="博客总字数">375k</span>
   
 
   
@@ -1434,7 +1440,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:55</span>
+    <span title="博客总阅读时长">6:56</span>
   
 </div>
 

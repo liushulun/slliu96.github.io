@@ -115,7 +115,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/some_loss_functions.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/cross_entropy_and_pt.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-logistic/ml-logistic-introduction/sigmoid.png">
-<meta property="og:updated_time" content="2019-12-08T16:03:50.250Z">
+<meta property="og:updated_time" content="2020-03-21T16:03:40.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML入门——Logistic回归简介">
 <meta name="twitter:description" content="（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。">
@@ -756,7 +756,9 @@
 </center>
 
 <p><strong>Sigmoid 函数亦被称为 Logistic 函数或 Logit 函数，Logistic 回归亦被称为 Logit 回归。</strong></p>
-<p>※ 注 | LogisticRegression 虽然名字上用了“回归”，但实际上是分类算法。</p>
+<blockquote>
+<p>@注：LogisticRegression 虽然名字上用了“回归”，但实际上是分类算法。</p>
+</blockquote>
 <p>使用 Sigmoid 函数对 $W^T X$ 缩放后得到：</p>
 <p>$<br>p(y = 1 | X) = \mu (X) = \sigma (W^T X)<br>$</p>
 <p>$<br>p(y = 0 | X) = 1 - \mu (x) = 1 - \sigma (W^T X)<br>$</p>
@@ -837,7 +839,9 @@
 <p><img src="/post_files/machinelearning/ml-logistic/ml-logistic-introduction/cross_entropy_and_pt.png" alt="交叉熵损失曲线" title="TOPICS"></p>
 </center>
 
-<p><strong>※ 注 | 对 $p_t$ 的理解：根据 $p_t$ 的表达式，当真实值 $y = 1$ 时，$p_t = \mu (X)$。由于 $\mu (X)$ 表示的是预测值 $\hat{y} = 1$ 的概率，因此 <font color="EB6D39">$p_t$ 即表示预测分布接近真实分布的概率</font>。因此 $p_t$ 越大，表示预测越准确，同时对应的交叉熵损失 $Loss = - \log (p_t)$ 也就越小，与图中曲线含义相同。</strong></p>
+<blockquote>
+<p>@注：<strong>对 $p_t$ 的理解：根据 $p_t$ 的表达式，当真实值 $y = 1$ 时，$p_t = \mu (X)$。由于 $\mu (X)$ 表示的是预测值 $\hat{y} = 1$ 的概率，因此 <font color="EB6D39">$p_t$ 即表示预测分布接近真实分布的概率</font>。因此 $p_t$ 越大，表示预测越准确，同时对应的交叉熵损失 $Loss = - \log (p_t)$ 也就越小，与图中曲线含义相同。</strong></p>
+</blockquote>
 <hr>
 <h1 id="3-Logistic正则项"><a href="#3-Logistic正则项" class="headerlink" title="3. Logistic正则项"></a>3. Logistic正则项</h1><p>Logistic 回归采用 Logistic 损失 / 交叉熵损失，由于预测值 $\hat{y} = 1$ 的概率为 $\mu (X)$，因此可使用 $\mu (X)$ 表示 $\hat{y}$：</p>
 <p>$<br>\begin{aligned}<br>&amp; L(y, \mu(X)) = -y \log (\mu (X)) - (1- y) \log (1 - \mu (X))<br>\\<br>&amp; \mu (X) = \sigma (W^T X)<br>\end{aligned}<br>$</p>
@@ -859,7 +863,9 @@
 <p><strong><font color="red">因此 Logistic 回归必须加正则！</font></strong></p>
 </center>
 
-<p>※ 注 | Scikit-Learn 中实现的 Logistic 回归 <code>LogisticRegression</code> 默认为 L2 正则。</p>
+<blockquote>
+<p>@注：Scikit-Learn 中实现的 Logistic 回归 <code>LogisticRegression</code> 默认为 L2 正则。</p>
+</blockquote>
 <p>与 SVM 类似的是，Logistic 回归的超参数 $C$ 加在损失函数上：</p>
 <p>$$<br>J(W; \lambda) = C \sum^N_{i = 1} L(y_i, \mu (x_i; W)) + R(W)<br>$$</p>
 <hr>
@@ -885,7 +891,11 @@
 <p><code>random_state</code>：<br>随机种子，默认：<code>None</code>。</p>
 <p><code>solver</code>：<br>优化求解算法，默认：’liblinear’。<br>可选：’newton-cg’，’lbfgs’，’liblinear’，’sag’，’saga’。<br>L1 正则优化器仅可选 ‘liblinear’ 和 ‘saga’，L2 正则可使用所有优化器。</p>
 <p><code>max_iter</code>：<br>最大迭代次数，默认：100。<br>仅当 <code>solver</code> 设置为 ‘newton-cg’，’sag’，或 ‘lbfgs’ 时有效。</p>
-<p><code>multi_class</code>：<br>多类分类处理策略，默认：’ovr’。<br>可选：’ovr’，’multinomial’。<br>‘ovr’：One-Versus-Rest，一对多。将 C 类分类问题转化为 C 个两类分类问题，每一次分类当前类别样本为正样本，其余样本视为负样本。<br>‘multinomial’：即 softmax 分类器。使用 ‘multinomial’ 时，优化器仅可选 ‘newton-cg’，’lbfgs’，’sag’。<br>※ OVO：One-Versus-One，一对一。<br>OVR 相对简单但分类效果相对略差。MVM 分类相对精确，但分类速度比 OVR 慢。</p>
+<p><code>multi_class</code>：<br>多类分类处理策略，默认：’ovr’。<br>可选：’ovr’，’multinomial’。<br>‘ovr’：One-Versus-Rest，一对多。将 C 类分类问题转化为 C 个两类分类问题，每一次分类当前类别样本为正样本，其余样本视为负样本。<br>‘multinomial’：即 softmax 分类器。使用 ‘multinomial’ 时，优化器仅可选 ‘newton-cg’，’lbfgs’，’sag’。</p>
+<blockquote>
+<p>@注：OVO：One-Versus-One，一对一。</p>
+</blockquote>
+<p>OVR 相对简单但分类效果相对略差。MVM 分类相对精确，但分类速度比 OVR 慢。</p>
 <p><code>verbose</code>：<br>是否详细输出。</p>
 <p><code>warm_start</code>：<br>是否热启动，默认：<code>False</code>。<br><code>solver</code> 设置为 ‘liblinear’ 时无效。</p>
 <p><code>n_jobs</code>：<br>多线程控制，默认：-1.<br>取 -1 时算法自动检测可用 CPU 核，并使用全部核。</p>
@@ -1164,7 +1174,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">765</span>
+                <span class="site-state-item-count">766</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1520,7 +1530,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">373k</span>
+    <span title="博客总字数">375k</span>
   
 
   
@@ -1529,7 +1539,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:55</span>
+    <span title="博客总阅读时长">6:56</span>
   
 </div>
 

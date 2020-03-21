@@ -112,7 +112,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/gradient_demo.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/different_eta.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/subderivative.png">
-<meta property="og:updated_time" content="2019-12-08T16:03:43.618Z">
+<meta property="og:updated_time" content="2020-03-21T16:02:06.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML入门——线性回归三种求解">
 <meta name="twitter:description" content="（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。">
@@ -559,7 +559,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">32 分钟</span>
+                <span title="阅读时长">33 分钟</span>
               
             </div>
           
@@ -750,9 +750,13 @@
 <p>这种求解方式也称为用正规方程组解析求解最小二乘线性回归。但在解析 $ \hat{W}_{OLS} $ 的过程中涉及到了逆矩阵的计算，应当避免。</p>
 <p><strong>（2）Moore-Penrose广义逆</strong></p>
 <p>通常，训练的目标是 OLS 目标函数 $J(W) = ||y - XW||^2_2$ 最小，通俗来讲也即 $y$ 与 $X W$ 越接近越好，最好的情况即求解：$y = X W$。</p>
-<p>（1）假如 $X$ 为方阵，则可以求其逆：$W = X^{-1} y$，<br>（2）假如 $X$ 不为方阵，则求其逆矩阵无意义，可求 Moore-Penrose 广义逆：$W = X^+ y$<br>（3）※ 注 | 广义逆的符号为：</p>
+<p>（1）假如 $X$ 为方阵，则可以求其逆：$W = X^{-1} y$，</p>
+<p>（2）假如 $X$ 不为方阵，则求其逆矩阵无意义，可求 Moore-Penrose 广义逆：$W = X^+ y$</p>
+<blockquote>
+<p>@注：广义逆的符号为：</p>
 <p><img src="/post_files/machinelearning/ml-linear/ml-linear-solutions/pseudoinverse.png" alt="广义逆符号" title="TOPICS"> </p>
 <p>LaTeX 代码为 <code>X^{\dag}</code>，但 Hexo 不支持引入宏包无法显示，因此使用 $X^+$ 代替。</p>
+</blockquote>
 <p>Moore-Penrose 广义逆可采用奇异值分解（Singular Value Decomposition, SVD）实现：</p>
 <p>$<br>\begin{aligned}<br>&amp;若有：X = U \Sigma V^T,<br>\\<br>&amp;其中 U, V 为正交阵，\Sigma 为对角阵（不一定为方阵）<br>\\<br>&amp;则：X^+ = V \Sigma^+ V^T<br>\end{aligned}<br>$</p>
 <p>对角阵 $\Sigma$ 求伪逆，则将非零元素求倒数即可：</p>
@@ -793,8 +797,12 @@
 <p>在微积分中，一元函数 $f(x)$ 在 $x$ 处的梯度为函数在该点的导数 $\dfrac {df} {dx}$。</p>
 <p>对应在多元函数 $f(x_1, …, x_D)$ 中，在点 $x = (x_1, …, x_D)$ 处共有 D 个偏导数：$\dfrac {\partial f} {\partial x_1}, …, \dfrac {\partial f} {\partial x_D}$。将这 D 个偏导数组合成一个 D 维的矢量 $(\dfrac {\partial f} {\partial x_1}, …, \dfrac {\partial f} {\partial x_D})^T$，即称为函数 $f(x_1, …, x_D)$ 在点 $x$ 处的梯度，一般记为 $\nabla$ 或 $grad$，即：</p>
 <p>$$<br>\nabla f(x_1, …, x_D) = grad \ f(x_1, …, x_D) = (\dfrac {\partial f} {\partial x_1}, …, \dfrac {\partial f} {\partial x_D})^T<br>$$</p>
-<p>（1）从几何意义上讲，某点的梯度是函数在该点变化最快的地方。<br>（2）沿着梯度方向，函数增加最快，更容易找到函数的最大值<br>（3）沿负梯度方向，函数减少最快，更容易找到函数的最小值。</p>
-<p>※ 注 | $\nabla$ 发音为 nabla，表示微分，不属于希腊字符，只是一个记号。</p>
+<p>（1）从几何意义上讲，某点的梯度是函数在该点变化最快的地方。</p>
+<p>（2）沿着梯度方向，函数增加最快，更容易找到函数的最大值</p>
+<p>（3）沿负梯度方向，函数减少最快，更容易找到函数的最小值。</p>
+<blockquote>
+<p>@注：$\nabla$ 发音为 nabla，表示微分，不属于希腊字符，只是一个记号。</p>
+</blockquote>
 <p>正负梯度的例子如下：</p>
 <center>
 
@@ -803,11 +811,18 @@
 
 
 <p>在计算 $f(x)$ 的最小值时，当函数形式比较简单且数据量小，可用解析计算 $ f’(x) = 0 $，否则可用迭代法求解：</p>
-<p>（1）从 t = 0 开始，随机寻找一个值 $x^{t = 0}$ 为初始值；<br>（2）找到下一个点 $x^{t + 1}$，使得函数值越来越小，即 $f(x^{t + 1}) &lt; f(x^t)$；<br>（3）重复，直到函数值不再见小，则已经找到函数的 <strong>局部极小值</strong>。<br>※ 注 | 该方法仅能找到局部极小值。</p>
+<p>（1）从 t = 0 开始，随机寻找一个值 $x^{t = 0}$ 为初始值；</p>
+<p>（2）找到下一个点 $x^{t + 1}$，使得函数值越来越小，即 $f(x^{t + 1}) &lt; f(x^t)$；</p>
+<p>（3）重复，直到函数值不再见小，则已经找到函数的 <strong>局部极小值</strong>。</p>
+<blockquote>
+<p>@注：该方法仅能找到局部极小值。</p>
+</blockquote>
 <p>为此，可以对该迭代方案进行改进：</p>
 <ul>
-<li>（1）随机寻找初始值时，初始化多个点；</li>
-<li>（2）最后从多个局部极小值中取最小的作为最终的极小值。</li>
+<li><p>（1）随机寻找初始值时，初始化多个点；</p>
+</li>
+<li><p>（2）最后从多个局部极小值中取最小的作为最终的极小值。</p>
+</li>
 </ul>
 <br>
 
@@ -830,9 +845,13 @@
 <p>$$<br>\begin{aligned}<br>W^{t + 1} &amp;= W^t - \eta \nabla J(W^t)<br>\\<br>&amp;= W^t + 2 \eta X^T (y - X W^T)<br>\end{aligned}<br>$$</p>
 <p>其中 $(y - X W^T)$ 即为预测残差 r，说明参数的更新量与输入 X 和预测残差 r 的相关性有关。$X^T$ 与 r 的相关性较强时需要把 $\eta$ 调大一些，则 r 逐渐与输入 $X^T$ 无关，直到无需再更新 W。</p>
 <p>OLS 的梯度下降过程：</p>
-<p>（1）从 t = 0 开始，随机寻找一个值 $W^{t = 0}$ 为初始值（或 0）；<br>（2）计算目标函数 $J(W)$ 在当前值的梯度：$\nabla J(W^t)$；<br>（3）根据学习率 $\eta$，更新参数：$W^{t + 1} = W^t - \eta \nabla J(W^t)$；<br>（4）判断是否满足迭代终止条件。若满足，循环结束并返回最佳参数 $W^{t + 1}$ 和目标函数极小值 $J(W^{t + 1})$，否则跳转至第 2 步。</p>
+<p>（1）从 t = 0 开始，随机寻找一个值 $W^{t = 0}$ 为初始值（或 0）；</p>
+<p>（2）计算目标函数 $J(W)$ 在当前值的梯度：$\nabla J(W^t)$；</p>
+<p>（3）根据学习率 $\eta$，更新参数：$W^{t + 1} = W^t - \eta \nabla J(W^t)$；</p>
+<p>（4）判断是否满足迭代终止条件。若满足，循环结束并返回最佳参数 $W^{t + 1}$ 和目标函数极小值 $J(W^{t + 1})$，否则跳转至第 2 步。</p>
 <p>迭代终止条件有：</p>
-<p>（1）迭代次数达到预设的最大次数。<br>（2）迭代过程中目标函数的变化值小于预设值：$\dfrac{J(W^t) - J(W^{t + 1})}{J(W^t)} \le \varepsilon$。</p>
+<p>（1）迭代次数达到预设的最大次数。</p>
+<p>（2）迭代过程中目标函数的变化值小于预设值：$\dfrac{J(W^t) - J(W^{t + 1})}{J(W^t)} \le \varepsilon$。</p>
 <br>
 
 <h2 id="2-4-Ridge的梯度下降"><a href="#2-4-Ridge的梯度下降" class="headerlink" title="2.4 Ridge的梯度下降"></a>2.4 Ridge的梯度下降</h2><p>Ridge 的目标函数为：</p>
@@ -946,7 +965,9 @@
 <p>当且仅当 0 属于函数 $f$ 在点 $x^<em>$ 处次梯度集合时，$x^</em>$ 为极值点。当然，因为函数在可导的点的次微分等于其导数，因此该条件可扩展到全局可导函数。</p>
 </font>
 
-<p>※ 注 | Python 可用 <code>numpy.sign</code> 函数实现绝对值函数的次梯度。</p>
+<blockquote>
+<p>@注：Python 可用 <code>numpy.sign</code> 函数实现绝对值函数的次梯度。</p>
+</blockquote>
 <p>将梯度下降法中的梯度换成次梯度就得到次梯度法：</p>
 <table>
 <thead>
@@ -1259,7 +1280,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">765</span>
+                <span class="site-state-item-count">766</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1615,7 +1636,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">373k</span>
+    <span title="博客总字数">375k</span>
   
 
   
@@ -1624,7 +1645,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:55</span>
+    <span title="博客总阅读时长">6:56</span>
   
 </div>
 

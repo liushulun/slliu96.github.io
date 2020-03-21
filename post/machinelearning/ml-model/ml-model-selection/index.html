@@ -112,7 +112,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-model/ml-model-selection/k_fold.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-model/ml-model-selection/k_fold_detail.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-model/ml-model-selection/leave_one_cv.png">
-<meta property="og:updated_time" content="2019-12-08T16:04:03.183Z">
+<meta property="og:updated_time" content="2020-03-21T16:05:08.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML入门——交叉验证与模型选择">
 <meta name="twitter:description" content="（1）交叉验证；（2）超参数调优。">
@@ -746,7 +746,9 @@
 <p><code>random_state</code>：<br>随机种子。int, RandomState instance or None, optional (default=None)<br>If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random.</p>
 <p><code>shuffle</code>：<br>划分数据前是否洗牌。boolean, optional (default=True)<br>Whether or not to shuffle the data before splitting. If shuffle=False then stratify must be None.</p>
 <p><code>stratify</code>：<br>分层抽样。array-like or None (default=None)<br>If not None, data is split in a stratified fashion, using this as the class labels.<br>分层抽样主要用在分类数据类别样本不均衡的时候，如正负样本比例为 1 : 9，假设划 20% 作为校验数据，则分别对正样本和负样本各自划分 20% 作为校验数据再合并。</p>
-<p>※ 注 | <code>train_test_split</code> 还能在数据集较大时，用来分隔出小部分数据进行 EDA。</p>
+<blockquote>
+<p>@注：<code>train_test_split</code> 还能在数据集较大时，用来分隔出小部分数据进行 EDA。</p>
+</blockquote>
 <br>
 
 <h2 id="1-2-交叉验证"><a href="#1-2-交叉验证" class="headerlink" title="1.2 交叉验证"></a>1.2 交叉验证</h2><p>当训练数据比较少，或模型训练需要更多数据时（训练样本越多越好），直接分离校验集就不太好了，这时可使用 K 折交叉验证。</p>
@@ -756,7 +758,9 @@
 <p><img src="/post_files/machinelearning/ml-model/ml-model-selection/k_fold.png" alt="K 折交叉验证" title="TOPICS"></p>
 </center>
 
-<p>※ 注 | 该方法计算代价很高，但不会浪费太多数据，当样本数据集较少时有优势，K 常取 [3, 5, 10]。</p>
+<blockquote>
+<p>@注：该方法计算代价很高，但不会浪费太多数据，当样本数据集较少时有优势，K 常取 [3, 5, 10]。</p>
+</blockquote>
 <p>Scikit-Learn 中实现了 K 折交叉验证 <code>KFold</code>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.model_selection.KFold</span></span><br><span class="line"></span><br><span class="line">KFold(n_splits=<span class="number">3</span>,</span><br><span class="line">      shuffle=<span class="literal">False</span>,</span><br><span class="line">      random_state=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
 
@@ -1071,7 +1075,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">765</span>
+                <span class="site-state-item-count">766</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1427,7 +1431,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">373k</span>
+    <span title="博客总字数">375k</span>
   
 
   
@@ -1436,7 +1440,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:55</span>
+    <span title="博客总阅读时长">6:56</span>
   
 </div>
 

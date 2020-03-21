@@ -110,7 +110,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-loss-regular/w_distribution.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-loss-regular/laplace_distribution.png">
-<meta property="og:updated_time" content="2019-12-08T16:03:41.292Z">
+<meta property="og:updated_time" content="2020-03-21T15:59:45.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML入门——损失和正则的概率解释">
 <meta name="twitter:description" content="（1）回归模型中损失函数的概率解释；（2）回归模型正则项的概率解释。">
@@ -543,7 +543,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">7.7k</span>
+                <span title="全文字数">7.8k</span>
               
 
               
@@ -734,10 +734,14 @@
 <p>$$<br>J(W) = RSS(W) = \sum^N_{i = 1} L(y_i, \hat{y_i}) = \sum^N_{i = 1} L(y_i, f(x_i)) = \sum^N_{i = 1} (y_i - f(x_i))^2<br>$$</p>
 <p>在回归任务重，令模型中的真实值 $y_i$ 和预测值 $\hat{y_i}$ 之间的差异为白噪声 $\varepsilon$，假设噪声（随机变量）$\varepsilon$ 符合 0 均值的正态分布：$\varepsilon \sim N(0, \sigma^2)$。</p>
 <p>用 $y | X$ 表示给定输入 $X$ 的情况下的输出 $y$，当输入$X$ 给定时，$f(X) = W^T X$ 是一个常数，因此 $y = f(X) + \varepsilon$ 也是一个随机变量：$y | X \sim N(f(X), \sigma^2)$</p>
-<p>※ 注 | 随机变量加上一个常数，只改变分布的均值，不改变分布的方差。</p>
+<blockquote>
+<p>@注：随机变量加上一个常数，只改变分布的均值，不改变分布的方差。</p>
+</blockquote>
 <p>对于正态分布，其概率密度函数为：</p>
 <p>$$<br>p(y | X) = \dfrac {1} {\sqrt {2 \pi} \sigma} \exp \left( - \dfrac {\left( y - f(X) \right)^2} {2 \sigma^2} \right)<br>$$</p>
-<p>※ 注 | 很多分布的概率密度函数为指数函数形式，因此通常取 log 运算，log 函数为单调函数，对似然函数取 log 不影响极值点位置。</p>
+<blockquote>
+<p>@注：很多分布的概率密度函数为指数函数形式，因此通常取 log 运算，log 函数为单调函数，对似然函数取 log 不影响极值点位置。</p>
+</blockquote>
 <p>似然函数（Likelihood）为：$likelihood(f) = p(D)$，定义为数据出现的概率。在回归任务中，通常假定所有数据都是独立同分布的，因而对所有数据 $D$，其联合概率等于每个独立样本概率的积：</p>
 <p>$$<br>p(D) = \prod^N_{i = 1} p(y_i | x_i)<br>$$</p>
 <p>对似然函数取 $\log$ 运算（$\log$ 是单调函数，不改变极值点位置，与似然函数等价）得到 $\log$ 似然函数（积取 log 等于 log 再取和，）即为：</p>
@@ -1040,7 +1044,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">765</span>
+                <span class="site-state-item-count">766</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1396,7 +1400,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">373k</span>
+    <span title="博客总字数">375k</span>
   
 
   
@@ -1405,7 +1409,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:55</span>
+    <span title="博客总阅读时长">6:56</span>
   
 </div>
 

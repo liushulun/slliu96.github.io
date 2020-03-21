@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="Mac 环境下编译 FFmpeg 为 SO 库。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-08T16:04:09.414Z">
+<meta property="og:updated_time" content="2020-03-21T16:05:39.470Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac编译FFmpeg踩坑记录">
 <meta name="twitter:description" content="Mac 环境下编译 FFmpeg 为 SO 库。">
@@ -554,7 +554,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">17 分钟</span>
+                <span title="阅读时长">18 分钟</span>
               
             </div>
           
@@ -720,10 +720,14 @@
 </ul>
 <p>再给出几个下载链接：</p>
 <ul>
-<li>FFmpeg：<a href="https://ffmpeg.org/download.html#releases" title="TOLINKS" target="_blank" rel="noopener">点此下载</a></li>
-<li>NDK：<a href="https://developer.android.google.cn/ndk/downloads/index.html" title="TOLINKS" target="_blank" rel="noopener">点此下载</a></li>
+<li><p>FFmpeg：<a href="https://ffmpeg.org/download.html#releases" title="TOLINKS" target="_blank" rel="noopener">点此下载</a></p>
+</li>
+<li><p>NDK：<a href="https://developer.android.google.cn/ndk/downloads/index.html" title="TOLINKS" target="_blank" rel="noopener">点此下载</a></p>
+<blockquote>
+<p>@注：<font color="red">不建议使用 AndroidStudio 自带的 ndk-bundle 编译，不建议使用最新版 FFmpeg，不建议使用最新版 NDK，理由不明（笑）。</font></p>
+</blockquote>
+</li>
 </ul>
-<p><font color="red">※ 注 | 不建议使用 AndroidStudio 自带的 ndk-bundle 编译，不建议使用最新版 FFmpeg，不建议使用最新版 NDK，理由不明（笑）。</font></p>
 <p>使用最新的 FFmpeg 4.x，按照网上主流的做法，修改 <code>configure</code> 文件然后新建脚本 <code>build_android.sh</code> 的方法，会报如下错误：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line">Makefile:67: /common.mak: No such file or directory</span><br><span class="line">Makefile:114: /libavutil/Makefile: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">C compiler test failed.</span><br><span class="line"></span><br><span class="line">If you think configure made a mistake, make sure you are using the latest</span><br><span class="line">version from Git.  If the latest version fails, report the problem to the</span><br><span class="line">ffmpeg-user@ffmpeg.org mailing list or IRC #ffmpeg on irc.freenode.net.</span><br><span class="line">Include the log file "config.log" produced by configure as this will help</span><br><span class="line">solve the problem.</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">make: *** No rule to make target `/tests/Makefile'.  Stop.</span><br></pre></td></tr></table></figure>
 
@@ -1003,7 +1007,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">765</span>
+                <span class="site-state-item-count">766</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1359,7 +1363,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">373k</span>
+    <span title="博客总字数">375k</span>
   
 
   
@@ -1368,7 +1372,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:55</span>
+    <span title="博客总阅读时长">6:56</span>
   
 </div>
 
