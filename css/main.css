@@ -1135,10 +1135,6 @@ pre .javascript .function {
 }
 .site-titleVersion {
   font-size: 10px;
-  opacity: 0.5;
-  margin: 0px;
-  padding: 0px;
-  gravity: center;
 }
 .site-titleContact {
   font-size: 13px;
@@ -1982,7 +1978,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffc278;
+  background: #13df81;
 }
 .feed-link,
 .chat {
