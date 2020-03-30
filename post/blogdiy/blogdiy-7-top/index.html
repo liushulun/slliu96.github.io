@@ -111,11 +111,12 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-7-top/top_with_icon.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-7-top/untitle_post.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-7-top/quote_post.png">
-<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-7-top/latest_version.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-7-top/latest_version_in_post.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-7-top/latest_version_in_sidebar.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-7-top/latest_version_in_title.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-7-top/topic_from_next_post.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-7-top/topic_post.png">
-<meta property="og:updated_time" content="2019-12-08T16:01:06.985Z">
+<meta property="og:updated_time" content="2020-03-30T14:21:22.160Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（7）文章置顶和引用式文章">
 <meta name="twitter:description" content="（1）将一篇文章置顶；（2）创建一个没有标题、无法点击进入的引用式文章；（3）给博客增加一个版本记录；（4）从侧栏减掉文章计数，以及从“归档”中去掉文章；（5）禁止通过“下一篇”进入。">
@@ -203,7 +204,12 @@
       </a>
     </div>
 
+    
+    <div style="opacity: 0.5; font-size: 10px; margin: 0px; padding: 0px; gravity: center;">V769</div>
+    
+    
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
+    
 
     
       
@@ -548,7 +554,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">29k</span>
+                <span title="全文字数">31k</span>
               
 
               
@@ -562,7 +568,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">32 分钟</span>
+                <span title="阅读时长">35 分钟</span>
               
             </div>
           
@@ -762,11 +768,11 @@
 <p>然后在需要使用的地方直接使用：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; latestVersion &#125;&#125;</span><br></pre></td></tr></table></figure>
 
-<p>引用即可，当然，使用类似的方法也可以显示在侧栏、标题栏等位置，由于我的博客使用了一个置顶的引用式文章，出于这个主题手机版不会显示侧栏，因此选择同时显示在悬浮侧栏和置顶文章的最顶处。</p>
+<p>引用即可，当然，使用类似的方法也可以显示在侧栏、标题栏等位置，出于这个主题手机版不会显示侧栏，因此可以选择同时显示在悬浮侧栏和置顶文章的最顶处，或同时显示在悬浮侧栏和博客标题栏。</p>
 <p>（1）在置顶文章处显示的效果如下图所示：</p>
 <center>
 
-<p><img src="/post_files/blogdiy/blogdiy-7-top/latest_version.png" alt="置顶文章显示博客版本" title="TOPICS"></p>
+<p><img src="/post_files/blogdiy/blogdiy-7-top/latest_version_in_post.png" alt="置顶文章显示博客版本" title="TOPICS"></p>
 </center>
 
 <p>这个效果是通过判断文章是否是”置顶引用文“来设置的，可以先给置顶的引用文增加一个自定义属性：<code>topic</code>，然后在 <code>next/layout/_macro/post.swig</code> 文件中找到 <code>Post Body</code> 部分：</p>
@@ -784,6 +790,16 @@
 <p>并且在 <code>next/languages/</code> 目录下，找到 <code>en.yml</code> 和 <code>zh-CN.yml</code> 这两个语言文件（根据自己的博客语言需求修改对应的文件即可），分别在里面找到 <code>state</code> 字段并增加一个 <code>latestVersion</code> 属性：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 中文语言文件修改如下</span></span><br><span class="line"><span class="attr">state:</span></span><br><span class="line"><span class="attr">  latestVersion:</span> <span class="string">版本</span></span><br><span class="line"><span class="attr">  posts:</span> <span class="string">文章</span></span><br><span class="line"><span class="attr">  pages:</span> <span class="string">页面</span></span><br><span class="line"><span class="attr">  tags:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">  categories:</span> <span class="string">分类</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 英文语言文件修改如下</span></span><br><span class="line"><span class="attr">state:</span></span><br><span class="line"><span class="attr">  latestVersion:</span> <span class="string">Version</span></span><br><span class="line"><span class="attr">  posts:</span> <span class="string">posts</span></span><br><span class="line"><span class="attr">  pages:</span> <span class="string">pages</span></span><br><span class="line"><span class="attr">  tags:</span> <span class="string">tags</span></span><br><span class="line"><span class="attr">  categories:</span> <span class="string">categories</span></span><br></pre></td></tr></table></figure>
 
+<p>（3）在博客标题栏显示的效果如下图所示：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-7-top/latest_version_in_title.png" alt="博客标题栏显示博客版本" title="TOPICS"></p>
+</center>
+
+<p>这个效果是通过修改：<code>next/layout/_partials/header/brand.swig</code>，在主标题下面增加一行文字实现的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"custom-logo-site-title"</span>&gt;</span><br><span class="line">......</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#123;## 博客标题栏中的站点版本 ##&#125;</span></span><br><span class="line"><span class="regexp">&lt;div style="opacity: 0.5; font-size: 10px; margin: 0px; padding: 0px; gravity: center;"&gt;V627&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">&#123;## 博客标题栏中的留言链接 ##&#125;</span><br><span class="line">&lt;a href=<span class="string">"&#123;&#123; config.titleContact_url &#125;&#125;"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"site-titleContact"</span>&gt;&#123;&#123; config.contact &#125;&#125;&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#123;% if subtitle %&#125;</span></span><br><span class="line"><span class="regexp">......</span></span><br><span class="line"><span class="regexp">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>具体的样式和放置的位置可以根据喜好调整代码。</p>
 <hr>
 <h1 id="4-从侧栏去掉文章计数"><a href="#4-从侧栏去掉文章计数" class="headerlink" title="4. 从侧栏去掉文章计数"></a>4. 从侧栏去掉文章计数</h1><p>正常情况下，Next 主题侧栏会有一个显示文章、分类、标签的计数，但是如果我们创建了一个上文所示的“引用式文章”，而只是用来做一些通知、信息展示等功能，可能就并不想把这些文章算进去。想要减掉这部分的文章数量，可以在 <code>next/layout/_macro/sidebar.swig</code> 文件里找到 <code>if theme.site_state</code> 的部分并修改：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> theme.site_state %&#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">    &#123;########## 去掉侧栏中对博客置顶条的文章计数 ##########&#125;</span><br><span class="line">    &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">"site-state-item-count"</span>&gt;&#123;&#123; site.posts.length - <span class="number">1</span> &#125;&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">    &lt;span class="site-state-item-name"&gt;&#123;&#123; __('state.posts') &#125;&#125;&lt;/</span>span&gt;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
@@ -1040,7 +1056,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">768</span>
+                <span class="site-state-item-count">769</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1411,7 +1427,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:59</span>
+    <span title="博客总阅读时长">7:01</span>
   
 </div>
 

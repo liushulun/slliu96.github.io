@@ -120,7 +120,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/blog_subtitle.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/hide_subtitle.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/custom_subtitle.png">
-<meta property="og:updated_time" content="2019-12-08T16:01:01.932Z">
+<meta property="og:updated_time" content="2020-03-30T14:20:09.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（4）在线聊天和文章评论">
 <meta name="twitter:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）将博客二级标题替换为留言链接。">
@@ -208,7 +208,12 @@
       </a>
     </div>
 
+    
+    <div style="opacity: 0.5; font-size: 10px; margin: 0px; padding: 0px; gravity: center;">V769</div>
+    
+    
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
+    
 
     
       
@@ -853,7 +858,7 @@
 <p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/blog_subtitle.png" alt="Next 主题二级标题" title="TOPICS"></p>
 </center>
 
-<p>但是像我的博客其实并没有二级标题的必要，所以如图所示设置的和博客描述是一样的。但是这个标题区作为一个信息展示栏可以起到置顶的作用，根绝我的个人需求，将二级标题改成了“留言区”的引导链接。</p>
+<p>但是像我的博客其实并没有二级标题的必要，所以如图所示设置的和博客描述是一样的。但是这个标题区作为一个信息展示栏可以起到置顶的作用，根据我的个人需求，将二级标题改成了“留言区”的引导链接。</p>
 <p>首先需要注意的地方是，通常为了使得博客能被搜索到，都会在主题配置文件 <code>next/_config.yml</code> 中开启 SEO：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Change headers hierarchy on site-subtitle (will be main site description) and on all post / page titles for better SEO-optimization.</span></span><br><span class="line"><span class="attr">seo:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
@@ -877,7 +882,7 @@
 
 <p>当然，这里的样式也可以随意根据自己的喜好调整。其中 <code>subtitle-font-size</code> 和 <code>subtitle-color</code> 都是原本二级标题已经定义好的变量，可以直接用。</p>
 <p>最后在 <code>/next/layout/_partials/header/brand.swig</code> 中增加一条链接，使用上面定义的样式和数据：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"custom-logo-site-title"</span>&gt;</span><br><span class="line">......</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;a href="&#123;&#123; config.titleContact_url &#125;&#125;" class="site-titleContact"&gt;&#123;&#123; config.contact &#125;&#125;&lt;/</span>a&gt;</span><br><span class="line"></span><br><span class="line">&#123;% <span class="keyword">if</span> subtitle %&#125;</span><br><span class="line">......</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"custom-logo-site-title"</span>&gt;</span><br><span class="line">......</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#123;## 博客标题栏中的留言链接 ##&#125;</span></span><br><span class="line"><span class="regexp">&lt;a href="&#123;&#123; config.titleContact_url &#125;&#125;" class="site-titleContact"&gt;&#123;&#123; config.contact &#125;&#125;&lt;/</span>a&gt;</span><br><span class="line"></span><br><span class="line">&#123;% <span class="keyword">if</span> subtitle %&#125;</span><br><span class="line">......</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
 
 <p>放的位置以自定义为准。重新部署即可看到效果：</p>
 <center>
@@ -1123,7 +1128,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">768</span>
+                <span class="site-state-item-count">769</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1494,7 +1499,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:59</span>
+    <span title="博客总阅读时长">7:01</span>
   
 </div>
 
