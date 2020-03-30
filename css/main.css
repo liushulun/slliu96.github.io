@@ -1133,6 +1133,13 @@ pre .javascript .function {
   font-size: 13px;
   color: #ddd;
 }
+.site-titleVersion {
+  font-size: 10px;
+  opacity: 0.5;
+  margin: 0px;
+  padding: 0px;
+  gravity: center;
+}
 .site-titleContact {
   font-size: 13px;
   color: #eb6d39;
@@ -1153,6 +1160,7 @@ pre .javascript .function {
   position: relative;
   top: -10px;
 }
+.use-motion .site-titleVersion,
 .use-motion .site-titleContact {
   opacity: 0;
   position: relative;
@@ -1974,7 +1982,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffb4ff;
+  background: #cdffde;
 }
 .feed-link,
 .chat {

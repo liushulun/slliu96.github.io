@@ -120,7 +120,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/blog_subtitle.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/hide_subtitle.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-4-chat-comment/custom_subtitle.png">
-<meta property="og:updated_time" content="2020-03-30T14:20:09.150Z">
+<meta property="og:updated_time" content="2020-03-30T15:06:47.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（4）在线聊天和文章评论">
 <meta name="twitter:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）将博客二级标题替换为留言链接。">
@@ -209,7 +209,7 @@
     </div>
 
     
-    <div style="opacity: 0.5; font-size: 10px; margin: 0px; padding: 0px; gravity: center;">V769</div>
+    <div class="site-titleVersion">V769</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -890,13 +890,13 @@
 <p><img src="/post_files/blogdiy/blogdiy-4-chat-comment/custom_subtitle.png" alt="自定义二级标题" title="TOPICS"></p>
 </center>
 
-<p>到这一步其实基本效果已经实现了，但是还有个问题：页面上的其他元素都有个加载进来的动画效果，而这个自定义的 <code>site-titleContact</code> 会导致刚打开页面就显示“留 言”，而其他元素过一会才显示，显得不和谐，因此需要为这个自定义的 CSS 样式添加一个动画效果。首先在 <code>next/source/css/_common/components/header/site-meta.styl</code> 中找到最下面 <code>use-motion</code> 部分，给 <code>site-titleContact</code> 增加动画初始状态，默认的动画是顶部间距从 -10 渐进到 0，如果想用默认动画，则只需要把 <code>site-titleContact</code> 加到列表中：</p>
+<p>到这一步其实基本效果已经实现了，但是还有个问题：页面上的其他元素都有个加载进来的动画效果，而这个自定义的 <code>site-titleContact</code> 会导致刚打开页面就显示“留 言”，而其他元素过一会才显示，显得不和谐，因此需要为这个自定义的 CSS 样式添加一个动画效果。首先在 <code>next/source/css/_common/components/header/site-meta.styl</code> 中找到最下面 <code>use-motion</code> 部分，这里定义的是需要动画的元素的初始状态。默认的动画是顶部间距从 -10 渐进到 0，如果想用默认动画，则只需要把 <code>site-titleContact</code> 加到列表中：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.use-motion &#123;</span><br><span class="line">  .brand &#123; <span class="attr">opacity</span>: <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">  .logo, .site-title, .site-subtitle, .custom-logo-image, .site-titleContact &#123;</span><br><span class="line">    opacity: <span class="number">0</span>;</span><br><span class="line">    position: relative;</span><br><span class="line">    top: <span class="number">-10</span>px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>由于我这个链接是从 -5 渐进到 5，因此需要单独设置：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.use-motion &#123;</span><br><span class="line">  .brand &#123; <span class="attr">opacity</span>: <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">  .logo, .site-title, .site-subtitle, .custom-logo-image &#123;</span><br><span class="line">    opacity: <span class="number">0</span>;</span><br><span class="line">    position: relative;</span><br><span class="line">    top: <span class="number">-10</span>px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .site-titleContact &#123;</span><br><span class="line">    opacity: <span class="number">0</span>;</span><br><span class="line">    position: relative;</span><br><span class="line">    top: <span class="number">-5</span>px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>然后找到动画脚本文件 <code>next/source/js/motion.js</code>，现在本地变量定义区定义好这个 CSS 样式：</p>
+<p>然后找到动画脚本文件 <code>next/source/js/motion.js</code>，先在本地变量定义区定义好这个 CSS 样式：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NexT.motion.middleWares = &#123;</span><br><span class="line">  logo: <span class="function"><span class="keyword">function</span>(<span class="params">integrator</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sequence = [];</span><br><span class="line">    <span class="keyword">var</span> $brand = $(<span class="string">'.brand'</span>);</span><br><span class="line">    <span class="keyword">var</span> $image = $(<span class="string">'.custom-logo-image'</span>);</span><br><span class="line">    <span class="keyword">var</span> $title = $(<span class="string">'.site-title'</span>);</span><br><span class="line">    <span class="keyword">var</span> $subtitle = $(<span class="string">'.site-subtitle'</span>);</span><br><span class="line">    <span class="keyword">var</span> $logoLineTop = $(<span class="string">'.logo-line-before i'</span>);</span><br><span class="line">    <span class="keyword">var</span> $logoLineBottom = $(<span class="string">'.logo-line-after i'</span>);</span><br><span class="line">    <span class="comment">// 定义本地变量</span></span><br><span class="line">    <span class="keyword">var</span> $titleContact = $(<span class="string">'.site-titleContact'</span>)</span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然后实现动画效果（为了表示层级关系，保留几个方法，但省略了内部源码）：</p>
@@ -1490,7 +1490,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">378k</span>
+    <span title="博客总字数">382k</span>
   
 
   
@@ -1499,7 +1499,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">7:01</span>
+    <span title="博客总阅读时长">7:04</span>
   
 </div>
 
