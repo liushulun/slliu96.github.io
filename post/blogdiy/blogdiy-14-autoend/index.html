@@ -109,7 +109,7 @@
 <meta property="og:description" content="（1）发布每篇文章时，自动在文章最后增加一个结束感谢词。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-14-autoend/auto_end_tag.png">
-<meta property="og:updated_time" content="2019-12-08T16:01:18.073Z">
+<meta property="og:updated_time" content="2020-04-02T20:41:14.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（14）自动为每篇文章增加结束语">
 <meta name="twitter:description" content="（1）发布每篇文章时，自动在文章最后增加一个结束感谢词。">
@@ -196,7 +196,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V772</div>
+    <div class="site-titleVersion">V780</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -545,7 +545,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">8.7k</span>
+                <span title="全文字数">8.1k</span>
               
 
               
@@ -559,7 +559,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">9 分钟</span>
               
             </div>
           
@@ -585,19 +585,6 @@
           
           
           
-          
-
-
-
-          
-          
-          
-          
-            <p>
-              <font color="#999999">
-                【注】本文由SLLiu原创于liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。
-              </font>
-            </p>
           
 
 
@@ -680,7 +667,17 @@
 
 
 
+
         
+        
+        
+        
+          <div>
+            <font color="#999999" size="1">【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+          </div>
+        
+
+
 
 
         
@@ -691,42 +688,27 @@
           <div class="post-description"><span style="color: #EB6D39">
                   简介：
                 </span>（1）发布每篇文章时，自动在文章最后增加一个结束感谢词。
-            
-              <p>
-                <style type="text/css">
-                  .toContact {
-                      color: #EB6D39;
-                      font-size: 10px;
-                      border-bottom-color: #EB6D39;
-                  }
-                  .toContact:hover {
-                    color: #FFFFFF;
-                    border-bottom-color: #FFFFFF;
-                  }
-                </style>
-                <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
-              </p>
-            
           </div>
         
 
+
+        
+        
+        
         <a id="more"></a>
 
 <hr>
 <h1 id="1-增加结束词"><a href="#1-增加结束词" class="headerlink" title="1. 增加结束词"></a>1. 增加结束词</h1><p>作为一名码畜，“体验感”是一个很重要的东西，如果能让读者在看完每篇文章的时候都显示一个感谢词，也是作为技术人非常看重的一点：鼓励宣传。当然，我们可以自己手动在每篇文章末端内添加一段话，也可以在模板文件 <code>blog/scaffolds/post.md</code> 增加结束词，这样每次通过 <code>hexo new &quot;[title]&quot;</code> 创建文章时都会自动添加，但是说到底这个方式说白了还是有点费心思。</p>
-<p>话不多说，来看看如何实现！这个功能的实现逻辑主要是先创建一个样式文件，在里面定义好结束词的样式，然后再在文章内的结尾加载这个文件。首先是创建样式文件，在 <code>next/layout/_macro/</code> 下创建一个 <strong>swig</strong> 文件 <code>passage_end_tag.swig</code>，命名必须是这个，里面按照自己的喜好输入想要的结束语样式，我自己的结束语样式是：</p>
+<p>话不多说，来看看如何实现！这个功能的实现逻辑主要是先创建一个样式文件，在里面定义好结束词的样式，然后再在文章内的结尾加载这个文件。首先是创建样式文件，在 <code>next/layout/_macro/</code> 下创建一个 <strong>swig</strong> 文件 <code>post-end.swig</code>，可以自定义命名，里面按照自己的喜好输入想要的结束语样式，我自己的结束语样式是：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &#123;% <span class="keyword">if</span> not is_index %&#125;</span><br><span class="line">	&lt;br /&gt; &lt;br /&gt; &lt;br /&gt;</span><br><span class="line">	&lt;div style="text-align:center;color: #678;font-size:18px;"&gt;======================&lt;/div&gt;</span><br><span class="line">        &lt;div style="text-align:center;color: #678;font-size:18px;"&gt;全 文 结 束&amp;ensp;&amp;ensp;&lt;i class="fa fa-leanpub"&gt;&lt;/i&gt;&amp;ensp;&amp;ensp;感 谢 阅 读&lt;/div&gt;</span><br><span class="line">	&lt;div style="text-align:center;color: #678;font-size:18px;"&gt;======================&lt;/div&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 
 <p>然后在 <code>next/layout/_macro/post.swig</code> 中，在 <code>POST BODY</code> 的下面有很多文章底部内容模块：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;##### License #######&#125;</span><br><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> theme.creative_commons.license and theme.creative_commons.post and not is_index %&#125;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &#123;% include <span class="string">'../_partials/post/post-copyright.swig'</span> <span class="keyword">with</span> &#123; <span class="attr">post</span>: post &#125; %&#125;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&#123;% endif %&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#123;#####################&#125;</span></span><br><span class="line"><span class="regexp">&#123;# Wechat Subscriber #&#125;</span></span><br><span class="line"><span class="regexp">&#123;#####################&#125;</span></span><br><span class="line"><span class="regexp">&#123;% if theme.wechat_subscriber.enable and not is_index %&#125;</span></span><br><span class="line"><span class="regexp">  &#123;% include '../</span>_partials/post/wechat-subscriber.swig<span class="string">' %&#125;</span></span><br><span class="line"><span class="string">&#123;% endif %&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#123;#####################&#125;</span></span><br><span class="line"><span class="string">&#123;##### Donation ######&#125;</span></span><br><span class="line"><span class="string">&#123;#####################&#125;</span></span><br><span class="line"><span class="string">&#123;% if page.reward === undefined and theme.reward_settings.enable %&#125;</span></span><br><span class="line"><span class="string">  &#123;% set reward_able = true %&#125;</span></span><br><span class="line"><span class="string">&#123;% else %&#125;</span></span><br><span class="line"><span class="string">  &#123;% set reward_able = page.reward %&#125;</span></span><br><span class="line"><span class="string">&#123;% endif %&#125;</span></span><br><span class="line"><span class="string">&#123;% if reward_able and not is_index %&#125;</span></span><br><span class="line"><span class="string">  &lt;div&gt;</span></span><br><span class="line"><span class="string">    &#123;% include '</span>../_partials/post/reward.swig<span class="string">' %&#125;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;% endif %&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#123;#####################&#125;</span></span><br><span class="line"><span class="string">&#123;#### POST FOOTER ####&#125;</span></span><br><span class="line"><span class="string">&#123;#####################&#125;</span></span><br><span class="line"><span class="string">&lt;footer class="post-footer"&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  ......</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;/footer&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>按照个人喜好在对应位置插入以下代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;## Passage End Tag ##&#125;</span><br><span class="line">&#123;#####################&#125;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &#123;% <span class="keyword">if</span> not is_index %&#125;</span><br><span class="line">    &#123;% include <span class="string">'passage_end_tag.swig'</span> %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;##################&#125;</span><br><span class="line">&#123;## 文章末尾结束语 ##&#125;</span><br><span class="line">&#123;##################&#125;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &#123;% <span class="keyword">if</span> not is_index %&#125;</span><br><span class="line">    &#123;% include <span class="string">'post-end.swig'</span> %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>我是放在 <code>License</code> 的上面了，接着再去主题配置文件中开启 <code>passage_end_tag</code>：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># End Title</span></span><br><span class="line"><span class="attr">passage_end_tag:</span></span><br><span class="line"><span class="attr">  enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>可以参考我博客的显示效果：</p>
+<p>我是放在 <code>License</code> 的上面了，参考我博客的显示效果：</p>
 <center>
 
 <p><img src="/post_files/blogdiy/blogdiy-14-autoend/auto_end_tag.png" alt="自动增加结束语" title="TOPICS"></p>
@@ -765,6 +747,8 @@
 </div>
       
     </div>
+
+
 
     
     
@@ -886,6 +870,25 @@
   
   </article>
 
+  
+  
+  
+  
+    <div class="pagination">
+      <style type="text/css">
+        .toContact {
+            color: #EB6D39;
+            border-bottom-color: #EB6D39;
+        }
+        .toContact:hover {
+          color: #000000;
+          border-bottom-color: #000000;
+        }
+      </style>
+      <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+    </div>
+  
+
 
   </div>
 
@@ -963,7 +966,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">772</span>
+                <span class="site-state-item-count">780</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1318,7 +1321,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">382k</span>
+    <span title="博客总字数">383k</span>
   
 
   
@@ -1327,7 +1330,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">7:04</span>
+    <span title="博客总阅读时长">7:05</span>
   
 </div>
 

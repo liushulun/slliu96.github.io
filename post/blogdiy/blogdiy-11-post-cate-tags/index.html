@@ -112,7 +112,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-11-poststyle/multiple_categories_split.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-11-poststyle/categories_tags_same_line.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-11-poststyle/originalStatement.png">
-<meta property="og:updated_time" content="2019-12-08T16:01:13.275Z">
+<meta property="og:updated_time" content="2020-04-02T20:52:55.246Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（11）修改文章类别位置、文章顶部显示标签">
 <meta name="twitter:description" content="（1）首页文章列表修改文章类别位置；（2）将文章的标签放到文章顶部，与文章分类位于同一行；（3）修改多分类的逗号分隔符；（4）文首增加原创声明。">
@@ -199,7 +199,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V772</div>
+    <div class="site-titleVersion">V780</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -548,7 +548,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">24k</span>
+                <span title="全文字数">23k</span>
               
 
               
@@ -588,19 +588,6 @@
           
           
           
-          
-
-
-
-          
-          
-          
-          
-            <p>
-              <font color="#999999">
-                【注】本文由SLLiu原创于liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。
-              </font>
-            </p>
           
 
 
@@ -683,7 +670,17 @@
 
 
 
+
         
+        
+        
+        
+          <div>
+            <font color="#999999" size="1">【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+          </div>
+        
+
+
 
 
         
@@ -694,25 +691,13 @@
           <div class="post-description"><span style="color: #EB6D39">
                   简介：
                 </span>（1）首页文章列表修改文章类别位置；（2）将文章的标签放到文章顶部，与文章分类位于同一行；（3）修改多分类的逗号分隔符；（4）文首增加原创声明。
-            
-              <p>
-                <style type="text/css">
-                  .toContact {
-                      color: #EB6D39;
-                      font-size: 10px;
-                      border-bottom-color: #EB6D39;
-                  }
-                  .toContact:hover {
-                    color: #FFFFFF;
-                    border-bottom-color: #FFFFFF;
-                  }
-                </style>
-                <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
-              </p>
-            
           </div>
         
 
+
+        
+        
+        
         <a id="more"></a>
 
 <hr>
@@ -766,17 +751,18 @@
 
 <p>声明一个原创标识还是有必要的，但是这么多文章，如果每个都手动写在正文内太麻烦，虽然可以通过 <code>blog/scaffolds/post.md</code> 文件定义好声明语句，在新文章生成时自动添加，但是这种方式只能添加到正文中，而这种声明感觉更偏向于文章属性，所以还是添加到文首比较好。</p>
 <p>首先在 <code>next/languages/</code> 目录下找到需要动态修改语言的对应语言文件，在 <code>post</code> 字段下添加如下属性：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 英文对应 en.yml</span></span><br><span class="line"><span class="attr">post:</span></span><br><span class="line">  <span class="string">......</span></span><br><span class="line"><span class="attr">  originalStatement:</span> <span class="string">【Note】This</span> <span class="string">is</span> <span class="string">an</span> <span class="string">original</span> <span class="string">post,</span> <span class="string">nothing</span> <span class="string">plagiarism.</span> <span class="string">The</span> <span class="string">reference</span> <span class="string">link</span> <span class="string">is</span> <span class="string">for</span> <span class="string">reference</span> <span class="string">only,</span> <span class="string">and</span> <span class="string">the</span> <span class="string">authors</span> <span class="string">can</span> <span class="string">require</span> <span class="string">deletion.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 简体中文对应 zh-CN.yml</span></span><br><span class="line"><span class="attr">post:</span></span><br><span class="line">  <span class="string">......</span></span><br><span class="line"><span class="attr">  originalStatement:</span> <span class="string">【注】本文全部内容均为原创，引用链接仅做学习指导，内容无任何摘抄及复制，原作可随时联系要求删除</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 英文对应 en.yml</span></span><br><span class="line"><span class="attr">post:</span></span><br><span class="line">  <span class="string">......</span></span><br><span class="line"><span class="attr">  originalStatement:</span> <span class="string">【Note】This</span> <span class="string">is</span> <span class="string">an</span> <span class="string">original</span> <span class="string">post</span> <span class="string">by</span> <span class="string">SLLiu</span> <span class="string">on</span> <span class="string">liushulun.cn,</span> <span class="string">requiring</span> <span class="string">authorization</span> <span class="string">before</span> <span class="string">any</span> <span class="string">quote</span> <span class="string">or</span> <span class="string">repost.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 简体中文对应 zh-CN.yml</span></span><br><span class="line"><span class="attr">post:</span></span><br><span class="line">  <span class="string">......</span></span><br><span class="line"><span class="attr">  originalStatement:</span> <span class="string">【注】本文由</span> <span class="string">SLLiu</span> <span class="string">原创于</span> <span class="string">liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</span></span><br></pre></td></tr></table></figure>
 
-<p>具体的声明内容就看自己喜好了。然后在文章内的头部属性栏添加一个自定义布尔类型属性 <code>originalStatement</code>：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hexo博客DIY（11）修改文章类别位置、文章顶部显示标签</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">SLLiu</span></span><br><span class="line"><span class="attr">originalStatement:</span> <span class="literal">true</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<p>具体的声明内容就看自己喜好了。然后在文章内的头部属性栏添加一个自定义布尔类型属性 <code>hideOriginalStatement</code>：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hexo博客DIY（11）修改文章类别位置、文章顶部显示标签</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">SLLiu</span></span><br><span class="line"><span class="attr">hideOriginalStatement:</span> <span class="literal">false</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
 
 <p>再修改 <code>next/layout/_macro/post.swig</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"post-meta"</span>&gt;</span><br><span class="line">  </span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">  &#123;####################&#125;</span><br><span class="line">  &#123;##### 原创声明 ######&#125;</span><br><span class="line">  &#123;####################&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> post.originalStatement and not is_index %&#125;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">      &lt;font size=<span class="number">1</span> color=<span class="string">"#999999"</span>&gt;</span><br><span class="line">        &lt;sup&gt;&#123;&#123; __(<span class="string">'post.originalStatement'</span>) &#125;&#125;&lt;<span class="regexp">/sup&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>font&gt;</span><br><span class="line">    &lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &#123;% endif %&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;####################&#125;</span><br><span class="line">&#123;##### 原创声明 ######&#125;</span><br><span class="line">&#123;####################&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> not post.hideOriginalStatement and not is_index %&#125;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;font color=#999999 size=1&gt;&#123;&#123; __('post.originalStatement') &#125;&#125;&lt;/font&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
 
-<p>以上代码可以添加到自己想放的位置，文字显示的样式也可以随意调整。由于我的博客基本全部都是原创文章，为了方便，在模板文件 <code>blog/scaffolds/post.md</code> 内设置每篇文章自动增加原创声明的属性：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">&#123;&#123;</span> <span class="string">title</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">SLLiu</span></span><br><span class="line"><span class="attr">originalStatement:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">......</span></span><br></pre></td></tr></table></figure>
+<p>以上代码可以添加到自己想放的位置，我自己放在了正文上面。文字显示的样式也可以随意调整。由于我的博客基本全部都是原创文章，为了方便，在模板文件 <code>blog/scaffolds/post.md</code> 内设置每篇文章自动增加原创声明的属性：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">&#123;&#123;</span> <span class="string">title</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">SLLiu</span></span><br><span class="line"><span class="attr">hideOriginalStatement:</span> <span class="literal">false</span></span><br><span class="line"><span class="string">......</span></span><br></pre></td></tr></table></figure>
 
+<p>因为我绝大部分文章都是原创，所以用 <code>hideOriginalStatement: false</code>，这样当某篇文章忘记加这个字段时，<code>(not post.hideOriginalStatement) == true</code>，默认就会增加原创声明。</p>
 <p>用相同的思路，还可以添加例如“转载声明”，“引用声明”等等。</p>
 <hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="TOLINKS">博客 DIY 系列</a></p>
@@ -805,6 +791,8 @@
 </div>
       
     </div>
+
+
 
     
     
@@ -926,6 +914,25 @@
   
   </article>
 
+  
+  
+  
+  
+    <div class="pagination">
+      <style type="text/css">
+        .toContact {
+            color: #EB6D39;
+            border-bottom-color: #EB6D39;
+        }
+        .toContact:hover {
+          color: #000000;
+          border-bottom-color: #000000;
+        }
+      </style>
+      <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+    </div>
+  
+
 
   </div>
 
@@ -1003,7 +1010,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">772</span>
+                <span class="site-state-item-count">780</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1358,7 +1365,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">382k</span>
+    <span title="博客总字数">383k</span>
   
 
   
@@ -1367,7 +1374,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">7:04</span>
+    <span title="博客总阅读时长">7:05</span>
   
 </div>
 

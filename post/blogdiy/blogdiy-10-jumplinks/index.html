@@ -100,19 +100,21 @@
 
 
 
-  <meta name="description" content="（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页。">
+  <meta name="description" content="（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页；（2）调整页码导航栏的隐藏级别。">
 <meta name="keywords" content="Hexo,自定义">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo博客DIY（10）一键转到页首、页尾、主页">
 <meta property="og:url" content="https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/index.html">
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
-<meta property="og:description" content="（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页。">
+<meta property="og:description" content="（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页；（2）调整页码导航栏的隐藏级别。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-10-jumplinks/custom_jump_links.gif">
-<meta property="og:updated_time" content="2019-12-08T16:01:11.695Z">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-10-jumplinks/page_nav_default.png">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-10-jumplinks/page_nav_custom.png">
+<meta property="og:updated_time" content="2020-04-02T21:17:25.991Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（10）一键转到页首、页尾、主页">
-<meta name="twitter:description" content="（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页。">
+<meta name="twitter:description" content="（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页；（2）调整页码导航栏的隐藏级别。">
 <meta name="twitter:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-10-jumplinks/custom_jump_links.gif">
 
 
@@ -196,7 +198,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V772</div>
+    <div class="site-titleVersion">V780</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -545,7 +547,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">8.6k</span>
+                <span title="全文字数">11k</span>
               
 
               
@@ -559,7 +561,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">12 分钟</span>
               
             </div>
           
@@ -585,19 +587,6 @@
           
           
           
-          
-
-
-
-          
-          
-          
-          
-            <p>
-              <font color="#999999">
-                【注】本文由SLLiu原创于liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。
-              </font>
-            </p>
           
 
 
@@ -680,7 +669,17 @@
 
 
 
+
         
+        
+        
+        
+          <div>
+            <font color="#999999" size="1">【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+          </div>
+        
+
+
 
 
         
@@ -690,26 +689,14 @@
         
           <div class="post-description"><span style="color: #EB6D39">
                   简介：
-                </span>（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页。
-            
-              <p>
-                <style type="text/css">
-                  .toContact {
-                      color: #EB6D39;
-                      font-size: 10px;
-                      border-bottom-color: #EB6D39;
-                  }
-                  .toContact:hover {
-                    color: #FFFFFF;
-                    border-bottom-color: #FFFFFF;
-                  }
-                </style>
-                <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
-              </p>
-            
+                </span>（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页；（2）调整页码导航栏的隐藏级别。
           </div>
         
 
+
+        
+        
+        
         <a id="more"></a>
 
 <hr>
@@ -742,9 +729,25 @@
 
 <p>这样就能随时随地跳转到页首、页尾和首页了。当然，也可以把这段代码按照自己的喜好进一步修改、或放到自己想要的位置。</p>
 <hr>
+<h1 id="2-调整页码导航栏"><a href="#2-调整页码导航栏" class="headerlink" title="2. 调整页码导航栏"></a>2. 调整页码导航栏</h1><p>首页的文章列表以及分类中的文章列表底部都有一个页码导航栏：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-10-jumplinks/page_nav_default.png" alt="默认页码导航栏" title="TOPICS"></p>
+</center>
+
+<p>如上图所示，这个页码导航栏通常会将中间的页码省略，但如果页码比较多，默认情况下就会导致前后的页码要点很多下才能切换过去，因此可以适当减少省略的数量。修改：<code>next/layout/_partials/pagination.swig</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> page.prev or page.next %&#125;</span><br><span class="line">  &lt;nav <span class="class"><span class="keyword">class</span></span>=<span class="string">"pagination"</span>&gt;</span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: <span class="string">'&lt;i class="fa fa-angle-left" aria-label="'</span>+__(<span class="string">'accessibility.prev_page'</span>)+<span class="string">'"&gt;&lt;/i&gt;'</span>,</span><br><span class="line">        next_text: <span class="string">'&lt;i class="fa fa-angle-right" aria-label="'</span>+__(<span class="string">'accessibility.next_page'</span>)+<span class="string">'"&gt;&lt;/i&gt;'</span>,</span><br><span class="line">        mid_size: <span class="number">1</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &lt;<span class="regexp">/nav&gt;</span></span><br><span class="line"><span class="regexp">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>mid_size</code> 代表当前页码到省略号之间有多少页，默认为 <code>mid_size: 1</code>，加入设置为 <code>mid_size: 3</code>，则效果如下：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-10-jumplinks/page_nav_custom.png" alt="调整页码导航栏" title="TOPICS"></p>
+</center>
+
+<hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="TOLINKS">博客 DIY 系列</a></p>
 <hr>
-<h1 id="2-附录-参考指导"><a href="#2-附录-参考指导" class="headerlink" title="2. 附录[参考指导]"></a>2. 附录[参考指导]</h1><blockquote>
+<h1 id="3-附录-参考指导"><a href="#3-附录-参考指导" class="headerlink" title="3. 附录[参考指导]"></a>3. 附录[参考指导]</h1><blockquote>
 <ul>
 <li><a href="https://blog.csdn.net/baitaibai/article/details/54561918" title="ToLinks" target="_blank" rel="noopener">【1】css样式中的class，style与id的优先级问题（作者：白太白QAQ）<sup>【注】</sup></a></li>
 <li><a href="https://www.cnblogs.com/kuoAT/p/6706327.html?utm_source=itdadao&utm_medium=referral" title="ToLinks" target="_blank" rel="noopener">【2】div和span显示在同一行（作者：适AT）<sup>【注】</sup></a></li>
@@ -775,6 +778,8 @@
 </div>
       
     </div>
+
+
 
     
     
@@ -896,6 +901,25 @@
   
   </article>
 
+  
+  
+  
+  
+    <div class="pagination">
+      <style type="text/css">
+        .toContact {
+            color: #EB6D39;
+            border-bottom-color: #EB6D39;
+        }
+        .toContact:hover {
+          color: #000000;
+          border-bottom-color: #000000;
+        }
+      </style>
+      <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+    </div>
+  
+
 
   </div>
 
@@ -973,7 +997,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">772</span>
+                <span class="site-state-item-count">780</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1294,7 +1318,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-增加跳转链接"><span class="nav-text">1. 增加跳转链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-附录-参考指导"><span class="nav-text">2. 附录[参考指导]</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-增加跳转链接"><span class="nav-text">1. 增加跳转链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-调整页码导航栏"><span class="nav-text">2. 调整页码导航栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-附录-参考指导"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></div>
             
 
           </div>
@@ -1328,7 +1352,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">382k</span>
+    <span title="博客总字数">383k</span>
   
 
   
@@ -1337,7 +1361,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">7:04</span>
+    <span title="博客总阅读时长">7:05</span>
   
 </div>
 
