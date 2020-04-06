@@ -194,7 +194,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V782</div>
+    <div class="site-titleVersion">V783</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -668,6 +668,20 @@
 
 
 
+
+        
+        
+        
+        
+        
+          <div class="post-description"><span style="color: #EB6D39">简介：</span>（1）GC 的两种判定原则（引用计数、引用链）；（2）常见的 GC 算法（引用计数法、标记清除法、复制法、标记整理法、分代收集法）。
+          </div>
+        
+
+
+
+
+
         
         
         
@@ -679,17 +693,6 @@
 
 
 
-
-        
-        
-        
-        
-        
-          <div class="post-description"><span style="color: #EB6D39">
-                  简介：
-                </span>（1）GC 的两种判定原则（引用计数、引用链）；（2）常见的 GC 算法（引用计数法、标记清除法、复制法、标记整理法、分代收集法）。
-          </div>
-        
 
 
         
@@ -748,6 +751,24 @@
 <p>通俗地说，如果一个对象首先在 Eden 区中被创建，Eden 经过 GC 后存活，则被复制到其中一个 Survivor 区，如果这个 Survivor 经过 GC 后还存活，则被复制到另一个 Survivor 区，如果另一个 Survivor 区经过 GC 后仍然存活，则复制到老年代。需要注意的是：两个 Survivor 区是平等的，没有优先级高低、顺序前后之分，都有可能接收来自 Eden 或另一个 Survivor 区传来的对象。Survivor 区可以手动配置为多于 2 个，即可增加对象在新生代中的时间，减小被复制到老年代的可能性。</p>
 <p>（2）老年代：在新生代中经过 N 次（N 即为新生代中区的数量）GC 后仍然存活的对象将进入老年代，通常都是生命周期比较长的对象。</p>
 <p>（3）永久代：一般用来存放类的信息（包括类名、类方法、字段信息等）、静态变量、常量池等不会改变的数据，但在 JDK 1.8 开始就使用元数据区取代了了永久代。</p>
+
+
+
+
+
+
+        
+        
+        
+        
+          <div>
+            <font color="#999999" size="1">【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+          </div>
+        
+
+
+
+
 
       
     </div>
@@ -992,7 +1013,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">782</span>
+                <span class="site-state-item-count">783</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1003,7 +1024,7 @@
                   <a href="/archives/">
                 
                     
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1209,7 +1230,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">74</span>
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -103,7 +103,7 @@
   <meta name="description" content="（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。">
 <meta name="keywords" content="AI,MachineLearning,人工智能,机器学习,线性回归">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ML入门——线性回归三种求解">
+<meta property="og:title" content="ML入门-线性回归三种求解">
 <meta property="og:url" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/index.html">
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。">
@@ -112,9 +112,9 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/gradient_demo.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/different_eta.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/subderivative.png">
-<meta property="og:updated_time" content="2020-03-21T16:02:06.200Z">
+<meta property="og:updated_time" content="2020-04-06T17:59:25.583Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ML入门——线性回归三种求解">
+<meta name="twitter:title" content="ML入门-线性回归三种求解">
 <meta name="twitter:description" content="（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。">
 <meta name="twitter:image" content="https://www.liushulun.cn/post_files/machinelearning/ml-linear/ml-linear-solutions/pseudoinverse.png">
 
@@ -134,7 +134,7 @@
   };
 </script>
 
-  <title>ML入门——线性回归三种求解 | SLLiu's Blogs</title>
+  <title>ML入门-线性回归三种求解 | SLLiu's Blogs</title>
   
 
 
@@ -199,7 +199,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V782</div>
+    <div class="site-titleVersion">V783</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -450,8 +450,8 @@
         </style>
         <div class="post-nav-next post-nav-item">
           
-            <a href="/post/machinelearning/ml-linear/ml-linear-introduction/" rel="next" title="ML入门——线性回归简介">
-              <i class="fa fa-chevron-left"></i> ML入门——线性回归简介
+            <a href="/post/machinelearning/ml-linear/ml-linear-introduction/" rel="next" title="ML入门-线性回归简介">
+              <i class="fa fa-chevron-left"></i> ML入门-线性回归简介
             </a>
           
         </div>
@@ -460,8 +460,8 @@
 
         <div class="post-nav-prev post-nav-item">
           
-            <a href="/post/machinelearning/ml-linear/ml-linear-loss-regular/" rel="prev" title="ML入门——损失和正则的概率解释">
-              ML入门——损失和正则的概率解释 <i class="fa fa-chevron-right"></i>
+            <a href="/post/machinelearning/ml-linear/ml-linear-loss-regular/" rel="prev" title="ML入门-损失和正则的概率解释">
+              ML入门-损失和正则的概率解释 <i class="fa fa-chevron-right"></i>
             </a>
           
         </div>
@@ -495,7 +495,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">ML入门——线性回归三种求解
+          <h2 class="post-title" itemprop="name headline">ML入门-线性回归三种求解
 
               
             
@@ -572,7 +572,7 @@
           
           
           
-            <span id="/post/machinelearning/ml-linear/ml-linear-solutions/" class="leancloud_visitors" data-flag-title="ML入门——线性回归三种求解">
+            <span id="/post/machinelearning/ml-linear/ml-linear-solutions/" class="leancloud_visitors" data-flag-title="ML入门-线性回归三种求解">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -684,6 +684,20 @@
 
 
 
+
+        
+        
+        
+        
+        
+          <div class="post-description"><span style="color: #EB6D39">简介：</span>（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。
+          </div>
+        
+
+
+
+
+
         
         
         
@@ -695,17 +709,6 @@
 
 
 
-
-        
-        
-        
-        
-        
-          <div class="post-description"><span style="color: #EB6D39">
-                  简介：
-                </span>（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。
-          </div>
-        
 
 
         
@@ -1043,6 +1046,24 @@
 <p><code>random_state</code>：<br>随机选择特征的权重进行更新的随机种子。<br>仅当参数 <code>selection == &#39;random&#39;</code> 时有效。</p>
 <p><code>selection</code>：<br>选择特征权重更新的方式。<br>可选项有：<br>① ‘cyclic’：循环更新<br>② ‘random’：随机选择特征进行更新，通常收敛更快，尤其当参数 tol &gt; (10 - 4) 时。</p>
 
+
+
+
+
+
+        
+        
+        
+        
+          <div>
+            <font color="#999999" size="1">【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+          </div>
+        
+
+
+
+
+
       
     </div>
 
@@ -1090,7 +1111,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/" title="ML入门——线性回归三种求解">https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/</a>
+    <a href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/" title="ML入门-线性回归三种求解">https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。引用请注明出处！</li>
@@ -1163,8 +1184,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/machinelearning/ml-linear/ml-linear-introduction/" rel="next" title="ML入门——线性回归简介">
-                <i class="fa fa-chevron-left"></i> ML入门——线性回归简介
+              <a href="/post/machinelearning/ml-linear/ml-linear-introduction/" rel="next" title="ML入门-线性回归简介">
+                <i class="fa fa-chevron-left"></i> ML入门-线性回归简介
               </a>
             
           </div>
@@ -1173,8 +1194,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/machinelearning/ml-linear/ml-linear-loss-regular/" rel="prev" title="ML入门——损失和正则的概率解释">
-                ML入门——损失和正则的概率解释 <i class="fa fa-chevron-right"></i>
+              <a href="/post/machinelearning/ml-linear/ml-linear-loss-regular/" rel="prev" title="ML入门-损失和正则的概率解释">
+                ML入门-损失和正则的概率解释 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1286,7 +1307,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">782</span>
+                <span class="site-state-item-count">783</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1297,7 +1318,7 @@
                   <a href="/archives/">
                 
                     
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1503,7 +1524,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">74</span>
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

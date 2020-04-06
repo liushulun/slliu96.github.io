@@ -103,14 +103,14 @@
   <meta name="description" content="。">
 <meta name="keywords" content="Android,四大组件,Service,前台服务,后台服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android——Service">
+<meta property="og:title" content="Android-Service">
 <meta property="og:url" content="https://www.liushulun.cn/post/android/android-service/index.html">
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-25T17:29:43.719Z">
+<meta property="og:updated_time" content="2020-04-06T17:58:39.931Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android——Service">
+<meta name="twitter:title" content="Android-Service">
 <meta name="twitter:description" content="。">
 
 
@@ -129,7 +129,7 @@
   };
 </script>
 
-  <title>Android——Service | SLLiu's Blogs</title>
+  <title>Android-Service | SLLiu's Blogs</title>
   
 
 
@@ -194,7 +194,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V782</div>
+    <div class="site-titleVersion">V783</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -490,7 +490,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Android——Service
+          <h2 class="post-title" itemprop="name headline">Android-Service
 
               
             
@@ -567,7 +567,7 @@
           
           
           
-            <span id="/post/android/android-service/" class="leancloud_visitors" data-flag-title="Android——Service">
+            <span id="/post/android/android-service/" class="leancloud_visitors" data-flag-title="Android-Service">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -672,6 +672,20 @@
 
 
 
+
+        
+        
+        
+        
+        
+          <div class="post-description"><span style="color: #EB6D39">未完待续：</span>。
+          </div>
+        
+
+
+
+
+
         
         
         
@@ -683,17 +697,6 @@
 
 
 
-
-        
-        
-        
-        
-        
-          <div class="post-description"><span style="color: #EB6D39">
-                  未完待续：
-                </span>。
-          </div>
-        
 
 
         
@@ -723,6 +726,24 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 绑定 Service 的 Actiivty</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> DemoService demoService = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ServiceConnection serviceConnection = <span class="keyword">new</span> ServiceConnection() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName name, IBinder binder)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 获取 Binder 实例对象</span></span><br><span class="line">            DemoService.BinderInstance binderInstance = (DemoService.BinderInstance) binder;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 获取 Service 实例对象</span></span><br><span class="line">            DemoService.BinderInstance = binderInstance.getServiceInstance();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName name)</span> </span>&#123; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 直接指定 Service</span></span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, DemoService.class);</span><br><span class="line">        <span class="comment">// 或使用 action 过滤</span></span><br><span class="line">        intent.setAction(<span class="string">"service.DemoService"</span>);</span><br><span class="line">        bindService(intent, serviceConnection, BIND_AUTO_CREATE);</span><br><span class="line">        unbindService(serviceConnection);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>除了使用 Binder 方式以外，Activity 与 Service 之间的通信还能通过 BroadCastReceiver 以及 EventBus 的方式实现。</p>
+
+
+
+
+
+
+        
+        
+        
+        
+          <div>
+            <font color="#999999" size="1">【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+          </div>
+        
+
+
+
+
 
       
     </div>
@@ -771,7 +792,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://www.liushulun.cn/post/android/android-service/" title="Android——Service">https://www.liushulun.cn/post/android/android-service/</a>
+    <a href="https://www.liushulun.cn/post/android/android-service/" title="Android-Service">https://www.liushulun.cn/post/android/android-service/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。引用请注明出处！</li>
@@ -958,7 +979,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">782</span>
+                <span class="site-state-item-count">783</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -969,7 +990,7 @@
                   <a href="/archives/">
                 
                     
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1175,7 +1196,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">74</span>
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

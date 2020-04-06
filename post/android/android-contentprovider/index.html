@@ -194,7 +194,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V782</div>
+    <div class="site-titleVersion">V783</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -455,8 +455,8 @@
 
         <div class="post-nav-prev post-nav-item">
           
-            <a href="/post/android/android-sharedpreference/" rel="prev" title="Android——SharedPreference">
-              Android——SharedPreference <i class="fa fa-chevron-right"></i>
+            <a href="/post/android/android-sharedpreference/" rel="prev" title="Android-SharedPreference">
+              Android-SharedPreference <i class="fa fa-chevron-right"></i>
             </a>
           
         </div>
@@ -668,6 +668,20 @@
 
 
 
+
+        
+        
+        
+        
+        
+          <div class="post-description"><span style="color: #EB6D39">未完待续：</span>。
+          </div>
+        
+
+
+
+
+
         
         
         
@@ -679,17 +693,6 @@
 
 
 
-
-        
-        
-        
-        
-        
-          <div class="post-description"><span style="color: #EB6D39">
-                  未完待续：
-                </span>。
-          </div>
-        
 
 
         
@@ -717,6 +720,24 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询</span></span><br><span class="line">Cursor cursor = contentResolver.query(DATA_URI, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line"><span class="keyword">if</span> (cursor != <span class="keyword">null</span> &amp;&amp; cursor.getCount() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">while</span> (cursor.moveToNext()) &#123;</span><br><span class="line">        dataValue1 = cursor.getXXX(cursor.getColumnIndex(<span class="string">"column1"</span>));</span><br><span class="line">        dataValue2 = cursor.getXXX(cursor.getColumnIndex(<span class="string">"column2"</span>));</span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 插入</span></span><br><span class="line">ContentValues contentValues = <span class="keyword">new</span> ContentValues();</span><br><span class="line">contentValues.put(<span class="string">"culumn1"</span>, dataValue1);</span><br><span class="line">contentValues.put(<span class="string">"culumn2"</span>, dataValue2);</span><br><span class="line">......</span><br><span class="line">contentResolver.insert(DATA_URI, contentValues);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除</span></span><br><span class="line">contentResolver.delete(DATA_URI, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
 
 <p>可以看出，对一个 App 共享的数据集，通常是通过 ContentResolver 处理的，而 ContentProvider 更像是提供了一个可以处理数据的接口，其定义了入口 URI，调用增删改查时的具体逻辑，并返回数据处理的结果。</p>
+
+
+
+
+
+
+        
+        
+        
+        
+          <div>
+            <font color="#999999" size="1">【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+          </div>
+        
+
+
+
+
 
       
     </div>
@@ -848,8 +869,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/android/android-sharedpreference/" rel="prev" title="Android——SharedPreference">
-                Android——SharedPreference <i class="fa fa-chevron-right"></i>
+              <a href="/post/android/android-sharedpreference/" rel="prev" title="Android-SharedPreference">
+                Android-SharedPreference <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -952,7 +973,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">782</span>
+                <span class="site-state-item-count">783</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -963,7 +984,7 @@
                   <a href="/archives/">
                 
                     
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1169,7 +1190,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">74</span>
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

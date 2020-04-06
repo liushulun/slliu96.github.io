@@ -23,8 +23,8 @@ document.addEventListener('visibilitychange', function () {
                 document.title = "Welcome Back !";
                 titleTime3 = setTimeout(function () {
                     document.title = OriginTitle;
-                }, 800);
-            }, 500);
-        }, 500);
+                }, 500);
+            }, 300);
+        }, 300);
     }
 });

@@ -103,14 +103,14 @@
   <meta name="description" content="（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。">
 <meta name="keywords" content="Android,源码,Looper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android——Looper">
+<meta property="og:title" content="Android-Looper">
 <meta property="og:url" content="https://www.liushulun.cn/post/android/android-looper/index.html">
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-21T15:53:50.967Z">
+<meta property="og:updated_time" content="2020-04-06T17:57:02.151Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android——Looper">
+<meta name="twitter:title" content="Android-Looper">
 <meta name="twitter:description" content="（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。">
 
 
@@ -129,7 +129,7 @@
   };
 </script>
 
-  <title>Android——Looper | SLLiu's Blogs</title>
+  <title>Android-Looper | SLLiu's Blogs</title>
   
 
 
@@ -194,7 +194,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V782</div>
+    <div class="site-titleVersion">V783</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -445,8 +445,8 @@
         </style>
         <div class="post-nav-next post-nav-item">
           
-            <a href="/post/android/android-handler/" rel="next" title="Android——Handler">
-              <i class="fa fa-chevron-left"></i> Android——Handler
+            <a href="/post/android/android-handler/" rel="next" title="Android-Handler">
+              <i class="fa fa-chevron-left"></i> Android-Handler
             </a>
           
         </div>
@@ -455,8 +455,8 @@
 
         <div class="post-nav-prev post-nav-item">
           
-            <a href="/post/note/note-build-ffmpeg/" rel="prev" title="Mac编译FFmpeg踩坑记录">
-              Mac编译FFmpeg踩坑记录 <i class="fa fa-chevron-right"></i>
+            <a href="/post/android/android-message-handling/" rel="prev" title="Android-消息处理机制">
+              Android-消息处理机制 <i class="fa fa-chevron-right"></i>
             </a>
           
         </div>
@@ -490,7 +490,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Android——Looper
+          <h2 class="post-title" itemprop="name headline">Android-Looper
 
               
             
@@ -567,7 +567,7 @@
           
           
           
-            <span id="/post/android/android-looper/" class="leancloud_visitors" data-flag-title="Android——Looper">
+            <span id="/post/android/android-looper/" class="leancloud_visitors" data-flag-title="Android-Looper">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -668,6 +668,20 @@
 
 
 
+
+        
+        
+        
+        
+        
+          <div class="post-description"><span style="color: #EB6D39">简介：</span>（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。
+          </div>
+        
+
+
+
+
+
         
         
         
@@ -679,17 +693,6 @@
 
 
 
-
-        
-        
-        
-        
-        
-          <div class="post-description"><span style="color: #EB6D39">
-                  简介：
-                </span>（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。
-          </div>
-        
 
 
         
@@ -773,6 +776,24 @@
 </ul>
 <p>针对以上情形 ②，主线程开启子线程后向下执行，如果主线程发送消息的时间较早，可能子线程还没有完成对 Looper 的实例化，则会导致空指针异常，此时可以将子线程用 <code>HandlerThread</code> 类代替，实例化时传入一个 <code>String</code> 类型的线程标记名，HandlerThread 不能重写 <code>run()</code> 方法，当然也不需要显式调用 <code>prepare()</code> 和 <code>loop()</code>，通过 <code>HandlerThread.getLooper()</code> 即可获取 Looper 实例对象。</p>
 
+
+
+
+
+
+        
+        
+        
+        
+          <div>
+            <font color="#999999" size="1">【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+          </div>
+        
+
+
+
+
+
       
     </div>
 
@@ -820,7 +841,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://www.liushulun.cn/post/android/android-looper/" title="Android——Looper">https://www.liushulun.cn/post/android/android-looper/</a>
+    <a href="https://www.liushulun.cn/post/android/android-looper/" title="Android-Looper">https://www.liushulun.cn/post/android/android-looper/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。引用请注明出处！</li>
@@ -893,8 +914,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/post/android/android-handler/" rel="next" title="Android——Handler">
-                <i class="fa fa-chevron-left"></i> Android——Handler
+              <a href="/post/android/android-handler/" rel="next" title="Android-Handler">
+                <i class="fa fa-chevron-left"></i> Android-Handler
               </a>
             
           </div>
@@ -903,8 +924,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/note/note-build-ffmpeg/" rel="prev" title="Mac编译FFmpeg踩坑记录">
-                Mac编译FFmpeg踩坑记录 <i class="fa fa-chevron-right"></i>
+              <a href="/post/android/android-message-handling/" rel="prev" title="Android-消息处理机制">
+                Android-消息处理机制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1016,7 +1037,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">782</span>
+                <span class="site-state-item-count">783</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1027,7 +1048,7 @@
                   <a href="/archives/">
                 
                     
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1233,7 +1254,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">74</span>
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
