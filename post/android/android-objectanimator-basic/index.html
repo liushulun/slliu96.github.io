@@ -118,7 +118,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/android/android-objectanimator-basic/init_click_event.gif">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/android/android-objectanimator-basic/multi_animator_issue.gif">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/android/android-objectanimator-basic/fixed_multi_animator.gif">
-<meta property="og:updated_time" content="2020-04-06T17:58:35.579Z">
+<meta property="og:updated_time" content="2020-04-06T18:40:59.856Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android-ObjectAnimator">
 <meta name="twitter:description" content="（1）ValueAnimator 基本介绍；（2）ObjectAnimator 基本介绍；（3）ObjectAnimator 与 Matrix 配合实现动画效果；（4）动画并行、监听。">
@@ -205,7 +205,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V783</div>
+    <div class="site-titleVersion">V790</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -247,8 +247,10 @@
     
 
     
+      
+    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页<span class="badge">V790</span></a>
 
   </li>
         
@@ -264,8 +266,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
 
   </li>
         
@@ -281,8 +285,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">74</span></a>
 
   </li>
         
@@ -298,8 +304,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
 
   </li>
         
@@ -314,6 +322,8 @@
       
     
 
+    
+      
     
 
     <a href="/records/" rel="section"><i class="menu-item-icon fa fa-fw fa-list-alt"></i> <br>记录</a>
@@ -332,6 +342,8 @@
     
 
     
+      
+    
 
     <a href="/collections/" rel="section"><i class="menu-item-icon fa fa-fw fa-star"></i> <br>收藏</a>
 
@@ -348,6 +360,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -714,7 +728,7 @@
         
         
         <a id="more"></a>
-
+<hr>
 <p>前言：之前的项目有一个功能需要对“画布”进行动画变换而不改变 View 本身，在上一篇<a href="/post/Android/android-matrix-basic/" title="TOLINKS">Android属性——Matrix矩阵</a>中，已经用 <strong>Matrix</strong> 实现了对画布的变换，但只能实现跳跃式变换，还需要加上平缓的动画过渡效果，因此搭配使用 <strong>ObjectAnimator</strong> 实现功能并记录于本文。</p>
 <hr>
 <h1 id="1-构思"><a href="#1-构思" class="headerlink" title="1. 构思"></a>1. 构思</h1><p>在项目中，有一个功能是希望能在介绍页对 App 的功能做一些引导指示，一开始构思这个效果的时候，最简单的也是最容易想到的方式就是预设固定的图片，在需要时设置显示，不需要提示时隐藏：</p>
@@ -1183,7 +1197,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">783</span>
+                <span class="site-state-item-count">790</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1193,6 +1207,7 @@
                 
                   <a href="/archives/">
                 
+                    
                     
                     <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
@@ -1232,9 +1247,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1400,9 +1413,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-count">74</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1540,7 +1551,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">383k</span>
+    <span title="博客总字数">343k</span>
   
 
   
@@ -1549,7 +1560,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">7:05</span>
+    <span title="博客总阅读时长">6:22</span>
   
 </div>
 
@@ -2085,6 +2096,41 @@
   
 
   
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

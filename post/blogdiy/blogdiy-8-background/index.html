@@ -120,7 +120,8 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-8-background/header_ban_default.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-8-background/header_band_not_fit.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-8-background/header_band_fit.png">
-<meta property="og:updated_time" content="2019-12-08T16:01:08.563Z">
+<meta property="og:image" content="https://www.liushulun.cn/post_files/blogdiy/blogdiy-8-background/menu_badges.png">
+<meta property="og:updated_time" content="2020-04-06T21:20:40.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客DIY（8）博客各部分背景设置">
 <meta name="twitter:description" content="（1）修改博客站点背景图；（2）修改博客内容底色；（3）修改主侧栏与浮动侧栏背景；（4）修改“阅读全文”按钮背景；（5）修改评论区背景；（6）修改顶部横条背景；（7）修改默认过渡动画速度。">
@@ -207,7 +208,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V783</div>
+    <div class="site-titleVersion">V790</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -249,8 +250,10 @@
     
 
     
+      
+    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页<span class="badge">V790</span></a>
 
   </li>
         
@@ -266,8 +269,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
 
   </li>
         
@@ -283,8 +288,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">74</span></a>
 
   </li>
         
@@ -300,8 +307,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
 
   </li>
         
@@ -316,6 +325,8 @@
       
     
 
+    
+      
     
 
     <a href="/records/" rel="section"><i class="menu-item-icon fa fa-fw fa-list-alt"></i> <br>记录</a>
@@ -334,6 +345,8 @@
     
 
     
+      
+    
 
     <a href="/collections/" rel="section"><i class="menu-item-icon fa fa-fw fa-star"></i> <br>收藏</a>
 
@@ -350,6 +363,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -556,7 +571,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">18k</span>
+                <span title="全文字数">20k</span>
               
 
               
@@ -570,7 +585,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">19 分钟</span>
+                <span title="阅读时长">23 分钟</span>
               
             </div>
           
@@ -838,6 +853,19 @@
 
 <p>除了以上标明的三处之外，其他的 <code>duration</code> 字段都设置成 80。</p>
 <hr>
+<h1 id="8-菜单栏小标背景"><a href="#8-菜单栏小标背景" class="headerlink" title="8. 菜单栏小标背景"></a>8. 菜单栏小标背景</h1><p>菜单栏的分类、标签、归档等有一个小标记：</p>
+<center>
+
+<p><img src="/post_files/blogdiy/blogdiy-8-background/menu_badges.png" alt="菜单栏小标记" title="TOPICS"></p>
+</center>
+
+<p>这个效果是在站点配置文件中开启 <code>badges</code>：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable / Disable menu icons / item badges.</span></span><br><span class="line"><span class="attr">menu_settings:</span></span><br><span class="line"><span class="attr">  icons:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  badges:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>相关背景设置修改 <code>next/source/css/_schemes/Pisces/_menu.styl</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.badge &#123;</span><br><span class="line">  display: inline-block;</span><br><span class="line">  padding: <span class="number">2</span>px <span class="number">6</span>px;</span><br><span class="line">  font-weight: <span class="number">500</span>;</span><br><span class="line">  line-height: <span class="number">1</span>;</span><br><span class="line">  color: #777;</span><br><span class="line">  text-align: center;</span><br><span class="line">  white-space: nowrap;</span><br><span class="line">  vertical-align: middle;</span><br><span class="line">  background-color: $grey-light;</span><br><span class="line">  border-radius: <span class="number">10</span>px;</span><br><span class="line">  float: right;</span><br><span class="line">  margin: <span class="number">0.35</span>em <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">  text-shadow: <span class="number">1</span>px <span class="number">1</span>px <span class="number">0</span>px rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="TOLINKS">博客 DIY 系列</a></p>
 
 
@@ -1101,7 +1129,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">783</span>
+                <span class="site-state-item-count">790</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1111,6 +1139,7 @@
                 
                   <a href="/archives/">
                 
+                    
                     
                     <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
@@ -1150,9 +1179,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1318,9 +1345,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-count">74</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1424,7 +1449,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-站点背景图"><span class="nav-text">1. 站点背景图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-修改博客内容背景色"><span class="nav-text">2. 修改博客内容背景色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-修改侧栏背景"><span class="nav-text">3. 修改侧栏背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-修改主侧栏背景"><span class="nav-text">3.1 修改主侧栏背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-修改浮动侧栏背景"><span class="nav-text">3.2 修改浮动侧栏背景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-修改“阅读全文”按钮背景"><span class="nav-text">4. 修改“阅读全文”按钮背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-修改评论区背景"><span class="nav-text">5. 修改评论区背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-修改博客顶部横条背景"><span class="nav-text">6. 修改博客顶部横条背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-修改过渡动画速度"><span class="nav-text">7. 修改过渡动画速度</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-站点背景图"><span class="nav-text">1. 站点背景图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-修改博客内容背景色"><span class="nav-text">2. 修改博客内容背景色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-修改侧栏背景"><span class="nav-text">3. 修改侧栏背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-修改主侧栏背景"><span class="nav-text">3.1 修改主侧栏背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-修改浮动侧栏背景"><span class="nav-text">3.2 修改浮动侧栏背景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-修改“阅读全文”按钮背景"><span class="nav-text">4. 修改“阅读全文”按钮背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-修改评论区背景"><span class="nav-text">5. 修改评论区背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-修改博客顶部横条背景"><span class="nav-text">6. 修改博客顶部横条背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-修改过渡动画速度"><span class="nav-text">7. 修改过渡动画速度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-菜单栏小标背景"><span class="nav-text">8. 菜单栏小标背景</span></a></li></ol></div>
             
 
           </div>
@@ -1458,7 +1483,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">383k</span>
+    <span title="博客总字数">343k</span>
   
 
   
@@ -1467,7 +1492,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">7:05</span>
+    <span title="博客总阅读时长">6:22</span>
   
 </div>
 
@@ -2003,6 +2028,41 @@
   
 
   
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

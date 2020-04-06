@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）GC 的两种判定原则（引用计数、引用链）；（2）常见的 GC 算法（引用计数法、标记清除法、复制法、标记整理法、分代收集法）。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-13T17:27:33.346Z">
+<meta property="og:updated_time" content="2020-04-06T18:41:30.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM的GC策略">
 <meta name="twitter:description" content="（1）GC 的两种判定原则（引用计数、引用链）；（2）常见的 GC 算法（引用计数法、标记清除法、复制法、标记整理法、分代收集法）。">
@@ -194,7 +194,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V783</div>
+    <div class="site-titleVersion">V790</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -236,8 +236,10 @@
     
 
     
+      
+    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页<span class="badge">V790</span></a>
 
   </li>
         
@@ -253,8 +255,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
 
   </li>
         
@@ -270,8 +274,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">74</span></a>
 
   </li>
         
@@ -287,8 +293,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
 
   </li>
         
@@ -303,6 +311,8 @@
       
     
 
+    
+      
     
 
     <a href="/records/" rel="section"><i class="menu-item-icon fa fa-fw fa-list-alt"></i> <br>记录</a>
@@ -321,6 +331,8 @@
     
 
     
+      
+    
 
     <a href="/collections/" rel="section"><i class="menu-item-icon fa fa-fw fa-star"></i> <br>收藏</a>
 
@@ -337,6 +349,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -699,7 +713,7 @@
         
         
         <a id="more"></a>
-
+<hr>
 <p>前言：GC 即：Garbage Collection 垃圾回收，是 JVM 中非常必要的一个机制，之所以需要 GC，是因为程序在运行中，会产生很多 Garbage，而 JVM 的内存是有限制的，如果不及时对这些 Garbage 进行整理和清除，会使得内存占用越来越大，最后导致没有足够的内存生成新的对象。GC 中有一个很重要的前提：Stop-The-World，也即：JVM 由于要执行 GC 而停止了应用程序的执行。当 GC 发生时，除了 GC 所需的线程外，其他所有线程都处于等待状态直到 GC 任务完成。而通常做 GC 优化的目的，就是减少 GC 发生，以减少卡顿。</p>
 <hr>
 <h1 id="1-GC的两种核心判定原则"><a href="#1-GC的两种核心判定原则" class="headerlink" title="1. GC的两种核心判定原则"></a>1. GC的两种核心判定原则</h1><br>
@@ -1013,7 +1027,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">783</span>
+                <span class="site-state-item-count">790</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1023,6 +1037,7 @@
                 
                   <a href="/archives/">
                 
+                    
                     
                     <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
@@ -1062,9 +1077,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1230,9 +1243,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-count">74</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1370,7 +1381,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">383k</span>
+    <span title="博客总字数">343k</span>
   
 
   
@@ -1379,7 +1390,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">7:05</span>
+    <span title="博客总阅读时长">6:22</span>
   
 </div>
 
@@ -1915,6 +1926,41 @@
   
 
   
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

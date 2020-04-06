@@ -119,7 +119,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/android/android-jar/terminal_successful.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/android/android-jar/create_jar_successful.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/android/android-jar/intermediate_jars_folder.png">
-<meta property="og:updated_time" content="2020-03-25T19:59:57.349Z">
+<meta property="og:updated_time" content="2020-04-06T18:40:41.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AndroidStudio打包JAR">
 <meta name="twitter:description" content="使用 Android Studio 的 Gradle 脚本将 Library 项目打包成 Jar 文件。">
@@ -206,7 +206,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V783</div>
+    <div class="site-titleVersion">V790</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -248,8 +248,10 @@
     
 
     
+      
+    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页<span class="badge">V790</span></a>
 
   </li>
         
@@ -265,8 +267,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
 
   </li>
         
@@ -282,8 +286,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">74</span></a>
 
   </li>
         
@@ -299,8 +305,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
 
   </li>
         
@@ -315,6 +323,8 @@
       
     
 
+    
+      
     
 
     <a href="/records/" rel="section"><i class="menu-item-icon fa fa-fw fa-list-alt"></i> <br>记录</a>
@@ -333,6 +343,8 @@
     
 
     
+      
+    
 
     <a href="/collections/" rel="section"><i class="menu-item-icon fa fa-fw fa-star"></i> <br>收藏</a>
 
@@ -349,6 +361,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -711,7 +725,7 @@
         
         
         <a id="more"></a>
-
+<hr>
 <p>前言：做 Android 项目应该经常会用到一些符合自己习惯的工具类，但如果每次都重新写一遍或者复制粘贴既麻烦也不便于保存，所以通常会把一些特别常用的工具类（Log，自定义 View、自定义框架等）打包成 jar 或 aar（aar 除了必须的 class 代码，还会包含所有 res 下的资源文件，jar 仅包含 class 和 Manifests），打包成 aar 比较简单，所以本文仅记载如何打包成 jar 文件。</p>
 <hr>
 <h1 id="1-新建需要打包的项目"><a href="#1-新建需要打包的项目" class="headerlink" title="1. 新建需要打包的项目"></a>1. 新建需要打包的项目</h1><p>为了避免奇奇怪怪的因素影响正式项目，把需要打包的东西新建一个项目。我的工具类以 AndroidLogger 为例：</p>
@@ -1065,7 +1079,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">783</span>
+                <span class="site-state-item-count">790</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1075,6 +1089,7 @@
                 
                   <a href="/archives/">
                 
+                    
                     
                     <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
@@ -1114,9 +1129,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1282,9 +1295,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-count">74</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1422,7 +1433,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">383k</span>
+    <span title="博客总字数">343k</span>
   
 
   
@@ -1431,7 +1442,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">7:05</span>
+    <span title="博客总阅读时长">6:22</span>
   
 </div>
 
@@ -1967,6 +1978,41 @@
   
 
   
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

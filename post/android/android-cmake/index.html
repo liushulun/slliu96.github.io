@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://www.liushulun.cn/post_files/android/android-cmake/set_package_name.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/android/android-cmake/cmake_file_path.png">
 <meta property="og:image" content="https://www.liushulun.cn/post_files/android/android-cmake/run.gif">
-<meta property="og:updated_time" content="2019-12-08T16:00:10.604Z">
+<meta property="og:updated_time" content="2020-04-06T18:40:30.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AndroidStudio中使用CMake进行NDK开发">
 <meta name="twitter:description" content="（1）已有项目增加 NDK 支持；（2）创建多个 JNI 接口。">
@@ -200,7 +200,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V783</div>
+    <div class="site-titleVersion">V790</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -242,8 +242,10 @@
     
 
     
+      
+    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页<span class="badge">V790</span></a>
 
   </li>
         
@@ -259,8 +261,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
 
   </li>
         
@@ -276,8 +280,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">74</span></a>
 
   </li>
         
@@ -293,8 +299,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">56</span></a>
 
   </li>
         
@@ -309,6 +317,8 @@
       
     
 
+    
+      
     
 
     <a href="/records/" rel="section"><i class="menu-item-icon fa fa-fw fa-list-alt"></i> <br>记录</a>
@@ -327,6 +337,8 @@
     
 
     
+      
+    
 
     <a href="/collections/" rel="section"><i class="menu-item-icon fa fa-fw fa-star"></i> <br>收藏</a>
 
@@ -343,6 +355,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -709,7 +723,7 @@
         
         
         <a id="more"></a>
-
+<hr>
 <p>前言：目前着手的一个项目需要使用JNI方法从USB读取数据，项目在建立之初并没有考虑添加原生的NDK支持，最初想用比较简便原始的方式：NDK-Build来完成，但Android Studio在3.2版本之后弃用了NDK-Build方式（其实还可以用，但是谷歌官方不推荐），因此改用 CMake 建立并记录于本文。</p>
 <hr>
 <h1 id="1-官方Demo"><a href="#1-官方Demo" class="headerlink" title="1. 官方Demo"></a>1. 官方Demo</h1><p>先解释一下 <a href="https://developer.android.google.cn/ndk/guides" title="TOLINKS" target="_blank" rel="noopener">什么是NDK</a> 以及 <a href="https://baike.baidu.com/item/JNI/9412164?fr=aladdin" title="TOLINKS" target="_blank" rel="noopener">什么是JNI</a> 。<br>两者结合起来，用最粗略的话来讲，就是：在 Android 开发中调用 C/C++ 代码。早期 Android 版本通常使用 NDK-Build 方式构建，但由于不便于管理等原因在新版中被弃用。</p>
@@ -1109,7 +1123,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">783</span>
+                <span class="site-state-item-count">790</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1119,6 +1133,7 @@
                 
                   <a href="/archives/">
                 
+                    
                     
                     <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">文章</span>
@@ -1158,9 +1173,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1326,9 +1339,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-count">74</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1466,7 +1477,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">383k</span>
+    <span title="博客总字数">343k</span>
   
 
   
@@ -1475,7 +1486,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">7:05</span>
+    <span title="博客总阅读时长">6:22</span>
   
 </div>
 
@@ -2011,6 +2022,41 @@
   
 
   
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 
