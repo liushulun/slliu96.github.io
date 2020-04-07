@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="Android 开发中涉及到的知识体系。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-06T21:38:47.731Z">
+<meta property="og:updated_time" content="2020-04-07T15:21:09.376Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android面试题汇总">
 <meta name="twitter:description" content="Android 开发中涉及到的知识体系。">
@@ -194,7 +194,7 @@
     </div>
 
     
-    <div class="site-titleVersion">V792</div>
+    <div class="site-titleVersion">V793</div>
     
     
     <a href="/about/" class="site-titleContact">&ensp;留 言&ensp;</a>
@@ -239,7 +239,7 @@
       
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页<span class="badge">V792</span></a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页<span class="badge">V793</span></a>
 
   </li>
         
@@ -557,7 +557,7 @@
                 
                   <span class="post-meta-item-text">全文字数：</span>
                 
-                <span title="全文字数">12k</span>
+                <span title="全文字数">14k</span>
               
 
               
@@ -571,7 +571,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">14 分钟</span>
+                <span title="阅读时长">15 分钟</span>
               
             </div>
           
@@ -722,13 +722,16 @@
 <li><a href="/post/android/android-broadcastreceiver/" title="TOLINKS">BroadcastReceiver</a></li>
 <li><a href="/post/android/android-contentprovider/" title="TOLINKS">ContentProvider</a></li>
 </ul>
+<h2 id="Service保活"><a href="#Service保活" class="headerlink" title="- Service保活"></a>- Service保活</h2><p>从 Android 8 开始，Google 针对资源控制限制了后台服务，不允许后台应用启动后台服务（<code>startService</code>），只能通过 <code>startForgroundService</code> 启动前台服务。启动 Service 后，会在内部调用 <code>ActivityServices.setServiceForegroundInnerLocked()</code> 创建一个 5s 的定时任务，必须在 5s 内调用 <code>startForeground()</code>，其内部设置了 <code>fgRequired = false;</code>，<code>setServiceForegroundInnerLocked()</code> 内部判断 <code>fgRequired == false</code> 说明已经安全处理，否则会抛出 ANR。通常在 <code>onStartCommand()</code> 中调用 <code>startForeground()</code>。并且，如果 <code>foreground</code> 的 <code>notification == null</code> 或 <code>id == 0</code> 都会抛出 <code>null notification</code> 异常，因此启动前台服务一定会创建一个通知提醒用户。</p>
+<p>而想要Service保活，可以由某个前台 Activity 启动 Service，且 <code>onStartCommand()</code> 返回值为 <code>return START_STICKY;</code>，当 Activity 转至后台，则 Service 在 1 分钟左右就会被系统杀死，并回调 <code>onDestroy()</code> 方法，可以在该方法中，启动一个新的 Activity，并在新的 <code>Activity.onCreate()</code> 中将当前 Activity 设置为只有一个像素大小的透明的背景（<code>getWindow</code>，<code>window.setGravity</code>，<code>params = window.getAttributes</code>，<code>params.x</code>，<code>params.y</code>，p<code>arams.width</code>，<code>params.height</code>，<code>window.setAttributes(params)</code>），并且设置（<code>getwindow().addFlags()</code>）不可点击（<code>WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE</code>）以及不关心外部触摸事件（<code>WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH</code>），然后再在该 Activity 中启动 Service 并 finish 掉自己。</p>
+<p>另外还有一种常见的做法，是同族、同系列的应用，可以相互唤醒。</p>
 <hr>
 <h1 id="五大存储"><a href="#五大存储" class="headerlink" title="五大存储"></a>五大存储</h1><ul>
-<li><a href="/post/android/android-sharedpreference/" title="TOLINKS">SharedPreferences</a>：</li>
-<li><a href tolinks"">SQLite</a>：</li>
-<li><a href tolinks"">文件存储</a>：</li>
-<li><a href tolinks"">网络存储</a>：</li>
-<li><a href="/post/android/android-contentprovider/" title="TOLINKS">ContentProvider</a>：</li>
+<li><a href="/post/android/android-sharedpreference/" title="TOLINKS">SharedPreferences</a></li>
+<li>SQLite</li>
+<li>文件存储</li>
+<li>网络存储</li>
+<li><a href="/post/android/android-contentprovider/" title="TOLINKS">ContentProvider</a></li>
 </ul>
 <hr>
 <h1 id="六大布局"><a href="#六大布局" class="headerlink" title="六大布局"></a>六大布局</h1><ul>
@@ -744,57 +747,42 @@
 <h1 id="Android消息处理机制"><a href="#Android消息处理机制" class="headerlink" title="Android消息处理机制"></a>Android消息处理机制</h1><p><a href="/post/android/android-message-handling/" title="TOOINKS">Android-消息处理机制</a></p>
 <hr>
 <h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><ul>
-<li><a href tolinks"">AIDL</a></li>
-<li><a href tolinks"">Socket</a></li>
-<li><a href tolinks"">ContentProvider</a></li>
-<li><a href tolinks"">BroadcastReceiver</a></li>
+<li>AIDL</li>
+<li>Socket</li>
+<li><a href="/post/android/android-contentprovider/" title="TOLINKS">ContentProvider</a></li>
+<li><a href="/post/android/android-broadcastreceiver/" title="TOLINKS">BroadcastReceiver</a></li>
 <li>Messenger</li>
 <li>文件共享：多进程读写同一文件是难以控制、不安全的。</li>
 <li><del>SharedPrefernces：公共读（<code>MODE_WORLD_READABLE</code>）模式、公共写（<code>MODE_WORLD_WRITEABLE</code>）模式、跨进程（<code>MODE_MULTI_PROCESS</code>）模式均已弃用，多进程读写同一文件是难以控制、不安全的，Google 推荐使用基于 ContentProvider 的 FileProvider 来实现。</del></li>
 </ul>
 <hr>
-<h1 id="Android中的缓存"><a href="#Android中的缓存" class="headerlink" title="Android中的缓存"></a>Android中的缓存</h1><h2 id="内存缓存"><a href="#内存缓存" class="headerlink" title="- 内存缓存"></a>- 内存缓存</h2><br>
-
-<h2 id="本地缓存"><a href="#本地缓存" class="headerlink" title="- 本地缓存"></a>- 本地缓存</h2><hr>
+<h1 id="Android中的缓存"><a href="#Android中的缓存" class="headerlink" title="Android中的缓存"></a>Android中的缓存</h1><h2 id="内存缓存"><a href="#内存缓存" class="headerlink" title="- 内存缓存"></a>- 内存缓存</h2><h2 id="本地缓存"><a href="#本地缓存" class="headerlink" title="- 本地缓存"></a>- 本地缓存</h2><hr>
 <h1 id="图片加载框架"><a href="#图片加载框架" class="headerlink" title="图片加载框架"></a>图片加载框架</h1><ul>
-<li><a href tooinks"">Glide</a></li>
+<li>Glide</li>
 </ul>
 <hr>
 <h1 id="网络框架"><a href="#网络框架" class="headerlink" title="网络框架"></a>网络框架</h1><ul>
-<li><a href tooinks"">OKHttp</a></li>
-<li><a href tooinks"">基于OKHttp二次封装</a></li>
+<li>OKHttp</li>
+<li>基于OKHttp二次封装</li>
 </ul>
 <hr>
 <h1 id="断点下载"><a href="#断点下载" class="headerlink" title="断点下载"></a>断点下载</h1><hr>
-<h1 id="性能和优化"><a href="#性能和优化" class="headerlink" title="性能和优化"></a>性能和优化</h1><h2 id="如何检测性能以及如何优化"><a href="#如何检测性能以及如何优化" class="headerlink" title="- 如何检测性能以及如何优化"></a>- 如何检测性能以及如何优化</h2><br>
-
-<h2 id="内存抖动的检测和优化"><a href="#内存抖动的检测和优化" class="headerlink" title="- 内存抖动的检测和优化"></a>- 内存抖动的检测和优化</h2><br>
-
-<h2 id="ANR和OOM的定位和优化"><a href="#ANR和OOM的定位和优化" class="headerlink" title="- ANR和OOM的定位和优化"></a>- ANR和OOM的定位和优化</h2><br>
-
-<h2 id="分析堆栈输出"><a href="#分析堆栈输出" class="headerlink" title="- 分析堆栈输出"></a>- 分析堆栈输出</h2><hr>
-<h1 id="打包和发布"><a href="#打包和发布" class="headerlink" title="打包和发布"></a>打包和发布</h1><h2 id="代码混淆"><a href="#代码混淆" class="headerlink" title="- 代码混淆"></a>- 代码混淆</h2><br>
-
-<h2 id="App加固"><a href="#App加固" class="headerlink" title="- App加固"></a>- App加固</h2><br>
-
-<h2 id="热更新和热修复"><a href="#热更新和热修复" class="headerlink" title="- 热更新和热修复"></a>- 热更新和热修复</h2><br>
-
-<h2 id="VersionCode和VersionName的区别"><a href="#VersionCode和VersionName的区别" class="headerlink" title="- VersionCode和VersionName的区别"></a>- VersionCode和VersionName的区别</h2><hr>
+<h1 id="性能和优化"><a href="#性能和优化" class="headerlink" title="性能和优化"></a>性能和优化</h1><h2 id="如何检测性能以及如何优化"><a href="#如何检测性能以及如何优化" class="headerlink" title="- 如何检测性能以及如何优化"></a>- 如何检测性能以及如何优化</h2><h2 id="内存抖动的检测和优化"><a href="#内存抖动的检测和优化" class="headerlink" title="- 内存抖动的检测和优化"></a>- 内存抖动的检测和优化</h2><h2 id="ANR和OOM的定位和优化"><a href="#ANR和OOM的定位和优化" class="headerlink" title="- ANR和OOM的定位和优化"></a>- ANR和OOM的定位和优化</h2><h2 id="分析堆栈输出"><a href="#分析堆栈输出" class="headerlink" title="- 分析堆栈输出"></a>- 分析堆栈输出</h2><hr>
+<h1 id="打包和发布"><a href="#打包和发布" class="headerlink" title="打包和发布"></a>打包和发布</h1><h2 id="代码混淆"><a href="#代码混淆" class="headerlink" title="- 代码混淆"></a>- 代码混淆</h2><h2 id="App加固"><a href="#App加固" class="headerlink" title="- App加固"></a>- App加固</h2><h2 id="热更新和热修复"><a href="#热更新和热修复" class="headerlink" title="- 热更新和热修复"></a>- 热更新和热修复</h2><h2 id="VersionCode和VersionName的区别"><a href="#VersionCode和VersionName的区别" class="headerlink" title="- VersionCode和VersionName的区别"></a>- VersionCode和VersionName的区别</h2><hr>
 <h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><ul>
+<li><a href="/post/java/java-hashmap/" title="TOLINKS">HashMap</a></li>
 <li><a href="/post/android/android-message/" title="TOOINKS">Message</a></li>
 <li><a href="/post/android/android-messagequeue/" title="TOLINKS">MessageQueue</a></li>
 <li><a href="/post/android/android-looper/" title="TOLINKS">Looper</a></li>
 <li><a href="/post/android/android-handler/" title="TOLINKS">Handler</a></li>
-<li><a href tolinks"">Glide</a></li>
+<li>Glide</li>
 </ul>
 <hr>
-<h1 id="其他细节"><a href="#其他细节" class="headerlink" title="其他细节"></a>其他细节</h1><h2 id="getWidth和getMeasureWidth的区别"><a href="#getWidth和getMeasureWidth的区别" class="headerlink" title="- getWidth和getMeasureWidth的区别"></a>- getWidth和getMeasureWidth的区别</h2><p><code>getMeasureWidth</code> 是 View 自己测量自己的宽度，<code>getWidth</code> 是 View 的父布局测量的高度，当屏幕可显示范围小于 View 本身的宽高时，<code>getMeasureWidth</code> 得到的仍然是 View 本身的宽高，而 <code>getWidth</code> 得到的是屏幕实际显示的宽高</p>
-<br>
-
 <h2 id="SparseArray的改进"><a href="#SparseArray的改进" class="headerlink" title="- SparseArray的改进"></a>- SparseArray的改进</h2><hr>
 <h1 id="同步锁"><a href="#同步锁" class="headerlink" title="同步锁"></a>同步锁</h1><hr>
 <h1 id="Java反射"><a href="#Java反射" class="headerlink" title="Java反射"></a>Java反射</h1><hr>
-<h1 id="其他细节-1"><a href="#其他细节-1" class="headerlink" title="其他细节"></a>其他细节</h1><h2 id="finally什么时候执行"><a href="#finally什么时候执行" class="headerlink" title="- finally什么时候执行"></a>- finally什么时候执行</h2><p>当 <code>try - catch</code> 中使用 <code>break</code> 或 <code>return</code> 返回时，<code>finally</code> 会执行，当调用了 <code>System.exit(0)</code> 退出时，由于直接终止了 JVM，因此 <code>finally</code> 不会执行。</p>
+<h1 id="其他细节"><a href="#其他细节" class="headerlink" title="其他细节"></a>其他细节</h1><h2 id="getWidth和getMeasureWidth的区别"><a href="#getWidth和getMeasureWidth的区别" class="headerlink" title="- getWidth和getMeasureWidth的区别"></a>- getWidth和getMeasureWidth的区别</h2><p><code>getMeasureWidth</code> 是 View 自己测量自己的宽度，<code>getWidth</code> 是 View 的父布局测量的高度，当屏幕可显示范围小于 View 本身的宽高时，<code>getMeasureWidth</code> 得到的仍然是 View 本身的宽高，而 <code>getWidth</code> 得到的是屏幕实际显示的宽高</p>
+<h2 id="finally什么时候执行"><a href="#finally什么时候执行" class="headerlink" title="- finally什么时候执行"></a>- finally什么时候执行</h2><p>当 <code>try - catch</code> 中使用 <code>break</code> 或 <code>return</code> 返回时，<code>finally</code> 会执行，当调用了 <code>System.exit(0)</code> 退出时，由于直接终止了 JVM，因此 <code>finally</code> 不会执行。</p>
 <p>在 try - catch 中的 return 语句执行之后、方法返回之前，程序会将 return 的返回值写入内存中，然后等待 finally 语句执行完，如果在 finally 代码块中，只改变了引用（例如对变量重新赋值），由于 return 时已经将返回值写入了内存中，则不会改变，而如果是改变了同一个变量的值，则会改变。如果 finally 中包含 return 语句，则会覆盖原本的return。例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123;</span><br><span class="line">        i = <span class="number">20</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(getValue());</span><br></pre></td></tr></table></figure>
 
@@ -807,19 +795,13 @@
 <p>输出 “AAABBBCCC”。</p>
 <h2 id="为什么方法参数要加final才能在子线程内使用"><a href="#为什么方法参数要加final才能在子线程内使用" class="headerlink" title="- 为什么方法参数要加final才能在子线程内使用"></a>- 为什么方法参数要加final才能在子线程内使用</h2><hr>
 <h1 id="App架构"><a href="#App架构" class="headerlink" title="App架构"></a>App架构</h1><p>App 架构的核心思想，主要就是为了降低 UI 逻辑和数据业务逻辑之间的耦合度。</p>
-<br>
-
 <h2 id="MVC模式"><a href="#MVC模式" class="headerlink" title="- MVC模式"></a>- MVC模式</h2><p>MVC 即：Model - View - Controller 模式，Model 与 View、View 与 Controller、Controller 与 Model，都是单向直接通信，View 层负责 UI 逻辑，Model 层负责数据，Controller 负责替 View 层操作 Model 层，但由于 Android 中，Activity 通常会同时担任 View 层和 Controller 层，随着业务变得复杂，Activity 也会越来越臃肿，而且 Activity 与 Model 层交互时，相当于 View 层可以与 Model 层直接交互，没有完全解耦。</p>
-<br>
-
 <h2 id="MVP模式"><a href="#MVP模式" class="headerlink" title="- MVP模式"></a>- MVP模式</h2><p>MVP 即：Model - View - Presenter 模式，Presenter 与 View、Presenter 与 Model 之间都是双向通信，而 Model 与 View 之间完全没有直接通信，从而彻底解耦。并且由于将 MVC 模式中的 Controller 完全解放成独立的 Presenter，也避免了 Activity 中逻辑代码过多的情况。</p>
 <ul>
 <li><p>MVP 模式的变种：Passive View</p>
 <p>Passive View 即：被动 View 层，是 MVP 模式最广泛的一个变种，其核心思想就是：View 层所需的数据，不是由其主动拉取 Presenter 获得的，而是被动地由 Presenter 推送的，在 Android 中，也就是 View 层开放自己被动接受数据的接口，Presenter 在转发 View 层请求数据的逻辑给 Model 后，由 Model 通过 Presenter 来主动调用 View 的接口来回传数据。</p>
 </li>
 </ul>
-<br>
-
 <h2 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="- MVVM模式"></a>- MVVM模式</h2><p>MVVM 即：Model - View - ViewModel 模式，View 仍然对应了 UI 层，Model 仍然是负责主要的数据处理，但一些和 View 层有关的属性及操作则放入了 ViewModel 中实现，其关键在于 DataBinding 技术，View 的变化和 ViewModel 的操作会双向同步，实际上是 Jetpack 框架替开发人员做了一些工作。</p>
 <ul>
 <li><p>DataBinding 原理</p>
@@ -1090,7 +1072,7 @@
               
               <div class="site-state-item">
                 
-                <span class="site-state-item-count">792</span>
+                <span class="site-state-item-count">793</span>
                 <span class="site-state-item-name">版本</span>
               </div>
 
@@ -1410,7 +1392,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#四大组件"><span class="nav-text">四大组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五大存储"><span class="nav-text">五大存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六大布局"><span class="nav-text">六大布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他组件"><span class="nav-text">其他组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fragment生命周期及回调"><span class="nav-text">- Fragment生命周期及回调</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android消息处理机制"><span class="nav-text">Android消息处理机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程间通信"><span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android中的缓存"><span class="nav-text">Android中的缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存缓存"><span class="nav-text">- 内存缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地缓存"><span class="nav-text">- 本地缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片加载框架"><span class="nav-text">图片加载框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络框架"><span class="nav-text">网络框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#断点下载"><span class="nav-text">断点下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能和优化"><span class="nav-text">性能和优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何检测性能以及如何优化"><span class="nav-text">- 如何检测性能以及如何优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存抖动的检测和优化"><span class="nav-text">- 内存抖动的检测和优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ANR和OOM的定位和优化"><span class="nav-text">- ANR和OOM的定位和优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析堆栈输出"><span class="nav-text">- 分析堆栈输出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包和发布"><span class="nav-text">打包和发布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码混淆"><span class="nav-text">- 代码混淆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App加固"><span class="nav-text">- App加固</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热更新和热修复"><span class="nav-text">- 热更新和热修复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VersionCode和VersionName的区别"><span class="nav-text">- VersionCode和VersionName的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码分析"><span class="nav-text">源码分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他细节"><span class="nav-text">其他细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#getWidth和getMeasureWidth的区别"><span class="nav-text">- getWidth和getMeasureWidth的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SparseArray的改进"><span class="nav-text">- SparseArray的改进</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步锁"><span class="nav-text">同步锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java反射"><span class="nav-text">Java反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他细节-1"><span class="nav-text">其他细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#finally什么时候执行"><span class="nav-text">- finally什么时候执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么方法参数要加final才能在子线程内使用"><span class="nav-text">- 为什么方法参数要加final才能在子线程内使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App架构"><span class="nav-text">App架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC模式"><span class="nav-text">- MVC模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP模式"><span class="nav-text">- MVP模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM模式"><span class="nav-text">- MVVM模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式"><span class="nav-text">- 单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂模式"><span class="nav-text">- 工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL双锁检测"><span class="nav-text">- DCL双锁检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-text">- 观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中介者模式"><span class="nav-text">- 中介者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus"><span class="nav-text">- EventBus</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#四大组件"><span class="nav-text">四大组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Service保活"><span class="nav-text">- Service保活</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五大存储"><span class="nav-text">五大存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六大布局"><span class="nav-text">六大布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他组件"><span class="nav-text">其他组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fragment生命周期及回调"><span class="nav-text">- Fragment生命周期及回调</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android消息处理机制"><span class="nav-text">Android消息处理机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程间通信"><span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android中的缓存"><span class="nav-text">Android中的缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存缓存"><span class="nav-text">- 内存缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地缓存"><span class="nav-text">- 本地缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片加载框架"><span class="nav-text">图片加载框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络框架"><span class="nav-text">网络框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#断点下载"><span class="nav-text">断点下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能和优化"><span class="nav-text">性能和优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何检测性能以及如何优化"><span class="nav-text">- 如何检测性能以及如何优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存抖动的检测和优化"><span class="nav-text">- 内存抖动的检测和优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ANR和OOM的定位和优化"><span class="nav-text">- ANR和OOM的定位和优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析堆栈输出"><span class="nav-text">- 分析堆栈输出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包和发布"><span class="nav-text">打包和发布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码混淆"><span class="nav-text">- 代码混淆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App加固"><span class="nav-text">- App加固</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热更新和热修复"><span class="nav-text">- 热更新和热修复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VersionCode和VersionName的区别"><span class="nav-text">- VersionCode和VersionName的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码分析"><span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SparseArray的改进"><span class="nav-text">- SparseArray的改进</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步锁"><span class="nav-text">同步锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java反射"><span class="nav-text">Java反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他细节"><span class="nav-text">其他细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#getWidth和getMeasureWidth的区别"><span class="nav-text">- getWidth和getMeasureWidth的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finally什么时候执行"><span class="nav-text">- finally什么时候执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么方法参数要加final才能在子线程内使用"><span class="nav-text">- 为什么方法参数要加final才能在子线程内使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App架构"><span class="nav-text">App架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC模式"><span class="nav-text">- MVC模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP模式"><span class="nav-text">- MVP模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM模式"><span class="nav-text">- MVVM模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式"><span class="nav-text">- 单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂模式"><span class="nav-text">- 工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL双锁检测"><span class="nav-text">- DCL双锁检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-text">- 观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中介者模式"><span class="nav-text">- 中介者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus"><span class="nav-text">- EventBus</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1444,7 +1426,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="博客总字数">343k</span>
+    <span title="博客总字数">344k</span>
   
 
   
@@ -1453,7 +1435,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="博客总阅读时长">6:22</span>
+    <span title="博客总阅读时长">6:23</span>
   
 </div>
 
@@ -1604,7 +1586,7 @@
     appId: '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
     appKey: 'YRRibTsHhmelPnfq41YO6B1r',
     placeholder: 'Nice !',
-    avatar: 'identicon',
+    avatar: 'wavatar',
     guest_info: guest_header,
     meta: guest,
     pageSize: '5' || 10,
