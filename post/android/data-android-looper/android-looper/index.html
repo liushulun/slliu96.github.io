@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。">
+<meta name="keywords" content="Android,源码,Looper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-Looper">
+<meta property="og:url" content="https://www.liushulun.cn/post/android/data-android-looper/android-looper/index.html">
+<meta property="og:site_name" content="SLLiu&#39;s Blogs">
+<meta property="og:description" content="（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-17T06:47:01.018Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-Looper">
+<meta name="twitter:description" content="（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。">
+
+<link rel="canonical" href="https://www.liushulun.cn/post/android/data-android-looper/android-looper/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+  <title>Android-Looper | SLLiu's Blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="开/关导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SLLiu's Blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep Learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">59</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">75</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
+
+  </li>
+        <li class="menu-item menu-item-records">
+
+    <a href="/records/" rel="section"><i class="fa fa-list-alt fa-fw"></i>记录</a>
+
+  </li>
+        <li class="menu-item menu-item-collections">
+
+    <a href="/collections/" rel="section"><i class="fa fa-star fa-fw"></i>收藏</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>联系</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/slliu96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/android/data-android-looper/android-looper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SLLiu's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android-Looper
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-26 09:12:37" itemprop="dateCreated datePublished" datetime="2019-04-26T09:12:37+08:00">2019-04-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+
+
+
+<!-- 注释开始 -----
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+    
+    <div style="position: absolute; top: -20px;">post_nav(post)</div>
+  </script>
+
+----- 注释结束 -->
+
+
+  
+  <div style="position: fixed; width: 100%;">
+    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+    
+      
+      <div class="post-tags">
+          <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          <a href="/tags/源码/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
+          <a href="/tags/Looper/" rel="tag"><i class="fa fa-tag"></i> Looper</a>
+      </div>
+    
+    
+    
+      <div class="post-description" style="visibility: visible;">简介：（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。</div>
+  </div>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+            <div class="post-description">（1）Looper 简介；（2）Looper 的初始化和实例化；（3）Looper 工作原理总结；（4）Looper 常见问题。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <a id="more"></a>
+<hr>
+<p>前言：本文是针对 Looper 内部的一些分析，但涉及到的知识还可能出现在以下文章中，建议都参考一遍：</p>
+<ul>
+<li><a href="/post/java/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
+<li><a href="/post/android/android-message/" title="@LINK">Android——Message</a></li>
+<li><a href="/post/android/android-messagequeue/" title="@LINK">Android——MessageQueue</a></li>
+<li><a href="/post/android/android-looper/" title="@LINK">Android——Looper</a></li>
+<li><a href="/post/android/android-handler/" title="@LINK">Android——Handler</a></li>
+</ul>
+<hr>
+<h1 id="1-Looper简介"><a href="#1-Looper简介" class="headerlink" title="1. Looper简介"></a>1. Looper简介</h1><p>首先看一下源码中对 Looper 的注释说明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Class used to run a message loop for a thread.  Threads by default do</span></span><br><span class="line"><span class="comment">  * not have a message loop associated with them; to create one, call</span></span><br><span class="line"><span class="comment">  * &#123;<span class="doctag">@link</span> #prepare&#125; in the thread that is to run the loop, and then</span></span><br><span class="line"><span class="comment">  * &#123;<span class="doctag">@link</span> #loop&#125; to have it process messages until the loop is stopped.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * &lt;p&gt;Most interaction with a message loop is through the</span></span><br><span class="line"><span class="comment">  * &#123;<span class="doctag">@link</span> Handler&#125; class.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * &lt;p&gt;This is a typical example of the implementation of a Looper thread,</span></span><br><span class="line"><span class="comment">  * using the separation of &#123;<span class="doctag">@link</span> #prepare&#125; and &#123;<span class="doctag">@link</span> #loop&#125; to create an</span></span><br><span class="line"><span class="comment">  * initial Handler to communicate with the Looper.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * &lt;pre&gt;</span></span><br><span class="line"><span class="comment">  *  class LooperThread extends Thread &#123;</span></span><br><span class="line"><span class="comment">  *      public Handler mHandler;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  *      public void run() &#123;</span></span><br><span class="line"><span class="comment">  *          Looper.prepare();</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  *          mHandler = new Handler() &#123;</span></span><br><span class="line"><span class="comment">  *              public void handleMessage(Message msg) &#123;</span></span><br><span class="line"><span class="comment">  *                  // process incoming messages here</span></span><br><span class="line"><span class="comment">  *              &#125;</span></span><br><span class="line"><span class="comment">  *          &#125;;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  *          Looper.loop();</span></span><br><span class="line"><span class="comment">  *      &#125;</span></span><br><span class="line"><span class="comment">  *  &#125;&lt;/pre&gt;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Looper</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * API Implementation Note:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * This class contains the code required to set up and manage an event loop</span></span><br><span class="line"><span class="comment">     * based on MessageQueue.  APIs that affect the state of the queue should be</span></span><br><span class="line"><span class="comment">     * defined on MessageQueue or Handler rather than on Looper itself.  For example,</span></span><br><span class="line"><span class="comment">     * idle handlers and sync barriers are defined on the queue whereas preparing the</span></span><br><span class="line"><span class="comment">     * thread, looping, and quitting are defined on the looper.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>大致翻译：</p>
+<p>（1）Looper 被 Thread 用于运行一个消息循环。一个线程默认不具有与之关联的消息循环（消息队列），如果想要为线程创建一个消息队列，在该线程中调用 <code>Looper.prepare()</code>，然后再调用 <code>Looper.loop()</code> 来启动消息处理循环，该循环将一直运行直到被终止。</p>
+<p>（2）大多数情况下，和消息循环的交互是通过 <code>Handler</code> 完成的。</p>
+<p>（3）以下代码是实现一个具有消息循环的线程的典型方式，通过分别调用 <code>prepare()</code> 和 <code>loop()</code> 来创建一个初始化的 <code>Handler</code> 并用于和 <code>Looper</code> 交互：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LooperThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Handler mHandler;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Looper.prepare();</span><br><span class="line">        mHandler = <span class="keyword">new</span> Handler() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// process incoming messages here</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Looper.loop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）Looper 类中包含某些代码，是需要通过 MessageQueue 来设置和管理事件循环的。影响消息队列的状态的 API 应该在 MessageQueue 或 Handler 中而不是在 Looper 本身定义，例如 <code>Idle Handler</code> 和同步障栅是在消息队列中定义的，而 Thread 的前期准备、消息循环、退出则是在 Looper 中完成的。</p>
+<p>以上内容可能涉及到 Handler 或 Message 的内容，可以通过系列对应的文章查阅。</p>
+<hr>
+<h1 id="2-Looper初始化和实例化"><a href="#2-Looper初始化和实例化" class="headerlink" title="2. Looper初始化和实例化"></a>2. Looper初始化和实例化</h1><p>Looper 类光是从名字就能看出来作用，通过之前对 Handler 的源码分析可以知道，Handler 构造时，可以手动传入一个 Looper 对象和处理消息的回调 Callback，用来与 Handler 绑定，此时这个 Handler 则会用来处理该 Looper 的消息队列中的消息，并且与该 Looper 处在同一线程，而默认构造方法则最终都调用了以下构造方法，并且内部给 Looper 传入了一个 <code>null</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Use the &#123;<span class="doctag">@link</span> Looper&#125; for the current thread with the specified callback interface</span></span><br><span class="line"><span class="comment">  * and set whether the handler should be asynchronous.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * Handlers are synchronous by default unless this constructor is used to make</span></span><br><span class="line"><span class="comment">  * one that is strictly asynchronous.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * Asynchronous messages represent interrupts or events that do not require global ordering</span></span><br><span class="line"><span class="comment">  * with respect to synchronous messages.  Asynchronous messages are not subject to</span></span><br><span class="line"><span class="comment">  * the synchronization barriers introduced by &#123;<span class="doctag">@link</span> MessageQueue#enqueueSyncBarrier(long)&#125;.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> callback The callback interface in which to handle messages, or null.</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> async If true, the handler calls &#123;<span class="doctag">@link</span> Message#setAsynchronous(boolean)&#125; for</span></span><br><span class="line"><span class="comment">  * each &#123;<span class="doctag">@link</span> Message&#125; that is sent to it or &#123;<span class="doctag">@link</span> Runnable&#125; that is posted to it.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@hide</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(@Nullable Callback callback, <span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (FIND_POTENTIAL_LEAKS) &#123;</span><br><span class="line">        <span class="keyword">final</span> Class&lt;? extends Handler&gt; klass = getClass();</span><br><span class="line">        <span class="keyword">if</span> ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &amp;&amp;</span><br><span class="line">                (klass.getModifiers() &amp; Modifier.STATIC) == <span class="number">0</span>) &#123;</span><br><span class="line">            Log.w(TAG, <span class="string">"The following Handler class should be static or leaks might occur: "</span> +</span><br><span class="line">                klass.getCanonicalName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mLooper = Looper.myLooper();</span><br><span class="line">    <span class="keyword">if</span> (mLooper == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">            <span class="string">"Can't create handler inside thread "</span> + Thread.currentThread()</span><br><span class="line">                    + <span class="string">" that has not called Looper.prepare()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    mQueue = mLooper.mQueue;</span><br><span class="line">    mCallback = callback;</span><br><span class="line">    mAsynchronous = async;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到默认情况下会调用 <code>Looper.myLooper()</code>，再查看一下这个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Return the Looper object associated with the current thread.  Returns</span></span><br><span class="line"><span class="comment">  * null if the calling thread is not associated with a Looper.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="meta">@Nullable</span> <span class="function">Looper <span class="title">myLooper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sThreadLocal.get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法也就是从 <code>ThreadLocal</code> 中获取一个对象，ThreadLocal 的相关内容在系列文章中已有介绍，简单来说，首先需要向当前线程中 <code>set()</code> 一个对象，才能 <code>get()</code> 出来，并且 ThreadLocal 中存放的对象是和线程绑定的，不同线程只能 <code>get()</code> 到该线程自己 <code>set()</code> 进去的对象，再看一下这个 <code>sThreadLocal</code> 在一开始的声明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// sThreadLocal.get() will return null unless you've called prepare().</span></span><br><span class="line"><span class="meta">@UnsupportedAppUsage</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Looper&gt; sThreadLocal = <span class="keyword">new</span> ThreadLocal&lt;Looper&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>说明存取的都是 Looper 对象。Looper 其实有两个 <code>prepare()</code> 方法，一个无参，另一个就是以下这个有一个布尔类型参数的，但无参的 <code>prepare()</code> 最终也是调用的有参这个：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Initialize the current thread as a looper.</span></span><br><span class="line"><span class="comment">  * This gives you a chance to create handlers that then reference</span></span><br><span class="line"><span class="comment">  * this looper, before actually starting the loop. Be sure to call</span></span><br><span class="line"><span class="comment">  * &#123;<span class="doctag">@link</span> #loop()&#125; after calling this method, and end it by calling</span></span><br><span class="line"><span class="comment">  * &#123;<span class="doctag">@link</span> #quit()&#125;.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    prepare(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>Looper.prepare(boolean)</code> 方法中有这么一段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">(<span class="keyword">boolean</span> quitAllowed)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sThreadLocal.get() != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    sThreadLocal.set(<span class="keyword">new</span> Looper(quitAllowed));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>到这里就清楚了，Looper 在调用 <code>prepare()</code> 方法后，会往对应的 ThreadLocal 中存放一个实例化的 Looper 对象，而 <code>Looper.myLooper()</code> 则是从 ThreadLocal 中取出这个对象，因此如果一个 Looper 没有先调用 <code>prepare()</code> 就直接使用会报错。但是为什么不直接通过 <code>new</code> 来生成实例对象呢？因为 Looper 的构造方法是私有的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Looper</span><span class="params">(<span class="keyword">boolean</span> quitAllowed)</span> </span>&#123;</span><br><span class="line">    mQueue = <span class="keyword">new</span> MessageQueue(quitAllowed);</span><br><span class="line">    mThread = Thread.currentThread();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这么设计的好处我个人理解为：① Looper、Handler、Thread 这些类都是由系统进行资源管理的，用户不应具有太大的修改权限，并且 Looper 类是 <code>final</code> 修饰的，也不允许用户继承重写。② Looper 必须和指定的线程绑定，指定调用 <code>prepare()</code> 方法可以强调这一特性。③ Looper 只能和一个线程绑定，使用 ThreadLocal 管理，采用 <code>new</code> 的方式可能会有多线程的问题。</p>
+<hr>
+<h1 id="3-Looper总结"><a href="#3-Looper总结" class="headerlink" title="3. Looper总结"></a>3. Looper总结</h1><p>其实到这里 Looper 的工作原理和流程就已经可以总结了：</p>
+<ul>
+<li>① Looper 是一个消息循环。</li>
+<li>② Looper 内有成员变量 MessageQueue，并通过它循环取出、派发消息进行事件处理。</li>
+<li>③ Looper 无法通过构造方法实例化，而是通过 <code>prepare()</code> 方法，并在内部调用了 <code>myLooper()</code> 方法来实例化一个 Looper 对象，且会和线程绑定，通过对应线程的 ThreadLocal 来存取。</li>
+<li>④ Looper 所在的线程决定了 Handler 处理消息时所在的线程。实例化 Handler 时，可以自行创建某线程的 Looper 实例化对象，并将其与 Handler 绑定，则 Handler 处理的消息即来自于 Looper 所在的线程。</li>
+<li>⑤ 线程默认是不具有消息循环的，也即默认情况下一个 Thread 是不会维护 Looper 的，通过继承重写 Thread，并在其中调用 <code>Looper.prepare()</code> 来创建消息循环，再通过 <code>Looper.loop()</code> 来开启循环。</li>
+</ul>
+<p>但在实际开发中其实有些比较常见的问题：</p>
+<p>（1）平时用 Handler 处理消息时，并没有调用 <code>Looper.prepare()</code> 或通过其手动创建一个 Looper 对象，但依然可以正常处理消息。这是因为，Android 的主线程即 UI 线程，有一定的特殊性，整个 App 过程中仅允许存在一个 UI 线程，而 App 的主线程对应在 <code>ActivityThread.main()</code> 方法，其也是整个 App 的入口方法，在这个方法里面就生成了 Looper 的实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Looper.prepareMainLooper();</span><br></pre></td></tr></table></figure>
+
+<p>对应 Looper 中的源码为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Initialize the current thread as a looper, marking it as an</span></span><br><span class="line"><span class="comment">  * application's main looper. The main looper for your application</span></span><br><span class="line"><span class="comment">  * is created by the Android environment, so you should never need</span></span><br><span class="line"><span class="comment">  * to call this function yourself.  See also: &#123;<span class="doctag">@link</span> #prepare()&#125;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">prepareMainLooper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    prepare(<span class="keyword">false</span>);</span><br><span class="line">    <span class="keyword">synchronized</span> (Looper.class) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sMainLooper != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"The main Looper has already been prepared."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        sMainLooper = myLooper();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然本质上仍然是通过 <code>prepare(boolean)</code> 方法生成了一个成员变量 <code>sMainLooper</code>，但是加了类锁，并且只允许创建一次，由于 App 运行期间，主线程一直存在，因此主线程的对应的 Looper 实例对象 <code>sMainLooper</code> 在 App 运行期间有且仅有一个，所以在主线程中使用 Handler 无需手动创建 Looper 实例对象以及显式调用 <code>prepare()</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主线程中实例化 Handler</span></span><br><span class="line"><span class="keyword">private</span> Handler mainHandler = <span class="keyword">new</span> Handler(<span class="keyword">new</span> Handler.Callback() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">handleMessage</span><span class="params">(@NonNull Message msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>（2）即使在子线程中，也可以不显式调用 <code>prepare()</code> 方法，这时 Handler 的初始化方式为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Handler mainHandler = <span class="keyword">new</span> Handler(Looper.getMainLooper()) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(@NonNull Message msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.handleMessage(msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>@注：这里是 <code>void handleMessage(Message)</code>和（1）中使用匿名 Callback 的 <code>boolean handleMessage(Message)</code> 不同。</p>
+</blockquote>
+<p>这里不需要显式调用 <code>prepare()</code> 的原因是给 Handler 传了一个 <code>Looper.getMainLooper()</code> 的参数，源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Returns the application's main looper, which lives in the main thread of the application.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Looper <span class="title">getMainLooper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (Looper.class) &#123;</span><br><span class="line">        <span class="keyword">return</span> sMainLooper;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到实际上就是返回了主线程的 <code>sMainLooper</code>，所以也不需要手动创建 Looper 实例对象。</p>
+<p>（3）利用 <font color="#EB6D39">“Handler 处理消息所在线程由其实例化时传入的 Looper 对象决定”</font> 这一特性，可以衍生出主线程和子线程之间交互的方式：</p>
+<ul>
+<li>① 子线程向主线程发送消息：在子线程实例化 Handler 时传入 <code>Looper.getMainLooper()</code> 参数。</li>
+<li>② 主线程向子线程发送消息：在主线程实例化 Handler 时传入一个在子线程中调用过 <code>prepare()</code> 方法已初始化的 Looper 对象。</li>
+</ul>
+<p>针对以上情形 ②，主线程开启子线程后向下执行，如果主线程发送消息的时间较早，可能子线程还没有完成对 Looper 的实例化，则会导致空指针异常，此时可以将子线程用 <code>HandlerThread</code> 类代替，实例化时传入一个 <code>String</code> 类型的线程标记名，HandlerThread 不能重写 <code>run()</code> 方法，当然也不需要显式调用 <code>prepare()</code> 和 <code>loop()</code>，通过 <code>HandlerThread.getLooper()</code> 即可获取 Looper 实例对象。</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+        <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+    </div>
+    
+    <br /> <br /> <br />
+    <div class="pagination">
+        
+        <div style="text-align:center;color: #667788;font-size:18px;">======================</div>
+        
+        <div style="text-align:center;color: #667788;font-size:18px;">全 文 结 束&ensp;&ensp;<i class="fa fa-check-circle"></i>&ensp;&ensp;感 谢 阅 读</div>
+	    <div style="text-align:center;color: #667788;font-size:18px;">======================</div>
+        
+        
+            <style type="text/css">
+                .toContact {
+                    background: #FFFFFF;
+                    color: #EB6D39;
+                    border-bottom-color: #EB6D39;
+                }
+                .toContact:hover {
+                    background: #EB6D39;
+                    color: #FFFFFF;
+                    border-bottom-color: #667788;
+                }
+            </style>
+            <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+        
+    </div>
+
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    感谢支持
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="SLLiu 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="SLLiu 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>SLLiu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.liushulun.cn/post/android/data-android-looper/android-looper/" title="Android-Looper">https://www.liushulun.cn/post/android/data-android-looper/android-looper/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+              <a href="/tags/源码/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
+              <a href="/tags/Looper/" rel="tag"><i class="fa fa-tag"></i> Looper</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/android/data-android-message-handling/android-message-handling/" rel="prev" title="Android-消息处理机制">
+      <i class="fa fa-chevron-left"></i> Android-消息处理机制
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/android/data-android-handler/android-handler/" rel="next" title="Android-Handler">
+      Android-Handler <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Looper简介"><span class="nav-text">1. Looper简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Looper初始化和实例化"><span class="nav-text">2. Looper初始化和实例化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Looper总结"><span class="nav-text">3. Looper总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SLLiu"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">SLLiu</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">75</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → /about/"><i class="fa fa-comments fa-fw"></i>Chats</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → /"><i class="fa fa-home fa-fw"></i>Home</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io" title="https://renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/singwhatiwanna" title="https://me.csdn.net/singwhatiwanna" rel="noopener" target="_blank">任玉刚</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com" title="https://blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">全站总字数：</span>
+    <span title="全站总字数">344k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:23</span>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
+      appKey     : 'YRRibTsHhmelPnfq41YO6B1r',
+      placeholder: "Nice !",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+</body>
+</html>
