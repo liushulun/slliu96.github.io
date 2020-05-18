@@ -22,7 +22,7 @@
   </script>
 
   <meta name="description" content="Android 开发中涉及到的 Java 知识体系。">
-<meta name="keywords" content="Interview,Java,面试题">
+<meta name="keywords" content="Interview,面试题,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java面试题汇总">
 <meta property="og:url" content="https://www.liushulun.cn/post/interview/data-interview-java/interview-java/index.html">
@@ -48,41 +48,6 @@
 </script>
 
 
-
-
-
-<script>
-    <!--动态浏览器标签-->
-    var OriginTitle = document.title;
-    var titleTime;
-    var titleTime2;
-    var titleTime3;
-    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
-    blankTitle = blankTitle + blankTitle + blankTitle;
-    document.addEventListener('visibilitychange', function () {
-        if (document.hidden) {
-            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
-            // 失去焦点时不切换标题
-            // document.title = "Waiting...";
-            document.title = OriginTitle;
-            clearTimeout(titleTime);
-            clearTimeout(titleTime2);
-            clearTimeout(titleTime3);
-        }
-        else {
-            document.title = "Welcome";
-            titleTime = setTimeout(function () {
-                document.title = "Back";
-                titleTime2 = setTimeout(function () {
-                    document.title = "Welcome Back !";
-                    titleTime3 = setTimeout(function () {
-                        document.title = OriginTitle;
-                    }, 500);
-                }, 300);
-            }, 300);
-        }
-    });
-</script>
 
   <title>Java面试题汇总 | SLLiu's Blogs</title>
   
@@ -330,8 +295,8 @@
       
       <div class="post-tags">
           <a href="/tags/Interview/" rel="tag"><i class="fa fa-tag"></i> Interview</a>
-          <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           <a href="/tags/面试题/" rel="tag"><i class="fa fa-tag"></i> 面试题</a>
+          <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
       </div>
     
     
@@ -390,6 +355,42 @@
     
     
     
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
 
 
     <div>
@@ -464,8 +465,8 @@
           
           <div class="post-tags">
               <a href="/tags/Interview/" rel="tag"><i class="fa fa-tag"></i> Interview</a>
-              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
               <a href="/tags/面试题/" rel="tag"><i class="fa fa-tag"></i> 面试题</a>
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           </div>
 
         
