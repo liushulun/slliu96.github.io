@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="Android 开发中涉及到的知识体系。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-17T06:47:27.369Z">
+<meta property="og:updated_time" content="2020-05-19T15:47:58.881Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android面试题汇总">
 <meta name="twitter:description" content="Android 开发中涉及到的知识体系。">
@@ -46,7 +46,6 @@
     lang   : 'zh-CN'
   };
 </script>
-
 
 
   <title>Android面试题汇总 | SLLiu's Blogs</title>
@@ -103,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">Keep Learning</p>
+      <p class="site-subtitle" itemprop="description">V 1011</p>
   </div>
 
   <div class="site-nav-right">
@@ -117,40 +116,40 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">60</span></a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">75</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">75</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">10</span></a>
 
   </li>
         <li class="menu-item menu-item-records">
 
-    <a href="/records/" rel="section"><i class="fa fa-list-alt fa-fw"></i>记录</a>
+    <a href="/records/" rel="section"><i class="fa fa-fw fa-list-alt"></i>记录</a>
 
   </li>
         <li class="menu-item menu-item-collections">
 
-    <a href="/collections/" rel="section"><i class="fa fa-star fa-fw"></i>收藏</a>
+    <a href="/collections/" rel="section"><i class="fa fa-fw fa-star"></i>收藏</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>联系</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>关于</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -231,7 +230,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -239,7 +238,7 @@
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -290,7 +289,7 @@
 
   
   <div style="position: fixed; width: 100%;">
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
       
       <div class="post-tags">
@@ -305,14 +304,14 @@
   </div>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>4.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
+                <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>5 分钟</span>
@@ -333,21 +332,21 @@
 <p>前言：本文 Android 均是基于 Java 开发，开发工具为 AndroidStudio。因为部分知识体系有交集，所以会出现重复内容，如果是链接形式，则具体以链接实际内容为准。</p>
 <hr>
 <h1 id="四大组件"><a href="#四大组件" class="headerlink" title="四大组件"></a>四大组件</h1><ul>
-<li><a href="/post/android/android-activity/" title="@LINK">Activity</a></li>
-<li><a href="/post/android/android-service/" title="@LINK">Service</a></li>
-<li><a href="/post/android/android-broadcastreceiver/" title="@LINK">BroadcastReceiver</a></li>
-<li><a href="/post/android/android-contentprovider/" title="@LINK">ContentProvider</a></li>
+<li><a href="/post/android/data-android-activity/android-activity/" title="@LINK">Activity</a></li>
+<li><a href="/post/android/data-android-service/android-service/" title="@LINK">Service</a></li>
+<li><a href="/post/android/data-android-broadcastreceiver/android-broadcastreceiver/" title="@LINK">BroadcastReceiver</a></li>
+<li><a href="/post/android/data-android-contentprovider/android-contentprovider/" title="@LINK">ContentProvider</a></li>
 </ul>
 <h2 id="Service保活"><a href="#Service保活" class="headerlink" title="- Service保活"></a>- Service保活</h2><p>从 Android 8 开始，Google 针对资源控制限制了后台服务，不允许后台应用启动后台服务（<code>startService</code>），只能通过 <code>startForgroundService</code> 启动前台服务。启动 Service 后，会在内部调用 <code>ActivityServices.setServiceForegroundInnerLocked()</code> 创建一个 5s 的定时任务，必须在 5s 内调用 <code>startForeground()</code>，其内部设置了 <code>fgRequired = false;</code>，<code>setServiceForegroundInnerLocked()</code> 内部判断 <code>fgRequired == false</code> 说明已经安全处理，否则会抛出 ANR。通常在 <code>onStartCommand()</code> 中调用 <code>startForeground()</code>。并且，如果 <code>foreground</code> 的 <code>notification == null</code> 或 <code>id == 0</code> 都会抛出 <code>null notification</code> 异常，因此启动前台服务一定会创建一个通知提醒用户。</p>
 <p>而想要Service保活，可以由某个前台 Activity 启动 Service，且 <code>onStartCommand()</code> 返回值为 <code>return START_STICKY;</code>，当 Activity 转至后台，则 Service 在 1 分钟左右就会被系统杀死，并回调 <code>onDestroy()</code> 方法，可以在该方法中，启动一个新的 Activity，并在新的 <code>Activity.onCreate()</code> 中将当前 Activity 设置为只有一个像素大小的透明的背景（<code>getWindow</code>，<code>window.setGravity</code>，<code>params = window.getAttributes</code>，<code>params.x</code>，<code>params.y</code>，p<code>arams.width</code>，<code>params.height</code>，<code>window.setAttributes(params)</code>），并且设置（<code>getwindow().addFlags()</code>）不可点击（<code>WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE</code>）以及不关心外部触摸事件（<code>WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH</code>），然后再在该 Activity 中启动 Service 并 finish 掉自己。</p>
 <p>另外还有一种常见的做法，是同族、同系列的应用，可以相互唤醒。</p>
 <hr>
 <h1 id="五大存储"><a href="#五大存储" class="headerlink" title="五大存储"></a>五大存储</h1><ul>
-<li><a href="/post/android/android-sharedpreference/" title="@LINK">SharedPreferences</a></li>
+<li><a href="/post/android/data-android-sharedpreference/android-sharedpreference/" title="@LINK">SharedPreferences</a></li>
 <li>SQLite</li>
 <li>文件存储</li>
 <li>网络存储</li>
-<li><a href="/post/android/android-contentprovider/" title="@LINK">ContentProvider</a></li>
+<li><a href="/post/android/data-android-contentprovider/android-contentprovider/" title="@LINK">ContentProvider</a></li>
 </ul>
 <hr>
 <h1 id="六大布局"><a href="#六大布局" class="headerlink" title="六大布局"></a>六大布局</h1><ul>
@@ -360,13 +359,13 @@
 </ul>
 <hr>
 <h1 id="其他组件"><a href="#其他组件" class="headerlink" title="其他组件"></a>其他组件</h1><h2 id="Fragment生命周期及回调"><a href="#Fragment生命周期及回调" class="headerlink" title="- Fragment生命周期及回调"></a>- Fragment生命周期及回调</h2><hr>
-<h1 id="Android消息处理机制"><a href="#Android消息处理机制" class="headerlink" title="Android消息处理机制"></a>Android消息处理机制</h1><p><a href="/post/android/android-message-handling/" title="TOOINKS">Android-消息处理机制</a></p>
+<h1 id="Android消息处理机制"><a href="#Android消息处理机制" class="headerlink" title="Android消息处理机制"></a>Android消息处理机制</h1><p><a href="/post/android/data-android-message-handling/android-message-handling/" title="TOOINKS">Android-消息处理机制</a></p>
 <hr>
 <h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><ul>
 <li>AIDL</li>
 <li>Socket</li>
-<li><a href="/post/android/android-contentprovider/" title="@LINK">ContentProvider</a></li>
-<li><a href="/post/android/android-broadcastreceiver/" title="@LINK">BroadcastReceiver</a></li>
+<li><a href="/post/android/data-android-contentprovider/android-contentprovider/" title="@LINK">ContentProvider</a></li>
+<li><a href="/post/android/data-android-broadcastreceiver/android-broadcastreceiver/" title="@LINK">BroadcastReceiver</a></li>
 <li>Messenger</li>
 <li>文件共享：多进程读写同一文件是难以控制、不安全的。</li>
 <li><del>SharedPrefernces：公共读（<code>MODE_WORLD_READABLE</code>）模式、公共写（<code>MODE_WORLD_WRITEABLE</code>）模式、跨进程（<code>MODE_MULTI_PROCESS</code>）模式均已弃用，多进程读写同一文件是难以控制、不安全的，Google 推荐使用基于 ContentProvider 的 FileProvider 来实现。</del></li>
@@ -386,11 +385,11 @@
 <h1 id="性能和优化"><a href="#性能和优化" class="headerlink" title="性能和优化"></a>性能和优化</h1><h2 id="如何检测性能以及如何优化"><a href="#如何检测性能以及如何优化" class="headerlink" title="- 如何检测性能以及如何优化"></a>- 如何检测性能以及如何优化</h2><h2 id="内存抖动的检测和优化"><a href="#内存抖动的检测和优化" class="headerlink" title="- 内存抖动的检测和优化"></a>- 内存抖动的检测和优化</h2><h2 id="ANR和OOM的定位和优化"><a href="#ANR和OOM的定位和优化" class="headerlink" title="- ANR和OOM的定位和优化"></a>- ANR和OOM的定位和优化</h2><h2 id="分析堆栈输出"><a href="#分析堆栈输出" class="headerlink" title="- 分析堆栈输出"></a>- 分析堆栈输出</h2><hr>
 <h1 id="打包和发布"><a href="#打包和发布" class="headerlink" title="打包和发布"></a>打包和发布</h1><h2 id="代码混淆"><a href="#代码混淆" class="headerlink" title="- 代码混淆"></a>- 代码混淆</h2><h2 id="App加固"><a href="#App加固" class="headerlink" title="- App加固"></a>- App加固</h2><h2 id="热更新和热修复"><a href="#热更新和热修复" class="headerlink" title="- 热更新和热修复"></a>- 热更新和热修复</h2><h2 id="VersionCode和VersionName的区别"><a href="#VersionCode和VersionName的区别" class="headerlink" title="- VersionCode和VersionName的区别"></a>- VersionCode和VersionName的区别</h2><hr>
 <h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><ul>
-<li><a href="/post/java/java-hashmap/" title="@LINK">HashMap</a></li>
-<li><a href="/post/android/android-message/" title="TOOINKS">Message</a></li>
-<li><a href="/post/android/android-messagequeue/" title="@LINK">MessageQueue</a></li>
-<li><a href="/post/android/android-looper/" title="@LINK">Looper</a></li>
-<li><a href="/post/android/android-handler/" title="@LINK">Handler</a></li>
+<li><a href="/post/java/data-java-hashmap/java-hashmap/" title="@LINK">HashMap</a></li>
+<li><a href="/post/android/data-android-message/android-message/" title="@LINK">Message</a></li>
+<li><a href="/post/android/data-android-messagequeue/android-messagequeue/" title="@LINK">MessageQueue</a></li>
+<li><a href="/post/android/data-android-looper/android-looper/" title="@LINK">Looper</a></li>
+<li><a href="/post/android/data-android-handler/android-handler/" title="@LINK">Handler</a></li>
 <li>Glide</li>
 </ul>
 <hr>
@@ -470,11 +469,14 @@
 </script>
 
 
-    <div>
-        <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
-    </div>
+
+
+
+    
+    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
     <br /> <br /> <br />
+    
     <div class="pagination">
         
         <div style="text-align:center;color: #667788;font-size:18px;">======================</div>
@@ -532,7 +534,7 @@
     <a href="https://www.liushulun.cn/post/interview/data-interview-android/interview-android/" title="Android面试题汇总">https://www.liushulun.cn/post/interview/data-interview-android/interview-android/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
   </li>
 </ul>
 </div>
@@ -633,7 +635,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -653,22 +655,23 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/about/" title="Chats → /about/"><i class="fa fa-comments fa-fw"></i>Chats</a>
+        <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i>Chats</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/" title="Home → /"><i class="fa fa-home fa-fw"></i>Home</a>
+        <a href="/" title="Home → /"><i class="fa fa-fw fa-home"></i>Home</a>
       </span>
   </div>
 
 
   <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-users"></i>
       
     </div>
     <ul class="links-of-blogroll-list">
@@ -711,7 +714,7 @@
   <span class="author" itemprop="copyrightHolder">LiuShulun</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
     <span title="全站总字数">344k</span>
@@ -753,28 +756,12 @@
   
   <script>
     (function(){
-      var canonicalURL, curProtocol;
-      //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
   </script>
 
 

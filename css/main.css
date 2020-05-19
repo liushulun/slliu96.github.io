@@ -1,9 +1,8 @@
 :root {
-  --body-bg-color: transparent;
+  --body-bg-color: #eee;
   --content-bg-color: #fff;
   --card-bg-color: #f5f5f5;
   --text-color: #555;
-  --blockquote-color: #666;
   --link-color: #555;
   --link-hover-color: #222;
   --brand-color: #fff;
@@ -250,7 +249,7 @@ hr {
 }
 blockquote {
   border-left: 4px solid #ddd;
-  color: var(--blockquote-color);
+  color: #666;
   margin: 0;
   padding: 0 15px;
 }
@@ -297,6 +296,7 @@ th,
 td {
   font-weight: normal;
   padding: 8px;
+  text-align: left;
   vertical-align: middle;
 }
 th,
@@ -572,20 +572,27 @@ pre .javascript .function {
   position: relative;
   text-align: center;
 }
-.blockquote-center .fa {
+.blockquote-center::before,
+.blockquote-center::after {
+  background-repeat: no-repeat;
+  background-size: 22px 22px;
+  content: ' ';
   display: block;
-  opacity: 0.6;
+  height: 24px;
+  opacity: 0.2;
   position: absolute;
   width: 100%;
 }
-.blockquote-center .fa-quote-left {
+.blockquote-center::before {
+  background-image: url("../images/quote-l.svg");
+  background-position: 0 -6px;
   border-top: 1px solid #ccc;
-  text-align: left;
   top: -20px;
 }
-.blockquote-center .fa-quote-right {
+.blockquote-center::after {
+  background-image: url("../images/quote-r.svg");
+  background-position: 100% 8px;
   border-bottom: 1px solid #ccc;
-  text-align: right;
   bottom: -20px;
 }
 .blockquote-center p,
@@ -782,12 +789,11 @@ pre .javascript .function {
   padding-left: 2.5em;
 }
 .post-body .note:not(.no-icon)::before {
+  font-family: 'FontAwesome';
   font-size: 1.5em;
   left: 0.4em;
   position: absolute;
   top: calc(50% - 1em);
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
 }
 .post-body .note.default {
   background: #f7f7f7;
@@ -1145,10 +1151,7 @@ pre .javascript .function {
     border-bottom-color: transparent !important;
   }
 }
-.menu-item .fa,
-.menu-item .fab,
-.menu-item .far,
-.menu-item .fas {
+.menu-item .fa {
   margin-right: 8px;
 }
 .menu-item .badge {
@@ -1316,7 +1319,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffe337;
+  background: #752dec;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1335,10 +1338,7 @@ pre .javascript .function {
   display: inline-block;
   padding: 0 15px;
 }
-.sidebar-button a .fa,
-.sidebar-button a .fab,
-.sidebar-button a .far,
-.sidebar-button a .fas {
+.sidebar-button a .fa {
   margin-right: 5px;
 }
 .sidebar-button a:hover {
@@ -1346,10 +1346,7 @@ pre .javascript .function {
   border: 1px solid #fc6423;
   color: #fff;
 }
-.sidebar-button a:hover .fa,
-.sidebar-button a:hover .fab,
-.sidebar-button a:hover .far,
-.sidebar-button a:hover .fas {
+.sidebar-button a:hover .fa {
   color: #fff;
 }
 .links-of-blogroll {
@@ -1394,7 +1391,7 @@ pre .javascript .function {
 }
 .sidebar-nav li {
   border-bottom: 1px solid transparent;
-  color: var(--text-color);
+  color: #555;
   cursor: pointer;
   display: inline-block;
   font-size: 0.875em;
@@ -1810,10 +1807,6 @@ pre .javascript .function {
   border-bottom: none;
   color: var(--link-color);
 }
-.posts-collapse .post-title .fa-external-link-alt {
-  font-size: 0.875em;
-  margin-left: 5px;
-}
 .posts-collapse::before {
   background: #f5f5f5;
   content: ' ';
@@ -1823,6 +1816,10 @@ pre .javascript .function {
   position: absolute;
   top: 1.25em;
   width: 4px;
+}
+.posts-collapse .fa-external-link {
+  font-size: 0.875em;
+  margin-left: 5px;
 }
 .post-eof {
   background: #ccc;
@@ -1960,7 +1957,7 @@ pre .javascript .function {
   transform: scaleX(1);
   visibility: visible;
 }
-.posts-expand .post-title-link .fa-external-link-alt {
+.posts-expand .post-title-link .fa {
   font-size: 0.875em;
   margin-left: 5px;
 }
@@ -2004,7 +2001,7 @@ pre .javascript .function {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
-  padding: 10px 5px 0;
+  padding-top: 10px;
 }
 .post-nav-item {
   flex: 1;
@@ -2025,12 +2022,18 @@ pre .javascript .function {
 .post-nav-item:first-child {
   margin-right: 15px;
 }
+.post-nav-item:first-child a {
+  padding-left: 5px;
+}
 .post-nav-item:first-child .fa {
   margin-right: 5px;
 }
 .post-nav-item:last-child {
   margin-left: 15px;
   text-align: right;
+}
+.post-nav-item:last-child a {
+  padding-right: 5px;
 }
 .post-nav-item:last-child .fa {
   margin-left: 5px;
@@ -2088,10 +2091,10 @@ pre .javascript .function {
   width: 90%;
 }
 .reward-container button {
-  background: transparent;
-  border: 1px solid #fc6423;
-  border-radius: 0;
-  color: #fc6423;
+  background: #ff2a2a;
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
   cursor: pointer;
   line-height: 2;
   outline: 0;
@@ -2099,9 +2102,7 @@ pre .javascript .function {
   vertical-align: text-top;
 }
 .reward-container button:hover {
-  background: #fc6423;
-  border: 1px solid transparent;
-  color: #fa9366;
+  background: #f55;
 }
 #qr {
   padding-top: 20px;
@@ -2220,11 +2221,10 @@ pre .javascript .function {
   color: #fff;
   content: '\f111';
   display: inline-block;
+  font-family: 'FontAwesome';
   font-size: 10px;
   margin-right: 25px;
   vertical-align: middle;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
 }
 .event-list .event .event-relative-time {
   color: #bbb;
@@ -2245,12 +2245,11 @@ pre .javascript .function {
 .event-list .event .event-details::before {
   color: #fff;
   display: inline-block;
+  font-family: 'FontAwesome';
   margin-right: 9px;
   text-align: center;
   text-indent: 0;
   width: 14px;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
 }
 .event-list .event .event-details.event-location::before {
   content: '\f041';
@@ -2337,7 +2336,7 @@ ul.breadcrumb li + li:last-child {
   margin: 10px;
 }
 .tag-cloud a:hover {
-  color: var(--link-hover-color) !important;
+  color: #222 !important;
 }
 .search-pop-overlay {
   background: rgba(0,0,0,0);
@@ -2681,10 +2680,7 @@ mjx-container + br {
   border: 0;
   color: #e34603;
 }
-.sidebar-button a:hover .fa,
-.sidebar-button a:hover .fab,
-.sidebar-button a:hover .far,
-.sidebar-button a:hover .fas {
+.sidebar-button a:hover .fa {
   color: #e34603;
 }
 .links-of-author {
@@ -2724,10 +2720,7 @@ mjx-container + br {
   background: var(--body-bg-color);
   border-radius: 4px;
 }
-.links-of-author-item .fa,
-.links-of-author-item .fab,
-.links-of-author-item .far,
-.links-of-author-item .fas {
+.links-of-author-item .fa {
   margin-right: 2px;
 }
 .links-of-blogroll-item {
@@ -2820,10 +2813,10 @@ mjx-container + br {
 }
 .post-body h1,
 .post-body h2 {
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid #eee;
 }
 .post-body h3 {
-  border-bottom: 1px dotted transparent;
+  border-bottom: 1px dotted #eee;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .content-wrap {
@@ -2879,6 +2872,10 @@ body {
   background-position: 100% 25%;
   background-size: cover;
 }
+.site-subtitle {
+  color: #666;
+  font-size: 0.75em;
+}
 .header-inner {
   background: #ccc;
 }
@@ -2927,6 +2924,12 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+.sidebar {
+  background: transparent;
+  box-shadow: none;
+  margin-top: 100%;
+  position: static;
 }
 .sidebar-inner {
   background: #ccc;

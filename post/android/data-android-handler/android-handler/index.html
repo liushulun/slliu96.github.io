@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）Handler 的实例化和初始化；（2）Handler 消息处理机制；（3）Handler 工作流程总结。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-17T06:46:59.153Z">
+<meta property="og:updated_time" content="2020-05-19T15:47:58.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android-Handler">
 <meta name="twitter:description" content="（1）Handler 的实例化和初始化；（2）Handler 消息处理机制；（3）Handler 工作流程总结。">
@@ -46,7 +46,6 @@
     lang   : 'zh-CN'
   };
 </script>
-
 
 
   <title>Android-Handler | SLLiu's Blogs</title>
@@ -103,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">Keep Learning</p>
+      <p class="site-subtitle" itemprop="description">V 1011</p>
   </div>
 
   <div class="site-nav-right">
@@ -117,40 +116,40 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">60</span></a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">75</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">75</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">10</span></a>
 
   </li>
         <li class="menu-item menu-item-records">
 
-    <a href="/records/" rel="section"><i class="fa fa-list-alt fa-fw"></i>记录</a>
+    <a href="/records/" rel="section"><i class="fa fa-fw fa-list-alt"></i>记录</a>
 
   </li>
         <li class="menu-item menu-item-collections">
 
-    <a href="/collections/" rel="section"><i class="fa fa-star fa-fw"></i>收藏</a>
+    <a href="/collections/" rel="section"><i class="fa fa-fw fa-star"></i>收藏</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>联系</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>关于</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -231,7 +230,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -239,7 +238,7 @@
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -290,7 +289,7 @@
 
   
   <div style="position: fixed; width: 100%;">
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
       
       <div class="post-tags">
@@ -305,14 +304,14 @@
   </div>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>15k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
+                <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>17 分钟</span>
@@ -332,11 +331,11 @@
 <hr>
 <p>前言：本文是针对 Handler 内部的一些分析，但涉及到的知识还可能出现在以下文章中，建议都参考一遍：</p>
 <ul>
-<li><a href="/post/java/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
-<li><a href="/post/android/android-message/" title="@LINK">Android——Message</a></li>
-<li><a href="/post/android/android-messagequeue/" title="@LINK">Android——MessageQueue</a></li>
-<li><a href="/post/android/android-looper/" title="@LINK">Android——Looper</a></li>
-<li><a href="/post/android/android-handler/" title="@LINK">Android——Handler</a></li>
+<li><a href="/post/java/data-java-threadlocal/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
+<li><a href="/post/android/data-android-message/android-message/" title="@LINK">Android——Message</a></li>
+<li><a href="/post/android/data-android-messagequeue/android-messagequeue/" title="@LINK">Android——MessageQueue</a></li>
+<li><a href="/post/android/data-android-looper/android-looper/" title="@LINK">Android——Looper</a></li>
+<li><a href="/post/android/data-android-handler/android-handler/" title="@LINK">Android——Handler</a></li>
 </ul>
 <hr>
 <h1 id="1-Handler的实例化和初始化"><a href="#1-Handler的实例化和初始化" class="headerlink" title="1. Handler的实例化和初始化"></a>1. Handler的实例化和初始化</h1><p>Handler 在 Android 开发中还是相当相当常见的，其涉及到了很多 Android 和 Java 的数据结构。Handler 的源码并不复杂，原理也很有意思，常用的方法里实例化和初始化就占了很大一部分，消息 Message 的传递也占了很大一部分，本文主要也是分析这两点，剩下的用的不是太多，直接阅读源码也很快，在本文就不分析了。通过阅读 Handler 以及相关类的源码，可以深刻体会到 Android 的一些通用设计理念。</p>
@@ -349,7 +348,7 @@
 <ul>
 <li>（1）Handler 允许你发送和处理和线程的 MessageQueue 相关联的 Message 和 Runnable 对象。每个 Handler 实例对象都只和一个线程以及该线程的消息队列。当创建一个 Handler 实例时，这个 Handler 会与线程以及这个线程创建的消息队列绑定，这之后，这个 Handler 会负责给 MessageQueue 传送 Message 和 Runnable，或者负责处理从 MessageQueue 中取出的 Message 和 Runnable。</li>
 <li>（2）Handler 有 2 个主要的用途：① 给 Message 和 Runnable 安排一个未来执行的时间（可以是相差 0，表示立即执行）；② 将一个事务提交到另一个不同的线程处理。</li>
-<li>（3）Handler 通过 <code>post</code>，<code>postAtTime(Runnable, long)</code>，<code>postDelayed</code>，<code>sendEmptyMessage</code>，<code>sendMessage</code>，<code>sendMessageAtTime</code>，<code>sendMessageDelayed</code> 方法（具体在：《<a href="/post/android/android-message/" title="@LINK">Android——Message</a>》有详细介绍）调度 Message。<code>post</code> 方式允许发送一个 Runnable 对象并在被 MessageQueue 接收后调用。<code>shendMessage</code> 方式允许发送一个包括了一个 Bundle 形式的数据的 Message，并且在 <code>Handler.handleMessage()</code> 方法中处理（要求实现一个 Handler 的子类）。</li>
+<li>（3）Handler 通过 <code>post</code>，<code>postAtTime(Runnable, long)</code>，<code>postDelayed</code>，<code>sendEmptyMessage</code>，<code>sendMessage</code>，<code>sendMessageAtTime</code>，<code>sendMessageDelayed</code> 方法（具体在：《<a href="/post/android/data-android-message/android-message/" title="@LINK">Android——Message</a>》有详细介绍）调度 Message。<code>post</code> 方式允许发送一个 Runnable 对象并在被 MessageQueue 接收后调用。<code>shendMessage</code> 方式允许发送一个包括了一个 Bundle 形式的数据的 Message，并且在 <code>Handler.handleMessage()</code> 方法中处理（要求实现一个 Handler 的子类）。</li>
 <li>（4）不论使用 <code>post</code> 还是 <code>send</code> 方式发送消息，都可以让这些消息在 MessageQueue 可用时立即处理，或者指定一个延时间隔来延迟处理，或者指定一个具体的处理事件。后面二者可以通过：延迟、具体时间、或其他基于时间的行为来实现。</li>
 <li>（5）当 App 的进程被创建时，它的主线程则专门用来运行一个管理顶层应用对象的 MessageQueue，这些顶层应用对象可以是例如：Activity，BroadcastReceiver 等等，或是他们创建的其他 Windows。你可以创建自己的子线程，并通过 Handler 与主线程通信，只需要在子线程中调用上述的 <code>send</code> 类型或 <code>post</code> 类型的方法即可，发送的 Message 或 Runnable 将在 Handler 的 MessageQueue 合适的时候被调度和处理。</li>
 </ul>
@@ -380,7 +379,7 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Use the &#123;<span class="doctag">@link</span> Looper&#125; for the current thread with the specified callback interface</span></span><br><span class="line"><span class="comment">  * and set whether the handler should be asynchronous.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * Handlers are synchronous by default unless this constructor is used to make</span></span><br><span class="line"><span class="comment">  * one that is strictly asynchronous.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * Asynchronous messages represent interrupts or events that do not require global ordering</span></span><br><span class="line"><span class="comment">  * with respect to synchronous messages.  Asynchronous messages are not subject to</span></span><br><span class="line"><span class="comment">  * the synchronization barriers introduced by &#123;<span class="doctag">@link</span> MessageQueue#enqueueSyncBarrier(long)&#125;.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> callback The callback interface in which to handle messages, or null.</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> async If true, the handler calls &#123;<span class="doctag">@link</span> Message#setAsynchronous(boolean)&#125; for</span></span><br><span class="line"><span class="comment">  * each &#123;<span class="doctag">@link</span> Message&#125; that is sent to it or &#123;<span class="doctag">@link</span> Runnable&#125; that is posted to it.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@hide</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(@Nullable Callback callback, <span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (FIND_POTENTIAL_LEAKS) &#123;</span><br><span class="line">        <span class="keyword">final</span> Class&lt;? extends Handler&gt; klass = getClass();</span><br><span class="line">        <span class="keyword">if</span> ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &amp;&amp;</span><br><span class="line">                (klass.getModifiers() &amp; Modifier.STATIC) == <span class="number">0</span>) &#123;</span><br><span class="line">            Log.w(TAG, <span class="string">"The following Handler class should be static or leaks might occur: "</span> +</span><br><span class="line">                klass.getCanonicalName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mLooper = Looper.myLooper();</span><br><span class="line">    <span class="keyword">if</span> (mLooper == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">            <span class="string">"Can't create handler inside thread "</span> + Thread.currentThread()</span><br><span class="line">                    + <span class="string">" that has not called Looper.prepare()"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    mQueue = mLooper.mQueue;</span><br><span class="line">    mCallback = callback;</span><br><span class="line">    mAsynchronous = async;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>通过 《<a href="/post/android/android-looper/" title="@LINK">Android——Looper</a>》 一文可以知道，<code>Looper.myLooper()</code> 就是返回了当前线程中的 Looper 实例对象，如果当前线程不具备处理消息的功能，也即没有 Looper 实例，则返回 <code>null</code>，接下来也就是当存在 Looper 实例对象时，获取并绑定其消息队列 MessageQueue，处理事件的回调 Callback，以及设置是否异步 async。</p>
+<p>通过 《<a href="/post/android/data-android-looper/android-looper/" title="@LINK">Android——Looper</a>》 一文可以知道，<code>Looper.myLooper()</code> 就是返回了当前线程中的 Looper 实例对象，如果当前线程不具备处理消息的功能，也即没有 Looper 实例，则返回 <code>null</code>，接下来也就是当存在 Looper 实例对象时，获取并绑定其消息队列 MessageQueue，处理事件的回调 Callback，以及设置是否异步 async。</p>
 <ul>
 <li>⑤ 1 个参数（<code>Looper</code>）的构造方法</li>
 </ul>
@@ -455,7 +454,7 @@
 <p>实际上 <code>post</code> 方式最终都是通过 <code>send</code> 方式实现的。再看一下各个 <code>send</code> 方式的源码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendMessage</span><span class="params">(@NonNull Message msg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sendMessageDelayed(msg, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendEmptyMessage</span><span class="params">(<span class="keyword">int</span> what)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sendEmptyMessageDelayed(what, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendEmptyMessageDelayed</span><span class="params">(<span class="keyword">int</span> what, <span class="keyword">long</span> delayMillis)</span> </span>&#123;</span><br><span class="line">    Message msg = Message.obtain();</span><br><span class="line">    msg.what = what;</span><br><span class="line">    <span class="keyword">return</span> sendMessageDelayed(msg, delayMillis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendEmptyMessageAtTime</span><span class="params">(<span class="keyword">int</span> what, <span class="keyword">long</span> uptimeMillis)</span> </span>&#123;</span><br><span class="line">    Message msg = Message.obtain();</span><br><span class="line">    msg.what = what;</span><br><span class="line">    <span class="keyword">return</span> sendMessageAtTime(msg, uptimeMillis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendMessageDelayed</span><span class="params">(@NonNull Message msg, <span class="keyword">long</span> delayMillis)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (delayMillis &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        delayMillis = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">sendMessageAtTime</span><span class="params">(@NonNull Message msg, <span class="keyword">long</span> uptimeMillis)</span> </span>&#123;</span><br><span class="line">    MessageQueue queue = mQueue;</span><br><span class="line">    <span class="keyword">if</span> (queue == <span class="keyword">null</span>) &#123;</span><br><span class="line">        RuntimeException e = <span class="keyword">new</span> RuntimeException(</span><br><span class="line">                <span class="keyword">this</span> + <span class="string">" sendMessageAtTime() called with no mQueue"</span>);</span><br><span class="line">        Log.w(<span class="string">"Looper"</span>, e.getMessage(), e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> enqueueMessage(queue, msg, uptimeMillis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">sendMessageAtFrontOfQueue</span><span class="params">(@NonNull Message msg)</span> </span>&#123;</span><br><span class="line">    MessageQueue queue = mQueue;</span><br><span class="line">    <span class="keyword">if</span> (queue == <span class="keyword">null</span>) &#123;</span><br><span class="line">        RuntimeException e = <span class="keyword">new</span> RuntimeException(</span><br><span class="line">            <span class="keyword">this</span> + <span class="string">" sendMessageAtTime() called with no mQueue"</span>);</span><br><span class="line">        Log.w(<span class="string">"Looper"</span>, e.getMessage(), e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> enqueueMessage(queue, msg, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在以上源码中可以看到一个参数：<code>uptimeMillis</code>，这个参数是从开机到当前时刻的时间间隔（毫秒，当设备处于睡眠时不计算），表示消息需要被处理时的时间，任意不同时刻获取到的该值都是不同的，<code>uptimeMillis</code> 越小表示消息越早处理。<strong>消息在添加到消息队列中时，是按照实际处理的时间从先到后按顺序排列的</strong>，详细的处理机制可参考：<a href="/post/android/android-messagequeue/" title="@LINK">Android——MessageQueue</a>。并且除了 <code>sendMessageAtFrontOfQueue</code> 方法之外，其他 <code>send</code> 方式本质都是通过这一个方法发送的：<code>sendMessageAtTime</code>，而这两个方法最终都调用了 <code>enqueueMessage</code>，看看这个方法内部：</p>
+<p>在以上源码中可以看到一个参数：<code>uptimeMillis</code>，这个参数是从开机到当前时刻的时间间隔（毫秒，当设备处于睡眠时不计算），表示消息需要被处理时的时间，任意不同时刻获取到的该值都是不同的，<code>uptimeMillis</code> 越小表示消息越早处理。<strong>消息在添加到消息队列中时，是按照实际处理的时间从先到后按顺序排列的</strong>，详细的处理机制可参考：<a href="/post/android/data-android-messagequeue/android-messagequeue/" title="@LINK">Android——MessageQueue</a>。并且除了 <code>sendMessageAtFrontOfQueue</code> 方法之外，其他 <code>send</code> 方式本质都是通过这一个方法发送的：<code>sendMessageAtTime</code>，而这两个方法最终都调用了 <code>enqueueMessage</code>，看看这个方法内部：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">enqueueMessage</span><span class="params">(@NonNull MessageQueue queue, @NonNull Message msg, <span class="keyword">long</span> uptimeMillis)</span> </span>&#123;</span><br><span class="line">    msg.target = <span class="keyword">this</span>;</span><br><span class="line">    msg.workSourceUid = ThreadLocalWorkSource.getUid();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mAsynchronous) &#123;</span><br><span class="line">        msg.setAsynchronous(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> queue.enqueueMessage(msg, uptimeMillis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这个方法每一句都说明了 Message 的一个性质：</p>
@@ -534,11 +533,14 @@
 </script>
 
 
-    <div>
-        <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
-    </div>
+
+
+
+    
+    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
     <br /> <br /> <br />
+    
     <div class="pagination">
         
         <div style="text-align:center;color: #667788;font-size:18px;">======================</div>
@@ -596,7 +598,7 @@
     <a href="https://www.liushulun.cn/post/android/data-android-handler/android-handler/" title="Android-Handler">https://www.liushulun.cn/post/android/data-android-handler/android-handler/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
   </li>
 </ul>
 </div>
@@ -697,7 +699,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -717,22 +719,23 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/about/" title="Chats → /about/"><i class="fa fa-comments fa-fw"></i>Chats</a>
+        <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i>Chats</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/" title="Home → /"><i class="fa fa-home fa-fw"></i>Home</a>
+        <a href="/" title="Home → /"><i class="fa fa-fw fa-home"></i>Home</a>
       </span>
   </div>
 
 
   <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-users"></i>
       
     </div>
     <ul class="links-of-blogroll-list">
@@ -775,7 +778,7 @@
   <span class="author" itemprop="copyrightHolder">LiuShulun</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
     <span title="全站总字数">344k</span>
@@ -817,28 +820,12 @@
   
   <script>
     (function(){
-      var canonicalURL, curProtocol;
-      //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
   </script>
 
 

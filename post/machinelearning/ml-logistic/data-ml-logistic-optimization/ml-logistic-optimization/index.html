@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-17T06:47:40.476Z">
+<meta property="og:updated_time" content="2020-05-19T15:47:58.882Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML入门-Logistic优化求解与牛顿法">
 <meta name="twitter:description" content="（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。">
@@ -46,7 +46,6 @@
     lang   : 'zh-CN'
   };
 </script>
-
 
 
   <title>ML入门-Logistic优化求解与牛顿法 | SLLiu's Blogs</title>
@@ -103,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">Keep Learning</p>
+      <p class="site-subtitle" itemprop="description">V 1011</p>
   </div>
 
   <div class="site-nav-right">
@@ -117,40 +116,40 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">60</span></a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">75</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">75</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">10</span></a>
 
   </li>
         <li class="menu-item menu-item-records">
 
-    <a href="/records/" rel="section"><i class="fa fa-list-alt fa-fw"></i>记录</a>
+    <a href="/records/" rel="section"><i class="fa fa-fw fa-list-alt"></i>记录</a>
 
   </li>
         <li class="menu-item menu-item-collections">
 
-    <a href="/collections/" rel="section"><i class="fa fa-star fa-fw"></i>收藏</a>
+    <a href="/collections/" rel="section"><i class="fa fa-fw fa-star"></i>收藏</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>联系</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>关于</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -231,7 +230,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -239,7 +238,7 @@
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -294,7 +293,7 @@
 
   
   <div style="position: fixed; width: 100%;">
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
       
       <div class="post-tags">
@@ -311,14 +310,14 @@
   </div>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>17k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
+                <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>19 分钟</span>
@@ -576,7 +575,7 @@
 <p>牛顿迭代法求得的 Logistic 损失函数和极小值的解 与 加权最小二乘的解形式类似，因此也称为 <strong><font color="EB6D39">迭代加权最小二乘（Iteratively Reweighted Least Squares, IRLS）</font></strong>，其中每个样本的权重为 $S_i = \mu_i (1 - \mu_i)$。而 IRLS 又通过 共轭梯度（Conjugate Gradient）法 求解，因此 Scikit-Learn 中采用牛顿法求解的优化算法为 <code>&#39;newton-cg&#39;</code>。</p>
 <hr>
 <h1 id="4-Logistic的优化求解器Solver"><a href="#4-Logistic的优化求解器Solver" class="headerlink" title="4. Logistic的优化求解器Solver"></a>4. Logistic的优化求解器Solver</h1><p>Logistic 回归有多种优化求解方法。当使用 L2 正则时，可采用所有优化算法，而由于 L1 正则在零点处不可导，因此次不能使用需要计算梯度 / Hessian 矩阵的方法，此时可以类似 Lasso 求解，采用坐标轴下降法。</p>
-<p>Scikit-Learn 中的 Logistic 类已在：<a href="/post/machinelearning/ml-logistic/ml-logistic-introduction/" title="@LINK">《ML入门——Logistic回归简介》</a> 文中介绍，此处展开参数 <code>solver</code> 的一些可选项：</p>
+<p>Scikit-Learn 中的 Logistic 类已在：<a href="/post/machinelearning/ml-logistic/data-ml-logistic-introduction/ml-logistic-introduction/" title="@LINK">《ML入门——Logistic回归简介》</a> 文中介绍，此处展开参数 <code>solver</code> 的一些可选项：</p>
 <p>‘liblinear’：<br>线性求解器，适用于小数据集，支持 L1 正则和 L2 正则。<br>内部使用了坐标轴下降法来迭代优化损失函数，如果模型的特征非常多，希望一些不重要的特征系数归零从而让模型系数稀疏的话，可以使用 L1 正则化。在多类 Logistic 回归任务中仅支持 OvR，不支持多项分布损失（MvM），但 MVM 相对精确。</p>
 <p>‘lbfgs’：<br>拟牛顿法，适用于较大数据集，仅支持 L2 正则。<br>支持 OvR 和 MvM 两种多类 Logistic 回归。</p>
 <p>‘newton-cg’：<br>牛顿法，适用于较大数据集，仅支持 L2 正则。<br>每个大迭代中的加权最小二乘回归部分采用共轭梯度算法实现。支持 OvR 和 MvM 两种多类 Logistic 回归。</p>
@@ -631,11 +630,14 @@
 </script>
 
 
-    <div>
-        <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
-    </div>
+
+
+
+    
+    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
     <br /> <br /> <br />
+    
     <div class="pagination">
         
         <div style="text-align:center;color: #667788;font-size:18px;">======================</div>
@@ -693,7 +695,7 @@
     <a href="https://www.liushulun.cn/post/machinelearning/ml-logistic/data-ml-logistic-optimization/ml-logistic-optimization/" title="ML入门-Logistic优化求解与牛顿法">https://www.liushulun.cn/post/machinelearning/ml-logistic/data-ml-logistic-optimization/ml-logistic-optimization/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
   </li>
 </ul>
 </div>
@@ -796,7 +798,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -816,22 +818,23 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/about/" title="Chats → /about/"><i class="fa fa-comments fa-fw"></i>Chats</a>
+        <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i>Chats</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/" title="Home → /"><i class="fa fa-home fa-fw"></i>Home</a>
+        <a href="/" title="Home → /"><i class="fa fa-fw fa-home"></i>Home</a>
       </span>
   </div>
 
 
   <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-users"></i>
       
     </div>
     <ul class="links-of-blogroll-list">
@@ -874,7 +877,7 @@
   <span class="author" itemprop="copyrightHolder">LiuShulun</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
     <span title="全站总字数">344k</span>
@@ -916,28 +919,12 @@
   
   <script>
     (function(){
-      var canonicalURL, curProtocol;
-      //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
   </script>
 
 

@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）Message 简介；（2）同步消息（Sync）；（3）异步消息（Async）；（4）障栅消息（Barrier）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-17T06:47:03.925Z">
+<meta property="og:updated_time" content="2020-05-19T15:47:58.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android-Message">
 <meta name="twitter:description" content="（1）Message 简介；（2）同步消息（Sync）；（3）异步消息（Async）；（4）障栅消息（Barrier）">
@@ -46,7 +46,6 @@
     lang   : 'zh-CN'
   };
 </script>
-
 
 
   <title>Android-Message | SLLiu's Blogs</title>
@@ -103,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">Keep Learning</p>
+      <p class="site-subtitle" itemprop="description">V 1011</p>
   </div>
 
   <div class="site-nav-right">
@@ -117,40 +116,40 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">59</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">60</span></a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">75</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">75</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">10</span></a>
 
   </li>
         <li class="menu-item menu-item-records">
 
-    <a href="/records/" rel="section"><i class="fa fa-list-alt fa-fw"></i>记录</a>
+    <a href="/records/" rel="section"><i class="fa fa-fw fa-list-alt"></i>记录</a>
 
   </li>
         <li class="menu-item menu-item-collections">
 
-    <a href="/collections/" rel="section"><i class="fa fa-star fa-fw"></i>收藏</a>
+    <a href="/collections/" rel="section"><i class="fa fa-fw fa-star"></i>收藏</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>联系</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>关于</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -231,7 +230,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -239,7 +238,7 @@
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -290,7 +289,7 @@
 
   
   <div style="position: fixed; width: 100%;">
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
+    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
       
       <div class="post-tags">
@@ -306,14 +305,14 @@
   </div>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
+                <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>7.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
+                <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>9 分钟</span>
@@ -333,11 +332,11 @@
 <hr>
 <p>前言：本文是针对 Message 内部的一些分析，但涉及到的知识还可能出现在以下文章中，建议都参考一遍：</p>
 <ul>
-<li><a href="/post/java/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
-<li><a href="/post/android/android-message/" title="@LINK">Android——Message</a></li>
-<li><a href="/post/android/android-messagequeue/" title="@LINK">Android——MessageQueue</a></li>
-<li><a href="/post/android/android-looper/" title="@LINK">Android——Looper</a></li>
-<li><a href="/post/android/android-handler/" title="@LINK">Android——Handler</a></li>
+<li><a href="/post/java/data-java-threadlocal/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
+<li><a href="/post/android/data-android-message/android-message/" title="@LINK">Android——Message</a></li>
+<li><a href="/post/android/data-android-messagequeue/android-messagequeue/" title="@LINK">Android——MessageQueue</a></li>
+<li><a href="/post/android/data-android-looper/android-looper/" title="@LINK">Android——Looper</a></li>
+<li><a href="/post/android/data-android-handler/android-handler/" title="@LINK">Android——Handler</a></li>
 </ul>
 <hr>
 <h1 id="1-Message的种类"><a href="#1-Message的种类" class="headerlink" title="1. Message的种类"></a>1. Message的种类</h1><p>在 Android 中，Message 是使用 Handler 时不可避免的一个类，通常都会使用 Message 来发送一些“消息”，这个“消息”有自己的标识 <code>what</code>，有自己的两个通用参数 <code>arg1</code> 和 <code>arg2</code>，有自己的具体消息内容 <code>obj</code>，似乎消息就是一个通过标识传递数据的功能，但其实里面大有门道。</p>
@@ -356,7 +355,7 @@
 </ol>
 </li>
 </ul>
-<p>而消息是否同步，并不是由 Message 本身决定的，而是由处理消息的 Handler 决定的（详细可参考：<a href="/post/android/android-handler/" title="@LINK">Android——Handler</a>），下文将详细介绍这 3 种消息。</p>
+<p>而消息是否同步，并不是由 Message 本身决定的，而是由处理消息的 Handler 决定的（详细可参考：<a href="/post/android/data-android-handler/android-handler/" title="@LINK">Android——Handler</a>），下文将详细介绍这 3 种消息。</p>
 <hr>
 <h1 id="2-同步消息"><a href="#2-同步消息" class="headerlink" title="2. 同步消息"></a>2. 同步消息</h1><p>在默认初始化 Handler 时，不论是调用无参构造方法，还是传递 Looper 的构造方法，或者重写回调的构造方法，其实源码里都有这么一个内部调用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(<span class="keyword">null</span>, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(@NonNull Looper looper)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(looper, <span class="keyword">null</span>, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(@Nullable Callback callback)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(callback, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -432,11 +431,14 @@
 </script>
 
 
-    <div>
-        <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，参考链接仅做学习指导，引用前请务必联系授权。</font>
-    </div>
+
+
+
+    
+    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
     <br /> <br /> <br />
+    
     <div class="pagination">
         
         <div style="text-align:center;color: #667788;font-size:18px;">======================</div>
@@ -494,7 +496,7 @@
     <a href="https://www.liushulun.cn/post/android/data-android-message/android-message/" title="Android-Message">https://www.liushulun.cn/post/android/data-android-message/android-message/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
   </li>
 </ul>
 </div>
@@ -596,7 +598,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -616,22 +618,23 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/about/" title="Chats → /about/"><i class="fa fa-comments fa-fw"></i>Chats</a>
+        <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i>Chats</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/" title="Home → /"><i class="fa fa-home fa-fw"></i>Home</a>
+        <a href="/" title="Home → /"><i class="fa fa-fw fa-home"></i>Home</a>
       </span>
   </div>
 
 
   <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-users"></i>
       
     </div>
     <ul class="links-of-blogroll-list">
@@ -674,7 +677,7 @@
   <span class="author" itemprop="copyrightHolder">LiuShulun</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
     <span title="全站总字数">344k</span>
@@ -716,28 +719,12 @@
   
   <script>
     (function(){
-      var canonicalURL, curProtocol;
-      //Get the <link> tag
-      var x=document.getElementsByTagName("link");
-		//Find the last canonical URL
-		if(x.length > 0){
-			for (i=0;i<x.length;i++){
-				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
-					canonicalURL=x[i].href;
-				}
-			}
-		}
-    //Get protocol
-	    if (!canonicalURL){
-	    	curProtocol = window.location.protocol.split(':')[0];
-	    }
-	    else{
-	    	curProtocol = canonicalURL.split(':')[0];
-	    }
-      //Get current URL if the canonical URL does not exist
-	    if (!canonicalURL) canonicalURL = window.location.href;
-	    //Assign script content. Replace current URL with the canonical URL
-      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
   </script>
 
 
