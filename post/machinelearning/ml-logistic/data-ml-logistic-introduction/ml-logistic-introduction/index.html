@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-17T06:47:38.850Z">
+<meta property="og:updated_time" content="2020-11-06T07:27:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML入门-Logistic回归简介">
 <meta name="twitter:description" content="（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。">
@@ -102,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1013</p>
+      <p class="site-subtitle" itemprop="description">V 1050</p>
   </div>
 
   <div class="site-nav-right">
@@ -144,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -191,7 +191,7 @@
   </div>
   <div class="reading-progress-bar"></div>
 
-  <a href="https://github.com/slliu96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -279,16 +279,15 @@
           <div class="post-nav-item">${right}</div>
         </div>`;
     }
-    
-    <div style="position: absolute; top: -20px;">post_nav(post)</div>
   </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
 
 ----- 注释结束 -->
 
 
   
   <div style="position: fixed; width: 100%;">
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
       
       <div class="post-tags">
@@ -298,24 +297,20 @@
           <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
           <a href="/tags/Logistic回归/" rel="tag"><i class="fa fa-tag"></i> Logistic回归</a>
       </div>
-    
-    
-    
-      <div class="post-description" style="visibility: visible;">简介：（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。</div>
   </div>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
+              <span>10k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>14 分钟</span>
+              <span>11 分钟</span>
             </span>
             <div class="post-description">（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。</div>
 
@@ -330,8 +325,7 @@
       
         <a id="more"></a>
 
-<hr>
-<h1 id="1-Logistic回归简介"><a href="#1-Logistic回归简介" class="headerlink" title="1. Logistic回归简介"></a>1. Logistic回归简介</h1><p> 回归任务和分类任务都属于有监督学习（Supervised Learning），其训练数据的格式为：$D = \{ X_i, y_i \}^N_{i = 1}$。回归任务中 $y_i \in R$，而分类任务中 $y_i \in C, C = \{ 1, \cdots c \}$，任务目标都为：学习一个从输入 $X$ 到输出 $y$ 的映射 $f$。分类任务的图示如下：</p>
+<h1 id="1-Logistic回归简介"><a href="#1-Logistic回归简介" class="headerlink" title="1. Logistic回归简介"></a>1. Logistic回归简介</h1><p>回归任务和分类任务都属于有监督学习（Supervised Learning），其训练数据的格式为：$D = \{ X_i, y_i \}^N_{i = 1}$。回归任务中 $y_i \in R$，而分类任务中 $y_i \in C, C = \{ 1, \cdots c \}$，任务目标都为：学习一个从输入 $X$ 到输出 $y$ 的映射 $f$。分类任务的图示如下：</p>
 <center>
 
 <p><img data-src="./classify_demo.png" alt="分类任务图示" title="@ASSET"></p>
@@ -345,8 +339,6 @@
 <p>其中期望 $\mu (X)$ 表示在给定 $X$ 的情况下，$y = 1$ 的概率。则其概率密度函数为：</p>
 <p>$<br>p(y | X; \mu) = \mu (X)^y (1 - \mu (X))^{1 - y}<br>$</p>
 <p>$<br>p(y = 1) = \mu(X), \quad p(y = 0) = 1 - \mu (X)<br>$</p>
-<br>
-
 <h2 id="1-1-Sigmoid函数"><a href="#1-1-Sigmoid函数" class="headerlink" title="1.1 Sigmoid函数"></a>1.1 Sigmoid函数</h2><p>当选择最简单的线性模型来表示期望 $\mu (X)$ 时，即 $\mu (X) = W^T X$，期望 $\mu(X)$ 表示 $y = 1$ 的概率，因此 $\mu (X) \in [0, 1]$，而 $W^T X \in (- \infty, + \infty)$，因此需要把 $(- \infty, + \infty)$ 缩放到 $[0, 1]$：Sigmoid 函数。</p>
 <p>Sigmoid 函数表达式为：$\sigma (z) = \dfrac {1} {1 + e^{-z}}$，其图形如下：</p>
 <center>
@@ -375,8 +367,6 @@
 <p><img data-src="./linear_classify.png" alt="线性分类实例" title="@ASSET"></p>
 </center>
 
-<br>
-
 <h2 id="1-2-决策边界"><a href="#1-2-决策边界" class="headerlink" title="1.2 决策边界"></a>1.2 决策边界</h2><p>更一般地：根据需要划分的类别，分类器将输入控件 $X$ 划分为一些互不相交的区域。这些区域的边界叫决策边界（Decision Boundaries）。根据预测函数 $f$ 的不同，会使得决策面或光滑、或粗糙。</p>
 <p>当决策面是输入 $X$ 的线性函数时，称为线性决策面，对应的分类器就是线性分类器。</p>
 <p>分类器为每个类别分配一个判别函数，根据判别函数来判断一个新样本属于该类别的可能性，然后将新样本归类为可能性最大的一类。假设有 C 个类别，则对应有 C 个判别函数：$\delta_c (X), c \in \{ 1, \cdots, C \}$。</p>
@@ -390,9 +380,7 @@
 
 <p>例如两类分类问题中，决策函数 $f_1 = p(y = 1 | X)$ 即为类别 $y = 1$ 的判别函数，决策函数 $f_0 = p(y = 0 | X)$ 即为类别 $y = 0$ 的判别函数。若对一新样本 $X$，有 $f_1 (X) &gt; f_0 (X)$，则新样本 $X$ 被分入类别 $y = 1$。</p>
 <hr>
-<h1 id="2-Logistic损失函数"><a href="#2-Logistic损失函数" class="headerlink" title="2. Logistic损失函数"></a>2. Logistic损失函数</h1><br>
-
-<h2 id="2-1-负log似然损失"><a href="#2-1-负log似然损失" class="headerlink" title="2.1 负log似然损失"></a>2.1 负log似然损失</h2><p>以两类分类问题为例，直观地，可以定义一种损失：0 / 1 损失，预测类别正确时预测损失为 0，否则为 1。记为：</p>
+<h1 id="2-Logistic损失函数"><a href="#2-Logistic损失函数" class="headerlink" title="2. Logistic损失函数"></a>2. Logistic损失函数</h1><h2 id="2-1-负log似然损失"><a href="#2-1-负log似然损失" class="headerlink" title="2.1 负log似然损失"></a>2.1 负log似然损失</h2><p>以两类分类问题为例，直观地，可以定义一种损失：0 / 1 损失，预测类别正确时预测损失为 0，否则为 1。记为：</p>
 <p>$<br>L(y, \hat{y}) = \left \{<br>\begin{aligned}<br>0, &amp;&amp; {y = \hat{y}}<br>\\<br>1, &amp;&amp; {y \ne \hat{y}}<br>\end{aligned}<br>\right.<br>$</p>
 <p>但 0 / 1 损失不连续，优化计算不方便。因此需要寻找其他 <strong>替代损失函数（Surrogate Loss Function）</strong>。替代损失函数应当符合几个特征：</p>
 <ul>
@@ -416,8 +404,6 @@
 <p>取极大似然估计        ：</p>
 <p>$<br>\begin{aligned}<br>\max l(\mu) &amp;= - \min l(\mu)<br>\\<br>&amp;= \min - \left( \sum^N_{i = 1} y_i \log (\mu (X_i)) + (1 - y_i) \log (1 - \mu (X_i)) \right)<br>\\<br>&amp;= \min \sum^N_{i = 1} - y_i \log (\mu (X_i)) - (1 - y_i) \log (1 - \mu (X_i))<br>\end{aligned}<br>$</p>
 <p><strong><font color="red">因此极大似然估计等价于最小训练集上的负 $\log$ 损失。而负 $\log$ 似然损失亦被称为 Logistic 损失。</font></strong></p>
-<br>
-
 <h2 id="2-2-交叉熵损失"><a href="#2-2-交叉熵损失" class="headerlink" title="2.2 交叉熵损失"></a>2.2 交叉熵损失</h2><p>Logistic 损失亦被称为 <strong>交叉熵损失（Corss Entropy Loss, CE）</strong>。</p>
 <p>交叉熵损失：两个分布之间的差异（已知真实分布的情况下，预测分布与真实分布之间的差异）。定义交叉熵 $H(p, q)$ 如下：</p>
 <p>$$<br>\begin{aligned}<br>H(p, q) &amp;= \sum_x p(x) \log (\dfrac {1} {q(x)})<br>\\<br>&amp;= - \sum_x p(x) \log (q(x))<br>\end{aligned}<br>$$</p>
@@ -475,8 +461,6 @@
 <li><code>SGDClassifier</code></li>
 </ul>
 <p>① <code>LogisticRegression</code> 是最原始的 Logistic 回归模型，超参数调优时需要手动搭配 <code>GridSearchCV</code> 使用。② <code>LogisticRegressionCV</code> 是 Scikit-Learn 提供的已集成了交叉验证的 Logistic 回归模型，可以直接使用内置的交叉验证对超参数调优。③ <code>SGDClassifier</code>（随机梯度下降分类）则是在样本数很大（样本数 $N &gt; 10^5$，特征数 $M &gt; 10^5$）时效果更好。</p>
-<br>
-
 <h2 id="4-1-LogitsicRegression"><a href="#4-1-LogitsicRegression" class="headerlink" title="4.1 LogitsicRegression"></a>4.1 LogitsicRegression</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.LogisticRegression</span></span><br><span class="line"></span><br><span class="line">LogisticRegression(penalty=<span class="string">'l2'</span>,</span><br><span class="line">                   dual=<span class="literal">False</span>,</span><br><span class="line">                   tol=<span class="number">0.0001</span>,</span><br><span class="line">                   C=<span class="number">1.0</span>,</span><br><span class="line">                   fit_intercept=<span class="literal">True</span>,</span><br><span class="line">                   intercept_scaling=<span class="number">1</span>,</span><br><span class="line">                   class_weight=<span class="literal">None</span>,</span><br><span class="line">                   random_state=<span class="literal">None</span>,</span><br><span class="line">                   solver=<span class="string">'liblinear'</span>,</span><br><span class="line">                   max_iter=<span class="number">100</span>,</span><br><span class="line">                   multi_class=<span class="string">'ovr'</span>,</span><br><span class="line">                   verbose=<span class="number">0</span>,</span><br><span class="line">                   warm_start=<span class="literal">False</span>,</span><br><span class="line">                   n_jobs=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 
 <p><strong>（1）<code>LogitsicRegression</code> 的参数</strong></p>
@@ -511,8 +495,6 @@
 <p><code>decision_function(X)</code>：<br>预测的置信度（样本到分类超平面的带符号距离）。<br>在分对的情况下，正样本得到的应为正值，负样本得到的应为负值。</p>
 <p><code>densify()</code>：<br>如果之前将系数矩阵变成了稀疏模式，再将其变回稠密模式（<code>fit</code> 函数要求系数矩阵为稠密模式）。</p>
 <p><code>sparsify()</code>：<br>将系数矩阵变成了稀疏模式。</p>
-<br>
-
 <h2 id="4-2-LogisticRegressionCV"><a href="#4-2-LogisticRegressionCV" class="headerlink" title="4.2 LogisticRegressionCV"></a>4.2 LogisticRegressionCV</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.LogisticRegressionCV</span></span><br><span class="line"></span><br><span class="line">LogisticRegressionCV(Cs=<span class="number">10</span>,</span><br><span class="line">                     fit_intercept=<span class="literal">True</span>,</span><br><span class="line">                     cv=<span class="literal">None</span>,</span><br><span class="line">                     dual=<span class="literal">False</span>,</span><br><span class="line">                     penalty=<span class="string">'l2'</span>,</span><br><span class="line">                     scoring=<span class="literal">None</span>,</span><br><span class="line">                     solver=<span class="string">'lbfgs'</span>,</span><br><span class="line">                     tol=<span class="number">0.0001</span>,</span><br><span class="line">                     max_iter=<span class="number">100</span>,</span><br><span class="line">                     class_weight=<span class="literal">None</span>,</span><br><span class="line">                     n_jobs=<span class="number">1</span>,</span><br><span class="line">                     verbose=<span class="number">0</span>,</span><br><span class="line">                     refit=<span class="literal">True</span>, i</span><br><span class="line">                     ntercept_scaling=<span class="number">1.0</span>,</span><br><span class="line">                     multi_class=<span class="string">'ovr'</span>,</span><br><span class="line">                     random_state=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
 
 <p><strong>（1）<code>LogisticRegressionCV</code> 的参数</strong></p>
@@ -525,8 +507,6 @@
 <p>与 <code>LogisticRegression</code> 相同。</p>
 <p><strong>（3）<code>LogisticRegressionCV</code> 的方法</strong></p>
 <p>与 <code>LogisticRegression</code> 相同。</p>
-<br>
-
 <h2 id="4-3-SGDClassifier"><a href="#4-3-SGDClassifier" class="headerlink" title="4.3 SGDClassifier"></a>4.3 SGDClassifier</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.SGDClassifier</span></span><br><span class="line"></span><br><span class="line">SGDClassifier(loss=<span class="string">'hinge'</span>,</span><br><span class="line">              penalty=<span class="string">'l2'</span>,</span><br><span class="line">              alpha=<span class="number">0.0001</span>,</span><br><span class="line">              l1_ratio=<span class="number">0.15</span>,</span><br><span class="line">              fit_intercept=<span class="literal">True</span>,</span><br><span class="line">              max_iter=<span class="literal">None</span>,</span><br><span class="line">              tol=<span class="literal">None</span>,</span><br><span class="line">              shuffle=<span class="literal">True</span>,</span><br><span class="line">              verbose=<span class="number">0</span>,</span><br><span class="line">              epsilon=<span class="number">0.1</span>,</span><br><span class="line">              n_jobs=<span class="number">1</span>,</span><br><span class="line">              random_state=<span class="literal">None</span>,</span><br><span class="line">              learning_rate=<span class="string">'optimal'</span>, </span><br><span class="line">              ta0=<span class="number">0.0</span>,</span><br><span class="line">              power_t=<span class="number">0.5</span>,</span><br><span class="line">              class_weight=<span class="literal">None</span>,</span><br><span class="line">              warm_start=<span class="literal">False</span>,</span><br><span class="line">              average=<span class="literal">False</span>,</span><br><span class="line">              n_iter=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
 
 <p><strong>（1）<code>SGDClassifier</code> 的参数</strong></p>
@@ -598,28 +578,26 @@
 
 
     
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
-    
     <br /> <br /> <br />
     
     <div class="pagination">
         
-        <div style="text-align:center;color: #667788;font-size:18px;">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;感 谢 阅 读</div>
-        
         
             <style type="text/css">
                 .toContact {
-                    background: #FFFFFF;
+                    font-size: 18px;
+                    text-align: center;
                     color: #EB6D39;
-                    border-bottom-color: #EB6D39;
+                    border-bottom: none;
                 }
                 .toContact:hover {
                     background: #EB6D39;
                     color: #FFFFFF;
-                    border-bottom-color: #667788;
+                    border-bottom: none;
                 }
             </style>
-            <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
         
     </div>
 
@@ -779,10 +757,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
         <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
@@ -838,13 +816,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">348k</span>
+    <span title="全站总字数">305k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:26</span>
+    <span title="全站总阅读时长">5:39</span>
 </div>
 
 

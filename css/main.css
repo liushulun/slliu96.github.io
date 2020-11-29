@@ -1,3 +1,74 @@
+/* ---------- 注释开始
+$lbg = hexo-config('note.light_bg_offset') is a 'unit' ? unit(hexo-config('note.light_bg_offset'), "%") : 0;
+
+// Default
+$note-border-radius         = 3px;
+
+$note-default-border        = #777;
+$note-default-bg            = lighten(spin($note-default-border, 0), 94% + $lbg);
+$note-default-text          = $note-default-border;
+$note-default-icon          = "\f0a9";
+
+$note-modern-default-border = #e1e1e1;
+$note-modern-default-bg     = lighten(spin($note-modern-default-border, 10), 60% + ($lbg * 4));
+$note-modern-default-text   = $grey-dim;
+$note-modern-default-hover  = darken(spin($note-modern-default-text, -10), 32%);
+
+// Primary
+$note-primary-border        = #6f42c1;
+$note-primary-bg            = lighten(spin($note-primary-border, 10), 92% + $lbg);
+$note-primary-text          = $note-primary-border;
+$note-primary-icon          = "\f055";
+
+$note-modern-primary-border = #e1c2ff;
+$note-modern-primary-bg     = lighten(spin($note-modern-primary-border, 10), 40% + ($lbg * 4));
+$note-modern-primary-text   = #6f42c1;
+$note-modern-primary-hover  = darken(spin($note-modern-primary-text, -10), 22%);
+
+// Info
+$note-info-border           = #428bca;
+$note-info-bg               = lighten(spin($note-info-border, -10), 91% + $lbg);
+$note-info-text             = $note-info-border;
+$note-info-icon             = "\f05a";
+
+$note-modern-info-border    = #b3e5ef;
+$note-modern-info-bg        = lighten(spin($note-modern-info-border, 10), 50% + ($lbg * 4));
+$note-modern-info-text      = #31708f;
+$note-modern-info-hover     = darken(spin($note-modern-info-text, -10), 32%);
+
+// Success
+$note-success-border        = #5cb85c;
+$note-success-bg            = lighten(spin($note-success-border, 10), 90% + $lbg);
+$note-success-text          = $note-success-border;
+$note-success-icon          = "\f058";
+
+$note-modern-success-border = #d0e6be;
+$note-modern-success-bg     = lighten(spin($note-modern-success-border, 10), 40% + ($lbg * 4));
+$note-modern-success-text   = #3c763d;
+$note-modern-success-hover  = darken(spin($note-modern-success-text, -10), 27%);
+
+// Warning
+$note-warning-border        = #f0ad4e;
+$note-warning-bg            = lighten(spin($note-warning-border, 10), 88% + $lbg);
+$note-warning-text          = $note-warning-border;
+$note-warning-icon          = "\f06a";
+
+$note-modern-warning-border = #fae4cd;
+$note-modern-warning-bg     = lighten(spin($note-modern-warning-border, 10), 43% + ($lbg * 4));
+$note-modern-warning-text   = #8a6d3b;
+$note-modern-warning-hover  = darken(spin($note-modern-warning-text, -10), 18%);
+
+// Danger
+$note-danger-border         = #d9534f;
+$note-danger-bg             = lighten(spin($note-danger-border, -10), 92% + $lbg);
+$note-danger-text           = $note-danger-border;
+$note-danger-icon           = "\f056";
+
+$note-modern-danger-border  = #ebcdd2;
+$note-modern-danger-bg      = lighten(spin($note-modern-danger-border, 10), 35% + ($lbg * 4));
+$note-modern-danger-text    = #a94442;
+$note-modern-danger-hover   = darken(spin($note-modern-danger-text, -10), 22%);
+注释结束 ---------- */
 :root {
   --body-bg-color: #eee;
   --content-bg-color: #fff;
@@ -10,7 +81,7 @@
   --table-row-odd-bg-color: #f9f9f9;
   --table-row-hover-bg-color: #f5f5f5;
   --menu-item-bg-color: #f5f5f5;
-  --btn-default-bg: #ebebeb;
+  --btn-default-bg: #fff;
   --btn-default-color: #555;
   --btn-default-border-color: #555;
   --btn-default-hover-bg: #222;
@@ -1017,16 +1088,16 @@ pre .javascript .function {
 }
 .main-inner {
   margin: 0 auto;
-  width: calc(100% - 20px);
+  width: 900px;
 }
 @media (min-width: 1200px) {
   .main-inner {
-    width: 1160px;
+    width: 1100px;
   }
 }
 @media (min-width: 1600px) {
   .main-inner {
-    width: 73%;
+    width: 1500px;
   }
 }
 @media (max-width: 767px) {
@@ -1039,16 +1110,16 @@ pre .javascript .function {
 }
 .header-inner {
   margin: 0 auto;
-  width: calc(100% - 20px);
+  width: 900px;
 }
 @media (min-width: 1200px) {
   .header-inner {
-    width: 1160px;
+    width: 1100px;
   }
 }
 @media (min-width: 1600px) {
   .header-inner {
-    width: 73%;
+    width: 1500px;
   }
 }
 .site-brand-container {
@@ -1339,7 +1410,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f59f54;
+  background: #f10a36;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1547,16 +1618,16 @@ pre .javascript .function {
   box-sizing: border-box;
   margin: 0 auto;
   text-align: center;
-  width: calc(100% - 20px);
+  width: 900px;
 }
 @media (min-width: 1200px) {
   .footer-inner {
-    width: 1160px;
+    width: 1100px;
   }
 }
 @media (min-width: 1600px) {
   .footer-inner {
-    width: 73%;
+    width: 1500px;
   }
 }
 .languages {
@@ -2468,16 +2539,16 @@ mjx-container + br {
 .header {
   margin: 0 auto;
   position: relative;
-  width: calc(100% - 20px);
+  width: 900px;
 }
 @media (min-width: 1200px) {
   .header {
-    width: 1160px;
+    width: 1100px;
   }
 }
 @media (min-width: 1600px) {
   .header {
-    width: 73%;
+    width: 1500px;
   }
 }
 @media (max-width: 991px) {
@@ -2997,6 +3068,58 @@ body {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
   border-radius: 10px 10px 10px 10px;
 }
+.pagination {
+  background: rgba(221,221,221,0.8);
+  border-top: 0;
+  border-bottom: 0;
+}
+.pagination .prev,
+.pagination .next,
+.pagination .page-number {
+  border-top: 0;
+  border-bottom: 1px solid #666;
+  transition-property: none;
+}
+.pagination .prev:hover,
+.pagination .next:hover,
+.pagination .page-number:hover {
+  border-bottom-color: #eb6d39;
+  color: #eb6d39;
+}
+.pagination .prev {
+  margin-left: 0;
+  border-bottom: 0;
+}
+.pagination .next {
+  margin-right: 0;
+  border-bottom: 0;
+}
+.pagination .page-number.current {
+  background: #eb6d39;
+  border-bottom-color: #eb6d39;
+  color: #fff;
+}
+@media (max-width: 767px) {
+  .pagination {
+    border-top: none;
+  }
+  .pagination .prev,
+  .pagination .next,
+  .pagination .page-number {
+    border-top: 0;
+    border-bottom: 1px solid #666;
+  }
+  .pagination .prev:hover,
+  .pagination .next:hover,
+  .pagination .page-number:hover {
+    border-bottom-color: #eb6d39;
+    color: #eb6d39;
+  }
+  .pagination .prev,
+  .pagination .next {
+    border-bottom: none;
+  }
+}
 .posts-expand .post-title-link::before {
   background: #eb6d39;
 }
@@ -3005,8 +3128,26 @@ body {
   font-size: 2em;
   font-weight: normal;
 }
-.pagination {
-  opacity: 0.8;
+.post-button {
+  margin-top: 80px;
+}
+.post-button .btn {
+  background: #ddd;
+  border: 2px solid #222;
+  padding: 0px 20px 0px 20px;
+  transition-property: none;
+}
+.post-button .btn:hover {
+  background: #222;
+}
+.post-toc {
+  font-size: 0.8125em;
+}
+.post-toc ol {
+  padding: 0px 2px 5px 10px;
+}
+.post-toc .nav .nav-child {
+  padding-left: 15px;
 }
 .post-tags {
   margin-top: 0px;
@@ -3023,19 +3164,43 @@ body {
   margin: 3px 0 60px 0;
 }
 .posts-expand .post-meta .post-description {
-  font-size: 1.2em;
-  color: #555;
-  margin-top: 60px;
-  visibility: hidden;
-  text-align: left;
+  font-size: 0.8125em;
+  color: #eb6d39;
+  margin-top: 40px;
+  text-align: center;
+}
+.posts-expand .post-meta .post-description::before {
+  content: "简介：";
+}
+.posts-expand .post-meta time {
+  border-bottom: none;
+  cursor: text;
+}
+@media (max-width: 767px) {
+  .post-expand .post-meta .post-description {
+    visibility: visible;
+  }
+}
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4,
+.post-body h5,
+.post-body h6 {
+  border-bottom: none;
+}
+.post-body h1 {
+  margin-bottom: 50px;
+}
+.post-body h2 {
+  margin-top: 50px;
 }
 .comments {
   background: rgba(255,255,255,0.8);
 }
 .reward-container button {
   background: #eb6d39;
-  border: 1px solid #eb6d39;
-  border-radius: 0;
+  border-radius: 10px;
   color: #fff;
   cursor: pointer;
   line-height: 2;
@@ -3045,9 +3210,22 @@ body {
 }
 .reward-container button:hover {
   background: #fff;
-  border: 1px solid transparent;
   color: #eb6d39;
 }
 .vsys {
   display: none !important;
+}
+.category-all-page .category-list-count {
+  color: #888;
+}
+.category-all-page .category-list-count::before {
+  content: ' (';
+  display: inline;
+}
+.category-all-page .category-list-count::after {
+  content: ') ';
+  display: inline;
+}
+.category-all-page .category-list-child {
+  padding-left: 20px;
 }

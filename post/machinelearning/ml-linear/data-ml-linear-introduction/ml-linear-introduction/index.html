@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-17T06:47:36.367Z">
+<meta property="og:updated_time" content="2020-11-06T07:27:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML入门-线性回归简介">
 <meta name="twitter:description" content="（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。">
@@ -102,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1013</p>
+      <p class="site-subtitle" itemprop="description">V 1050</p>
   </div>
 
   <div class="site-nav-right">
@@ -144,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -191,7 +191,7 @@
   </div>
   <div class="reading-progress-bar"></div>
 
-  <a href="https://github.com/slliu96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -279,16 +279,15 @@
           <div class="post-nav-item">${right}</div>
         </div>`;
     }
-    
-    <div style="position: absolute; top: -20px;">post_nav(post)</div>
   </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
 
 ----- 注释结束 -->
 
 
   
   <div style="position: fixed; width: 100%;">
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
       
       <div class="post-tags">
@@ -298,24 +297,20 @@
           <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
           <a href="/tags/线性回归/" rel="tag"><i class="fa fa-tag"></i> 线性回归</a>
       </div>
-    
-    
-    
-      <div class="post-description" style="visibility: visible;">简介：（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。</div>
   </div>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
+              <span>12 分钟</span>
             </span>
             <div class="post-description">（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。</div>
 
@@ -330,7 +325,6 @@
       
         <a id="more"></a>
 
-<hr>
 <h1 id="1-什么是回归"><a href="#1-什么是回归" class="headerlink" title="1. 什么是回归"></a>1. 什么是回归</h1><p>假设有一数据集 $D = \{ X_i, y_i \}^N_{i = 1}$，其中 N 为训练样本数目，i 为样本索引，$X_i$ 为第 i 个样本的输入特征，$y_i$ 为第 i 个样本的输出/响应，那么：</p>
 <p><strong>根据训练样本 D，学习一个从输入 $X$ 到输出 $y$ 的映射 $f$，使得 $y_i = f(X_i)$，<font color="EB6D39">且 $y_i \in R$</font>，这就是回归任务。</strong></p>
 <blockquote>
@@ -369,8 +363,6 @@
 </center>
 
 <p>显然，蓝色直线也是符合线性回归的定义的，因此需要使用预测残差来评价哪个线性模型更优。</p>
-<br>
-
 <h2 id="3-1-预测残差"><a href="#3-1-预测残差" class="headerlink" title="3.1 预测残差"></a>3.1 预测残差</h2><p>根据例中表格数据可以求得：</p>
 <ul>
 <li>绿色直线在训练集上的预测残差为：-41.20, -35.64, 33.92, -8.92, -11.08, 62.91</li>
@@ -395,8 +387,6 @@
 <li>蓝色直线 RSS = 67601</li>
 </ul>
 <p>RSS 可以表示模型预测的整体性能，RSS 最小亦称为为最小二乘 OLS（Ordinary Least Square）。RSS 越小的直线预测越准确，因此显然，绿色直线比蓝色直线要好得多。</p>
-<br>
-
 <h2 id="3-2-三种损失函数"><a href="#3-2-三种损失函数" class="headerlink" title="3.2 三种损失函数"></a>3.2 三种损失函数</h2><p>在机器学习中，用<font color="EB6D39">损失函数 L（Loss Function）</font>来<strong>度量</strong>样本真实值与模型预测值之间的差异，该差异用预测残差 r（Residual）来表示：$r = y - \hat{y}$。</p>
 <p>常见的损失函数有三种：</p>
 <ul>
@@ -487,8 +477,6 @@
 </blockquote>
 </li>
 </ul>
-<br>
-
 <h2 id="5-1-sin-函数曲线实例"><a href="#5-1-sin-函数曲线实例" class="headerlink" title="5.1 $\sin$函数曲线实例"></a>5.1 $\sin$函数曲线实例</h2><p>假设数据产生模型为：$y = \sin (2 \pi x) + \varepsilon$，其中 $\sin$ 函数如下：</p>
 <center>
 
@@ -507,8 +495,6 @@
 
 <p>（1）当 $M = 0$ 时，$y = w_0$，此时为了使 RSS 最小，则训练结果 $w_0 = \bar{y}$。</p>
 <p>（2）当 $M = 9$ 时，可看出函数已经完全拟合了所有 10 个样本（函数通过每个样本点），此时训练集上 $RSS = 0$，但显然，该多项式并没有较好地表达数据的分布。</p>
-<br>
-
 <h2 id="5-2-训练误差与测试误差"><a href="#5-2-训练误差与测试误差" class="headerlink" title="5.2 训练误差与测试误差"></a>5.2 训练误差与测试误差</h2><p>评价模型性能不能在训练集上评估，而应该在新的测试数据集上评估其 <strong>推广性</strong> / <strong>泛化能力（Generalization）</strong>。理论上，随着模型训练的进行，训练误差总是会越来越小，直到为零。根据如下误差计算公式：</p>
 <p>$$<br>E_{RMS} = \sqrt {\dfrac {1} {N} \sum^N_{i = 1} (y_i - \hat{y_i})^2}<br>$$</p>
 <p>统计各样本点的训练误差和测试误差：</p>
@@ -518,8 +504,6 @@
 </center>
 
 <p>从 $M = 3$ 开始，当模型复杂度继续增加时，训练误差继续下降，甚至为 0，而测试误差反而增大，此时发生了过拟合。在本例中，取 $M = 3$ 时的模型最理想，当 $M \in [4, 8]$ 时，虽然测试误差没有增加，但模型复杂度增加，这是没有必要的（奥卡姆剃刀原理）。</p>
-<br>
-
 <h2 id="5-3-过拟合时的模型参数"><a href="#5-3-过拟合时的模型参数" class="headerlink" title="5.3 过拟合时的模型参数"></a>5.3 过拟合时的模型参数</h2><p>统计当 $M$ 分别取 $0 \sim 9$ 时训练出来的模型系数 $w_0 \sim w_M$：</p>
 <center>
 
@@ -527,8 +511,6 @@
 </center>
 
 <p>可以看到，随着阶数的增加，系数 $W$ 的绝对值越来越大，发生过拟合时，回归系数的 绝对值 / 平方值 很大，即使输入 $x$ 变化很小也可能带来 $y$ 很大的变化，函数的抖动很剧烈。</p>
-<br>
-
 <h2 id="5-4-抑制过拟合"><a href="#5-4-抑制过拟合" class="headerlink" title="5.4 抑制过拟合"></a>5.4 抑制过拟合</h2><p>（1）增加训练样本数</p>
 <p>当训练数据增多时，同样使用九阶多项式拟合，也不会产生明显的过拟合现象：</p>
 <center>
@@ -577,8 +559,6 @@
 <p>（1）L2 正则：$R(W) = ||W||^2_2 = \sum^D_{j = 1} w^2_j$</p>
 <p>（2）L1 正则：$R(W) = ||W||_1 = \sum^D_{j = 1} |w_j|$</p>
 <p>其中 $W$ 为模型参数，D 为参数的维数。</p>
-<br>
-
 <h2 id="6-1-岭回归"><a href="#6-1-岭回归" class="headerlink" title="6.1 岭回归"></a>6.1 岭回归</h2><p>岭回归（Ridge）：L2 损失 + L2 正则 + LinearRegression。</p>
 <p>岭回归正则项对截距项不施加惩罚，也即：</p>
 <p>$$<br>R(W) = \sum^D_{j = 1} w^2_j，（j 从 1 开始）<br>$$</p>
@@ -596,8 +576,6 @@
 <p>与 LinearRegression 相同。</p>
 <p><strong>（3）Ridge 类方法</strong></p>
 <p>与 LinearRegression 相同。</p>
-<br>
-
 <h2 id="6-2-Lasso"><a href="#6-2-Lasso" class="headerlink" title="6.2 Lasso"></a>6.2 Lasso</h2><p>Lasso（Least <strong>Absolute</strong> <strong>Shrinkage</strong> and <strong>Selection</strong> Operator）：L2 损失 + L1 正则 + LinearRegression。</p>
 <p>Lasso 有三个关键点：</p>
 <ul>
@@ -616,8 +594,6 @@
 <p>与 LinearRegression 相同。</p>
 <p><strong>（3）Ridge 类方法</strong></p>
 <p>与 LinearRegression 相同。</p>
-<br>
-
 <h2 id="6-3-弹性网络"><a href="#6-3-弹性网络" class="headerlink" title="6.3 弹性网络"></a>6.3 弹性网络</h2><p>弹性网络：L2 损失 + （L1 正则 + L2 正则） + LinearRegression。</p>
 <p>在 性网络中，使用 ρ 表示 L1 正则所占比例，$\dfrac {(1 - \rho)} {2}$ 表示 L2 正则所占比例：</p>
 <p>$$<br>R(W) = \sum^D_{j = 1} \left( \rho |w_j| + \dfrac {(1 - \rho)} {2} w^2_j \right)<br>$$</p>
@@ -700,28 +676,26 @@
 
 
     
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
-    
     <br /> <br /> <br />
     
     <div class="pagination">
         
-        <div style="text-align:center;color: #667788;font-size:18px;">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;感 谢 阅 读</div>
-        
         
             <style type="text/css">
                 .toContact {
-                    background: #FFFFFF;
+                    font-size: 18px;
+                    text-align: center;
                     color: #EB6D39;
-                    border-bottom-color: #EB6D39;
+                    border-bottom: none;
                 }
                 .toContact:hover {
                     background: #EB6D39;
                     color: #FFFFFF;
-                    border-bottom-color: #667788;
+                    border-bottom: none;
                 }
             </style>
-            <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
         
     </div>
 
@@ -881,10 +855,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
         <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
@@ -940,13 +914,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">348k</span>
+    <span title="全站总字数">305k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:26</span>
+    <span title="全站总阅读时长">5:39</span>
 </div>
 
 

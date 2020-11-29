@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）基于 Python 实现支持多进程的 HashingEncoder。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-17T06:47:47.404Z">
+<meta property="og:updated_time" content="2020-11-06T07:27:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashingEncoder-多进程支持">
 <meta name="twitter:description" content="（1）基于 Python 实现支持多进程的 HashingEncoder。">
@@ -102,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1013</p>
+      <p class="site-subtitle" itemprop="description">V 1050</p>
   </div>
 
   <div class="site-nav-right">
@@ -144,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -191,7 +191,7 @@
   </div>
   <div class="reading-progress-bar"></div>
 
-  <a href="https://github.com/slliu96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -275,16 +275,15 @@
           <div class="post-nav-item">${right}</div>
         </div>`;
     }
-    
-    <div style="position: absolute; top: -20px;">post_nav(post)</div>
   </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
 
 ----- 注释结束 -->
 
 
   
   <div style="position: fixed; width: 100%;">
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
       
       <div class="post-tags">
@@ -294,24 +293,20 @@
           <a href="/tags/哈希编码/" rel="tag"><i class="fa fa-tag"></i> 哈希编码</a>
           <a href="/tags/多线程/" rel="tag"><i class="fa fa-tag"></i> 多线程</a>
       </div>
-    
-    
-    
-      <div class="post-description" style="visibility: visible;">简介：（1）基于 Python 实现支持多进程的 HashingEncoder。</div>
   </div>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>15k</span>
+              <span>13k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>17 分钟</span>
+              <span>15 分钟</span>
             </span>
             <div class="post-description">（1）基于 Python 实现支持多进程的 HashingEncoder。</div>
 
@@ -325,7 +320,7 @@
 
       
         <a id="more"></a>
-<hr>
+
 <p>前言：HashingEncoder 对大数据量编码时速度很慢且 CPU 利用率并不高，瞎研究半天写了一个多 <strong>进程</strong> 版的 HashingEncoder，记录一下踩坑历史。本文代码均为伪代码，改进和源码已收录于 Github 上 scikit-learn 工具包，详情参考 <a href="https://github.com/scikit-learn-contrib/categorical-encoding" title="@LINK" target="_blank" rel="noopener">scikit-learn-contrib</a>，建议先阅读：<a href="https://github.com/SLLiu96/MPHashingEncoder" title="@LINK" target="_blank" rel="noopener">使用文档</a>。</p>
 <hr>
 <h1 id="1-源码"><a href="#1-源码" class="headerlink" title="1. 源码"></a>1. 源码</h1><p>有一次在做哈希编码的时候，因为数据量比较大，试了好几种方案，最快都要十二个小时才仅能编码完一个特征，还有 8 个嗷嗷待哺的小特征在后面排队等着我 <em><del>鞭挞</del></em> 编码，电脑已经能烤猪蹄了，这可如何是好。<br>正愁着莫非要升级一波配置，转头监视器一看，CPU 利用率才 16% 上下，这我可就。。。服务器搞起！阿里云太贵，亚马逊麻烦，TinyMind <em><del>辣鸡</del></em> 真辣鸡！华为云好像还不错（我的配置才 3+ 元每小时，不要求最低账内金额），8x3.1GHz + 32G 走你！但是第二个特征依然耗费了 10 个小时才编码完。</p>
@@ -334,9 +329,7 @@
 
 <p>好吧，还真是一个 for 循环往下读啊。这十个小时才跑一个特征，服务器的成本有点担不起啊！看来只好曲线救国了。虽然 Python 本身在执行的时候对 CPU 就有个动态调度，但因为 GIL全局锁 的原因，大多数情况下 Python 都是在单核模式运行的。我对 GIL 有一点点自己的理解，从我的角度出发，个人认为 GIL 还是利大于弊的，何况在 Python3 中已经对对线程/多进程提供了挺不错的额外支持，不过本文不深入探讨 GIL 的内容。</p>
 <hr>
-<h1 id="2-改进思路"><a href="#2-改进思路" class="headerlink" title="2. 改进思路"></a>2. 改进思路</h1><br>
-
-<h2 id="2-1-理论支持"><a href="#2-1-理论支持" class="headerlink" title="2.1 理论支持"></a>2.1 理论支持</h2><p>关于什么是哈希编码的内容网上有很多了，在一开始做这个之前，我考虑过一个问题：按顺序依次编码，和多进程分别编码再按原序拼接，最后的结果是一样的吗？如果多进程编码会导致结果变化，那一切都是白费功夫。之所以对此担心，有一个原因是 <code>我曾经把哈希编码当成了“集合操作”，如果一开始输入的集合不一致就会导致最后的编码结果不一致</code>。当然，事后证明我的想法是错误的，为此我找了一些哈希编码的文章来看，幸运的是，只要规定好输入特征和输出维度，最后的结果和编码的顺序并没有关系。许多篇文章都对哈希编码做了很详尽的说明，我选出来五篇自己看完最有心得的放在附录【12】~【16】中。</p>
+<h1 id="2-改进思路"><a href="#2-改进思路" class="headerlink" title="2. 改进思路"></a>2. 改进思路</h1><h2 id="2-1-理论支持"><a href="#2-1-理论支持" class="headerlink" title="2.1 理论支持"></a>2.1 理论支持</h2><p>关于什么是哈希编码的内容网上有很多了，在一开始做这个之前，我考虑过一个问题：按顺序依次编码，和多进程分别编码再按原序拼接，最后的结果是一样的吗？如果多进程编码会导致结果变化，那一切都是白费功夫。之所以对此担心，有一个原因是 <code>我曾经把哈希编码当成了“集合操作”，如果一开始输入的集合不一致就会导致最后的编码结果不一致</code>。当然，事后证明我的想法是错误的，为此我找了一些哈希编码的文章来看，幸运的是，只要规定好输入特征和输出维度，最后的结果和编码的顺序并没有关系。许多篇文章都对哈希编码做了很详尽的说明，我选出来五篇自己看完最有心得的放在附录【12】~【16】中。</p>
 <p>再经过他人文章的点拨后，我认为多进程实现是可能且符合要求的。把其核心思想总结一下大致可以这么理解：</p>
 <blockquote>
 <ol>
@@ -348,8 +341,6 @@
 </ol>
 </blockquote>
 <p>也就是说，每一次送去编码的进程，其数据都是独立的，并且完全可以分开编码而不需要考虑别的数据，只要给每个进程设置相同的编码算法和输出维度，最后再将每个独立的数据块按照原数据的顺序重新排列即可。</p>
-<br>
-
 <h2 id="2-2-代码思想"><a href="#2-2-代码思想" class="headerlink" title="2.2 代码思想"></a>2.2 代码思想</h2><p>既然是多核性能没发挥出来，那就从并行的角度出发，大致的实现逻辑如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multithreading</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashingEncoder</span>:</span></span><br><span class="line">    self.multi_data = []</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 每个线程调用的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">work</span><span class="params">()</span>:</span></span><br><span class="line">        get_data() <span class="comment"># 每个线程都从整体数据中获取一部分数据</span></span><br><span class="line">        hashing_data = hashing() <span class="comment"># 每个线程都单独进行哈希编码</span></span><br><span class="line">        self.multi_data.append(hashing_data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">transform</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">for</span> thread <span class="keyword">in</span> multi_num</span><br><span class="line">            multithreading.Thread.Thread(target=work).start</span><br><span class="line"></span><br><span class="line">        data = pandas.concat(multi_data, ignore_index=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
@@ -364,11 +355,7 @@
 </ol>
 <hr>
 <h1 id="3-过程中的坑"><a href="#3-过程中的坑" class="headerlink" title="3. 过程中的坑"></a>3. 过程中的坑</h1><p>以下每个小节都是一个记录的坑，为了文章更有逻辑，有些坑我合并成了一节来写。</p>
-<br>
-
 <h2 id="3-1-多线程和多进程问题"><a href="#3-1-多线程和多进程问题" class="headerlink" title="3.1 多线程和多进程问题"></a>3.1 多线程和多进程问题</h2><p>最早第一次改进时，我仅仅只是用多线程式：multithreading 模块，在一个小型计算 Demo 上尝试过，表面上来看似乎确实是并行处理，所以我想当然地认为多线程可以解决多核 CPU 利用率的问题，因此我写出了第一个版本的改进代码后，欣喜若狂，然而上数据一测编码时间几乎没有什么缩减，后来再看监视器，发现 CPU 利用率依然还处在单核上，这个结果一度让我差点放弃，好在研究了一下 multiprocessing 的内容，由此进而了解到了 multiprocessing 模块，这两者非常类似，调用方式也几乎一样，最大的区别就是：①multithreading 本质是 threading 线程、②multiprocessing 本质是 processing 进程。<br>进程和线程的关系想必大家都知道，一个进程可以包括多个线程，而<a href="https://baike.baidu.com/item/进程/382503?fr=aladdin" title="@LINK" target="_blank" rel="noopener">进程</a>是 CPU 资源分配和调度的基本单位，因此从通俗的话来讲，是进程向 CPU 申请资源，然后再提供给线程使用，对于常见的 CPU 而言，通常一个物理核心就对应了一个（支持超线程的 CPU 则对应多个，但 CPU 的线程和应用的线程不是一回事） <strong>可并行处理的</strong> 进程，因此想要发挥出 <strong>多核</strong> 的优势，就要调用 <strong>多进程</strong>。还好，正如上文所说，multiprocessing 和 multithreading 的 API 还是基本类似的，因此下文的坑将直接按照多进程的实现模式举例。</p>
-<br>
-
 <h2 id="3-2-并行顺序读取数据问题"><a href="#3-2-并行顺序读取数据问题" class="headerlink" title="3.2 并行顺序读取数据问题"></a>3.2 并行顺序读取数据问题</h2><p>首先，Python 中多进程有两种常用方式，第一个是生成多个进程并分别执行，第二个是利用进程池的方式，在很多时候进程池其实是更好的方案，因为进程池可以不必手动管理每个进程的周期，也不用手动安排进程的工作流程，只需要指定最大进程数即可，而且还支持异步获取每个进程执行完后的返回值，<font color="#EB6D39">但是！</font>进程池方式比手动方式稍慢一些，由于追求速度，因此最终采取手动管理方式。<br>现在假设我们开启 4 个进程同时执行一个任务，代码应该大致如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">work</span><span class="params">()</span>:</span></span><br><span class="line">    get_data() <span class="comment"># 每个线程都从整体数据中获取第 index 部分的数据</span></span><br><span class="line"></span><br><span class="line">process_list = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    process.append(multiprocessing.Process(target=work, args=()))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> process_list:</span><br><span class="line">    p.start()</span><br><span class="line">    p.join()</span><br></pre></td></tr></table></figure>
 
@@ -379,8 +366,6 @@
 <p>省略了一些判断、具体实现，下同。事实上这里的 <code>done_index</code> 一点作用都没有，每一个进程执行到 <code>start = done_index</code> 时获取到的值都是 0。因为进程被创建时，直接传进去的值属于每个子进程自己的独立空间，如果加上一条 <code>print(id(done_index))</code> 就会发现所有子进程的 done_index 都不一样，同理，无论是用成员变量的方式 <code>self.done_index</code> 也好，还是全局变量的方式 <code>global done_index</code> 也好，结果都是一样的。为了在进程间共享一个数据，可以使用 <code>multiprocessing.Value()</code> 来实现，搭配进程锁起到共享数据且不冲突的作用。另外，当子进程编码完了当前分配的任务数据后，还有未处理的数据，那么就自己再调用一次分配任务，由于锁和共享数据的存在，也不用担心会出现重复读取的问题：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.lock = multiprocessing.Lock()</span><br><span class="line">    self.done_index = multiprocessing.Value(<span class="string">'d'</span>, <span class="number">0</span>)</span><br><span class="line">    self.data_lines = len(data)  <span class="comment"># 样本总数目</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">work</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> self.lock.acquire():  <span class="comment"># 加锁，已确保自己获取到的 done_index 是最新的</span></span><br><span class="line">        start = self.done_index.value</span><br><span class="line">        end = start + max_samples  <span class="comment"># max_samples 是用户定义的每个进程单次读取数据量</span></span><br><span class="line">        self.done_index.value = end  <span class="comment"># 更新已完成的下标</span></span><br><span class="line">        self.lock.release() <span class="comment"># 释放锁，允许其他进程操作更新 done_index</span></span><br><span class="line">        get_data(start, end)</span><br><span class="line">        hashing()</span><br><span class="line">        <span class="keyword">if</span> end &lt; self.data_lines:  <span class="comment"># 尚有未完成的数据，再次调用分配</span></span><br><span class="line">            self.work()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        self.lock.release()</span><br></pre></td></tr></table></figure>
 
-<br>
-
 <h2 id="3-3-编码后数据的保存问题"><a href="#3-3-编码后数据的保存问题" class="headerlink" title="3.3 编码后数据的保存问题"></a>3.3 编码后数据的保存问题</h2><p>现在，并行也跑起来了，子进程也能正确获取到数据了，编码也顺利完成后，主进程怎么收集这个数据呢？毕竟手动管理模式并没有返回值，借鉴上面的方法，想使用一个共享变量来存放，但查了一下 Api，发现 Value() 只支持几种基本类型，但需要收集的数据类型复杂（图片来源：附录【1】）：</p>
 <center>
 
@@ -389,8 +374,6 @@
 
 <p>实际上，multiprocessing 提供了一个非常好的内置方案：队列 Queue。Queue 允许进程按先进先出的顺序使用 <code>put()</code> 存、使用 <code>get()</code> 取对象，且允许设置读、写超时，一旦读、写超过超时时间，则中断锁并放弃操作。Queue 在读取完当前对象后会将其从队列中删除，既能保证数据读取的不重复，还能缩减内存：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.hashing_parts = multiprocessing.Queue()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">work</span><span class="params">(self)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    data = hashing()</span><br><span class="line">    self.hashing_parts.put(data)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主线程等待所有子线程执行完毕</span></span><br><span class="line">list_data = []</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">not</span> hashing_parts.empty():</span><br><span class="line">    list_data.append(hashing_parts.get())</span><br></pre></td></tr></table></figure>
-
-<br>
 
 <h2 id="3-4-结果数据顺序问题"><a href="#3-4-结果数据顺序问题" class="headerlink" title="3.4 结果数据顺序问题"></a>3.4 结果数据顺序问题</h2><p>到这一步，已经可以顺利获取到所有编码完成后的返回值了，都存在 <code>list_data</code> 列表里面，只需要使用 <code>pandas.concat(list_data, ignore_index = 0)</code> 就能把所有数据拼起来成为完整的编码后数据，<font color="#EB6D39">但是！</font>并行编码进程完成的顺序并不能预先确定，很可能后开始的进程先编码完并存进 list_data 内，直接拼接会导致与源数据样本顺序不一致，导致的后果是在一开始提交 PR 时管理员告诉我的：</p>
 <blockquote>
@@ -401,8 +384,6 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.hashing_parts = multiprocessing.Queue()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">work</span><span class="params">(self)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    start = ...  <span class="comment"># 当前数据块起始下标</span></span><br><span class="line">    end = ...  <span class="comment"># 当前数据块结束下标</span></span><br><span class="line">    data = hashing()</span><br><span class="line">    part_index = int(math.ceil(end_index / self.max_sample))</span><br><span class="line">    self.return_data.put(&#123;part_index: data&#125;&#125;)</span><br><span class="line"></span><br><span class="line">list_data = &#123;&#125;</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">not</span> hashing_parts.empty():</span><br><span class="line">    list_data.update(hashing_parts.get())  <span class="comment"># 取出所有的代码块（无序状态）</span></span><br><span class="line">sort_data = []</span><br><span class="line"><span class="keyword">for</span> part_index <span class="keyword">in</span> sorted(list_data):  <span class="comment"># 将所有字典型数据块按照 key 排序后把 value 取出</span></span><br><span class="line">    sort_data.append(list_data[part_index])</span><br><span class="line">data = pandas.concat(sort_data, ignore_index=<span class="literal">True</span>)  <span class="comment"># 拼接数据</span></span><br></pre></td></tr></table></figure>
 
 <p>其中 <code>part_index</code> 的算法是用当前已完成的下标除以每个进程单次处理的下标，并向上取整（为了让结果更直观地从 1 开始），来作为当前数据块的定位。</p>
-<br>
-
 <h2 id="3-5-子进程调用问题"><a href="#3-5-子进程调用问题" class="headerlink" title="3.5 子进程调用问题"></a>3.5 子进程调用问题</h2><p>到了这一步，整体逻辑已经和最终版本差异不大了，从 Demo 测试的结果来看也没有什么问题，不过毕竟这是一个面向公众的平台，不能只是写个 Demo 编译通过就了事，还得通过一定的测试验证。sklearn-category_encoders 采用的是 CI 测试部署方案，在本地可以用 nose 进行单元测试。但是在单元测试中报了这么一个错：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Runtime Error: Lock objects should only be shared between processes through inheritance.</span><br></pre></td></tr></table></figure>
 
@@ -413,8 +394,6 @@
 </blockquote>
 <p>虽然问题并不完全一样，而且就目前来说，直接在代码中引用是可以运行的，不过我认为这是一个启发点。根据作者提供的解决方案，由于没有采用 Pool 的多进程方式，因此选择了使用 Manager 来管理共享变量：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.lock = multiprocessing.Manager.Lock()</span><br><span class="line">    self.hashing_parts = multiprocessing.Manager.Queue()</span><br><span class="line">    self.done_index = multiprocessing.Manager.Value(<span class="string">'d'</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<br>
 
 <h2 id="3-6-深拷贝问题"><a href="#3-6-深拷贝问题" class="headerlink" title="3.6 深拷贝问题"></a>3.6 深拷贝问题</h2><p>OK！完成了上面这些步骤，可以说，最本质的代码层和逻辑层已经完成，CI 测试也已经通过，不过命运就是这么反复无常——category_encoders 的管理员告诉我，使用这套 HashingEncoder 运行一个大数据量的基准测试时，multiprocessing 的 Manager 报错了（省略部分信息）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">    File <span class="string">"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/copy.py"</span>, line <span class="number">180</span>, <span class="keyword">in</span> deepcopy</span><br><span class="line">        y = _reconstruct(x, memo, *rv)</span><br><span class="line">    File <span class="string">"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/copy.py"</span>, line <span class="number">280</span>, <span class="keyword">in</span> _reconstruct</span><br><span class="line">        state = deepcopy(state, memo)</span><br><span class="line">    File <span class="string">"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/copy.py"</span>, line <span class="number">150</span>, <span class="keyword">in</span> deepcopy</span><br><span class="line">        y = copier(x, memo)</span><br><span class="line">    File <span class="string">"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/copy.py"</span>, line <span class="number">240</span>, <span class="keyword">in</span> _deepcopy_dict</span><br><span class="line">        y[deepcopy(key, memo)] = deepcopy(value, memo)</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">multiprocessing.managers.RemoteError:</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">Unserializable message: Traceback (most recent call last):</span><br><span class="line">    File <span class="string">"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/managers.py"</span>, line <span class="number">289</span>, <span class="keyword">in</span> serve_client</span><br><span class="line">        send(msg)</span><br><span class="line">    File <span class="string">"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/connection.py"</span>, line <span class="number">206</span>, <span class="keyword">in</span> send</span><br><span class="line">        self._send_bytes(_ForkingPickler.dumps(obj))</span><br><span class="line">    File <span class="string">"/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/multiprocessing/reduction.py"</span>, line <span class="number">51</span>, <span class="keyword">in</span> dumps</span><br><span class="line">        cls(buf, protocol).dump(obj)</span><br><span class="line">TypeError: can<span class="string">'t pickle _thread.lock objects</span></span><br></pre></td></tr></table></figure>
@@ -516,28 +495,26 @@
 
 
     
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
-    
     <br /> <br /> <br />
     
     <div class="pagination">
         
-        <div style="text-align:center;color: #667788;font-size:18px;">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;感 谢 阅 读</div>
-        
         
             <style type="text/css">
                 .toContact {
-                    background: #FFFFFF;
+                    font-size: 18px;
+                    text-align: center;
                     color: #EB6D39;
-                    border-bottom-color: #EB6D39;
+                    border-bottom: none;
                 }
                 .toContact:hover {
                     background: #EB6D39;
                     color: #FFFFFF;
-                    border-bottom-color: #667788;
+                    border-bottom: none;
                 }
             </style>
-            <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
         
     </div>
 
@@ -697,10 +674,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
         <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
@@ -756,13 +733,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">348k</span>
+    <span title="全站总字数">305k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:26</span>
+    <span title="全站总阅读时长">5:39</span>
 </div>
 
 

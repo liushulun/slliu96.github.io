@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-19T15:47:58.882Z">
+<meta property="og:updated_time" content="2020-11-06T07:27:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML入门-Logistic优化求解与牛顿法">
 <meta name="twitter:description" content="（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。">
@@ -102,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1013</p>
+      <p class="site-subtitle" itemprop="description">V 1050</p>
   </div>
 
   <div class="site-nav-right">
@@ -144,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -191,7 +191,7 @@
   </div>
   <div class="reading-progress-bar"></div>
 
-  <a href="https://github.com/slliu96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -279,16 +279,15 @@
           <div class="post-nav-item">${right}</div>
         </div>`;
     }
-    
-    <div style="position: absolute; top: -20px;">post_nav(post)</div>
   </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
 
 ----- 注释结束 -->
 
 
   
   <div style="position: fixed; width: 100%;">
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
       
       <div class="post-tags">
@@ -298,24 +297,20 @@
           <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
           <a href="/tags/Logistic回归/" rel="tag"><i class="fa fa-tag"></i> Logistic回归</a>
       </div>
-    
-    
-    
-      <div class="post-description" style="visibility: visible;">简介：（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。</div>
   </div>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>17k</span>
+              <span>15k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>19 分钟</span>
+              <span>17 分钟</span>
             </span>
             <div class="post-description">（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。</div>
 
@@ -330,10 +325,10 @@
       
         <a id="more"></a>
 
-<hr>
-<p>在机器学习的优化求解算法中，梯度下降法是无约束优化问题优化求解最常用的方法之一，还有一种求解方法就是牛顿法。相比梯度下降法，牛顿法的收敛速度更快，但同时，每次迭代需要的计算量也更大。</p>
+<p>前言：在机器学习的优化求解算法中，梯度下降法是无约束优化问题优化求解最常用的方法之一，还有一种求解方法就是牛顿法。相比梯度下降法，牛顿法的收敛速度更快，但同时，每次迭代需要的计算量也更大。</p>
 <p>在牛顿法之前，需要先了解：<a href="https://baike.baidu.com/item/泰勒公式/7681487?fr=aladdin" title="@LINK" target="_blank" rel="noopener">泰勒公式</a>。泰勒公式通俗地讲，就是当函数 $f$ 在点 $x$ 处的一阶导数、二阶导数……n 阶导数已知时，即可使用 n 阶泰勒展开来逼近函数 $f$ 在点 $x$ 的 <font color="red">邻域</font> 的函数值，因此泰勒公式求的是一个点的邻域的近似函数值。</p>
 <p>对应优化求解中，通常我们习惯于使用迭代法来求解，而迭代法的本质即：每次向正确的方向移动一小段，直到达到给定条件。这就与泰勒公式不谋而合——每次移动一小段之后的函数值可以使用移动前该点的泰勒展开来逼近，因此牛顿法或拟牛顿法都是在泰勒公式的基础上进行的。</p>
+<hr>
 <h1 id="1-牛顿法"><a href="#1-牛顿法" class="headerlink" title="1. 牛顿法"></a>1. 牛顿法</h1><p>牛顿法（Newton - Raphson，牛顿 - 拉夫逊）是牛顿在 17 世纪提出的用于求解方程的根的方法。其求解思想如下：</p>
 <p>① 假设点 $x^{\ast}$ 为函数 $f(x)$ 的根，则 $f(x) = 0$。</p>
 <p>② 将函数 $f(x)$ 在点 $x_0$ 处进行一阶泰勒展开有：$f(x) \approx f(x_0) + (x - x_0) f’(x_0)$</p>
@@ -403,8 +398,6 @@
 <p>实际上，拟牛顿法的条件给出了 Hessian 矩阵的近似需要满足的条件。</p>
 </font>
 
-<br>
-
 <h2 id="2-1-BFGS"><a href="#2-1-BFGS" class="headerlink" title="2.1 BFGS"></a>2.1 BFGS</h2><p>BFGS（Broyden, Fletcher, Glodfarb, Shanno）被认为是数值效果最好的拟牛顿法，且具有全局收敛性和超线性收敛速度。</p>
 <p>BFGS 算法采用迭代法逼近 Hessian 矩阵：$B^{(t + 1)} = B^{(t)} + \Delta B^{(t)}$，初始值 $B^{(0)} = I$ 为单位矩阵，因此关键在于如何构造 $\Delta B^{(t)}$。</p>
 <p>为保证矩阵 $B$ 的正定性，令 $\Delta B^{(t)} = \alpha u u^T + \beta v v^T$，代入上述拟牛顿法条件可得：</p>
@@ -445,8 +438,6 @@
 <p>⑤ 若 $||g^{(t + 1)}|| \le \varepsilon$，则迭代终止</p>
 <p>⑥ 计算：$y^{(t)} = g^{(t + 1)} - g^{(t)}$</p>
 <p>⑦ $t = t + 1$，跳转第 2 步</p>
-<br>
-
 <h2 id="2-2-L-BFGS"><a href="#2-2-L-BFGS" class="headerlink" title="2.2 L-BFGS"></a>2.2 L-BFGS</h2><p>在 BFGS 中，每一轮迭代需要存储 Hessian 矩阵或其近似（$B^{(t)}$ 或 $D^{(t)}$），但当 $X$ 维数很高时，矩阵的维度也会很高，需要耗费大量存储空间。</p>
 <p>L-BFGS（Limited memory BFGS）不直接存储 Hessian 矩阵或其近似（$B^{(t)}$ 或 $D^{(t)}$），而是存储迭代计算过程中的 $s^{(t)}$ 和 $y^{(t)}$ 来计算，从而减少参数存储所需空间。</p>
 <p>在 BFGS 中，Hessian 矩阵的更新公式为：</p>
@@ -511,8 +502,6 @@
 </ul>
 <p>观察目标函数的损失和部分：</p>
 <p>$<br>J_1 (W) = \sum^N_{i = 1} \left( - y_i \log (\mu (X_i; W)) - (1 - y_i) \log (1 - \mu (X_i; W)) \right)<br>$</p>
-<br>
-
 <h2 id="3-1-梯度"><a href="#3-1-梯度" class="headerlink" title="3.1 梯度"></a>3.1 梯度</h2><p>最优化问题的求解离不开梯度的计算，由于目标函数中包含了 $\mu$，即 Sigmoid 变换，记 $\mu_i = \mu (X_i; W) = \sigma (W^T X_i)$，令 $z_i = W^T X_i$，根据复合函数的求导，$\dfrac {\partial \mu_i} {\partial W}$ 的求解如下：</p>
 <p>$<br>\begin{aligned}<br>\dfrac {\partial \mu_i} {\partial W} &amp;= \dfrac {\partial \sigma (W^T X_i)} {\partial W} = \dfrac {\partial \sigma {z_i}} {\partial W}<br>\\<br>&amp;= \dfrac {d \sigma (z_i)} {d z_i} \dfrac {\partial z_i} {\partial W}<br>\end{aligned}<br>$</p>
 <p>其中 ① 复合函数外层 $\sigma (z_i)$ 求导：</p>
@@ -542,8 +531,6 @@
 <p>因此，梯度的表达式为：$g_1 (W) = X^T (\mu - y)$。</p>
 </font>
 
-<br>
-
 <h2 id="3-2-Hessian矩阵"><a href="#3-2-Hessian矩阵" class="headerlink" title="3.2 Hessian矩阵"></a>3.2 Hessian矩阵</h2><p>Logistic 损失和部分的梯度为 $g_1 (W) = X^T (\mu - y)$，由此求解 Hessian 矩阵：</p>
 <p>$<br>\begin{aligned}<br>H_1 (W) &amp;= \dfrac {\partial g_1 (W)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} (\mu_i - y_i) X_i \right)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} X^T_i (\mu_i - y_i) \right)} {\partial W}<br>\\<br>&amp;= \sum^N_{i = 1} X^T_i \dfrac {\partial (\mu_i)} {\partial W}<br>\\<br>&amp;= \sum^N_{i = 1} X^T_i \mu_i (1 - \mu_i) X_i<br>\end{aligned}<br>$</p>
 <blockquote>
@@ -554,8 +541,6 @@
 
 <p>$$<br>H_1 (W) = X^T S X<br>$$</p>
 </font>
-
-<br>
 
 <h2 id="3-3-牛顿法求解Logistic损失函数和极小值：IRLS"><a href="#3-3-牛顿法求解Logistic损失函数和极小值：IRLS" class="headerlink" title="3.3 牛顿法求解Logistic损失函数和极小值：IRLS"></a>3.3 牛顿法求解Logistic损失函数和极小值：IRLS</h2><p>当解得梯度 $g_1 (W) = X^T (\mu - y)$ 和 Hessian 矩阵 $H_1 (W) = X^T S X$ 后，即可代入牛顿迭代公式中：</p>
 <p>$<br>\begin{aligned}<br>W^{(t + 1)} &amp;= W^{(t)} - H(W^{(t)})^{-1} g(W)<br>\\<br>&amp;= W^{(t)} - (X^T S^{(t)} X)^{-1} X^T (\mu - y)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} (X^T S^{(t)} X) \times W^{(t)} - (X^T S^{(t)} X)^{-1} X^T (\mu - y)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} \times \left( X^T S^{(t)} X W^{(t)} - X^T (\mu - y) \right)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} \times \left( X^T S^{(t)} X W^{(t)} - X^T S^{(t)} {S^{(t)}}^{-1} (\mu - y) \right)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} X^T S^{(t)} \times \left( X W^{(t)} - {S^{(t)}}^{-1} (\mu - y) \right)<br>\end{aligned}<br>$</p>
@@ -629,28 +614,26 @@
 
 
     
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
-    
     <br /> <br /> <br />
     
     <div class="pagination">
         
-        <div style="text-align:center;color: #667788;font-size:18px;">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;感 谢 阅 读</div>
-        
         
             <style type="text/css">
                 .toContact {
-                    background: #FFFFFF;
+                    font-size: 18px;
+                    text-align: center;
                     color: #EB6D39;
-                    border-bottom-color: #EB6D39;
+                    border-bottom: none;
                 }
                 .toContact:hover {
                     background: #EB6D39;
                     color: #FFFFFF;
-                    border-bottom-color: #667788;
+                    border-bottom: none;
                 }
             </style>
-            <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
         
     </div>
 
@@ -810,10 +793,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
         <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
@@ -869,13 +852,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">348k</span>
+    <span title="全站总字数">305k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:26</span>
+    <span title="全站总阅读时长">5:39</span>
 </div>
 
 

@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="（1）ValueAnimator 基本介绍；（2）ObjectAnimator 基本介绍；（3）ObjectAnimator 与 Matrix 配合实现动画效果；（4）动画并行、监听。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-19T15:47:58.876Z">
+<meta property="og:updated_time" content="2020-11-06T07:27:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android-ObjectAnimator">
 <meta name="twitter:description" content="（1）ValueAnimator 基本介绍；（2）ObjectAnimator 基本介绍；（3）ObjectAnimator 与 Matrix 配合实现动画效果；（4）动画并行、监听。">
@@ -102,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1013</p>
+      <p class="site-subtitle" itemprop="description">V 1050</p>
   </div>
 
   <div class="site-nav-right">
@@ -144,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -191,7 +191,7 @@
   </div>
   <div class="reading-progress-bar"></div>
 
-  <a href="https://github.com/slliu96" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -275,16 +275,15 @@
           <div class="post-nav-item">${right}</div>
         </div>`;
     }
-    
-    <div style="position: absolute; top: -20px;">post_nav(post)</div>
   </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
 
 ----- 注释结束 -->
 
 
   
   <div style="position: fixed; width: 100%;">
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
     
       
       <div class="post-tags">
@@ -294,24 +293,20 @@
           <a href="/tags/ObjectAnimator/" rel="tag"><i class="fa fa-tag"></i> ObjectAnimator</a>
           <a href="/tags/属性动画/" rel="tag"><i class="fa fa-tag"></i> 属性动画</a>
       </div>
-    
-    
-    
-      <div class="post-description" style="visibility: visible;">简介：（1）ValueAnimator 基本介绍；（2）ObjectAnimator 基本介绍；（3）ObjectAnimator 与 Matrix 配合实现动画效果；（4）动画并行、监听。</div>
   </div>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>18k</span>
+              <span>16k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>20 分钟</span>
+              <span>18 分钟</span>
             </span>
             <div class="post-description">（1）ValueAnimator 基本介绍；（2）ObjectAnimator 基本介绍；（3）ObjectAnimator 与 Matrix 配合实现动画效果；（4）动画并行、监听。</div>
 
@@ -325,7 +320,7 @@
 
       
         <a id="more"></a>
-<hr>
+
 <p>前言：之前的项目有一个功能需要对“画布”进行动画变换而不改变 View 本身，在上一篇<a href="/post/Android/data-android-matrix-basic/android-matrix-basic/" title="@LINK">Android属性——Matrix矩阵</a>中，已经用 <strong>Matrix</strong> 实现了对画布的变换，但只能实现跳跃式变换，还需要加上平缓的动画过渡效果，因此搭配使用 <strong>ObjectAnimator</strong> 实现功能并记录于本文。</p>
 <hr>
 <h1 id="1-构思"><a href="#1-构思" class="headerlink" title="1. 构思"></a>1. 构思</h1><p>在项目中，有一个功能是希望能在介绍页对 App 的功能做一些引导指示，一开始构思这个效果的时候，最简单的也是最容易想到的方式就是预设固定的图片，在需要时设置显示，不需要提示时隐藏：</p>
@@ -334,8 +329,6 @@
 <p>但是这种方式太过简单和死板界面也相当不优雅，并且也只能完成一些非常非常简单的视图展示效果，在需要动态展示一些过程的时候就很难实现预期效果了。于是想到了 <strong>ValueAnimator</strong> ——数值属性动画这个神奇的东西，ValueAnimator 是一个非常强大的类。但是为什么最后还是没有用 ValueAnimator 呢？接下来本篇就会对 ValueAnimator 做一个简单的介绍，并解释其与 ObjectAnimator 的联系和异同。</p>
 <hr>
 <h1 id="2-ValueAnimator与ObjectAnimator"><a href="#2-ValueAnimator与ObjectAnimator" class="headerlink" title="2. ValueAnimator与ObjectAnimator"></a>2. ValueAnimator与ObjectAnimator</h1><p>提到这两个东西，就必须首先说明：<strong>ValueAnimator</strong> 是 <strong>ObjectAnimator</strong> 它爹（ObjectAnimator：？？？），ObjectAnimator 是继承自 ValueAnimator 的，因此 ObjectAnimator 具有 ValueAnimator 的全部特性，并重写了 ValueAnimator 中的部分方法，定性地总结一句，<font color="#EB6D39">ObjectAnimator 具有更高的灵活性和便捷性</font>。<br>（这两个类名字可还真长啊）</p>
-<br>
-
 <h2 id="2-1-ValueAnimator的基本介绍"><a href="#2-1-ValueAnimator的基本介绍" class="headerlink" title="2.1 ValueAnimator的基本介绍"></a>2.1 ValueAnimator的基本介绍</h2><p>虎父无犬子，ObjectAnimator 既然能被广泛使用，其父类 ValueAnimator 作为一个强大的属性动画类当然要放在前面先说说了。ValueAnimator 提供了一系列改变属性的方式，在提供属性动画时，可以选择不同的数值增长方式控制属性值，线性增长、曲线增长等等，例如在缩放显示图像的过程中，如果选择线性增长，图片将匀速缩放，如果选择曲线增长，图片可以以加速或减速的方式缩放，并且还支持在动画执行过程中获取其值的分布和执行的过程监控等，<strong>但是！</strong> ValueAnimator 本身并不会改变控件的属性，也不会直接与动画本身进行联系和控制，常用的创建一个 ValueAnimator 对象的方法是：<code>ValueAnimator valueAnimator = ValueAnimator.ofXXX(xxx...);</code>，其中 <code>XXX</code> 表示不同类型的数据（int、float、args等），<code>xxx...</code> 表示变化范围，是一个可变长参数，例如给定 <code>ofInt(1, 0);</code>，表示从1变为0，给定 <code>ofInt(1, 0, 1);</code> 表示从1变为0再变为1。</p>
 <p>ValueAnimator 实现动画的原理在于使用了：<font color="#EB6D39">Interpolator（插值器）</font> 和  <font color="#EB6D39">TypeEvaluator（数值计算器）</font>，通俗的说，Interpolator 可以根据给出的值来设定数值的变化方式，例如上文中提到的线性和曲线方式。其他 Interpolator 可以参考下面引用博文内的配图（特别简单明了，大赞！）。</p>
 <p>在缩放执行的过程中，动画效果主要就是靠这两个工具来实现的。当我们给出需要缩放的目标大小是从原大小（缩放率为1）放大到2倍（缩放率为2），缩放时间为1秒，并选择线性增长的 Interpolator，那么 TypeEvaluator 就会生成一个时间长度为1秒，且缩放值从1到2的一系列数值，我们无法列举出每一个产生的数值，但是可以知道，当动画刚刚开始第0秒时，TypeEvaluator 计算的缩放率是1；当动画结束的第1秒时，缩放率是2；而在中间第0.5秒时，缩放率是1.5……也就是说，TypeEvaluator 会根据选定的 Interpolator 替我们计算好了某个时刻应该变化的具体值是多少，然后通过快速、连续地设定这个值来产生动画的效果。下面是改变一个 ImageView 的透明度的 Demo，布局很简单，一个 ImageView 一个 Button：</p>
@@ -362,8 +355,6 @@
 <li><strong>通过 ValueAnimator 对象的 TypeEvaluator 产生值</strong></li>
 <li><strong>在监听器 AnimatorUpdateListener 中监听数值的变化并指定事件处理</strong></li>
 </ol>
-<br>
-
 <h1 id="2-2-ObjectAnimator的基本介绍"><a href="#2-2-ObjectAnimator的基本介绍" class="headerlink" title="2.2 ObjectAnimator的基本介绍"></a>2.2 ObjectAnimator的基本介绍</h1><p>上面介绍完了 ValueAnimator，接下来就要说说其子类 ObjectAnimator 了。既然是子类，当然 ValueAnimator 具有的一切特性 ObjectAnimator 也具有，并且通过重写父类的部分方法，从而提供了更高的易用性。举个例子，在 ValueAnimator 中，由于本身并不接触控件，因此对动画的实现始终需要我们手动去做一些处理，但是 ObjectAnimator 就大大提高了普遍情况下的简易性——它可以直接控制控件的常规属性，例如透明度、 缩放、旋转等等，对于不同的控件，都可以直接指定控件拥有的属性，用同样的方式创建一个 ObjectAnimator 对象：<br><code>ObjectAnimator objectAnimator = ObjectAnimator.ofXXX(Object target, String propertyName, xxx...);</code></p>
 <ol>
 <li><strong>target</strong>：需要应用变化的控件</li>
@@ -425,14 +416,10 @@
 </center>
 
 <p>这个效果就很明显了，放大也是执行了的，改变透明度也是执行了的，因为每一次动画开始执行后就会继续向下执行，因此视觉上看起来很就是一起执行了。这也提供给了我们一个同时执行多个动画效果的思路：<strong>硬生生的把多个动画效果顺序提交执行</strong>。但是这也是非常非常不友好的实现方式，在每个动画效果比较简单、设备性能较好等情况下也许没有很严重的问题，但是如果动画复杂、处理量大，就会导致动画严重卡顿。于是这里就引出了 <font color="#EB6D39">PropertyValuesHolder</font> 这个工具，它和数据库中的 Transaction 事务管理非常像——要么不做、要么全做。</p>
-<br>
-
 <h2 id="4-1-PropertyValuesHolder属性值保存器"><a href="#4-1-PropertyValuesHolder属性值保存器" class="headerlink" title="4.1 PropertyValuesHolder属性值保存器"></a>4.1 PropertyValuesHolder属性值保存器</h2><p>PropertyValuesHolder 一次性记录多个要执行的动画，然后把自己传给 ObjectAnimator，来实现多个动画同时并行 <em>（事实上从底层上来看，CPU的处理在微观上依然单线程的，并且 PropertyValuesHolder 也有导致卡顿的风险）</em> ，下面是 PropertyValuesHolder 的使用样例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过 PropertyValuesHolder 存入需要改变的属性和值</span></span><br><span class="line">PropertyValuesHolder pvhScale = PropertyValuesHolder.ofFloat(<span class="string">"scaleToMatrix"</span>, <span class="number">4.2f</span>, <span class="number">8.4f</span>);</span><br><span class="line">PropertyValuesHolder pvhAlpha = PropertyValuesHolder.ofFloat(<span class="string">"alpha"</span>, <span class="number">1f</span>, <span class="number">0f</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过 ObjectAnimator 应用到控件中</span></span><br><span class="line">objectAnimator = ObjectAnimator.ofPropertyValuesHolder(sivImage, pvhScale, pvhAlpha);</span><br><span class="line">objectAnimator.setDuration(<span class="number">1000</span>);</span><br><span class="line">objectAnimator.start();</span><br></pre></td></tr></table></figure>
 
 <p>从 PropertyValuesHolder（太长了，简称 PVH）的字面上就可以理解，PVH 是一个属性取值的保持器，也就是说，一个 PVH 对象就存入了一个你需要改变值的属性以及这个属性需要变化的取值，但是 PVH 本身是不接触控件的，从这方面来看，PVH 像极了 ValueAnimator，不同点在于 PVH 依然需要针对具体的属性。动画效果与上面的“放大接改变透明度”一样，就不再重复贴图了。</p>
-<br>
-
 <h2 id="4-2-AnimatorSet动画集合"><a href="#4-2-AnimatorSet动画集合" class="headerlink" title="4.2 AnimatorSet动画集合"></a>4.2 AnimatorSet动画集合</h2><p><font color="#EB6D39">AnimatorSet</font> 是一个动画集合，与之类似的还有一个叫 <font color="#EB6D39">AnimationSet</font> 的东西，从功能性来说，AnimatorSet 更为强大，AnimationSet 实现的效果与 PropertyValuesHolder 相似，都是把动画组合在一起执行，而 AnimatorSet 强大的地方在于，不仅能让动画组合执行，还能通过指定顺序让多个动画依次执行，因此本文中仅对 AnimatorSet 进行简单的讲解，篇幅有限，此处就只列出基本的应用方法，细节原理和复杂应用考虑在日后补充。</p>
 <p>先说说其中两个方法：</p>
 <ol>
@@ -473,8 +460,6 @@
 <blockquote>
 <p>AnimatorSet的详解可以参考附录【5】<br>AnimatorSet以及AnimationSet的区别可以参考附录【6】</p>
 </blockquote>
-<br>
-
 <h2 id="4-3-AnimatorListener动画监听"><a href="#4-3-AnimatorListener动画监听" class="headerlink" title="4.3 AnimatorListener动画监听"></a>4.3 AnimatorListener动画监听</h2><p>在做动画效果的时候，往往我们不会仅仅只是为了展示，而会接一些逻辑上的事情，比如 Splash 页面的动画在执行完后要进入主页、更改信息的动画执行完后要退回上一个界面、Tips 引导动画执行完后要打开对应的操作窗口等等，但是上文我们也提到过，不论是 ValueAnimator 也好，ObjectAnimator 也好，或者 Animation 视图动画也好，其动画的运行过程可以 <strong>理解为</strong> 是在后台执行的，而主线程依然会继续向下执行代码，因此如果我们只是简单地把需要操作的事务代码放在动画执行的后面，会导致事务和动画一起执行，那么我们到底要如何才能做到 <em>“动画执行完之后操作事务”</em> 呢？方法就是：利用 AnimatorListener 监听器。</p>
 <p>同理，既然 AnimatorListener 是一个监听器，那它就需要被绑定到想要监听的动画上，动画监听有四个需要重写的方法：</p>
 <ol>
@@ -580,28 +565,26 @@
 
 
     
-    <font color=#999999 size=1>【注】本文由 SLLiu 原创于 liushulun.cn，引用前请务必联系授权。</font>
-    
     <br /> <br /> <br />
     
     <div class="pagination">
         
-        <div style="text-align:center;color: #667788;font-size:18px;">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;感 谢 阅 读</div>
-        
         
             <style type="text/css">
                 .toContact {
-                    background: #FFFFFF;
+                    font-size: 18px;
+                    text-align: center;
                     color: #EB6D39;
-                    border-bottom-color: #EB6D39;
+                    border-bottom: none;
                 }
                 .toContact:hover {
                     background: #EB6D39;
                     color: #FFFFFF;
-                    border-bottom-color: #667788;
+                    border-bottom: none;
                 }
             </style>
-            <a href="/about/" class="toContact">本文未开启评论，点击前往留言区</a>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
         
     </div>
 
@@ -761,10 +744,10 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/slliu96" title="GitHub → https://github.com/slliu96" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:lsldev@foxmail.com" title="E-Mail → mailto:lsldev@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
         <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
@@ -820,13 +803,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">348k</span>
+    <span title="全站总字数">305k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:26</span>
+    <span title="全站总阅读时长">5:39</span>
 </div>
 
 
