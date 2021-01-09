@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Android 消息处理机制的基本原理，以及在主线程中消息处理机制的特殊性。">
+<meta name="keywords" content="Android,消息处理机制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-消息处理机制">
+<meta property="og:url" content="https://www.liushulun.cn/post/android/android-message-handling/android-message-handling/index.html">
+<meta property="og:site_name" content="SLLiu&#39;s Blogs">
+<meta property="og:description" content="Android 消息处理机制的基本原理，以及在主线程中消息处理机制的特殊性。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-06T16:40:19.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-消息处理机制">
+<meta name="twitter:description" content="Android 消息处理机制的基本原理，以及在主线程中消息处理机制的特殊性。">
+
+<link rel="canonical" href="https://www.liushulun.cn/post/android/android-message-handling/android-message-handling/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+
+  <title>Android-消息处理机制 | SLLiu's Blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="开/关导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">SLLiu's Blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">V 1050</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">62</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">80</span></a>
+
+  </li>
+        <li class="menu-item menu-item-records">
+
+    <a href="/records/" rel="section"><i class="fa fa-fw fa-list-alt"></i>记录</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/android/android-message-handling/android-message-handling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SLLiu's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android-消息处理机制
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-08 12:09:18" itemprop="dateCreated datePublished" datetime="2019-05-08T12:09:18+08:00">2019-05-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+
+
+
+<!-- 注释开始 -----
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+  </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
+
+----- 注释结束 -->
+
+
+  
+  <div style="position: fixed; width: 100%;">
+    
+      
+      <div class="post-tags">
+          <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          <a href="/tags/消息处理机制/" rel="tag"><i class="fa fa-tag"></i> 消息处理机制</a>
+      </div>
+  </div>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">Android 消息处理机制的基本原理，以及在主线程中消息处理机制的特殊性。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <a id="more"></a>
+
+<h1 id="1-消息处理机制基本原理"><a href="#1-消息处理机制基本原理" class="headerlink" title="1. 消息处理机制基本原理"></a>1. 消息处理机制基本原理</h1><p>消息处理机制中涉及到的关键细化内容在以下系列文章中：</p>
+<ul>
+<li><a href="/post/java/java-threadlocal/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
+<li><a href="/post/android/android-message/android-message/" title="@LINK">Android——Message</a></li>
+<li><a href="/post/android/android-messagequeue/android-messagequeue/" title="@LINK">Android——MessageQueue</a></li>
+<li><a href="/post/android/android-looper/android-looper/" title="@LINK">Android——Looper</a></li>
+<li><a href="/post/android/android-handler/android-handler/" title="@LINK">Android——Handler</a></li>
+</ul>
+<p>Android 消息处理机制总结：</p>
+<p>Handler 处理消息所在的线程，和初始化该 Handler 时使用的 Looper 有关，Handler 的构造方法中调用了 <code>mLooper = Looper.myLooper();</code>，并在 <code>Looper.myLooper()</code> 内部通过 ThreadLocal 获取了与当前线程绑定的 Looper 实例对象。一个线程默认不具有处理消息的能力，需要通过调用 <code>Looper.prepare()</code> 来初始化线程的消息处理功能，并调用 <code>Looper.loop()</code> 开启消息循环。如果当前线程没有调用 <code>Looper.prepare()</code>，则发送消息会报错 RuntimeException。</p>
+<p>MessageQueue 是 Looper 的一个成员变量，消息队列的本质不是队列而是单链表，Handler 所有发送消息的方法最终都是调用的 <code>sendMessageAtTime</code>，并在内部调用了 <code>enqueueMessage()</code>，每个消息根据发送时设置的时间顺序添加到 MessageQueue 的单链表中。</p>
+<p>Handler 发送消息时，会赋值 <code>Message.targer = this;</code> 将自己与 Message 绑定，因此 Looper 在循环取出消息时，根据 <code>Message.target</code> 取出并发送给该 Handler 实例对象处理。</p>
+<p>Android 的主线程即 UI 线程在一个 App 进程中唯一，在 <code>ActivityThread.main()</code> 方法中调用了 <code>Looper.prepareMainLooper()</code>，因此在主线程在运行时已经开启了消息循环，因此在主线程中使用 Handler 不需要显示调用 <code>Looper.prepare()</code> 和 <code>Looper.loop()</code>，并且在子线程中更新 UI 时，如果使用 <code>Looper.getMainLooper()</code> 来实例化 Handler，则消息都会被发送到主线程。</p>
+<p>因此可以利用消息处理机制的特性，把接收线程的 Looper 传给发送线程并用来初始化 Handler，即可实现进程间通信。但使用该方法实现主线程向子线程通信时可能发生异常，这是因为主线程开启子线程后就向下执行，主线程的发送 Handler 初始化时，子线程的接收 Looper 可能还没有完成实例化或 <code>prepare()</code> 或 <code>loop()</code> 等初始化操作，导致空指针或 RuntimeException。为此可以使用 HandlerThread 类替代普通的子线程，实例化时只需传入一个 String 作为线程名即可。但 HandlerThread 不能重写 <code>run()</code> 方法，当然也无需手动调用 <code>prepare()</code> 和 <code>loop()</code> 初始化。</p>
+<hr>
+<h1 id="2-主线程中的消息处理机制"><a href="#2-主线程中的消息处理机制" class="headerlink" title="2. 主线程中的消息处理机制"></a>2. 主线程中的消息处理机制</h1><p>思考一个问题：根据上面的分析可知，一个线程在处理消息时，是通过 <code>for</code> 循环来不断轮询 MessageQueue 的，但是在主线程中，如果消息耗时或出现异常，就会导致 UI 更新延迟甚至 <code>main()</code> 方法异常退出，那主线程的消息处理机制是如何避免这些情况的呢？</p>
+<p>未完待续</p>
+
+    </div>
+
+    
+    
+    
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+
+
+
+
+    
+    <br /> <br /> <br />
+    
+    <div class="pagination">
+        
+        
+            <style type="text/css">
+                .toContact {
+                    font-size: 18px;
+                    text-align: center;
+                    color: #EB6D39;
+                    border-bottom: none;
+                }
+                .toContact:hover {
+                    background: #EB6D39;
+                    color: #FFFFFF;
+                    border-bottom: none;
+                }
+            </style>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
+        
+    </div>
+
+
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    感谢支持
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="SLLiu 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="SLLiu 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>SLLiu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.liushulun.cn/post/android/android-message-handling/android-message-handling/" title="Android-消息处理机制">https://www.liushulun.cn/post/android/android-message-handling/android-message-handling/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+              <a href="/tags/消息处理机制/" rel="tag"><i class="fa fa-tag"></i> 消息处理机制</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/post/python/python-mphashingencoder/python-hashingencoder-optimization/" rel="prev" title="HashingEncoder-多进程支持">
+      <i class="fa fa-chevron-left"></i> HashingEncoder-多进程支持
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/post/android/android-looper/android-looper/" rel="next" title="Android-Looper">
+      Android-Looper <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-消息处理机制基本原理"><span class="nav-text">1. 消息处理机制基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-主线程中的消息处理机制"><span class="nav-text">2. 主线程中的消息处理机制</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SLLiu"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">SLLiu</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">80</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → /"><i class="fa fa-fw fa-home"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-users"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io" title="https://renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com" title="https://blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">全站总字数：</span>
+    <span title="全站总字数">345k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:23</span>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
+      appKey     : 'YRRibTsHhmelPnfq41YO6B1r',
+      placeholder: "Nice !",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+</body>
+</html>

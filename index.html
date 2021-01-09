@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
@@ -123,7 +123,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">61</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">62</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -133,7 +133,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">78</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">80</span></a>
 
   </li>
         <li class="menu-item menu-item-records">
@@ -204,7 +204,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/bloginfo/data-bloginfo-billboard/bloginfo-billboard/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/bloginfo/bloginfo-billboard/bloginfo-billboard/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -224,7 +224,7 @@
       
           <center>
 
-<p><a href="/post/bloginfo/data-bloginfo-welcome/bloginfo-welcome/" title="@LINK"><font color="#EB6D39">Welcome</font></a>&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/post/bloginfo/data-bloginfo-collections/bloginfo-collections/" title="@LINK"><font color="#EB6D39">文章收藏</font></a></p>
+<p><a href="/post/bloginfo/bloginfo-welcome/bloginfo-welcome/" title="@LINK"><font color="#EB6D39">Welcome</font></a>&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/post/bloginfo/bloginfo-collections/bloginfo-collections/" title="@LINK"><font color="#EB6D39">文章收藏</font></a></p>
 <p><a href="/categories/BlogDIY/" title="@LINK"><font color="EB6D39" size="5">欢迎点此参考超详细的博客 DIY 系列</font></a></p>
 </center>
       
@@ -245,7 +245,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/note/data-note-git/note-git/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/android/android-ui_thread/android-ui_thread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -259,7 +259,111 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/note/data-note-git/note-git/" class="post-title-link" itemprop="url">常用Git命令</a>
+            <a href="/post/android/android-ui_thread/android-ui_thread/" class="post-title-link" itemprop="url">Android子线程到底能否更新UI——可能是最全面的解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-07 01:10:32" itemprop="dateCreated datePublished" datetime="2020-12-07T01:10:32+08:00">2020-12-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+
+
+
+<!-- 注释开始 -----
+
+----- 注释结束 -->
+
+
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>40k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>44 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>（1）为什么子线程更新 UI 会抛出异常、及其设计思想；（2）从 Activity 的加载流程看更新 UI 时如何判断线程；（3）ViewRootImpl 判断线程的依据；（4）子线程更新 UI 的方法；（5）总结。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/post/android/android-ui_thread/android-ui_thread/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/note/note-git/note-git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SLLiu's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/post/note/note-git/note-git/" class="post-title-link" itemprop="url">常用Git命令</a>
         </h2>
 
         <div class="post-meta">
@@ -325,7 +429,7 @@
           <p>常用 Git 命令。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/note/data-note-git/note-git/">
+              <a class="btn" href="/post/note/note-git/note-git/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -349,7 +453,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/interview/data-interview-find-pictures/interview-find-pictures/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/interview/interview-find-pictures/interview-find-pictures/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -363,7 +467,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/interview/data-interview-find-pictures/interview-find-pictures/" class="post-title-link" itemprop="url">面试题-数据库中查找图片</a>
+            <a href="/post/interview/interview-find-pictures/interview-find-pictures/" class="post-title-link" itemprop="url">面试题-数据库中查找图片</a>
         </h2>
 
         <div class="post-meta">
@@ -429,7 +533,7 @@
           <p>。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/interview/data-interview-find-pictures/interview-find-pictures/">
+              <a class="btn" href="/post/interview/interview-find-pictures/interview-find-pictures/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -453,7 +557,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/interview/data-interview-transport-and-consume/interview-transport-and-consume/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/interview/interview-transport-and-consume/interview-transport-and-consume/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -467,7 +571,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/interview/data-interview-transport-and-consume/interview-transport-and-consume/" class="post-title-link" itemprop="url">面试题-运输和消耗最优解问题</a>
+            <a href="/post/interview/interview-transport-and-consume/interview-transport-and-consume/" class="post-title-link" itemprop="url">面试题-运输和消耗最优解问题</a>
         </h2>
 
         <div class="post-meta">
@@ -533,7 +637,7 @@
           <p>。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/interview/data-interview-transport-and-consume/interview-transport-and-consume/">
+              <a class="btn" href="/post/interview/interview-transport-and-consume/interview-transport-and-consume/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -557,7 +661,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-model/data-ml-model-selection/ml-model-selection/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-model/ml-model-selection/ml-model-selection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -571,7 +675,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/ml-model/data-ml-model-selection/ml-model-selection/" class="post-title-link" itemprop="url">ML入门-交叉验证与模型选择</a>
+            <a href="/post/machinelearning/ml-model/ml-model-selection/ml-model-selection/" class="post-title-link" itemprop="url">ML入门-交叉验证与模型选择</a>
         </h2>
 
         <div class="post-meta">
@@ -641,7 +745,7 @@
           <p>（1）交叉验证；（2）超参数调优。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/ml-model/data-ml-model-selection/ml-model-selection/">
+              <a class="btn" href="/post/machinelearning/ml-model/ml-model-selection/ml-model-selection/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -665,7 +769,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-model/data-ml-model-performance/ml-model-performance/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-model/ml-model-performance/ml-model-performance/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -679,7 +783,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/ml-model/data-ml-model-performance/ml-model-performance/" class="post-title-link" itemprop="url">ML入门-模型性能评价指标</a>
+            <a href="/post/machinelearning/ml-model/ml-model-performance/ml-model-performance/" class="post-title-link" itemprop="url">ML入门-模型性能评价指标</a>
         </h2>
 
         <div class="post-meta">
@@ -749,7 +853,7 @@
           <p>（1）回归模型性能评价指标；（2）分类模型性能评价指标。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/ml-model/data-ml-model-performance/ml-model-performance/">
+              <a class="btn" href="/post/machinelearning/ml-model/ml-model-performance/ml-model-performance/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -773,7 +877,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/data-ml-logistic-unbalanced/ml-logistic-unbalanced/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-unbalanced/ml-logistic-unbalanced/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -787,7 +891,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/ml-logistic/data-ml-logistic-unbalanced/ml-logistic-unbalanced/" class="post-title-link" itemprop="url">ML入门-类别样本不均衡问题</a>
+            <a href="/post/machinelearning/ml-logistic/ml-logistic-unbalanced/ml-logistic-unbalanced/" class="post-title-link" itemprop="url">ML入门-类别样本不均衡问题</a>
         </h2>
 
         <div class="post-meta">
@@ -857,7 +961,7 @@
           <p>（1）类别样本不均衡问题。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/ml-logistic/data-ml-logistic-unbalanced/ml-logistic-unbalanced/">
+              <a class="btn" href="/post/machinelearning/ml-logistic/ml-logistic-unbalanced/ml-logistic-unbalanced/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -881,7 +985,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/data-ml-logistic-multiclassify/ml-logistic-multiclassify/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-multiclassify/ml-logistic-multiclassify/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -895,7 +999,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/ml-logistic/data-ml-logistic-multiclassify/ml-logistic-multiclassify/" class="post-title-link" itemprop="url">ML入门-多类分类任务</a>
+            <a href="/post/machinelearning/ml-logistic/ml-logistic-multiclassify/ml-logistic-multiclassify/" class="post-title-link" itemprop="url">ML入门-多类分类任务</a>
         </h2>
 
         <div class="post-meta">
@@ -965,7 +1069,7 @@
           <p>（1）多类分类任务。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/ml-logistic/data-ml-logistic-multiclassify/ml-logistic-multiclassify/">
+              <a class="btn" href="/post/machinelearning/ml-logistic/ml-logistic-multiclassify/ml-logistic-multiclassify/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -989,7 +1093,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/data-ml-logistic-optimization/ml-logistic-optimization/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-optimization/ml-logistic-optimization/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1003,7 +1107,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/ml-logistic/data-ml-logistic-optimization/ml-logistic-optimization/" class="post-title-link" itemprop="url">ML入门-Logistic优化求解与牛顿法</a>
+            <a href="/post/machinelearning/ml-logistic/ml-logistic-optimization/ml-logistic-optimization/" class="post-title-link" itemprop="url">ML入门-Logistic优化求解与牛顿法</a>
         </h2>
 
         <div class="post-meta">
@@ -1073,7 +1177,7 @@
           <p>（1）牛顿法和拟牛顿法；（2）Logistic 回归的优化求解。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/ml-logistic/data-ml-logistic-optimization/ml-logistic-optimization/">
+              <a class="btn" href="/post/machinelearning/ml-logistic/ml-logistic-optimization/ml-logistic-optimization/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1097,7 +1201,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/data-ml-logistic-introduction/ml-logistic-introduction/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-logistic/ml-logistic-introduction/ml-logistic-introduction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1111,7 +1215,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/ml-logistic/data-ml-logistic-introduction/ml-logistic-introduction/" class="post-title-link" itemprop="url">ML入门-Logistic回归简介</a>
+            <a href="/post/machinelearning/ml-logistic/ml-logistic-introduction/ml-logistic-introduction/" class="post-title-link" itemprop="url">ML入门-Logistic回归简介</a>
         </h2>
 
         <div class="post-meta">
@@ -1181,7 +1285,7 @@
           <p>（1）Logistic / Sigmoid 函数，决策函数、决策边界；（2）Logistic 损失函数、替代损失函数，交叉熵损失；（3）Logistic 正则项，Logistic 必须加正则的解释；（4）Scikit-Learn 中的 Logistic 回归。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/ml-logistic/data-ml-logistic-introduction/ml-logistic-introduction/">
+              <a class="btn" href="/post/machinelearning/ml-logistic/ml-logistic-introduction/ml-logistic-introduction/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1205,7 +1309,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-linear/data-ml-linear-loss-regular/ml-linear-loss-regular/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-loss-regular/ml-linear-loss-regular/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1219,7 +1323,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/ml-linear/data-ml-linear-loss-regular/ml-linear-loss-regular/" class="post-title-link" itemprop="url">ML入门-损失和正则的概率解释</a>
+            <a href="/post/machinelearning/ml-linear/ml-linear-loss-regular/ml-linear-loss-regular/" class="post-title-link" itemprop="url">ML入门-损失和正则的概率解释</a>
         </h2>
 
         <div class="post-meta">
@@ -1289,7 +1393,7 @@
           <p>（1）回归模型中损失函数的概率解释；（2）回归模型正则项的概率解释。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/ml-linear/data-ml-linear-loss-regular/ml-linear-loss-regular/">
+              <a class="btn" href="/post/machinelearning/ml-linear/ml-linear-loss-regular/ml-linear-loss-regular/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1313,7 +1417,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-linear/data-ml-linear-solutions/ml-linear-solutions/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-solutions/ml-linear-solutions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1327,7 +1431,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/ml-linear/data-ml-linear-solutions/ml-linear-solutions/" class="post-title-link" itemprop="url">ML入门-线性回归三种求解</a>
+            <a href="/post/machinelearning/ml-linear/ml-linear-solutions/ml-linear-solutions/" class="post-title-link" itemprop="url">ML入门-线性回归三种求解</a>
         </h2>
 
         <div class="post-meta">
@@ -1397,7 +1501,7 @@
           <p>（1）线性回归模型的求解方法（解析法，梯度下降法：① 随机梯度、② SGDRegressor）；（3）次梯度法；（4）坐标轴下降法。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/ml-linear/data-ml-linear-solutions/ml-linear-solutions/">
+              <a class="btn" href="/post/machinelearning/ml-linear/ml-linear-solutions/ml-linear-solutions/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1421,7 +1525,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-linear/data-ml-linear-introduction/ml-linear-introduction/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1435,7 +1539,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/ml-linear/data-ml-linear-introduction/ml-linear-introduction/" class="post-title-link" itemprop="url">ML入门-线性回归简介</a>
+            <a href="/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/" class="post-title-link" itemprop="url">ML入门-线性回归简介</a>
         </h2>
 
         <div class="post-meta">
@@ -1505,7 +1609,7 @@
           <p>（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/ml-linear/data-ml-linear-introduction/ml-linear-introduction/">
+              <a class="btn" href="/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1529,7 +1633,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/data-ml-introduction/ml-introduction/">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-introduction/ml-introduction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1543,7 +1647,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/post/machinelearning/data-ml-introduction/ml-introduction/" class="post-title-link" itemprop="url">ML入门-机器学习简介</a>
+            <a href="/post/machinelearning/ml-introduction/ml-introduction/" class="post-title-link" itemprop="url">ML入门-机器学习简介</a>
         </h2>
 
         <div class="post-meta">
@@ -1609,111 +1713,7 @@
           <p>（1）什么是机器学习；（2）机器学习的类型。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/post/machinelearning/data-ml-introduction/ml-introduction/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/note/data-note-cloud-server/note-cloud-server/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="SLLiu">
-      <meta itemprop="description" content="Keep Learning">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SLLiu's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/post/note/data-note-cloud-server/note-cloud-server/" class="post-title-link" itemprop="url">Linux云服务器远程任务随笔</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-10-06 19:21:08" itemprop="dateCreated datePublished" datetime="2019-10-06T19:21:08+08:00">2019-10-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a>
-                </span>
-            </span>
-
-          
-  
-  
-
-
-<span class="post-meta-divider">|</span>
-
-
-
-
-
-
-<!-- 注释开始 -----
-
------ 注释结束 -->
-
-
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>（1）云服务器的选择；（2）本地连接云服务器；（3）SSH 连接保活；（4）后台运行 Linux 任务；（5）远程使用 Jupyter Notebook。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/post/note/data-note-cloud-server/note-cloud-server/">
+              <a class="btn" href="/post/machinelearning/ml-introduction/ml-introduction/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1804,7 +1804,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -1817,7 +1817,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">78</span>
+        <span class="site-state-item-count">80</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1873,7 +1873,7 @@
 <div class="copyright">
   
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1883,13 +1883,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">305k</span>
+    <span title="全站总字数">345k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">5:39</span>
+    <span title="全站总阅读时长">6:23</span>
 </div>
 
 
