@@ -21,18 +21,18 @@
     var CONFIG = {"hostname":"www.liushulun.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）。">
-<meta name="keywords" content="Android,Router,ARouter,路由,路由框架">
+  <meta name="description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。">
+<meta name="keywords" content="Android,Router,ARouter,路由">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android-浅析ARouter路由框架">
+<meta property="og:title" content="Android-浅析ARouter路由框架的原理和局限性">
 <meta property="og:url" content="https://www.liushulun.cn/post/android/android-router/android-router/index.html">
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
-<meta property="og:description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）。">
+<meta property="og:description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-02-08T08:43:58.914Z">
+<meta property="og:updated_time" content="2021-02-08T09:04:01.836Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android-浅析ARouter路由框架">
-<meta name="twitter:description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）。">
+<meta name="twitter:title" content="Android-浅析ARouter路由框架的原理和局限性">
+<meta name="twitter:description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。">
 
 <link rel="canonical" href="https://www.liushulun.cn/post/android/android-router/android-router/">
 
@@ -48,7 +48,7 @@
 </script>
 
 
-  <title>Android-浅析ARouter路由框架 | SLLiu's Blogs</title>
+  <title>Android-浅析ARouter路由框架的原理和局限性 | SLLiu's Blogs</title>
   
 
 
@@ -102,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1061</p>
+      <p class="site-subtitle" itemprop="description">V 1062</p>
   </div>
 
   <div class="site-nav-right">
@@ -134,7 +134,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">85</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">84</span></a>
 
   </li>
         <li class="menu-item menu-item-records">
@@ -219,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android-浅析ARouter路由框架
+          Android-浅析ARouter路由框架的原理和局限性
         </h1>
 
         <div class="post-meta">
@@ -291,7 +291,6 @@
           <a href="/tags/Router/" rel="tag"><i class="fa fa-tag"></i> Router</a>
           <a href="/tags/ARouter/" rel="tag"><i class="fa fa-tag"></i> ARouter</a>
           <a href="/tags/路由/" rel="tag"><i class="fa fa-tag"></i> 路由</a>
-          <a href="/tags/路由框架/" rel="tag"><i class="fa fa-tag"></i> 路由框架</a>
       </div>
   </div>
             <span class="post-meta-item" title="本文字数">
@@ -299,16 +298,16 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
+              <span>4.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
-            <div class="post-description">（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）。</div>
+            <div class="post-description">（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。</div>
 
         </div>
       </header>
@@ -321,10 +320,11 @@
       
         <a id="more"></a>
 
-<p>前言：最近在思考项目 Module 解耦问题的时候，粗略了解了以下路由框架，其中最著名的又莫属阿里开源的 ARouter 了。但在实操的时候又发现路由框架并没有我一开始想象的「能完全实现 Module 间解耦」那么美好，有着其本身的局限性，所以在本文对 ARouter 的基本原理和局限性做一个很浅显的个人总结。</p>
+<p>前言：最近在思考项目 Module 解耦问题的时候，粗略了解了一下路由框架，其中最著名的又属阿里开源的 ARouter 了。但在实操的时候发现路由框架并没有我一开始想象的「能完全实现 Module 间解耦」那么美好，有着其本身的局限性，所以在本文对 ARouter 的基本原理和局限性做一个很浅显的个人总结。</p>
+<hr>
 <h1 id="1-什么是ARouter"><a href="#1-什么是ARouter" class="headerlink" title="1. 什么是ARouter"></a>1. 什么是ARouter</h1><p>ARouter 主要用于针对 Activity 跳转之间的解耦，本质上它提供了一种通过 String 类型的「路径 Path」对应到 Activity 的路由表。其核心是通过 APT 在编译时自动检索添加了 <code>@Route(path=&quot;/XXX/XXX&quot;)</code> 注解的 Activity，并以对应的 Path 为 Key 自动生成了一个 Map，然后在运行时根据 Map 存储的路由信息跳转。</p>
 <hr>
-<h1 id="2-ARouter的基本原理"><a href="#2-ARouter的基本原理" class="headerlink" title="2. ARouter的基本原理"></a>2. ARouter的基本原理</h1><p>ARouter 要求一个 Activity 的路径 Path 必须包括至少两级，例如：<code>/main/sub</code>，将 <code>main</code> 称为主路径，<code>sub</code> 称为子路径。</p>
+<h1 id="2-ARouter的基本原理"><a href="#2-ARouter的基本原理" class="headerlink" title="2. ARouter的基本原理"></a>2. ARouter的基本原理</h1><p>ARouter 要求一个 Activity 的路径 Path 必须包括至少两级，例如：<code>/main/sub</code>，将 <code>main</code> 称为主路径，表示某一组 Activity 路由信息统一的主路径，<code>sub</code> 称为子路径，表示具体到某一个 Activity 的精确路由。一个主路径可以包括多个子路径，例如：<code>/main/sub</code>, <code>/main/sub2</code>…</p>
 <p>当项目很庞大或 Activity 的数量很多时，各个需要路由的 Module 下就会产生很大的 Map，因此 ARouter 做了一个优化：分段懒加载，也即运行时不会立即将所有路由信息都加载进内存，而是在发起一个路由请求时，先读取缓存，如果缓存没有，再对目标的主路径下的路由信息做懒加载。</p>
 <h1 id="2-1-编译时处理"><a href="#2-1-编译时处理" class="headerlink" title="2.1 编译时处理"></a>2.1 编译时处理</h1><p>ARouter 在编译时会通过 APT 生成两个表：</p>
 <p>（1）对每个添加了 ARouter 依赖的 Module，检索 Module 内所有添加了 <code>@Route</code> 注解的 Activity，并生成每个具体的 Path 对应 Activity 的表 <code>atlas</code>。</p>
@@ -487,7 +487,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.liushulun.cn/post/android/android-router/android-router/" title="Android-浅析ARouter路由框架">https://www.liushulun.cn/post/android/android-router/android-router/</a>
+    <a href="https://www.liushulun.cn/post/android/android-router/android-router/" title="Android-浅析ARouter路由框架的原理和局限性">https://www.liushulun.cn/post/android/android-router/android-router/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
@@ -503,7 +503,6 @@
               <a href="/tags/Router/" rel="tag"><i class="fa fa-tag"></i> Router</a>
               <a href="/tags/ARouter/" rel="tag"><i class="fa fa-tag"></i> ARouter</a>
               <a href="/tags/路由/" rel="tag"><i class="fa fa-tag"></i> 路由</a>
-              <a href="/tags/路由框架/" rel="tag"><i class="fa fa-tag"></i> 路由框架</a>
           </div>
 
         
@@ -603,7 +602,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
