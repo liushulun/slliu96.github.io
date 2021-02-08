@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="Android 开发中涉及到的知识体系。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-06T16:37:32.253Z">
+<meta property="og:updated_time" content="2021-02-08T08:50:49.105Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android面试题汇总">
 <meta name="twitter:description" content="Android 开发中涉及到的知识体系。">
@@ -102,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1060</p>
+      <p class="site-subtitle" itemprop="description">V 1061</p>
   </div>
 
   <div class="site-nav-right">
@@ -124,7 +124,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">62</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">64</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -134,7 +134,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">80</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">85</span></a>
 
   </li>
         <li class="menu-item menu-item-records">
@@ -297,7 +297,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.9k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -387,17 +387,6 @@
 <h1 id="同步锁"><a href="#同步锁" class="headerlink" title="同步锁"></a>同步锁</h1><hr>
 <h1 id="Java反射"><a href="#Java反射" class="headerlink" title="Java反射"></a>Java反射</h1><hr>
 <h1 id="其他细节"><a href="#其他细节" class="headerlink" title="其他细节"></a>其他细节</h1><h2 id="getWidth和getMeasureWidth的区别"><a href="#getWidth和getMeasureWidth的区别" class="headerlink" title="- getWidth和getMeasureWidth的区别"></a>- getWidth和getMeasureWidth的区别</h2><p><code>getMeasureWidth</code> 是 View 自己测量自己的宽度，<code>getWidth</code> 是 View 的父布局测量的高度，当屏幕可显示范围小于 View 本身的宽高时，<code>getMeasureWidth</code> 得到的仍然是 View 本身的宽高，而 <code>getWidth</code> 得到的是屏幕实际显示的宽高</p>
-<h2 id="finally什么时候执行"><a href="#finally什么时候执行" class="headerlink" title="- finally什么时候执行"></a>- finally什么时候执行</h2><p>当 <code>try - catch</code> 中使用 <code>break</code> 或 <code>return</code> 返回时，<code>finally</code> 会执行，当调用了 <code>System.exit(0)</code> 退出时，由于直接终止了 JVM，因此 <code>finally</code> 不会执行。</p>
-<p>在 try - catch 中的 return 语句执行之后、方法返回之前，程序会将 return 的返回值写入内存中，然后等待 finally 语句执行完，如果在 finally 代码块中，只改变了引用（例如对变量重新赋值），由于 return 时已经将返回值写入了内存中，则不会改变，而如果是改变了同一个变量的值，则会改变。如果 finally 中包含 return 语句，则会覆盖原本的return。例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123;</span><br><span class="line">        i = <span class="number">20</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(getValue());</span><br></pre></td></tr></table></figure>
-
-<p>输出 10。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123;</span><br><span class="line">        i = <span class="number">20</span>;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(getValue());</span><br></pre></td></tr></table></figure>
-
-<p>输出 20。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"AAA"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> sb.append(<span class="string">"BBB"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123;</span><br><span class="line">        sb.append(<span class="string">"CCC"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(getValue());</span><br></pre></td></tr></table></figure>
-
-<p>输出 “AAABBBCCC”。</p>
 <h2 id="为什么方法参数要加final才能在子线程内使用"><a href="#为什么方法参数要加final才能在子线程内使用" class="headerlink" title="- 为什么方法参数要加final才能在子线程内使用"></a>- 为什么方法参数要加final才能在子线程内使用</h2><hr>
 <h1 id="App架构"><a href="#App架构" class="headerlink" title="App架构"></a>App架构</h1><p>App 架构的核心思想，主要就是为了降低 UI 逻辑和数据业务逻辑之间的耦合度。</p>
 <h2 id="MVC模式"><a href="#MVC模式" class="headerlink" title="- MVC模式"></a>- MVC模式</h2><p>MVC 即：Model - View - Controller 模式，Model 与 View、View 与 Controller、Controller 与 Model，都是单向直接通信，View 层负责 UI 逻辑，Model 层负责数据，Controller 负责替 View 层操作 Model 层，但由于 Android 中，Activity 通常会同时担任 View 层和 Controller 层，随着业务变得复杂，Activity 也会越来越臃肿，而且 Activity 与 Model 层交互时，相当于 View 层可以与 Model 层直接交互，没有完全解耦。</p>
@@ -413,6 +402,7 @@
 <p>DataBinding 会对布局文件中使用 <code>&lt;layout&gt;</code> 标签包裹的元素预处理，会为每个元素增加一个 <code>tag</code> 属性，然后将各个元素抽取出来生成一个名为 <code>xxxxx-layout.xml</code> 的文件（<code>xxxxx</code> 是原本 xml 布局文件的命名），文件中将原本的所有 View 标签，都转换成了 <code>&lt;Target id=&quot;xxx&quot; tag=&quot;yyy&quot; view=&quot;ZzzView&quot;&gt;</code> 的形式，其中根布局对应的 tag 是 <code>layout</code>，然后根据原布局文件和新生成的文件，生成一个继承自 <code>ViewDataBinding</code> 的类，并将布局文件中的元素，都根据类型和 id 创建成员变量。</p>
 </li>
 </ul>
+<h2 id="路由框架"><a href="#路由框架" class="headerlink" title="- 路由框架"></a>- 路由框架</h2><p><a href="/post/android/android-router/android-router" title="@LINKS">Android-浅析ARouter路由框架</a></p>
 <hr>
 <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h2 id="单例模式"><a href="#单例模式" class="headerlink" title="- 单例模式"></a>- 单例模式</h2><h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="- 工厂模式"></a>- 工厂模式</h2><h2 id="DCL双锁检测"><a href="#DCL双锁检测" class="headerlink" title="- DCL双锁检测"></a>- DCL双锁检测</h2><h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="- 观察者模式"></a>- 观察者模式</h2><h2 id="中介者模式"><a href="#中介者模式" class="headerlink" title="- 中介者模式"></a>- 中介者模式</h2><h2 id="EventBus"><a href="#EventBus" class="headerlink" title="- EventBus"></a>- EventBus</h2><hr>
 
@@ -604,7 +594,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#四大组件"><span class="nav-text">四大组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Service保活"><span class="nav-text">- Service保活</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五大存储"><span class="nav-text">五大存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六大布局"><span class="nav-text">六大布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他组件"><span class="nav-text">其他组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fragment生命周期及回调"><span class="nav-text">- Fragment生命周期及回调</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android消息处理机制"><span class="nav-text">Android消息处理机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程间通信"><span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android中的缓存"><span class="nav-text">Android中的缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存缓存"><span class="nav-text">- 内存缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地缓存"><span class="nav-text">- 本地缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片加载框架"><span class="nav-text">图片加载框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络框架"><span class="nav-text">网络框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#断点下载"><span class="nav-text">断点下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能和优化"><span class="nav-text">性能和优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何检测性能以及如何优化"><span class="nav-text">- 如何检测性能以及如何优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存抖动的检测和优化"><span class="nav-text">- 内存抖动的检测和优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ANR和OOM的定位和优化"><span class="nav-text">- ANR和OOM的定位和优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析堆栈输出"><span class="nav-text">- 分析堆栈输出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包和发布"><span class="nav-text">打包和发布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码混淆"><span class="nav-text">- 代码混淆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App加固"><span class="nav-text">- App加固</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热更新和热修复"><span class="nav-text">- 热更新和热修复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VersionCode和VersionName的区别"><span class="nav-text">- VersionCode和VersionName的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码分析"><span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SparseArray的改进"><span class="nav-text">- SparseArray的改进</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步锁"><span class="nav-text">同步锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java反射"><span class="nav-text">Java反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他细节"><span class="nav-text">其他细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#getWidth和getMeasureWidth的区别"><span class="nav-text">- getWidth和getMeasureWidth的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finally什么时候执行"><span class="nav-text">- finally什么时候执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么方法参数要加final才能在子线程内使用"><span class="nav-text">- 为什么方法参数要加final才能在子线程内使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App架构"><span class="nav-text">App架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC模式"><span class="nav-text">- MVC模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP模式"><span class="nav-text">- MVP模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM模式"><span class="nav-text">- MVVM模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式"><span class="nav-text">- 单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂模式"><span class="nav-text">- 工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL双锁检测"><span class="nav-text">- DCL双锁检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-text">- 观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中介者模式"><span class="nav-text">- 中介者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus"><span class="nav-text">- EventBus</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#四大组件"><span class="nav-text">四大组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Service保活"><span class="nav-text">- Service保活</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五大存储"><span class="nav-text">五大存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六大布局"><span class="nav-text">六大布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他组件"><span class="nav-text">其他组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fragment生命周期及回调"><span class="nav-text">- Fragment生命周期及回调</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android消息处理机制"><span class="nav-text">Android消息处理机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程间通信"><span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android中的缓存"><span class="nav-text">Android中的缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存缓存"><span class="nav-text">- 内存缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地缓存"><span class="nav-text">- 本地缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片加载框架"><span class="nav-text">图片加载框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络框架"><span class="nav-text">网络框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#断点下载"><span class="nav-text">断点下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能和优化"><span class="nav-text">性能和优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何检测性能以及如何优化"><span class="nav-text">- 如何检测性能以及如何优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存抖动的检测和优化"><span class="nav-text">- 内存抖动的检测和优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ANR和OOM的定位和优化"><span class="nav-text">- ANR和OOM的定位和优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析堆栈输出"><span class="nav-text">- 分析堆栈输出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包和发布"><span class="nav-text">打包和发布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码混淆"><span class="nav-text">- 代码混淆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App加固"><span class="nav-text">- App加固</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热更新和热修复"><span class="nav-text">- 热更新和热修复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VersionCode和VersionName的区别"><span class="nav-text">- VersionCode和VersionName的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码分析"><span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SparseArray的改进"><span class="nav-text">- SparseArray的改进</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步锁"><span class="nav-text">同步锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java反射"><span class="nav-text">Java反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他细节"><span class="nav-text">其他细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#getWidth和getMeasureWidth的区别"><span class="nav-text">- getWidth和getMeasureWidth的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么方法参数要加final才能在子线程内使用"><span class="nav-text">- 为什么方法参数要加final才能在子线程内使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#App架构"><span class="nav-text">App架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC模式"><span class="nav-text">- MVC模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP模式"><span class="nav-text">- MVP模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM模式"><span class="nav-text">- MVVM模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由框架"><span class="nav-text">- 路由框架</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式"><span class="nav-text">- 单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂模式"><span class="nav-text">- 工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL双锁检测"><span class="nav-text">- DCL双锁检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-text">- 观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中介者模式"><span class="nav-text">- 中介者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus"><span class="nav-text">- EventBus</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -620,7 +610,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -633,7 +623,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">80</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -699,13 +689,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">345k</span>
+    <span title="全站总字数">349k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:23</span>
+    <span title="全站总阅读时长">6:28</span>
 </div>
 
 

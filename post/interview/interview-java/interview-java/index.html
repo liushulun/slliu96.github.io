@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="SLLiu&#39;s Blogs">
 <meta property="og:description" content="Android 开发中涉及到的 Java 知识体系。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-06T16:36:46.735Z">
+<meta property="og:updated_time" content="2021-02-08T08:51:57.460Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java面试题汇总">
 <meta name="twitter:description" content="Android 开发中涉及到的 Java 知识体系。">
@@ -102,7 +102,7 @@
       <h1 class="site-title">SLLiu's Blogs</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1060</p>
+      <p class="site-subtitle" itemprop="description">V 1061</p>
   </div>
 
   <div class="site-nav-right">
@@ -124,7 +124,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">62</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">64</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -134,7 +134,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">80</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">85</span></a>
 
   </li>
         <li class="menu-item menu-item-records">
@@ -297,7 +297,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>515</span>
+              <span>537</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -321,18 +321,19 @@
 
 <p>前言：本文 Android 均是基于 Java 开发，开发工具为 AndroidStudio。因为部分知识体系有交集，所以会出现重复内容，如果是链接形式，则具体以链接实际内容为准。</p>
 <hr>
-<h1 id="Java中的引用"><a href="#Java中的引用" class="headerlink" title="Java中的引用"></a>Java中的引用</h1><h2 id="Java引用的实现"><a href="#Java引用的实现" class="headerlink" title="Java引用的实现"></a>Java引用的实现</h2><p>Java 中的引用，是指除了基本数据类型以外的所有类型，这些类型在内存中，会在堆区存储实际的数据，在栈区存储一个别名（Alias），应用通过栈区的别名指向堆区的实际存储空间，来操作实际的数据，详细参考 JVM 内存分区：<a href="/post/java/java-jvm/java-jvm/" title="@LINK">JVM内存模型</a>。</p>
+<h1 id="Java中的引用"><a href="#Java中的引用" class="headerlink" title="Java中的引用"></a>Java中的引用</h1><h2 id="Java引用的实现"><a href="#Java引用的实现" class="headerlink" title="- Java引用的实现"></a>- Java引用的实现</h2><p>Java 中的引用，是指除了基本数据类型以外的所有类型，这些类型在内存中，会在堆区存储实际的数据，在栈区存储一个别名（Alias），应用通过栈区的别名指向堆区的实际存储空间，来操作实际的数据，详细参考 JVM 内存分区：<a href="/post/java/java-jvm/java-jvm/" title="@LINK">JVM内存模型</a>。</p>
 <hr>
-<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="ThreadPool线程池"><a href="#ThreadPool线程池" class="headerlink" title="ThreadPool线程池"></a>ThreadPool线程池</h2><hr>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="ThreadPool线程池"><a href="#ThreadPool线程池" class="headerlink" title="- ThreadPool线程池"></a>- ThreadPool线程池</h2><hr>
 <h1 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h1><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="- HashMap"></a>- HashMap</h2><p>答：<a href="/post/java/java-hashmap/java-hashmap/" title="@LINK">HashMap</a></p>
 <hr>
-<h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="JVM的五个区"><a href="#JVM的五个区" class="headerlink" title="JVM的五个区"></a>JVM的五个区</h2><p>答：<a href="/post/java/java-jvm/java-jvm/" title="@LINK">JVM内存模型和内存分区</a></p>
-<h2 id="方法区是否会OOM"><a href="#方法区是否会OOM" class="headerlink" title="方法区是否会OOM"></a>方法区是否会OOM</h2><p>答：会。在 JDK 1.8 以前，HotSpot 虚拟机的方法区是用永久代实现的，方法区的内存固定，因此如果频繁调用 <code>String.intern()</code> 方法，或者一次性加载太多类，会导致OOM。JDK 1.8 之后，虽然用元数据取代了方法区，直接使用本地内存，支持扩容，也取消了永久代，但并不是无限扩容的，所以仍然会，只是几率会小一些。</p>
-<h2 id="GC垃圾回收机制"><a href="#GC垃圾回收机制" class="headerlink" title="GC垃圾回收机制"></a>GC垃圾回收机制</h2><p>答：<a href="/post/java/java-gc/java-gc/" title="@LINK">JVM的GC策略</a></p>
+<h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="JVM的五个区"><a href="#JVM的五个区" class="headerlink" title="- JVM的五个区"></a>- JVM的五个区</h2><p>答：<a href="/post/java/java-jvm/java-jvm/" title="@LINK">JVM内存模型和内存分区</a></p>
+<h2 id="方法区是否会OOM"><a href="#方法区是否会OOM" class="headerlink" title="- 方法区是否会OOM"></a>- 方法区是否会OOM</h2><p>答：会。在 JDK 1.8 以前，HotSpot 虚拟机的方法区是用永久代实现的，方法区的内存固定，因此如果频繁调用 <code>String.intern()</code> 方法，或者一次性加载太多类，会导致OOM。JDK 1.8 之后，虽然用元数据取代了方法区，直接使用本地内存，支持扩容，也取消了永久代，但并不是无限扩容的，所以仍然会，只是几率会小一些。</p>
+<h2 id="GC垃圾回收机制"><a href="#GC垃圾回收机制" class="headerlink" title="- GC垃圾回收机制"></a>- GC垃圾回收机制</h2><p>答：<a href="/post/java/java-gc/java-gc/" title="@LINK">JVM的GC策略</a></p>
 <hr>
 <h1 id="同步锁"><a href="#同步锁" class="headerlink" title="同步锁"></a>同步锁</h1><hr>
 <h1 id="Java反射"><a href="#Java反射" class="headerlink" title="Java反射"></a>Java反射</h1><hr>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="finally什么时候执行"><a href="#finally什么时候执行" class="headerlink" title="finally什么时候执行"></a>finally什么时候执行</h2><h2 id="为什么方法参数要加final才能在子线程内使用"><a href="#为什么方法参数要加final才能在子线程内使用" class="headerlink" title="为什么方法参数要加final才能在子线程内使用"></a>为什么方法参数要加final才能在子线程内使用</h2>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="finally什么时候执行"><a href="#finally什么时候执行" class="headerlink" title="- finally什么时候执行"></a>- finally什么时候执行</h2><p><a href="/post/java/java-finally/java-finally" title="@LINKS">Java-finally关键字</a></p>
+<h2 id="为什么方法参数要加final才能在子线程内使用"><a href="#为什么方法参数要加final才能在子线程内使用" class="headerlink" title="- 为什么方法参数要加final才能在子线程内使用"></a>- 为什么方法参数要加final才能在子线程内使用</h2>
     </div>
 
     
@@ -521,7 +522,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java中的引用"><span class="nav-text">Java中的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java引用的实现"><span class="nav-text">Java引用的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程"><span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPool线程池"><span class="nav-text">ThreadPool线程池</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java集合框架"><span class="nav-text">Java集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap"><span class="nav-text">- HashMap</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM的五个区"><span class="nav-text">JVM的五个区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法区是否会OOM"><span class="nav-text">方法区是否会OOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC垃圾回收机制"><span class="nav-text">GC垃圾回收机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步锁"><span class="nav-text">同步锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java反射"><span class="nav-text">Java反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#finally什么时候执行"><span class="nav-text">finally什么时候执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么方法参数要加final才能在子线程内使用"><span class="nav-text">为什么方法参数要加final才能在子线程内使用</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java中的引用"><span class="nav-text">Java中的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java引用的实现"><span class="nav-text">- Java引用的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程"><span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPool线程池"><span class="nav-text">- ThreadPool线程池</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java集合框架"><span class="nav-text">Java集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap"><span class="nav-text">- HashMap</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM的五个区"><span class="nav-text">- JVM的五个区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法区是否会OOM"><span class="nav-text">- 方法区是否会OOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC垃圾回收机制"><span class="nav-text">- GC垃圾回收机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步锁"><span class="nav-text">同步锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java反射"><span class="nav-text">Java反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#finally什么时候执行"><span class="nav-text">- finally什么时候执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么方法参数要加final才能在子线程内使用"><span class="nav-text">- 为什么方法参数要加final才能在子线程内使用</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -537,7 +538,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -550,7 +551,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">80</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -616,13 +617,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">345k</span>
+    <span title="全站总字数">349k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:23</span>
+    <span title="全站总阅读时长">6:28</span>
 </div>
 
 
