@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
@@ -13,31 +15,51 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。">
-<meta name="keywords" content="AI,MachineLearning,人工智能,机器学习,线性回归">
+<meta name="description" content="（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 &#x2F; L2 &#x2F; Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ML入门-线性回归简介">
 <meta property="og:url" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/index.html">
-<meta property="og:site_name" content="SLLiu&#39;s Blogs">
-<meta property="og:description" content="（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-06T16:51:05.978Z">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
+<meta property="og:description" content="（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 &#x2F; L2 &#x2F; Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/linear_predict.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/two_predict_lines.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/two_lines_residual.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/noise_in_l2.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/l2_l1_residual.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/l1_l2_huber_lines.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/sin_function.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/different_m_in_sin.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/loss_of_train_and_test.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/all_w_in_sin.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/add_train_data_set.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/add_r_function.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/change_of_w_with_lambda.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/loss_with_lambda.png">
+<meta property="article:published_time" content="2019-12-08T03:17:22.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="MachineLearning">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="线性回归">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ML入门-线性回归简介">
-<meta name="twitter:description" content="（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。">
+<meta name="twitter:image" content="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/ml-linear-introduction-data/linear_predict.png">
+
 
 <link rel="canonical" href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -47,62 +69,71 @@
   };
 </script>
 
-
-  <title>ML入门-线性回归简介 | SLLiu's Blogs</title>
+<title>ML入门-线性回归简介 | Luis's Blogs</title>
   
-
-
 
 
 
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="开/关导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="开/关导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">SLLiu's Blogs</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1062</p>
+      <p class="site-subtitle" itemprop="description">V 1100</p>
   </div>
 
   <div class="site-nav-right">
@@ -114,39 +145,18 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">79</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">64</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">84</span></a>
-
-  </li>
-        <li class="menu-item menu-item-records">
-
-    <a href="/records/" rel="section"><i class="fa fa-fw fa-list-alt"></i>记录</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
-
-  </li>
+      
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -157,23 +167,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -182,10 +191,105 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%9E%E5%BD%92"><span class="nav-text">1. 什么是回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-text">2. 什么是线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-text">3. 线性回归损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E9%A2%84%E6%B5%8B%E6%AE%8B%E5%B7%AE"><span class="nav-text">3.1 预测残差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E4%B8%89%E7%A7%8D%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-text">3.2 三种损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-L2%E6%8D%9F%E5%A4%B1"><span class="nav-text">3.2.1 L2损失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-L1%E6%8D%9F%E5%A4%B1"><span class="nav-text">3.2.2 L1损失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-Huber%E6%8D%9F%E5%A4%B1"><span class="nav-text">3.2.3 Huber损失</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Scikit-Learn%E4%B8%AD%E7%9A%84%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-text">4. Scikit-Learn中的线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%AC%A0%E6%8B%9F%E5%90%88%E4%B8%8E%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-text">5. 欠拟合与过拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-sin-%E5%87%BD%E6%95%B0%E6%9B%B2%E7%BA%BF%E5%AE%9E%E4%BE%8B"><span class="nav-text">5.1 $\sin$函数曲线实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E8%AE%AD%E7%BB%83%E8%AF%AF%E5%B7%AE%E4%B8%8E%E6%B5%8B%E8%AF%95%E8%AF%AF%E5%B7%AE"><span class="nav-text">5.2 训练误差与测试误差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-%E8%BF%87%E6%8B%9F%E5%90%88%E6%97%B6%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="nav-text">5.3 过拟合时的模型参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-%E6%8A%91%E5%88%B6%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-text">5.4 抑制过拟合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E5%B8%A6%E6%AD%A3%E5%88%99%E7%9A%84%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-text">6. 带正则的线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-%E5%B2%AD%E5%9B%9E%E5%BD%92"><span class="nav-text">6.1 岭回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-Lasso"><span class="nav-text">6.2 Lasso</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-%E5%BC%B9%E6%80%A7%E7%BD%91%E7%BB%9C"><span class="nav-text">6.3 弹性网络</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -193,71 +297,70 @@
 
   <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="name" content="Luis">
       <meta itemprop="description" content="Keep Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SLLiu's Blogs">
+      <meta itemprop="name" content="Luis's Blogs">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           ML入门-线性回归简介
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-12-08 11:17:22" itemprop="dateCreated datePublished" datetime="2019-12-08T11:17:22+08:00">2019-12-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MachineLearning/" itemprop="url" rel="index"><span itemprop="name">MachineLearning</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MachineLearning/LinearRegression/" itemprop="url" rel="index"><span itemprop="name">LinearRegression</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-12-08 11:17:22" itemprop="dateCreated datePublished" datetime="2019-12-08T11:17:22+08:00">2019-12-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MachineLearning/" itemprop="url" rel="index"><span itemprop="name">MachineLearning</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MachineLearning/LinearRegression/" itemprop="url" rel="index"><span itemprop="name">LinearRegression</span></a>
+        </span>
+    </span>
 
-          
   
-  
-
-
-<span class="post-meta-divider">|</span>
 
 
 
 
 
 
-<!-- 注释开始 -----
+<!-- 注释开始 #############################################
 
   <script>
     function post_nav(post) {
@@ -283,9 +386,11 @@
   
   <div style="position: absolute; top: -20px;">post_nav(post)</div>
 
------ 注释结束 -->
+############################################# 注释结束 -->
 
 
+
+<!-- 注释开始 #############################################
   
   <div style="position: fixed; width: 100%;">
     
@@ -293,27 +398,30 @@
       <div class="post-tags">
           <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
           <a href="/tags/MachineLearning/" rel="tag"><i class="fa fa-tag"></i> MachineLearning</a>
-          <a href="/tags/人工智能/" rel="tag"><i class="fa fa-tag"></i> 人工智能</a>
-          <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
-          <a href="/tags/线性回归/" rel="tag"><i class="fa fa-tag"></i> 线性回归</a>
+          <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag"><i class="fa fa-tag"></i> 人工智能</a>
+          <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="tag"><i class="fa fa-tag"></i> 线性回归</a>
       </div>
   </div>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>11k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>12 分钟</span>
-            </span>
-            <div class="post-description">（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。</div>
+############################################# 注释结束 -->
 
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">（1）回归和线性回归简介；（2）线性回归模型的预测残差、L1 / L2 / Huber 损失函数；（3）Scikit-Learn 中的线性回归；（4）欠拟合与过拟合；（5）带正则的线性回归模型（岭回归、Lasso、弹性网络）。</div>
         </div>
       </header>
 
@@ -321,12 +429,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
+        <span id="more"></span>
 
-      
-        <a id="more"></a>
-
-<h1 id="1-什么是回归"><a href="#1-什么是回归" class="headerlink" title="1. 什么是回归"></a>1. 什么是回归</h1><p>假设有一数据集 $D = \{ X_i, y_i \}^N_{i = 1}$，其中 N 为训练样本数目，i 为样本索引，$X_i$ 为第 i 个样本的输入特征，$y_i$ 为第 i 个样本的输出/响应，那么：</p>
-<p><strong>根据训练样本 D，学习一个从输入 $X$ 到输出 $y$ 的映射 $f$，使得 $y_i = f(X_i)$，<font color="EB6D39">且 $y_i \in R$</font>，这就是回归任务。</strong></p>
+<h1 id="1-什么是回归"><a href="#1-什么是回归" class="headerlink" title="1. 什么是回归"></a>1. 什么是回归</h1><p>假设有一数据集 $D = { X_i, y_i }^N_{i = 1}$，其中 N 为训练样本数目，i 为样本索引，$X_i$ 为第 i 个样本的输入特征，$y_i$ 为第 i 个样本的输出/响应，那么：</p>
+<p><strong>根据训练样本 D，学习一个从输入 $X$ 到输出 $y$ 的映射 $f$，使得 $y_i = f(X_i)$，<font color=EB6D39>且 $y_i \in R$</font>，这就是回归任务。</strong></p>
 <blockquote>
 <p>@注：没有特殊说明的情况下，$W$、$X$、$y$ 等均为矩阵（一维矩阵有时作为向量使用）形式，在强调向量性质时使用 $\vec{X}$、$\vec{W}$、$\vec{y}$ 表示。</p>
 </blockquote>
@@ -334,7 +440,7 @@
 <p>当学习到回归任务的映射 f 后，即可对新的输入数据 $X$ 预测其输出 $\hat{y} = f(X)$。</p>
 <hr>
 <h1 id="2-什么是线性回归"><a href="#2-什么是线性回归" class="headerlink" title="2. 什么是线性回归"></a>2. 什么是线性回归</h1><p>线性回归是最简单的回归模型之一：即从输入 $X$ 到输出 $y$ 的映射 $f$ 为线性关系：</p>
-<p>$<br>\begin{aligned}<br>y &amp;= f(X) = W^T X<br>\\ &amp;= [w_0, w_1, …, w_D] \begin{bmatrix} 1 \\ x_1 \\ … \\ x_D \end{bmatrix} = w_0 + \sum^D_{j = 1} w_j x_j<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>y &amp;= f(X) = W^T X<br>\ &amp;= [w_0, w_1, …, w_D] \begin{bmatrix} 1 \ x_1 \ … \ x_D \end{bmatrix} = w_0 + \sum^D_{j = 1} w_j x_j<br>\end{aligned}<br>$</p>
 <p>$X = (1, x_1, …, x_D)^T$</p>
 <p>其中，$w_0$ 为截距项/偏置（bias），$w_j$ 为第 j 维特征的权重/回归系数，$x_j$ 为第 j 维特征，D 为特征维数，j 为特征索引，$X$ 为特征向量。</p>
 <p>$X$ 在 D 维特征的基础上，再增加一个常数项1，与 $w_0$ 相乘作为截距项，是为了表达式更简洁。也即，$b（bias）= w_0$。</p>
@@ -351,7 +457,7 @@
 <p>$$<br>y = 123.94 + 167.89 \cdot x<br>$$</p>
 <p>其中 $w_0 = 123.94$，将需要预测的的输入 <code>2.8</code> 代入 x 即可求得 $\hat{y} = 593.78$。</p>
 <p>不过需要注意的一点是，Scikit-Learn 中训练数据 $X$ 是一个二维数组，在本例中，输入只是长度为 6 的一维数组，因此需要先转换成 n 行 m 列的形式，使用：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X_train = X_train.reshape(<span class="number">-1</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X_train = X_train.reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 
 <p>来指定列数为 1，行数自动调整。</p>
 <p><code>fit()</code> 完后，<code>lr</code> 这个实例化的线性回归模型对象内就会具有一个默认配置的线性回归参数 $W$，这些参数在经过 <code>fit()</code> 训练后就存在了 <code>lr</code> 对象内部，根据这些参数生成的直线即为图中绿色直线，这就是一个简单的线性回归模型了。</p>
@@ -376,7 +482,7 @@
 <p>由于绿色直线的预测残差有负值，在计算残差总和时会发生抵消，因此考虑使用平方计数，也就得到残差平方：</p>
 <p>$$<br>r^2 = (y - \hat{y})^2<br>$$</p>
 <p>用残差平方来计算残差总和，就得到残差平方和 RSS（Residual Sum of Squares），根据定义显然可得其表达式为：</p>
-<font color="Eb6D39">
+<font color=Eb6D39>
 
 <p>$$<br>RSS = \sum^N_{i = 1} r^2_i = \sum^N_{i = 1} (y_i - \hat{y}_i)^2<br>$$</p>
 </font>
@@ -387,7 +493,7 @@
 <li>蓝色直线 RSS = 67601</li>
 </ul>
 <p>RSS 可以表示模型预测的整体性能，RSS 最小亦称为为最小二乘 OLS（Ordinary Least Square）。RSS 越小的直线预测越准确，因此显然，绿色直线比蓝色直线要好得多。</p>
-<h2 id="3-2-三种损失函数"><a href="#3-2-三种损失函数" class="headerlink" title="3.2 三种损失函数"></a>3.2 三种损失函数</h2><p>在机器学习中，用<font color="EB6D39">损失函数 L（Loss Function）</font>来<strong>度量</strong>样本真实值与模型预测值之间的差异，该差异用预测残差 r（Residual）来表示：$r = y - \hat{y}$。</p>
+<h2 id="3-2-三种损失函数"><a href="#3-2-三种损失函数" class="headerlink" title="3.2 三种损失函数"></a>3.2 三种损失函数</h2><p>在机器学习中，用<font color=EB6D39>损失函数 L（Loss Function）</font>来<strong>度量</strong>样本真实值与模型预测值之间的差异，该差异用预测残差 r（Residual）来表示：$r = y - \hat{y}$。</p>
 <p>常见的损失函数有三种：</p>
 <ul>
 <li>L2 损失</li>
@@ -400,7 +506,7 @@
 <h3 id="3-2-1-L2损失"><a href="#3-2-1-L2损失" class="headerlink" title="3.2.1 L2损失"></a>3.2.1 L2损失</h3><p>在前面的例中，当损失函数采用 RSS 时，损失函数为二次函数，范数为 2，因此也称为 L2 损失（差的平方即为距离的 L2 模长），表达式为：</p>
 <p>$$<br>L(y, \hat{y}) = (y - \hat{y})^2 = r^2<br>$$</p>
 <p>此时目标函数即为：</p>
-<p>$$<br>J(W) = \sum^N_{i = 1} L(y_i, \hat{y}_i) = \sum^N_{i = 1} r^2_i<br>$$</p>
+<p>$$<br>J(W) = \sum^N_{i = 1} L(y_i, \hat{y}<em>i) = \sum^N</em>{i = 1} r^2_i<br>$$</p>
 <p>L2 损失是二次函数，因此最大的优点就是：处处可导，优化计算方便。但缺点也很明显：对噪声敏感。若数据中某点的预测残差 r 特别大（下图红点），经过平方放大后 $ r^2 $ 会更大，则会在模型中占主导作用，由于模型的训练目标是使得目标函数最小，在 L2 损失的模型中，也即使得 RSS 最小，因此会导致模型向该噪声点偏移（变为下图橙线）：</p>
 <center>
 
@@ -413,7 +519,7 @@
 <h3 id="3-2-2-L1损失"><a href="#3-2-2-L1损失" class="headerlink" title="3.2.2 L1损失"></a>3.2.2 L1损失</h3><p>为了减弱噪声点对模型的影响，同时保留损失函数“避免抵消正负”的特性，除了采用平方之外，还可以采用绝对值。当损失函数采用绝对值计量预测误差总和时，损失函数为绝对值函数，范数为 1，因此也称为 L1 损失（差的绝对值即为距离的 L1 模长），表达式为：</p>
 <p>$$<br>L(y, \hat{y}) = |y - \hat{y}| = |r|<br>$$</p>
 <p>此时目标函数即为：</p>
-<p>$$<br>J(W) = \sum^N_{i = 1} L(y_i, \hat{y}_i) = \sum^N_{i = 1} |r|_i<br>$$</p>
+<p>$$<br>J(W) = \sum^N_{i = 1} L(y_i, \hat{y}<em>i) = \sum^N</em>{i = 1} |r|_i<br>$$</p>
 <p>L1 函数是绝对值函数，因此最大的有点是：对噪声不敏感：</p>
 <center>
 
@@ -422,9 +528,9 @@
 
 <p>但缺点同样明显：在零点处左右导数不相等，因此不可导，不便于优化计算。</p>
 <h3 id="3-2-3-Huber损失"><a href="#3-2-3-Huber损失" class="headerlink" title="3.2.3 Huber损失"></a>3.2.3 Huber损失</h3><p>为了结合 L2 和 L1 损失的优点，同时规避二者的缺点，可以考虑选择一个新的损失函数：其在靠近零点处表达式为 L2 损失，具有“可导”的优点，在远离零点处表达式为 L1 损失，具有“抗噪声”的优点，得到如下表达式：</p>
-<p>$$<br>L_{\delta} (r) = \left \{<br>\begin{aligned}<br>&amp; \frac {1} {2} r^2 &amp;&amp; {|r| \le \delta}<br>\\<br>\delta |r| &amp; - \frac {1} {2} \delta^2 &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$<br>L_{\delta} (r) = \left {<br>\begin{aligned}<br>&amp; \frac {1} {2} r^2 &amp;&amp; {|r| \le \delta}<br>\<br>\delta |r| &amp; - \frac {1} {2} \delta^2 &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$$</p>
 <p>或代入预测残差：</p>
-<p>$$<br>L_{\delta} (r) = \left \{<br>\begin{aligned}<br>&amp; \frac {1} {2} (y - \hat{y})^2 &amp;&amp; {|r| \le \delta}<br>\\<br>\delta |y &amp; - \hat{y}| - \frac {1} {2} \delta^2 &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$<br>L_{\delta} (r) = \left {<br>\begin{aligned}<br>&amp; \frac {1} {2} (y - \hat{y})^2 &amp;&amp; {|r| \le \delta}<br>\<br>\delta |y &amp; - \hat{y}| - \frac {1} {2} \delta^2 &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$$</p>
 <p>Huber 损失的图像如下：</p>
 <center>
 
@@ -472,11 +578,11 @@
 <li><p>过拟合（Overfitting）：过于复杂的模型与训练数据拟合的太好，导致推广性和扩展性较差，因此和测试数据拟合的较差。</p>
 </li>
 <li><p>欠拟合（Underfitting）：过于简单的模型与训练数据尚且拟合的较差，更加不足以拟合测试数据。</p>
+</li>
+</ul>
 <blockquote>
 <p>@注：线性回归采用的线性模型比较简单，因此当特征维数不太高时，线性回归的过拟合现象通常不太严重。</p>
 </blockquote>
-</li>
-</ul>
 <h2 id="5-1-sin-函数曲线实例"><a href="#5-1-sin-函数曲线实例" class="headerlink" title="5.1 $\sin$函数曲线实例"></a>5.1 $\sin$函数曲线实例</h2><p>假设数据产生模型为：$y = \sin (2 \pi x) + \varepsilon$，其中 $\sin$ 函数如下：</p>
 <center>
 
@@ -542,14 +648,14 @@
 
 <p>常用的正则项如下：</p>
 <p>① L2 正则（L2 范数：平方距离）：$R(W) = ||W||^2_2 = \sum^D_{j = 1} w^2_j$</p>
-<p>② L1 正则（L1 范数：绝对值距离）：$R(W) = ||W||_1 = \sum^D_{j = 1} |w_j|$</p>
-<p>其中 $W$ 为模型参数，D 为参数的维数。<font color="EB6D39">这里需要注意，正则项求和中，只对 $1 \sim D$ 求和，也即不惩罚截距项（Bias）$b = w_0$，因此在实际任务中，通常需要先对数据作中心化处理，去掉截距项的影响。</font></p>
+<p>② L1 正则（L1 范数：绝对值距离）：$R(W) = ||W||<em>1 = \sum^D</em>{j = 1} |w_j|$</p>
+<p>其中 $W$ 为模型参数，D 为参数的维数。<font color=EB6D39>这里需要注意，正则项求和中，只对 $1 \sim D$ 求和，也即不惩罚截距项（Bias）$b = w_0$，因此在实际任务中，通常需要先对数据作中心化处理，去掉截距项的影响。</font></p>
 <p>还有一种 L0 正则（L0 范数：向量中非零元素数目）：$R(W) = ||W||_0$，但因为 L0 正则是 NP 问题，优化计算不方便，且 L1 范数是 L0 范数的最优凸近似，更方便优化计算，因此常用 L1 正则去近似 L0 正则。</p>
 <p>L1 / L0 正则可以得到稀疏解，因此可以起到特征选择的作用，这是因为当确定某个系数 $w_j = 0$ 时，对应的特征 $x_j$ 是无用的，在某些场景（如医学等）下，下一次采样可考虑去掉该特征。</p>
 <p>（3）减少噪声</p>
 <p>另一种抑制过拟合的方法是减少噪声，但在实际面对的任务中，大部分情况下训练数据是给定的，因此增加或调整正则项是抑制过拟合最常用的手段。</p>
 <blockquote>
-<p>@注：<font color="EB6D39">正则项发挥作用的理解：对于目标函数 $J(W, \lambda) = Loss + \lambda R(W)$，若模型过拟合，由于模型的训练目标是目标函数最小，过拟合时虽然 $Loss$ 可能较小，但模型过于复杂，回归系数的 绝对值 / 平方值 过大，导致目标函数整体较大，则增大 $\lambda$，为了使得目标函数最小，模型会趋于减小 $W$，从而减小模型复杂度（$W$ 元素的值减小或非零元素减少都是减小模型复杂度）。当处于欠拟合状态，则 $Loss$ 较大，模型复杂度尚且不够拟合训练数据，此时减小 $\lambda$，以增加模型复杂度。通常，训练的过程分为系数 $W$ 的训练和超参数 $\lambda$ 的训练，使用某个超参数训练出系数后，模型复杂度即确定下来，再去搜索最优的超参数即可。</font></p>
+<p>@注：<font color=EB6D39>正则项发挥作用的理解：对于目标函数 $J(W, \lambda) = Loss + \lambda R(W)$，若模型过拟合，由于模型的训练目标是目标函数最小，过拟合时虽然 $Loss$ 可能较小，但模型过于复杂，回归系数的 绝对值 / 平方值 过大，导致目标函数整体较大，则增大 $\lambda$，为了使得目标函数最小，模型会趋于减小 $W$，从而减小模型复杂度（$W$ 元素的值减小或非零元素减少都是减小模型复杂度）。当处于欠拟合状态，则 $Loss$ 较大，模型复杂度尚且不够拟合训练数据，此时减小 $\lambda$，以增加模型复杂度。通常，训练的过程分为系数 $W$ 的训练和超参数 $\lambda$ 的训练，使用某个超参数训练出系数后，模型复杂度即确定下来，再去搜索最优的超参数即可。</font></p>
 </blockquote>
 <hr>
 <h1 id="6-带正则的线性回归"><a href="#6-带正则的线性回归" class="headerlink" title="6. 带正则的线性回归"></a>6. 带正则的线性回归</h1><p>最小二乘（OLS）线性回归中，目标函数 $J(W)$ 只包括训练集上的损失和（经验风险），也即仅考虑了模型对训练样本的拟合程度，因此可能会导致模型太过于复杂，甚至训练误差为0，产生过拟合。为此可在原目标函数中加入正则项，使得模型不会太复杂。则目标函数变为损失和 + 正则项：</p>
@@ -557,7 +663,7 @@
 <p>其中 R 为 Risk，表示 $W$ 复杂度的风险，新的目标函数也称为 <strong>结构风险</strong>。正则项的加入使目标函数符合奥拉姆剃刀（Occam’s Razor）原理：简单有效，选择能解释数据的模型中最简单的一个。</p>
 <p>常用的正则项有：L2 正则、L1 正则。</p>
 <p>（1）L2 正则：$R(W) = ||W||^2_2 = \sum^D_{j = 1} w^2_j$</p>
-<p>（2）L1 正则：$R(W) = ||W||_1 = \sum^D_{j = 1} |w_j|$</p>
+<p>（2）L1 正则：$R(W) = ||W||<em>1 = \sum^D</em>{j = 1} |w_j|$</p>
 <p>其中 $W$ 为模型参数，D 为参数的维数。</p>
 <h2 id="6-1-岭回归"><a href="#6-1-岭回归" class="headerlink" title="6.1 岭回归"></a>6.1 岭回归</h2><p>岭回归（Ridge）：L2 损失 + L2 正则 + LinearRegression。</p>
 <p>岭回归正则项对截距项不施加惩罚，也即：</p>
@@ -565,9 +671,9 @@
 <p>线性模型中增加常数项 $x_0 = 1$ 用于表示截距项：</p>
 <p>$$<br>f(X; W) = W^T X = \sum^D_{j = 0} w_j x_j，（j 从 0 开始）<br>$$</p>
 <p>当 j = 0 时，$x_0 = 1 \rightarrow w_0 x_0 = w_0$ 作为截距项。因此而得岭回归目标函数（目标函数的损失和部分不惩罚截距项，所以目标函数不需要从 0 开始）：</p>
-<p>$$<br>\begin{aligned}<br>J(W; \lambda) &amp;= \sum^N_{i = 1} L \left( y_i, f(X_i; W) \right) + \lambda R(W)<br>\\ &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} w^2_j<br>\\ &amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>J(W; \lambda) &amp;= \sum^N_{i = 1} L \left( y_i, f(X_i; W) \right) + \lambda R(W)<br>\ &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} w^2_j<br>\ &amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\end{aligned}<br>$$</p>
 <p>Scikit-Learn 中的岭回归：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.Ridge</span></span><br><span class="line">Ridge(alpha=<span class="number">1.0</span>,</span><br><span class="line">      fit_intercept=<span class="literal">True</span>,</span><br><span class="line">      normalize=<span class="literal">False</span>,</span><br><span class="line">      copy_X=<span class="literal">True</span>,</span><br><span class="line">      max_iter=<span class="literal">None</span>,</span><br><span class="line">      tol=<span class="number">0.001</span>,</span><br><span class="line">      solver=<span class="string">'auto'</span>,</span><br><span class="line">      random_state=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.Ridge</span></span><br><span class="line">Ridge(alpha=<span class="number">1.0</span>,</span><br><span class="line">      fit_intercept=<span class="literal">True</span>,</span><br><span class="line">      normalize=<span class="literal">False</span>,</span><br><span class="line">      copy_X=<span class="literal">True</span>,</span><br><span class="line">      max_iter=<span class="literal">None</span>,</span><br><span class="line">      tol=<span class="number">0.001</span>,</span><br><span class="line">      solver=<span class="string">&#x27;auto&#x27;</span>,</span><br><span class="line">      random_state=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
 
 <p><strong>（1）Ridge 类参数</strong></p>
 <p><code>alpha</code>：<br>正则参数，也即正则项中的 λ。<br>目标：求 $\arg_W \min (||X W - y||^2_2 + \alpha ||W||^2_2)$</p>
@@ -584,9 +690,9 @@
 <li>Selection：L1 正则可能使得 $W$ 中某些元素变为 0 得到稀疏解，从而起到特征选择的作用。</li>
 </ul>
 <p>Lasso 的目标函数为：</p>
-<p>$$<br>\begin{aligned}<br>J(W; \lambda) &amp;= \sum^N_{i = 1} L \left( y_i, f(X_i; W) \right) + \lambda R(W)<br>\\<br>&amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} |w_j|<br>\\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||_1<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>J(W; \lambda) &amp;= \sum^N_{i = 1} L \left( y_i, f(X_i; W) \right) + \lambda R(W)<br>\<br>&amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} |w_j|<br>\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||_1<br>\end{aligned}<br>$$</p>
 <p>Scikit-Learn 中的 Lasso：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.Lasso</span></span><br><span class="line">Lasso(alpha=<span class="number">1.0</span>,</span><br><span class="line">      fit_intercept=<span class="literal">True</span>,</span><br><span class="line">      normalize=<span class="literal">False</span>,</span><br><span class="line">      precompute=<span class="literal">False</span>,</span><br><span class="line">      copy_X=<span class="literal">True</span>,</span><br><span class="line">      max_iter=<span class="literal">None</span>,</span><br><span class="line">      tol=<span class="number">0.001</span>,</span><br><span class="line">      warm_start=<span class="literal">False</span>,</span><br><span class="line">      random_state=<span class="literal">None</span>,</span><br><span class="line">      selection=<span class="string">'cyclic'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.Lasso</span></span><br><span class="line">Lasso(alpha=<span class="number">1.0</span>,</span><br><span class="line">      fit_intercept=<span class="literal">True</span>,</span><br><span class="line">      normalize=<span class="literal">False</span>,</span><br><span class="line">      precompute=<span class="literal">False</span>,</span><br><span class="line">      copy_X=<span class="literal">True</span>,</span><br><span class="line">      max_iter=<span class="literal">None</span>,</span><br><span class="line">      tol=<span class="number">0.001</span>,</span><br><span class="line">      warm_start=<span class="literal">False</span>,</span><br><span class="line">      random_state=<span class="literal">None</span>,</span><br><span class="line">      selection=<span class="string">&#x27;cyclic&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 <p><strong>（1）Lasso 类参数</strong></p>
 <p>大部分与 Ridge 相同。<br>其他参数与优化计算有关（详见优化求解部分）。</p>
@@ -600,7 +706,7 @@
 <p>弹性网络的目标函数：</p>
 <p>$$<br>J(W; \lambda; \rho) = \dfrac {1} {2N} ||y - X W||^2_2 + \lambda \left( \rho ||W||_1 + \dfrac {(1 - \rho)} {2} ||W||^2_2 \right),\ \ \ \ \ 0 \le \rho \le 1<br>$$</p>
 <p>Scikit-Learn 中使用 ElasticNet 实现弹性网络：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.ElasticNet</span></span><br><span class="line">ElasticNet(alpha=<span class="number">1.0</span>,</span><br><span class="line">           l1_ratio=<span class="number">0.5</span>,</span><br><span class="line">           fit_intercept=<span class="literal">True</span>,</span><br><span class="line">           normalize=<span class="literal">False</span>,</span><br><span class="line">           precompute=<span class="literal">False</span>,</span><br><span class="line">           max_iter=<span class="literal">None</span>,</span><br><span class="line">           copy_X=<span class="literal">True</span>,</span><br><span class="line">           tol=<span class="number">0.001</span>,</span><br><span class="line">           warm_start=<span class="literal">False</span>,</span><br><span class="line">           postive=<span class="literal">False</span>,</span><br><span class="line">           random_state=<span class="literal">None</span>,</span><br><span class="line">           selection=<span class="string">'cyclic'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.ElasticNet</span></span><br><span class="line">ElasticNet(alpha=<span class="number">1.0</span>,</span><br><span class="line">           l1_ratio=<span class="number">0.5</span>,</span><br><span class="line">           fit_intercept=<span class="literal">True</span>,</span><br><span class="line">           normalize=<span class="literal">False</span>,</span><br><span class="line">           precompute=<span class="literal">False</span>,</span><br><span class="line">           max_iter=<span class="literal">None</span>,</span><br><span class="line">           copy_X=<span class="literal">True</span>,</span><br><span class="line">           tol=<span class="number">0.001</span>,</span><br><span class="line">           warm_start=<span class="literal">False</span>,</span><br><span class="line">           postive=<span class="literal">False</span>,</span><br><span class="line">           random_state=<span class="literal">None</span>,</span><br><span class="line">           selection=<span class="string">&#x27;cyclic&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 <p><strong>（1）ElasticNet 类参数</strong></p>
 <p><code>l1_ratio</code>：<br>即正则比例参数 ρ。</p>
@@ -634,6 +740,8 @@
     
     
     
+
+    <footer class="post-footer">
 
 
 
@@ -678,7 +786,7 @@
     
     <br /> <br /> <br />
     
-    <div class="pagination">
+    <div class="pagination" style="border-radius: 10px;">
         
         
             <style type="text/css">
@@ -694,85 +802,78 @@
                     border-bottom: none;
                 }
             </style>
-            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
         
         
     </div>
 
 
-        <div class="reward-container">
+          <div class="reward-container">
   <div></div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
     感谢支持
   </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/wechatpay.png" alt="SLLiu 微信支付">
-        <p>微信支付</p>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Luis 微信支付">
+        <span>微信支付</span>
       </div>
-      
-      <div style="display: inline-block;">
-        <img src="/images/alipay.png" alt="SLLiu 支付宝">
-        <p>支付宝</p>
+      <div>
+        <img src="/images/alipay.png" alt="Luis 支付宝">
+        <span>支付宝</span>
       </div>
 
   </div>
 </div>
 
-        
+          
 
-<div>
-<ul class="post-copyright">
+<div class="post-copyright">
+<ul>
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>SLLiu
+      <strong>原作者： </strong>SLLiu
   </li>
   <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/" title="ML入门-线性回归简介">https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/</a>
+      <strong>本文链接：</strong>
+      <a href="https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/" title="ML入门-线性回归简介">https://www.liushulun.cn/post/machinelearning/ml-linear/ml-linear-introduction/ml-linear-introduction/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
   </li>
 </ul>
 </div>
 
-
-      <footer class="post-footer">
-          
           <div class="post-tags">
               <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
               <a href="/tags/MachineLearning/" rel="tag"><i class="fa fa-tag"></i> MachineLearning</a>
-              <a href="/tags/人工智能/" rel="tag"><i class="fa fa-tag"></i> 人工智能</a>
-              <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
-              <a href="/tags/线性回归/" rel="tag"><i class="fa fa-tag"></i> 线性回归</a>
+              <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag"><i class="fa fa-tag"></i> 人工智能</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+              <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="tag"><i class="fa fa-tag"></i> 线性回归</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/post/machinelearning/ml-linear/ml-linear-solutions/ml-linear-solutions/" rel="prev" title="ML入门-线性回归三种求解">
-      <i class="fa fa-chevron-left"></i> ML入门-线性回归三种求解
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/post/machinelearning/ml-introduction/ml-introduction/" rel="next" title="ML入门-机器学习简介">
-      ML入门-机器学习简介 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/machinelearning/ml-linear/ml-linear-solutions/ml-linear-solutions/" rel="prev" title="ML入门-线性回归三种求解">
+                  <i class="fa fa-chevron-left"></i> ML入门-线性回归三种求解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/machinelearning/ml-introduction/ml-introduction/" rel="next" title="ML入门-机器学习简介">
+                  ML入门-机器学习简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-          </div>
-          
+
+
+
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -781,7 +882,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -790,229 +891,79 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          本文目录
-        </li>
-        <li class="sidebar-nav-overview">
-          博客信息
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是回归"><span class="nav-text">1. 什么是回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-什么是线性回归"><span class="nav-text">2. 什么是线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-线性回归损失函数"><span class="nav-text">3. 线性回归损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-预测残差"><span class="nav-text">3.1 预测残差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-三种损失函数"><span class="nav-text">3.2 三种损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-L2损失"><span class="nav-text">3.2.1 L2损失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-L1损失"><span class="nav-text">3.2.2 L1损失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-Huber损失"><span class="nav-text">3.2.3 Huber损失</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Scikit-Learn中的线性回归"><span class="nav-text">4. Scikit-Learn中的线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-欠拟合与过拟合"><span class="nav-text">5. 欠拟合与过拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-sin-函数曲线实例"><span class="nav-text">5.1 $\sin$函数曲线实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-训练误差与测试误差"><span class="nav-text">5.2 训练误差与测试误差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-过拟合时的模型参数"><span class="nav-text">5.3 过拟合时的模型参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-抑制过拟合"><span class="nav-text">5.4 抑制过拟合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-带正则的线性回归"><span class="nav-text">6. 带正则的线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-岭回归"><span class="nav-text">6.1 岭回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-Lasso"><span class="nav-text">6.2 Lasso</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-弹性网络"><span class="nav-text">6.3 弹性网络</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="SLLiu"
-      src="/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">SLLiu</p>
-  <div class="site-description" itemprop="description">Keep Learning</div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">64</span>
-          <span class="site-state-item-name">文章</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">84</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/" title="Home → /"><i class="fa fa-fw fa-home"></i></a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-users"></i>
-      友链
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://renxingkai.github.io" title="https://renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://blog.juanertu.com" title="https://blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
-        </li>
-    </ul>
-  </div>
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 2018 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">LiuShulun</span>
-    <span class="post-meta-divider">|</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-line"></i>
     </span>
-      <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">349k</span>
-    <span class="post-meta-divider">|</span>
+      <span>全站总字数：</span>
+    <span title="全站总字数">343k</span>
+  </span>
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:28</span>
+      <span>全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:21</span>
+  </span>
 </div>
 
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
 
 
 
   
+
+
+
+
   <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
-
-
-
-  <script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-      
-
-<script>
   if (typeof MathJax === 'undefined') {
     window.MathJax = {
-      loader: {
-          load: ['[tex]/mhchem'],
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
       tex: {
         inlineMath: {'[+]': [['$', '$']]},
-          packages: {'[+]': ['mhchem']},
-        tags: 'ams'
+        tags: 'none'
       },
       options: {
         renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
           insertedScript: [200, () => {
             document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
+              const target = node.parentNode;
               if (target.nodeName.toLowerCase() === 'li') {
                 target.parentNode.classList.add('has-jax');
               }
@@ -1021,51 +972,19 @@
         }
       }
     };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
   } else {
     MathJax.startup.document.state(0);
+    MathJax.typesetClear();
     MathJax.texReset();
     MathJax.typeset();
   }
 </script>
 
-    
 
-  
-
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
-      appKey     : 'YRRibTsHhmelPnfq41YO6B1r',
-      placeholder: "Nice !",
-      avatar     : 'wavatar',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
 
 
 </body>

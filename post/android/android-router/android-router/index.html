@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
@@ -13,31 +15,35 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。">
-<meta name="keywords" content="Android,Router,ARouter,路由">
+<meta name="description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android-浅析ARouter路由框架的原理和局限性">
 <meta property="og:url" content="https://www.liushulun.cn/post/android/android-router/android-router/index.html">
-<meta property="og:site_name" content="SLLiu&#39;s Blogs">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
 <meta property="og:description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-02-08T09:04:01.836Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-08T08:04:51.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Router">
+<meta property="article:tag" content="ARouter">
+<meta property="article:tag" content="路由">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android-浅析ARouter路由框架的原理和局限性">
-<meta name="twitter:description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。">
+
 
 <link rel="canonical" href="https://www.liushulun.cn/post/android/android-router/android-router/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -47,62 +53,71 @@
   };
 </script>
 
-
-  <title>Android-浅析ARouter路由框架的原理和局限性 | SLLiu's Blogs</title>
+<title>Android-浅析ARouter路由框架的原理和局限性 | Luis's Blogs</title>
   
-
-
 
 
 
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="开/关导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="开/关导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">SLLiu's Blogs</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1062</p>
+      <p class="site-subtitle" itemprop="description">V 1100</p>
   </div>
 
   <div class="site-nav-right">
@@ -114,39 +129,18 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">79</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">64</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">84</span></a>
-
-  </li>
-        <li class="menu-item menu-item-records">
-
-    <a href="/records/" rel="section"><i class="fa fa-fw fa-list-alt"></i>记录</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
-
-  </li>
+      
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -157,23 +151,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -182,10 +175,105 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFARouter"><span class="nav-text">1. 什么是ARouter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-ARouter%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">2. ARouter的基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-1-%E7%BC%96%E8%AF%91%E6%97%B6%E5%A4%84%E7%90%86"><span class="nav-text">2.1 编译时处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD"><span class="nav-text">2.2 运行时加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-ARouter%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-text">3. ARouter的局限性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">附录[参考指导]</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -193,67 +281,66 @@
 
   <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/android/android-router/android-router/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="name" content="Luis">
       <meta itemprop="description" content="Keep Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SLLiu's Blogs">
+      <meta itemprop="name" content="Luis's Blogs">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Android-浅析ARouter路由框架的原理和局限性
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-02-08 16:04:51" itemprop="dateCreated datePublished" datetime="2021-02-08T16:04:51+08:00">2021-02-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2021-02-08 16:04:51" itemprop="dateCreated datePublished" datetime="2021-02-08T16:04:51+08:00">2021-02-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
 
-          
   
-  
-
-
-<span class="post-meta-divider">|</span>
 
 
 
 
 
 
-<!-- 注释开始 -----
+<!-- 注释开始 #############################################
 
   <script>
     function post_nav(post) {
@@ -279,9 +366,11 @@
   
   <div style="position: absolute; top: -20px;">post_nav(post)</div>
 
------ 注释结束 -->
+############################################# 注释结束 -->
 
 
+
+<!-- 注释开始 #############################################
   
   <div style="position: fixed; width: 100%;">
     
@@ -290,25 +379,28 @@
           <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
           <a href="/tags/Router/" rel="tag"><i class="fa fa-tag"></i> Router</a>
           <a href="/tags/ARouter/" rel="tag"><i class="fa fa-tag"></i> ARouter</a>
-          <a href="/tags/路由/" rel="tag"><i class="fa fa-tag"></i> 路由</a>
+          <a href="/tags/%E8%B7%AF%E7%94%B1/" rel="tag"><i class="fa fa-tag"></i> 路由</a>
       </div>
   </div>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-            <div class="post-description">（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。</div>
+############################################# 注释结束 -->
 
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。</div>
         </div>
       </header>
 
@@ -316,9 +408,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-        <a id="more"></a>
+        <span id="more"></span>
 
 <p>前言：最近在思考项目 Module 解耦问题的时候，粗略了解了一下路由框架，其中最著名的又属阿里开源的 ARouter 了。但在实操的时候发现路由框架并没有我一开始想象的「能完全实现 Module 间解耦」那么美好，有着其本身的局限性，所以在本文对 ARouter 的基本原理和局限性做一个很浅显的个人总结。</p>
 <hr>
@@ -331,15 +421,15 @@
 <ul>
 <li>假设 module_splash 下有一个 ADSActivity 添加了路由，则编译时会生成一个类似以下结构的表：</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EaseRouter_Group_splash</span> <span class="keyword">implements</span> <span class="title">IRouteRoot</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadInto</span><span class="params">(Map&lt;String, RouteMeta&gt; atlas)</span> </span>&#123;</span><br><span class="line">        atlas.put(<span class="string">"/splash/ads"</span>, RouteMeta.build(RouteMeta.Type.ACTIVITY, ADSActivity.class, <span class="string">"/splash/ads"</span>, <span class="string">"splash"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EaseRouter_Group_splash</span> <span class="keyword">implements</span> <span class="title">IRouteRoot</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadInto</span><span class="params">(Map&lt;String, RouteMeta&gt; atlas)</span> </span>&#123;</span><br><span class="line">        atlas.put(<span class="string">&quot;/splash/ads&quot;</span>, RouteMeta.build(RouteMeta.Type.ACTIVITY, ADSActivity.class, <span class="string">&quot;/splash/ads&quot;</span>, <span class="string">&quot;splash&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>假设 module_user 下 LoginActivity 和 RegisterActivity 都添加了路由，则编译时同样会生成一个类似以下结构的表：</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EaseRouter_Group_user</span> <span class="keyword">implements</span> <span class="title">IRouteRoot</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadInto</span><span class="params">(Map&lt;String, RouteMeta&gt; atlas)</span> </span>&#123;</span><br><span class="line">        atlas.put(<span class="string">"/user/login"</span>, RouteMeta.build(RouteMeta.Type.ACTIVITY, LoginActivity.class, <span class="string">"/user/login"</span>, <span class="string">"user"</span>));</span><br><span class="line">        atlas.put(<span class="string">"/user/register"</span>, RouteMeta.build(RouteMeta.Type.ACTIVITY, RegisterActivity.class, <span class="string">"/user/register"</span>, <span class="string">"user"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EaseRouter_Group_user</span> <span class="keyword">implements</span> <span class="title">IRouteRoot</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadInto</span><span class="params">(Map&lt;String, RouteMeta&gt; atlas)</span> </span>&#123;</span><br><span class="line">        atlas.put(<span class="string">&quot;/user/login&quot;</span>, RouteMeta.build(RouteMeta.Type.ACTIVITY, LoginActivity.class, <span class="string">&quot;/user/login&quot;</span>, <span class="string">&quot;user&quot;</span>));</span><br><span class="line">        atlas.put(<span class="string">&quot;/user/register&quot;</span>, RouteMeta.build(RouteMeta.Type.ACTIVITY, RegisterActivity.class, <span class="string">&quot;/user/register&quot;</span>, <span class="string">&quot;user&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>（2）对所有 Router，生成一个主路径对应每个实际路由表 <code>atlas</code> 的表：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EaseRouter_Root_app</span> <span class="keyword">implements</span> <span class="title">IRouteRoot</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadInto</span><span class="params">(Map&lt;String, Class&lt;? extends IRouteGroup&gt;&gt; routes)</span> </span>&#123;</span><br><span class="line">        routes.put(<span class="string">"slpash"</span>, EaseRouter_Group_splash.class);</span><br><span class="line">        routes.put(<span class="string">"user"</span>, EaseRouter_Group_user.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EaseRouter_Root_app</span> <span class="keyword">implements</span> <span class="title">IRouteRoot</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadInto</span><span class="params">(Map&lt;String, Class&lt;? extends IRouteGroup&gt;&gt; routes)</span> </span>&#123;</span><br><span class="line">        routes.put(<span class="string">&quot;slpash&quot;</span>, EaseRouter_Group_splash.class);</span><br><span class="line">        routes.put(<span class="string">&quot;user&quot;</span>, EaseRouter_Group_user.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>实际上，所有和路由相关的表都，都是通过一个实现了 <code>IRouteRoot</code> 接口的类存储的。</p>
 <h1 id="2-2-运行时加载"><a href="#2-2-运行时加载" class="headerlink" title="2.2 运行时加载"></a>2.2 运行时加载</h1><p>ARouter 会在运行时收到路由请求后再做懒加载：</p>
@@ -362,17 +452,14 @@
 <li><p>app 主 Module 并不依赖 module_user，两个 Module 都是独立的</p>
 </li>
 <li><p>编译打包，Build 日志中，ARouter 输出确实找到了 LoginActivity 和 RegisterActivity 的路由：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Note: ARouter::Compiler &gt;&gt;&gt; Found activity route: priv.luis.user.LoginActivity &lt;&lt;&lt;</span><br><span class="line">Note: ARouter::Compiler &gt;&gt;&gt; Found activity route: priv.luis.user.RegisterActivity &lt;&lt;&lt;</span><br></pre></td></tr></table></figure>
-
-
 </li>
 </ul>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Note: ARouter::Compiler &gt;&gt;&gt; Found activity route: priv.luis.user.LoginActivity &lt;&lt;&lt;</span><br><span class="line">Note: ARouter::Compiler &gt;&gt;&gt; Found activity route: priv.luis.user.RegisterActivity &lt;&lt;&lt;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>但是打包完再反解后发现，module_user 没有被打进 APK 内，MainActivity 请求路由到 LoginActivity 时 ARouter 也报错：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ARouter::There is no route match the path [/user/login]</span><br><span class="line">ARouter::There is no route match the path [/user/register]</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>但是打包完再反解后发现，module_user 没有被打进 APK 内，MainActivity 请求路由到 LoginActivity 时 ARouter 也报错：</li>
 </ul>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ARouter::There is no route match the path [/user/login]</span><br><span class="line">ARouter::There is no route match the path [/user/register]</span><br></pre></td></tr></table></figure>
+
 <p>也就是说，想要使用路由框架，首先也要确保 Module 能正确被打包进去，那方案只有两种：</p>
 <ul>
 <li><p>（1）app 主 Module 添加所有业务子 Module 的依赖。</p>
@@ -383,7 +470,7 @@
 <p>所以实际上路由框架并没有从根源上解决依赖的问题，从这个角度来看，ARouter 最大的好处或许其实在于其使用 APT 自动生成了路由信息的录入和查找相关代码，并且对查找路由做了分段懒加载等内存优化，在业务开发上可以节省一些编码时间，但 ARouter 最基本的使用也需要开发人员对相关 Gradle 配置、路由配置等稍有熟悉后才可上手（当然这个过程其实已经有傻瓜式文档了，使用门槛很低），对于整个 App 的路由信息，也需要专门管理，以避免路由信息混乱、重复、不规范等问题，当然这些确实都能通过良好的管理方式优化。但实际上我个人对使用 String 来管理路由的做法反倒是略有排斥的，至于是否真的使得代码变得更「内聚」、「解耦」、以及「高级」，和每个人的开发习惯有关，就见仁见智了。</p>
 <h1 id="附录-参考指导"><a href="#附录-参考指导" class="headerlink" title="附录[参考指导]"></a>附录[参考指导]</h1><blockquote>
 <ul>
-<li><a href="https://www.jianshu.com/p/857aea5b54a8" title="@LINK" target="_blank" rel="noopener">【1】ARouter原理剖析及手动实现（作者：xiasem）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/857aea5b54a8" title="@LINK">【1】ARouter原理剖析及手动实现（作者：xiasem）<sup>【注】</sup></a></li>
 </ul>
 </blockquote>
 
@@ -392,6 +479,8 @@
     
     
     
+
+    <footer class="post-footer">
 
 
 
@@ -436,7 +525,7 @@
     
     <br /> <br /> <br />
     
-    <div class="pagination">
+    <div class="pagination" style="border-radius: 10px;">
         
         
             <style type="text/css">
@@ -452,81 +541,74 @@
                     border-bottom: none;
                 }
             </style>
-            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
         
         
     </div>
 
 
-        <div class="reward-container">
+          <div class="reward-container">
   <div></div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
     感谢支持
   </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/wechatpay.png" alt="SLLiu 微信支付">
-        <p>微信支付</p>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Luis 微信支付">
+        <span>微信支付</span>
       </div>
-      
-      <div style="display: inline-block;">
-        <img src="/images/alipay.png" alt="SLLiu 支付宝">
-        <p>支付宝</p>
+      <div>
+        <img src="/images/alipay.png" alt="Luis 支付宝">
+        <span>支付宝</span>
       </div>
 
   </div>
 </div>
 
-        
+          
 
-<div>
-<ul class="post-copyright">
+<div class="post-copyright">
+<ul>
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>SLLiu
+      <strong>原作者： </strong>SLLiu
   </li>
   <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.liushulun.cn/post/android/android-router/android-router/" title="Android-浅析ARouter路由框架的原理和局限性">https://www.liushulun.cn/post/android/android-router/android-router/</a>
+      <strong>本文链接：</strong>
+      <a href="https://www.liushulun.cn/post/android/android-router/android-router/" title="Android-浅析ARouter路由框架的原理和局限性">https://www.liushulun.cn/post/android/android-router/android-router/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
   </li>
 </ul>
 </div>
 
-
-      <footer class="post-footer">
-          
           <div class="post-tags">
               <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
               <a href="/tags/Router/" rel="tag"><i class="fa fa-tag"></i> Router</a>
               <a href="/tags/ARouter/" rel="tag"><i class="fa fa-tag"></i> ARouter</a>
-              <a href="/tags/路由/" rel="tag"><i class="fa fa-tag"></i> 路由</a>
+              <a href="/tags/%E8%B7%AF%E7%94%B1/" rel="tag"><i class="fa fa-tag"></i> 路由</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item"></div>
-      <div class="post-nav-item">
-    <a href="/post/android/android-ui_thread/android-ui_thread/" rel="next" title="Android子线程到底能否更新UI——可能是最全面的解析">
-      Android子线程到底能否更新UI——可能是最全面的解析 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/android/android-ui_thread/android-ui_thread/" rel="next" title="Android子线程到底能否更新UI——可能是最全面的解析">
+                  Android子线程到底能否更新UI——可能是最全面的解析 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-          </div>
-          
+
+
+
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -535,7 +617,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -544,187 +626,56 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          本文目录
-        </li>
-        <li class="sidebar-nav-overview">
-          博客信息
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是ARouter"><span class="nav-text">1. 什么是ARouter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-ARouter的基本原理"><span class="nav-text">2. ARouter的基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-1-编译时处理"><span class="nav-text">2.1 编译时处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-运行时加载"><span class="nav-text">2.2 运行时加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-ARouter的局限性"><span class="nav-text">3. ARouter的局限性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录-参考指导"><span class="nav-text">附录[参考指导]</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="SLLiu"
-      src="/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">SLLiu</p>
-  <div class="site-description" itemprop="description">Keep Learning</div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">64</span>
-          <span class="site-state-item-name">文章</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">84</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/" title="Home → /"><i class="fa fa-fw fa-home"></i></a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-users"></i>
-      友链
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://renxingkai.github.io" title="https://renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://blog.juanertu.com" title="https://blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
-        </li>
-    </ul>
-  </div>
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 2018 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">LiuShulun</span>
-    <span class="post-meta-divider">|</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-line"></i>
     </span>
-      <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">349k</span>
-    <span class="post-meta-divider">|</span>
+      <span>全站总字数：</span>
+    <span title="全站总字数">343k</span>
+  </span>
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:28</span>
+      <span>全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:21</span>
+  </span>
 </div>
 
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
-
-
-
-  <script src="/js/local-search.js"></script>
-
-
-
-
-
-
+<script src="/js/local-search.js"></script>
 
 
 
@@ -733,38 +684,11 @@
 
   
 
-  
+
+
 
   
 
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
-      appKey     : 'YRRibTsHhmelPnfq41YO6B1r',
-      placeholder: "Nice !",
-      avatar     : 'wavatar',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
 
 
 </body>

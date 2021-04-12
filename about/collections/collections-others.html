@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="1. Network 【图文讲解】你一定能看懂的HTTPS原理剖析！  面试官问：浏览器输入 URL 回车之后发生了什么？    2. Algorithm 【数据结构与算法】这或许是东半球分析十大排序算法最好的一篇文章  今日头条、抖音推荐算法原理全文详解！  讲道理，MD5 到底是不是加密算法？    3. Database 24 个必须掌握的数据库面试问题！  项目中常用的19条MySQL优化">
+<meta property="og:type" content="website">
+<meta property="og:title" content="收藏-Others">
+<meta property="og:url" content="https://www.liushulun.cn/about/collections/collections-others.html">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
+<meta property="og:description" content="1. Network 【图文讲解】你一定能看懂的HTTPS原理剖析！  面试官问：浏览器输入 URL 回车之后发生了什么？    2. Algorithm 【数据结构与算法】这或许是东半球分析十大排序算法最好的一篇文章  今日头条、抖音推荐算法原理全文详解！  讲道理，MD5 到底是不是加密算法？    3. Database 24 个必须掌握的数据库面试问题！  项目中常用的19条MySQL优化">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-12-31T16:00:00.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="AI, MachineLearning, Python, Java, Android">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.liushulun.cn/about/collections/collections-others">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+<title>收藏-Others | Luis's Blogs
+</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="开/关导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">V 1100</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">79</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Network"><span class="nav-text">1. Network</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Algorithm"><span class="nav-text">2. Algorithm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Database"><span class="nav-text">3. Database</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-References"><span class="nav-text">4. References</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner page posts-expand">
+  
+
+      
+
+        
+        <ul class="sub-menu menu">
+          
+            
+          
+          
+            
+                
+  <li class="menu-item menu-item-favorite"><a href="/about/favorite/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>最爱</a></li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-plans"><a href="/about/plans/" rel="section"><i class="fa fa-list-alt fa-fw"></i>计划</a></li>
+
+
+          
+            
+                
+  <li class="menu-item menu-item-collections"><a href="/about/collections/" rel="section"><i class="fa fa-star fa-fw"></i>收藏</a></li>
+
+
+        </ul>
+        
+
+        
+
+                
+                
+
+                
+                
+
+                
+
+                    
+                    <ul class="sub-menu menu">
+                      
+                        
+  <li class="menu-item menu-item-machinelearning"><a href="/about/collections/collections-machinelearning.html" rel="section"><i class="fa fa-star fa-fw"></i>MachineLearning</a></li>
+
+
+                        
+  <li class="menu-item menu-item-android"><a href="/about/collections/colections-android.html" rel="section"><i class="fa fa-star fa-fw"></i>Android</a></li>
+
+
+                        
+  <li class="menu-item menu-item-java"><a href="/about/collections/colections-java.html" rel="section"><i class="fa fa-star fa-fw"></i>Java</a></li>
+
+
+                        
+  <li class="menu-item menu-item-python"><a href="/about/collections/colections-python.html" rel="section"><i class="fa fa-star fa-fw"></i>Python</a></li>
+
+
+                        
+  <li class="menu-item menu-item-others"><a href="/about/collections/collections-others.html" rel="section"><i class="fa fa-star fa-fw"></i>Others</a></li>
+
+
+                    </ul>
+                    
+                
+        
+      
+  
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">收藏-Others
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/about/">ABOUT</a></li>
+            <li><a href="/about/collections/">COLLECTIONS</a></li>
+            <li>COLLECTIONS-OTHERS</li>
+          
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      <div class="post-body">
+          <h1 id="1-Network"><a href="#1-Network" class="headerlink" title="1. Network"></a>1. Network</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/nXdMd1iviSFS2jXmj0m92g" title="@LINK">【图文讲解】你一定能看懂的HTTPS原理剖析！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/4eFPYESWqxaeoYHkftFvbw" title="@LINK">面试官问：浏览器输入 URL 回车之后发生了什么？</a></p>
+</li>
+</ul>
+<hr>
+<h1 id="2-Algorithm"><a href="#2-Algorithm" class="headerlink" title="2. Algorithm"></a>2. Algorithm</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/iiH2wSG-hVeUHxIsfuu9gw" title="@LINK">【数据结构与算法】这或许是东半球分析十大排序算法最好的一篇文章</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ewkaYPQlFZ4EvVM8e8HK-g" title="@LINK">今日头条、抖音推荐算法原理全文详解！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/SV8WLTXmXJXulX0Eoe2QNA" title="@LINK">讲道理，MD5 到底是不是加密算法？</a></p>
+</li>
+</ul>
+<hr>
+<h1 id="3-Database"><a href="#3-Database" class="headerlink" title="3. Database"></a>3. Database</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/pC0_Y7M7BkoUmlRwneZZdA" title="@LINK">24 个必须掌握的数据库面试问题！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ajvmDZ00WwvN8_9ZyeNp6A" title="@LINK">项目中常用的19条MySQL优化</a></p>
+</li>
+</ul>
+<hr>
+<h1 id="4-References"><a href="#4-References" class="headerlink" title="4. References"></a>4. References</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ibfit0VwKbJT0cK4YoIq0w" title="@LINK">单元测试到底是什么？应该怎么做？</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/H11tnYdcez1ITPEUyhJ62w" title="@LINK">鹅厂是如何使用 Git 的？</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/94505NkOfsHyTMZeduM9wQ" title="@LINK">深夜，分享一个Git小技巧</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/uc84tTnlWYu0lyI0AotlDg" title="@LINK">如何设计 QQ、微信、微博、Github 等第三方账号登陆 ？（附表设计）</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/wPBcoUswu4nVEZXjY2yi5w" title="@LINK">Docker 入门看这一篇就够了，万字详解！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/196773379a78" title="@LINK">如何在个人服务器上部署Hexo博客</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/springboot/p/8146530.html" title="@LINK">如何在阿里云linux上部署java项目</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GPyU0R0tkl8EVMiQc8xG8g" title="@LINK">IDEA配置：让你的IDEA有飞一般的感觉</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/3m00I_b084xcvSYMWu27kA" title="@LINK">整理了一些 IDEA 中比较骚的技巧，发现第一个就没用过！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/sKN9KeBwIEbuSFS9O6jjaQ" title="@LINK">官宣！VS Code Python 全新功能在 PyCon China 全球首发！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/sGdqWCoXy5U3oFFKBJP0ZA" title="@LINK">中秋分享几个有点意思的 GitHub 项目</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/zfeJDxuzzgRMhSK6wxvvrg" title="@LINK">冠军奖3万元！CSDNx易观算法大赛开赛啦</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/FVI2-4YEYzyMMd2M3URXmg" title="@LINK">杀手级AI补代码工具问世，支持23种语言及5种主流编辑器，程序员沸腾了</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/QgPRqRJqLjGXA4dEac8ulA" title="@LINK">发现一款99%程序员不知道的撸码利器！AI辅助编程，释放你的双手！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/JNFNMFCoCLwL2TFFBPJWag" title="@LINK">看完这本书，你就能给微软递简历了！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/uyXBIYeSheTsc5JFSDHLIQ" title="@LINK">视频PS神器！任务隐身、水印去除，简直像重拍了一遍，这项登上CVPR的研究刚刚开源了</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/drvGy3aCzM1Tka5OGf6VSQ" title="@LINK">作为程序员，近几年我都用过哪些优质的开源软件？</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/KzXp2rvzl1LXuSVDmPzkPQ" title="@LINK">这个只要35美元的电脑，有1000多万人在用！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://algo.qq.com/?from=singlemessage&isappinstalled=0" title="@LINK">腾讯广告算法大赛（官网）</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/65418206?utm_source=com.tencent.tim&utm_medium=social&utm_oi=555381879923224576&from=singlemessage&isappinstalled=0" title="@LINK">2019腾讯广告算法大赛入门-Part2（初赛生存篇）</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ppwwyyxx/dash-docset-tensorflow" title="@LINK">Dash 的 Tensorflow 文档</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/D2fpzgw5NhUegOsY2s2ESg" title="@LINK">内部泄露版！互联网大厂的薪资和职级一览</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/g13Utme0CbVoqrYqgjBttQ" title="@LINK">自己拥有一台服务器可以做哪些很酷的事情？搭建私有云网盘！</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/G1k0f5W4Q8SDIqRKp6OYvQ" title="@LINK">工程师如何从技术转型做管理？</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/QTWA_CS23Tx9K34CY3BTjw" title="@LINK">最新互联网职级分享</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/M44RkYC-OlA34Eouny6yRQ" title="@LINK">腾讯的技术到底有多强？</a></p>
+</li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/about/">ABOUT</a></li>
+            <li><a href="/about/collections/">COLLECTIONS</a></li>
+            <li>COLLECTIONS-OTHERS</li>
+          
+  </ul>
+
+    
+    
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>全站总字数：</span>
+    <span title="全站总字数">343k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:21</span>
+  </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+</body>
+</html>

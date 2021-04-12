@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
@@ -13,31 +15,34 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="Mac 环境下编译 FFmpeg 为 SO 库。">
-<meta name="keywords" content="FFMPEG,SO库,编译">
+<meta name="description" content="Mac 环境下编译 FFmpeg 为 SO 库。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac编译FFmpeg踩坑记录">
 <meta property="og:url" content="https://www.liushulun.cn/post/note/note-build-ffmpeg/note-build-ffmpeg/index.html">
-<meta property="og:site_name" content="SLLiu&#39;s Blogs">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
 <meta property="og:description" content="Mac 环境下编译 FFmpeg 为 SO 库。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-11-06T07:27:58.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-05T11:21:08.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="FFMPEG">
+<meta property="article:tag" content="SO库">
+<meta property="article:tag" content="编译">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac编译FFmpeg踩坑记录">
-<meta name="twitter:description" content="Mac 环境下编译 FFmpeg 为 SO 库。">
+
 
 <link rel="canonical" href="https://www.liushulun.cn/post/note/note-build-ffmpeg/note-build-ffmpeg/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -47,62 +52,71 @@
   };
 </script>
 
-
-  <title>Mac编译FFmpeg踩坑记录 | SLLiu's Blogs</title>
+<title>Mac编译FFmpeg踩坑记录 | Luis's Blogs</title>
   
-
-
 
 
 
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="开/关导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="开/关导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">SLLiu's Blogs</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1062</p>
+      <p class="site-subtitle" itemprop="description">V 1100</p>
   </div>
 
   <div class="site-nav-right">
@@ -114,39 +128,18 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">79</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">64</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">84</span></a>
-
-  </li>
-        <li class="menu-item menu-item-records">
-
-    <a href="/records/" rel="section"><i class="fa fa-fw fa-list-alt"></i>记录</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
-
-  </li>
+      
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -157,23 +150,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -182,10 +174,105 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E5%92%8C%E6%89%80%E9%9C%80%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">1. 环境和所需的文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%BC%96%E8%AF%91SO%E6%96%87%E4%BB%B6"><span class="nav-text">2. 编译SO文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E9%85%8D%E7%BD%AENDK"><span class="nav-text">2.1 配置NDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E9%85%8D%E7%BD%AEFFmpeg"><span class="nav-text">2.2 配置FFmpeg</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -193,67 +280,66 @@
 
   <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/note/note-build-ffmpeg/note-build-ffmpeg/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="name" content="Luis">
       <meta itemprop="description" content="Keep Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SLLiu's Blogs">
+      <meta itemprop="name" content="Luis's Blogs">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Mac编译FFmpeg踩坑记录
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-08-05 19:21:08" itemprop="dateCreated datePublished" datetime="2019-08-05T19:21:08+08:00">2019-08-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-08-05 19:21:08" itemprop="dateCreated datePublished" datetime="2019-08-05T19:21:08+08:00">2019-08-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a>
+        </span>
+    </span>
 
-          
   
-  
-
-
-<span class="post-meta-divider">|</span>
 
 
 
 
 
 
-<!-- 注释开始 -----
+<!-- 注释开始 #############################################
 
   <script>
     function post_nav(post) {
@@ -279,35 +365,40 @@
   
   <div style="position: absolute; top: -20px;">post_nav(post)</div>
 
------ 注释结束 -->
+############################################# 注释结束 -->
 
 
+
+<!-- 注释开始 #############################################
   
   <div style="position: fixed; width: 100%;">
     
       
       <div class="post-tags">
           <a href="/tags/FFMPEG/" rel="tag"><i class="fa fa-tag"></i> FFMPEG</a>
-          <a href="/tags/SO库/" rel="tag"><i class="fa fa-tag"></i> SO库</a>
-          <a href="/tags/编译/" rel="tag"><i class="fa fa-tag"></i> 编译</a>
+          <a href="/tags/SO%E5%BA%93/" rel="tag"><i class="fa fa-tag"></i> SO库</a>
+          <a href="/tags/%E7%BC%96%E8%AF%91/" rel="tag"><i class="fa fa-tag"></i> 编译</a>
       </div>
   </div>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-            <div class="post-description">Mac 环境下编译 FFmpeg 为 SO 库。</div>
+############################################# 注释结束 -->
 
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Mac 环境下编译 FFmpeg 为 SO 库。</div>
         </div>
       </header>
 
@@ -315,9 +406,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-        <a id="more"></a>
+        <span id="more"></span>
 
 <p>前言：实际上网上关于如何编译 FFmpeg 的文章已经相当多了，但是等到自己真的要用的时候才发现，能找到的大部分文章多少都有些不够完善，或是有遗漏的说明，或是版本、环境太久远，为此踩了不少的坑，最后发现还是读官方文档最省事。特地记录一篇文章，并尽可能详细地写出具体步骤。</p>
 <hr>
@@ -330,26 +419,26 @@
 </ul>
 <p>再给出几个下载链接：</p>
 <ul>
-<li><p>FFmpeg：<a href="https://ffmpeg.org/download.html#releases" title="@LINK" target="_blank" rel="noopener">点此下载</a></p>
-</li>
-<li><p>NDK：<a href="https://developer.android.google.cn/ndk/downloads/index.html" title="@LINK" target="_blank" rel="noopener">点此下载</a></p>
-<blockquote>
-<p>@注：<font color="red">不建议使用 AndroidStudio 自带的 ndk-bundle 编译，不建议使用最新版 FFmpeg，不建议使用最新版 NDK，理由不明（笑）。</font></p>
-</blockquote>
-</li>
+<li>FFmpeg：<a target="_blank" rel="noopener" href="https://ffmpeg.org/download.html#releases" title="@LINK">点此下载</a></li>
+<li>NDK：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/downloads/index.html" title="@LINK">点此下载</a></li>
 </ul>
+<blockquote>
+<p>@注：<font color=red>不建议使用 AndroidStudio 自带的 ndk-bundle 编译，不建议使用最新版 FFmpeg，不建议使用最新版 NDK，理由不明（笑）。</font></p>
+</blockquote>
 <p>使用最新的 FFmpeg 4.x，按照网上主流的做法，修改 <code>configure</code> 文件然后新建脚本 <code>build_android.sh</code> 的方法，会报如下错误：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line">Makefile:67: /common.mak: No such file or directory</span><br><span class="line">Makefile:114: /libavutil/Makefile: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">C compiler test failed.</span><br><span class="line"></span><br><span class="line">If you think configure made a mistake, make sure you are using the latest</span><br><span class="line">version from Git.  If the latest version fails, report the problem to the</span><br><span class="line">ffmpeg-user@ffmpeg.org mailing list or IRC #ffmpeg on irc.freenode.net.</span><br><span class="line">Include the log file "config.log" produced by configure as this will help</span><br><span class="line">solve the problem.</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">make: *** No rule to make target `/tests/Makefile'.  Stop.</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line">Makefile:67: /common.mak: No such file or directory</span><br><span class="line">Makefile:114: /libavutil/Makefile: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">C compiler test failed.</span><br><span class="line"></span><br><span class="line">If you think configure made a mistake, make sure you are using the latest</span><br><span class="line">version from Git.  If the latest version fails, report the problem to the</span><br><span class="line">ffmpeg-user@ffmpeg.org mailing list or IRC #ffmpeg on irc.freenode.net.</span><br><span class="line">Include the log file &quot;config.log&quot; produced by configure as this will help</span><br><span class="line">solve the problem.</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">make: *** No rule to make target `/tests/Makefile&#x27;.  Stop.</span><br></pre></td></tr></table></figure>
 
 <p>报了一堆 <code>No such file or directory</code> 错误，第一行的 <code>config.mak</code> 也可能是 <code>ffbuild/config.mak</code>，带着错误去搜也搜不到什么头绪，根据报错信息去 FFmpeg 的根目录下或者 <code>ffbuild/</code> 下也确实找不到所谓的 <code>config.mak</code>，一个解决方案是：</p>
 <ul>
 <li><ol>
 <li>先不要修改 <code>configure</code> 文件，直接执行：<code>./configure</code>，但是大概率会报这个错误：</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nasm/yasm not found or too old. Use --disable-x86asm for a crippled build.</span><br></pre></td></tr></table></figure>
-
-<p>只要按照提示加上 <code>--disable-x86asm</code> 参数即可，重新执行完会自动生成缺失的文件。</p>
 </li>
+</ul>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nasm/yasm not found or too old. Use --disable-x86asm for a crippled build.</span><br></pre></td></tr></table></figure>
+
+<p>  只要按照提示加上 <code>--disable-x86asm</code> 参数即可，重新执行完会自动生成缺失的文件。</p>
+<ul>
 <li><ol start="2">
 <li>再重新执行脚本：<code>sudo ./build_android.sh</code>。</li>
 </ol>
@@ -366,9 +455,9 @@
 <p>还需要给所有文件加上权限，进入 NDK 的目录并执行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 ./*</span><br></pre></td></tr></table></figure>
 
-<p><font color="red">温馨提示：可千万不要把 <code>./*</code> 给打错了，要是不小心把“.”漏了可就麻烦了（请务必不要尝试）。</font></p>
+<p><font color=red>温馨提示：可千万不要把 <code>./*</code> 给打错了，要是不小心把“.”漏了可就麻烦了（请务必不要尝试）。</font></p>
 <h2 id="2-2-配置FFmpeg"><a href="#2-2-配置FFmpeg" class="headerlink" title="2.2 配置FFmpeg"></a>2.2 配置FFmpeg</h2><p>把下载好的 FFmpeg 源码解压到任意目录，同样也按上述操作给所有文件加上权限，接下来再在 FFmpeg 根目录下创建一个脚本（命名随意）：<code>build_android.sh</code>，修改内容：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 以实际自定义临时目录为准，必须指定否则报错：Unable to create temporary file <span class="keyword">in</span></span></span><br><span class="line">export TMPDIR=/....../TEMP</span><br><span class="line"><span class="meta">#</span><span class="bash"> 以 NDK 实际路径为准</span></span><br><span class="line">NDK=/Applications/Androidstudio/android-ndk-r14b</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译目标平台，本例选择最低 API 22 的 ARM 平台，输出 SO 文件放在 Android 项目的 libs/armeabi/ 目录下</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> x86 架构则选择 arch-x86</span></span><br><span class="line">PLATFORM=$NDK/platforms/android-22/arch-arm</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译所需工具链，arm-linux-androideabi 对应上面的 ARM 平台，4.9 为版本号，以 NDK 中的实际版本为准</span></span><br><span class="line">TOOLCHAIN=$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64</span><br><span class="line">function build_one</span><br><span class="line">&#123;</span><br><span class="line">./configure \</span><br><span class="line">    --prefix=$PREFIX \</span><br><span class="line">    --target-os=linux \</span><br><span class="line">    --cross-prefix=$TOOLCHAIN/bin/arm-linux-androideabi- \</span><br><span class="line">    --arch=arm \</span><br><span class="line">    --sysroot=$PLATFORM \</span><br><span class="line">    --extra-cflags="-I$PLATFORM/usr/include" \</span><br><span class="line">    --cc=$TOOLCHAIN/bin/arm-linux-androideabi-gcc \</span><br><span class="line">    --nm=$TOOLCHAIN/bin/arm-linux-androideabi-nm \</span><br><span class="line">    --disable-shared \</span><br><span class="line">    --enable-runtime-cpudetect \</span><br><span class="line">    --enable-gpl \</span><br><span class="line">    --enable-small \</span><br><span class="line">    --enable-cross-compile \</span><br><span class="line">    --disable-debug \</span><br><span class="line">    --enable-static \</span><br><span class="line">    --disable-doc \</span><br><span class="line">    --disable-asm \</span><br><span class="line">    --disable-ffmpeg \</span><br><span class="line">    --disable-ffplay \</span><br><span class="line">    --disable-ffprobe \</span><br><span class="line">    --disable-ffserver \</span><br><span class="line">    --disable-postproc \</span><br><span class="line">    --disable-avdevice \</span><br><span class="line">    --disable-symver \</span><br><span class="line">    --disable-stripping \</span><br><span class="line"><span class="meta">$</span><span class="bash">ADDITIONAL_CONFIGURE_FLAG</span></span><br><span class="line">sed -i '' 's/HAVE_LRINT 0/HAVE_LRINT 1/g' config.h</span><br><span class="line">sed -i '' 's/HAVE_LRINTF 0/HAVE_LRINTF 1/g' config.h</span><br><span class="line">sed -i '' 's/HAVE_ROUND 0/HAVE_ROUND 1/g' config.h</span><br><span class="line">sed -i '' 's/HAVE_ROUNDF 0/HAVE_ROUNDF 1/g' config.h</span><br><span class="line">sed -i '' 's/HAVE_TRUNC 0/HAVE_TRUNC 1/g' config.h</span><br><span class="line">sed -i '' 's/HAVE_TRUNCF 0/HAVE_TRUNCF 1/g' config.h</span><br><span class="line">sed -i '' 's/HAVE_CBRT 0/HAVE_CBRT 1/g' config.h</span><br><span class="line">sed -i '' 's/HAVE_RINT 0/HAVE_RINT 1/g' config.h</span><br><span class="line">make clean</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br><span class="line"><span class="meta">$</span><span class="bash">TOOLCHAIN/bin/arm-linux-androideabi-ld \</span></span><br><span class="line">-rpath-link=$PLATFORM/usr/lib \</span><br><span class="line"><span class="meta">-L$</span><span class="bash">PLATFORM/usr/lib \</span></span><br><span class="line"><span class="meta">-L$</span><span class="bash">PREFIX/lib \</span></span><br><span class="line">-soname libffmpeg.so -shared -nostdlib -Bsymbolic --whole-archive --no-undefined -o \</span><br><span class="line"><span class="meta">$</span><span class="bash">PREFIX/libffmpeg.so \</span></span><br><span class="line">    libavcodec/libavcodec.a \</span><br><span class="line">    libavfilter/libavfilter.a \</span><br><span class="line">    libswresample/libswresample.a \</span><br><span class="line">    libavformat/libavformat.a \</span><br><span class="line">    libavutil/libavutil.a \</span><br><span class="line">    libswscale/libswscale.a \</span><br><span class="line">    -lc -lm -lz -ldl -llog --dynamic-linker=/system/bin/linker \</span><br><span class="line">    $TOOLCHAIN/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 平台类型，可以是 arm 或 armv7<span class="_">-a</span> 或 x86 等</span></span><br><span class="line">CPU=armv7-a</span><br><span class="line">OPTIMIZE_CFLAGS="-mfloat-abi=softfp -mfpu=vfp -marm -march=$CPU "</span><br><span class="line"><span class="meta">#</span><span class="bash"> 输出 SO 的目录</span></span><br><span class="line">PREFIX=./android/$CPU</span><br><span class="line">ADDITIONAL_CONFIGURE_FLAG=</span><br><span class="line">build_one</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 以实际自定义临时目录为准，必须指定否则报错：Unable to create temporary file <span class="keyword">in</span></span></span><br><span class="line">export TMPDIR=/....../TEMP</span><br><span class="line"><span class="meta">#</span><span class="bash"> 以 NDK 实际路径为准</span></span><br><span class="line">NDK=/Applications/Androidstudio/android-ndk-r14b</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译目标平台，本例选择最低 API 22 的 ARM 平台，输出 SO 文件放在 Android 项目的 libs/armeabi/ 目录下</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> x86 架构则选择 arch-x86</span></span><br><span class="line">PLATFORM=$NDK/platforms/android-22/arch-arm</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译所需工具链，arm-linux-androideabi 对应上面的 ARM 平台，4.9 为版本号，以 NDK 中的实际版本为准</span></span><br><span class="line">TOOLCHAIN=$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64</span><br><span class="line">function build_one</span><br><span class="line">&#123;</span><br><span class="line">./configure \</span><br><span class="line">    --prefix=$PREFIX \</span><br><span class="line">    --target-os=linux \</span><br><span class="line">    --cross-prefix=$TOOLCHAIN/bin/arm-linux-androideabi- \</span><br><span class="line">    --arch=arm \</span><br><span class="line">    --sysroot=$PLATFORM \</span><br><span class="line">    --extra-cflags=&quot;-I$PLATFORM/usr/include&quot; \</span><br><span class="line">    --cc=$TOOLCHAIN/bin/arm-linux-androideabi-gcc \</span><br><span class="line">    --nm=$TOOLCHAIN/bin/arm-linux-androideabi-nm \</span><br><span class="line">    --disable-shared \</span><br><span class="line">    --enable-runtime-cpudetect \</span><br><span class="line">    --enable-gpl \</span><br><span class="line">    --enable-small \</span><br><span class="line">    --enable-cross-compile \</span><br><span class="line">    --disable-debug \</span><br><span class="line">    --enable-static \</span><br><span class="line">    --disable-doc \</span><br><span class="line">    --disable-asm \</span><br><span class="line">    --disable-ffmpeg \</span><br><span class="line">    --disable-ffplay \</span><br><span class="line">    --disable-ffprobe \</span><br><span class="line">    --disable-ffserver \</span><br><span class="line">    --disable-postproc \</span><br><span class="line">    --disable-avdevice \</span><br><span class="line">    --disable-symver \</span><br><span class="line">    --disable-stripping \</span><br><span class="line"><span class="meta">$</span><span class="bash">ADDITIONAL_CONFIGURE_FLAG</span></span><br><span class="line">sed -i &#x27;&#x27; &#x27;s/HAVE_LRINT 0/HAVE_LRINT 1/g&#x27; config.h</span><br><span class="line">sed -i &#x27;&#x27; &#x27;s/HAVE_LRINTF 0/HAVE_LRINTF 1/g&#x27; config.h</span><br><span class="line">sed -i &#x27;&#x27; &#x27;s/HAVE_ROUND 0/HAVE_ROUND 1/g&#x27; config.h</span><br><span class="line">sed -i &#x27;&#x27; &#x27;s/HAVE_ROUNDF 0/HAVE_ROUNDF 1/g&#x27; config.h</span><br><span class="line">sed -i &#x27;&#x27; &#x27;s/HAVE_TRUNC 0/HAVE_TRUNC 1/g&#x27; config.h</span><br><span class="line">sed -i &#x27;&#x27; &#x27;s/HAVE_TRUNCF 0/HAVE_TRUNCF 1/g&#x27; config.h</span><br><span class="line">sed -i &#x27;&#x27; &#x27;s/HAVE_CBRT 0/HAVE_CBRT 1/g&#x27; config.h</span><br><span class="line">sed -i &#x27;&#x27; &#x27;s/HAVE_RINT 0/HAVE_RINT 1/g&#x27; config.h</span><br><span class="line">make clean</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br><span class="line"><span class="meta">$</span><span class="bash">TOOLCHAIN/bin/arm-linux-androideabi-ld \</span></span><br><span class="line"><span class="bash">-rpath-link=<span class="variable">$PLATFORM</span>/usr/lib \</span></span><br><span class="line"><span class="bash">-L<span class="variable">$PLATFORM</span>/usr/lib \</span></span><br><span class="line"><span class="bash">-L<span class="variable">$PREFIX</span>/lib \</span></span><br><span class="line"><span class="bash">-soname libffmpeg.so -shared -nostdlib -Bsymbolic --whole-archive --no-undefined -o \</span></span><br><span class="line"><span class="bash"><span class="variable">$PREFIX</span>/libffmpeg.so \</span></span><br><span class="line"><span class="bash">    libavcodec/libavcodec.a \</span></span><br><span class="line"><span class="bash">    libavfilter/libavfilter.a \</span></span><br><span class="line"><span class="bash">    libswresample/libswresample.a \</span></span><br><span class="line"><span class="bash">    libavformat/libavformat.a \</span></span><br><span class="line"><span class="bash">    libavutil/libavutil.a \</span></span><br><span class="line"><span class="bash">    libswscale/libswscale.a \</span></span><br><span class="line"><span class="bash">    -lc -lm -lz -ldl -llog --dynamic-linker=/system/bin/linker \</span></span><br><span class="line"><span class="bash">    <span class="variable">$TOOLCHAIN</span>/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 平台类型，可以是 arm 或 armv7-a 或 x86 等</span></span><br><span class="line">CPU=armv7-a</span><br><span class="line">OPTIMIZE_CFLAGS=&quot;-mfloat-abi=softfp -mfpu=vfp -marm -march=$CPU &quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 输出 SO 的目录</span></span><br><span class="line">PREFIX=./android/$CPU</span><br><span class="line">ADDITIONAL_CONFIGURE_FLAG=</span><br><span class="line">build_one</span><br></pre></td></tr></table></figure>
 
 <p>接下来在当前目录执行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 按实际创建的脚本名</span></span><br><span class="line">./build_android.sh</span><br></pre></td></tr></table></figure>
@@ -384,10 +473,10 @@
 <hr>
 <h1 id="3-附录-参考指导"><a href="#3-附录-参考指导" class="headerlink" title="3. 附录[参考指导]"></a>3. 附录[参考指导]</h1><blockquote>
 <ul>
-<li><a href="https://www.jianshu.com/p/dfe9404e001a" title="@LINK" target="_blank" rel="noopener">【1】Android Studio下编译FFmpeg so文件（作者：Galaxy北爱）<sup>【注】</sup></a></li>
-<li><a href="https://blog.csdn.net/vichild/article/details/82686343" title="@LINK" target="_blank" rel="noopener">【1】win10子系统编译ffmpeg for android遇到的问题记录（作者：wellchang）<sup>【注】</sup></a></li>
-<li><a href="https://www.jianshu.com/p/c8ad83dd5585" title="@LINK" target="_blank" rel="noopener">【1】Android编译ffmpeg常见错误（作者：JXiaoNiu）<sup>【注】</sup></a></li>
-<li><a href="https://segmentfault.com/a/1190000015631928" title="@LINK" target="_blank" rel="noopener">【1】Mac中编译FFmpeg教程(Android版)（作者：码出世界）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/dfe9404e001a" title="@LINK">【1】Android Studio下编译FFmpeg so文件（作者：Galaxy北爱）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/vichild/article/details/82686343" title="@LINK">【1】win10子系统编译ffmpeg for android遇到的问题记录（作者：wellchang）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c8ad83dd5585" title="@LINK">【1】Android编译ffmpeg常见错误（作者：JXiaoNiu）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015631928" title="@LINK">【1】Mac中编译FFmpeg教程(Android版)（作者：码出世界）<sup>【注】</sup></a></li>
 </ul>
 </blockquote>
 
@@ -396,6 +485,8 @@
     
     
     
+
+    <footer class="post-footer">
 
 
 
@@ -440,7 +531,7 @@
     
     <br /> <br /> <br />
     
-    <div class="pagination">
+    <div class="pagination" style="border-radius: 10px;">
         
         
             <style type="text/css">
@@ -456,83 +547,76 @@
                     border-bottom: none;
                 }
             </style>
-            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
         
         
     </div>
 
 
-        <div class="reward-container">
+          <div class="reward-container">
   <div></div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
     感谢支持
   </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/wechatpay.png" alt="SLLiu 微信支付">
-        <p>微信支付</p>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Luis 微信支付">
+        <span>微信支付</span>
       </div>
-      
-      <div style="display: inline-block;">
-        <img src="/images/alipay.png" alt="SLLiu 支付宝">
-        <p>支付宝</p>
+      <div>
+        <img src="/images/alipay.png" alt="Luis 支付宝">
+        <span>支付宝</span>
       </div>
 
   </div>
 </div>
 
-        
+          
 
-<div>
-<ul class="post-copyright">
+<div class="post-copyright">
+<ul>
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>SLLiu
+      <strong>原作者： </strong>SLLiu
   </li>
   <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.liushulun.cn/post/note/note-build-ffmpeg/note-build-ffmpeg/" title="Mac编译FFmpeg踩坑记录">https://www.liushulun.cn/post/note/note-build-ffmpeg/note-build-ffmpeg/</a>
+      <strong>本文链接：</strong>
+      <a href="https://www.liushulun.cn/post/note/note-build-ffmpeg/note-build-ffmpeg/" title="Mac编译FFmpeg踩坑记录">https://www.liushulun.cn/post/note/note-build-ffmpeg/note-build-ffmpeg/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
   </li>
 </ul>
 </div>
 
-
-      <footer class="post-footer">
-          
           <div class="post-tags">
               <a href="/tags/FFMPEG/" rel="tag"><i class="fa fa-tag"></i> FFMPEG</a>
-              <a href="/tags/SO库/" rel="tag"><i class="fa fa-tag"></i> SO库</a>
-              <a href="/tags/编译/" rel="tag"><i class="fa fa-tag"></i> 编译</a>
+              <a href="/tags/SO%E5%BA%93/" rel="tag"><i class="fa fa-tag"></i> SO库</a>
+              <a href="/tags/%E7%BC%96%E8%AF%91/" rel="tag"><i class="fa fa-tag"></i> 编译</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/post/python/python-underline/python-underline/" rel="prev" title="Python中的下划线与函数的花式调用">
-      <i class="fa fa-chevron-left"></i> Python中的下划线与函数的花式调用
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/post/android/android-proguard/android-proguard/" rel="next" title="Android反编译和混淆加固">
-      Android反编译和混淆加固 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/python/python-underline/python-underline/" rel="prev" title="Python中的下划线与函数的花式调用">
+                  <i class="fa fa-chevron-left"></i> Python中的下划线与函数的花式调用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/android/android-proguard/android-proguard/" rel="next" title="Android反编译和混淆加固">
+                  Android反编译和混淆加固 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-          </div>
-          
+
+
+
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -541,7 +625,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -550,187 +634,56 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          本文目录
-        </li>
-        <li class="sidebar-nav-overview">
-          博客信息
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-环境和所需的文件"><span class="nav-text">1. 环境和所需的文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-编译SO文件"><span class="nav-text">2. 编译SO文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-配置NDK"><span class="nav-text">2.1 配置NDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-配置FFmpeg"><span class="nav-text">2.2 配置FFmpeg</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-附录-参考指导"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="SLLiu"
-      src="/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">SLLiu</p>
-  <div class="site-description" itemprop="description">Keep Learning</div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">64</span>
-          <span class="site-state-item-name">文章</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">84</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/" title="Home → /"><i class="fa fa-fw fa-home"></i></a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-users"></i>
-      友链
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://renxingkai.github.io" title="https://renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://blog.juanertu.com" title="https://blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
-        </li>
-    </ul>
-  </div>
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 2018 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">LiuShulun</span>
-    <span class="post-meta-divider">|</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-line"></i>
     </span>
-      <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">349k</span>
-    <span class="post-meta-divider">|</span>
+      <span>全站总字数：</span>
+    <span title="全站总字数">343k</span>
+  </span>
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:28</span>
+      <span>全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:21</span>
+  </span>
 </div>
 
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
-
-
-
-  <script src="/js/local-search.js"></script>
-
-
-
-
-
-
+<script src="/js/local-search.js"></script>
 
 
 
@@ -739,38 +692,11 @@
 
   
 
-  
+
+
 
   
 
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
-      appKey     : 'YRRibTsHhmelPnfq41YO6B1r',
-      placeholder: "Nice !",
-      avatar     : 'wavatar',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
 
 
 </body>

@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
@@ -13,31 +15,44 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="（1）云服务器的选择；（2）本地连接云服务器；（3）SSH 连接保活；（4）后台运行 Linux 任务；（5）远程使用 Jupyter Notebook。">
-<meta name="keywords" content="Server,Linux,Cloud,云服务器,远程连接">
+<meta name="description" content="（1）云服务器的选择；（2）本地连接云服务器；（3）SSH 连接保活；（4）后台运行 Linux 任务；（5）远程使用 Jupyter Notebook。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux云服务器远程任务随笔">
 <meta property="og:url" content="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/index.html">
-<meta property="og:site_name" content="SLLiu&#39;s Blogs">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
 <meta property="og:description" content="（1）云服务器的选择；（2）本地连接云服务器；（3）SSH 连接保活；（4）后台运行 Linux 任务；（5）远程使用 Jupyter Notebook。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-06T16:47:51.781Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/note-cloud-server-data/ali_ecs_detail.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/note-cloud-server-data/huawei_ecs_detail.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/note-cloud-server-data/other_ecs_detail.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/note-cloud-server-data/buy_ip.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/note-cloud-server-data/set_login_user.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/note-cloud-server-data/new_ssh_connection.jpg">
+<meta property="og:image" content="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/note-cloud-server-data/add_ssh.png">
+<meta property="article:published_time" content="2019-10-06T11:21:08.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="Server">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Cloud">
+<meta property="article:tag" content="云服务器">
+<meta property="article:tag" content="远程连接">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux云服务器远程任务随笔">
-<meta name="twitter:description" content="（1）云服务器的选择；（2）本地连接云服务器；（3）SSH 连接保活；（4）后台运行 Linux 任务；（5）远程使用 Jupyter Notebook。">
+<meta name="twitter:image" content="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/note-cloud-server-data/ali_ecs_detail.png">
+
 
 <link rel="canonical" href="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -47,62 +62,71 @@
   };
 </script>
 
-
-  <title>Linux云服务器远程任务随笔 | SLLiu's Blogs</title>
+<title>Linux云服务器远程任务随笔 | Luis's Blogs</title>
   
-
-
 
 
 
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="开/关导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="开/关导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">SLLiu's Blogs</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1062</p>
+      <p class="site-subtitle" itemprop="description">V 1100</p>
   </div>
 
   <div class="site-nav-right">
@@ -114,39 +138,18 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">79</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">64</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">84</span></a>
-
-  </li>
-        <li class="menu-item menu-item-records">
-
-    <a href="/records/" rel="section"><i class="fa fa-fw fa-list-alt"></i>记录</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-comments"></i>留言</a>
-
-  </li>
+      
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -157,23 +160,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -182,10 +184,105 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-text">1. 云服务器的选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">2. 连接远程服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83"><span class="nav-text">3. 配置服务器环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85Anaconda"><span class="nav-text">3.1 下载安装Anaconda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E9%85%8D%E7%BD%AEJupyter-Notebook"><span class="nav-text">3.2 配置Jupyter Notebook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%8F%A3"><span class="nav-text">3.3 配置服务器端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E4%BF%9D%E6%8C%81SSH%E4%BC%9A%E8%AF%9D"><span class="nav-text">3.4 保持SSH会话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E6%9C%AC%E5%9C%B0%E4%B8%8E%E4%BA%91%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93"><span class="nav-text">3.5 本地与云的文件传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8CJupyter"><span class="nav-text">3.6 服务器后台运行Jupyter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-%E8%B0%83%E6%95%B4%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="nav-text">3.7 调整服务器的虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-%E9%AA%8C%E8%AF%81%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">3.8 验证服务器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">4. 附录[参考指导]</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -193,67 +290,66 @@
 
   <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="SLLiu">
+      <meta itemprop="name" content="Luis">
       <meta itemprop="description" content="Keep Learning">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SLLiu's Blogs">
+      <meta itemprop="name" content="Luis's Blogs">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Linux云服务器远程任务随笔
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-10-06 19:21:08" itemprop="dateCreated datePublished" datetime="2019-10-06T19:21:08+08:00">2019-10-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-10-06 19:21:08" itemprop="dateCreated datePublished" datetime="2019-10-06T19:21:08+08:00">2019-10-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Note/" itemprop="url" rel="index"><span itemprop="name">Note</span></a>
+        </span>
+    </span>
 
-          
   
-  
-
-
-<span class="post-meta-divider">|</span>
 
 
 
 
 
 
-<!-- 注释开始 -----
+<!-- 注释开始 #############################################
 
   <script>
     function post_nav(post) {
@@ -279,9 +375,11 @@
   
   <div style="position: absolute; top: -20px;">post_nav(post)</div>
 
------ 注释结束 -->
+############################################# 注释结束 -->
 
 
+
+<!-- 注释开始 #############################################
   
   <div style="position: fixed; width: 100%;">
     
@@ -290,26 +388,29 @@
           <a href="/tags/Server/" rel="tag"><i class="fa fa-tag"></i> Server</a>
           <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
           <a href="/tags/Cloud/" rel="tag"><i class="fa fa-tag"></i> Cloud</a>
-          <a href="/tags/云服务器/" rel="tag"><i class="fa fa-tag"></i> 云服务器</a>
-          <a href="/tags/远程连接/" rel="tag"><i class="fa fa-tag"></i> 远程连接</a>
+          <a href="/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 云服务器</a>
+          <a href="/tags/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/" rel="tag"><i class="fa fa-tag"></i> 远程连接</a>
       </div>
   </div>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
-            </span>
-            <div class="post-description">（1）云服务器的选择；（2）本地连接云服务器；（3）SSH 连接保活；（4）后台运行 Linux 任务；（5）远程使用 Jupyter Notebook。</div>
+############################################# 注释结束 -->
 
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">（1）云服务器的选择；（2）本地连接云服务器；（3）SSH 连接保活；（4）后台运行 Linux 任务；（5）远程使用 Jupyter Notebook。</div>
         </div>
       </header>
 
@@ -317,9 +418,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-        <a id="more"></a>
+        <span id="more"></span>
 
 <p>前言：由于本地设备的性能限制，通常一些大型科学计算都会用到云服务器来解决算力问题。不过在使用过程中遇到了不少问题比如内存不够、断连、jupyter notebook 启动失败等，都将记录在本文。</p>
 <hr>
@@ -355,7 +454,7 @@
 <li>公网：无</li>
 <li>时长：1小时</li>
 </ul>
-<p>各个云的价格计算器链接：<a href="https://buy.cloud.tencent.com/price/cvm/calculator" title="@LINK" target="_blank" rel="noopener">腾讯云</a>、<a href="https://cloud.baidu.com/calculator.html#/bcc/price" title="@LINK" target="_blank" rel="noopener">百度云</a>、<a href="https://tco.aliyun.com/tco/ecs/calculator" title="@LINK" target="_blank" rel="noopener">阿里云</a>、<a href="https://www.huaweicloud.com/pricing.html#/ecs" title="@LINK" target="_blank" rel="noopener">华为云</a>。</p>
+<p>各个云的价格计算器链接：<a target="_blank" rel="noopener" href="https://buy.cloud.tencent.com/price/cvm/calculator" title="@LINK">腾讯云</a>、<a target="_blank" rel="noopener" href="https://cloud.baidu.com/calculator.html#/bcc/price" title="@LINK">百度云</a>、<a target="_blank" rel="noopener" href="https://tco.aliyun.com/tco/ecs/calculator" title="@LINK">阿里云</a>、<a target="_blank" rel="noopener" href="https://www.huaweicloud.com/pricing.html#/ecs" title="@LINK">华为云</a>。</p>
 <p>根据这个选择，得到费用表如下（单位：元 / 小时）：</p>
 <table>
 <thead>
@@ -388,17 +487,8 @@
 <h1 id="2-连接远程服务器"><a href="#2-连接远程服务器" class="headerlink" title="2. 连接远程服务器"></a>2. 连接远程服务器</h1><p>云服务器给的 Linux 系统通常是命令行形式的，也就是所有的操作都使用 Linux 命令完成，当然有些云也提供支持视图模式的选项，但通常伴随着较高的价格。</p>
 <p>连接远程服务器有两种方式：（1）用远程连接工具、（2）用系统自带工具</p>
 <ol>
-<li>远程连接工具有很多<ul>
-<li>Mac 下有 <a href="https://www.ssh.com/ssh/cyberduck" title="@LINK" target="_blank" rel="noopener">CyberDuck</a>、<a href="http://www.openssh.com/portable.html" title="@LINK" target="_blank" rel="noopener">OpenSSH</a> 等</li>
-<li>Win 下有 <a href="https://www.netsarang.com/zh/xshell/" title="@LINK" target="_blank" rel="noopener">XShell</a>、<a href="https://www.ssh.com/ssh/winscp/" title="@LINK" target="_blank" rel="noopener">WinSCP</a> 等</li>
-<li>跨平台的有 <a href="https://www.vandyke.com/products/securecrt/" title="@LINK" target="_blank" rel="noopener">SecureCRT</a>、<a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/" title="@LINK" target="_blank" rel="noopener">PuTTY</a>、<a href="https://www.ssh.com/products/tectia-ssh/" title="@LINK" target="_blank" rel="noopener">Tectia</a> 等</li>
-</ul>
-</li>
-<li>系统自带工具不依赖额外的软件，因此更适合仅需要建立连接而不需要集群管理等高级功能的情况<ul>
-<li>Mac 下的“终端”</li>
-<li>Win 下的 CMD 和 PowerShell</li>
-</ul>
-</li>
+<li>远程连接工具有很多    - Mac 下有 <a target="_blank" rel="noopener" href="https://www.ssh.com/ssh/cyberduck" title="@LINK">CyberDuck</a>、<a target="_blank" rel="noopener" href="http://www.openssh.com/portable.html" title="@LINK">OpenSSH</a> 等    - Win 下有 <a target="_blank" rel="noopener" href="https://www.netsarang.com/zh/xshell/" title="@LINK">XShell</a>、<a target="_blank" rel="noopener" href="https://www.ssh.com/ssh/winscp/" title="@LINK">WinSCP</a> 等    - 跨平台的有 <a target="_blank" rel="noopener" href="https://www.vandyke.com/products/securecrt/" title="@LINK">SecureCRT</a>、<a target="_blank" rel="noopener" href="https://www.chiark.greenend.org.uk/~sgtatham/putty/" title="@LINK">PuTTY</a>、<a target="_blank" rel="noopener" href="https://www.ssh.com/products/tectia-ssh/" title="@LINK">Tectia</a> 等</li>
+<li>系统自带工具不依赖额外的软件，因此更适合仅需要建立连接而不需要集群管理等高级功能的情况    - Mac 下的“终端”    - Win 下的 CMD 和 PowerShell</li>
 </ol>
 <p>由于我只是为了利用云 ECS 的算力和持续运行，因此不需要什么高级功能，选择系统自带工具就足够了。命令格式为：<code>ssh [用户名]@[服务器地址]</code>，例如：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@127.0.0.1</span><br></pre></td></tr></table></figure>
@@ -422,7 +512,7 @@
 <p><img data-src="./note-cloud-server-data/new_ssh_connection.jpg" alt="新建远程连接" title="@ASSET"></p>
 </center>
 
-<p>然后在弹出窗口内左侧选择服务为 <strong>SSH</strong>，在下面输入连接用户，并输入服务器的地址：</p>
+<p>然后在弹出窗口内左侧选择服务为 __SSH__，在下面输入连接用户，并输入服务器的地址：</p>
 <center>
 
 <p><img data-src="./note-cloud-server-data/add_ssh.png" alt="添加 SSH 服务" title="@ASSET"></p>
@@ -432,7 +522,7 @@
 <hr>
 <h1 id="3-配置服务器环境"><a href="#3-配置服务器环境" class="headerlink" title="3. 配置服务器环境"></a>3. 配置服务器环境</h1><p>到这一步，云服务器已是可用状态，通过 SSH 登录后，会新开一个 SSH 终端用于操作云上的 Linux 系统，就和自己手动操作时时一样的。不过需要注意的是，SSH 云服务器的终端只有一个，当然还有一些别的技巧可以达到类似多开终端的效果，会在后面介绍。</p>
 <p>既然是要在云上跑训练集，当然 Python 环境、各种科学计算工具包是必不可少的，我个人更推荐直接使用 Anaconda 一次性集成开发环境。</p>
-<h2 id="3-1-下载安装Anaconda"><a href="#3-1-下载安装Anaconda" class="headerlink" title="3.1 下载安装Anaconda"></a>3.1 下载安装Anaconda</h2><p>首先在任何一个可以联网的设备上进入 <a href="https://repo.continuum.io/archive/index.html" title="@LINK" target="_blank" rel="noopener">Anaconda 安装包归档</a>，并找到自己想要安装的版本，以 Linux 下 64 位集成 Python3 环境的最新版本为例，其安装包名称为：<code>Anaconda3-2019.03-Linux-x86_64.sh</code>，在 SSH 终端中输入以下指令：</p>
+<h2 id="3-1-下载安装Anaconda"><a href="#3-1-下载安装Anaconda" class="headerlink" title="3.1 下载安装Anaconda"></a>3.1 下载安装Anaconda</h2><p>首先在任何一个可以联网的设备上进入 <a target="_blank" rel="noopener" href="https://repo.continuum.io/archive/index.html" title="@LINK">Anaconda 安装包归档</a>，并找到自己想要安装的版本，以 Linux 下 64 位集成 Python3 环境的最新版本为例，其安装包名称为：<code>Anaconda3-2019.03-Linux-x86_64.sh</code>，在 SSH 终端中输入以下指令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下载安装包（默认在用户目录下，通过切换当前目录更改下载路径）：</span></span><br><span class="line">wget https://repo.continuum.io/archive/Anaconda3-2019.03-Linux-x86_64.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装 Anaconda（默认在用户目录内，通过切换当前目录更改下载路径）：</span></span><br><span class="line">bash Anaconda3-5.0.1-Linux-x86_64.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置环境变量：</span></span><br><span class="line">source .bashrc</span><br></pre></td></tr></table></figure>
 
 <p>完成后，在 SSH 终端内输入 <code>python</code>，正确进入 Python 编辑环境则表示安装成功。某些情况下，可能需要手动配置环境变量：</p>
@@ -441,24 +531,27 @@
 <h2 id="3-2-配置Jupyter-Notebook"><a href="#3-2-配置Jupyter-Notebook" class="headerlink" title="3.2 配置Jupyter Notebook"></a>3.2 配置Jupyter Notebook</h2><p>使用命令 <code>pip install jupyter</code> 安装 Jupyter 到当前环境中，如果需要切换环境，可以先在 Anaconda 中新建环境并切换至新环境后执行命令。</p>
 <p>安装好 Jupyter 后，像往常一样输入 <code>jupyter notebook</code> 启动，结果却发现连不上 Jupyter 服务，这是因为服务器上的 Jupyter 还没有配置外网访问。配置方式如下：</p>
 <ol>
-<li><p>生成 Jupyter 配置文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">jupyter notebook --generate-config</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line">jupyter notebook --generate-config --allow-root</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开ipython，创建一个登录jupyter的密码:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 ipython 环境</span></span><br><span class="line">ipython</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入 password 模块</span></span><br><span class="line"><span class="keyword">from</span> notebook.auth <span class="keyword">import</span> passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改密码</span></span><br><span class="line">passwd()</span><br></pre></td></tr></table></figure>
-
-<p>然后会要求输入一次密码和一次确认密码，同样，输入过程屏幕上不会有任何显示。正确输入密码后，会输出一个哈希值（省略后半部分），请复制或记录这个值：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">'sha1:5311cd8b9da9:70dd3321..............'</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改 Jupyter 配置：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">vi ~/.jupyter/jupyter_notebook_config.py</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi /root/.jupyter/jupyter_notebook_config.py</span></span><br></pre></td></tr></table></figure>
-
-<p>在打开的配置中添加以下参数：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c.NotebookApp.ip='*'</span><br><span class="line">c.NotebookApp.password = u'sha1:5311cd8b9da9:70dd3321..............'</span><br><span class="line">c.NotebookApp.open_browser = False</span><br><span class="line">c.NotebookApp.port = 8888</span><br></pre></td></tr></table></figure>
-
-<p>其中 <code>password</code> 项输入上一步复制的哈希值，<code>port</code> 项推荐使用默认的 8888 端口，也可以自己定义。</p>
-</li>
+<li>生成 Jupyter 配置文件：</li>
 </ol>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">jupyter notebook --generate-config</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line">jupyter notebook --generate-config --allow-root</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>打开ipython，创建一个登录jupyter的密码:</li>
+</ol>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 ipython 环境</span></span><br><span class="line">ipython</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入 password 模块</span></span><br><span class="line"><span class="keyword">from</span> notebook.auth <span class="keyword">import</span> passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改密码</span></span><br><span class="line">passwd()</span><br></pre></td></tr></table></figure>
+
+<p>  然后会要求输入一次密码和一次确认密码，同样，输入过程屏幕上不会有任何显示。正确输入密码后，会输出一个哈希值（省略后半部分），请复制或记录这个值：</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;sha1:5311cd8b9da9:70dd3321..............&#x27;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>修改 Jupyter 配置：</li>
+</ol>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">vi ~/.jupyter/jupyter_notebook_config.py</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi /root/.jupyter/jupyter_notebook_config.py</span></span><br></pre></td></tr></table></figure>
+
+<p>  在打开的配置中添加以下参数：</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c.NotebookApp.ip=&#x27;*&#x27;</span><br><span class="line">c.NotebookApp.password = u&#x27;sha1:5311cd8b9da9:70dd3321..............&#x27;</span><br><span class="line">c.NotebookApp.open_browser = False</span><br><span class="line">c.NotebookApp.port = 8888</span><br></pre></td></tr></table></figure>
+
+<p>  其中 <code>password</code> 项输入上一步复制的哈希值，<code>port</code> 项推荐使用默认的 8888 端口，也可以自己定义。</p>
 <h2 id="3-3-配置服务器端口"><a href="#3-3-配置服务器端口" class="headerlink" title="3.3 配置服务器端口"></a>3.3 配置服务器端口</h2><p>至此服务器上的环境均已配置就绪，但如果这时候在 SSH 终端使用命令打开 Jupyter Notebook：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">jupyter notebook</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> jupyter notebook --allow-root</span></span><br></pre></td></tr></table></figure>
 
@@ -470,7 +563,7 @@
 <li>进入云服务器控制台</li>
 <li>进入安全组设置</li>
 <li>添加安全组规则</li>
-<li>选择协议类型为 <strong>自定义 TCP</strong>，输入端口号为 8888（或自定义端口号），授权 IP 设置为 0.0.0.0（即不限访问 IP，不论哪里的网络都可以连接访问云服务器的 Jupyter）</li>
+<li>选择协议类型为 __自定义 TCP__，输入端口号为 8888（或自定义端口号），授权 IP 设置为 0.0.0.0（即不限访问 IP，不论哪里的网络都可以连接访问云服务器的 Jupyter）</li>
 </ol>
 <p>配置完成后，即可通过 SSH 终端或浏览器输入地址的方式进入服务器的 Jupyter Notebook 了！如果仍旧提示无法访问，且云服务器所选的 Linux 系统为 Ubuntu（其他系统没试过），或许是因为防火墙的缘故，通过以下方式关闭：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw disable</span><br></pre></td></tr></table></figure>
@@ -478,16 +571,16 @@
 <p>接下来尽情享受云服务器带来的快感吧！</p>
 <h2 id="3-4-保持SSH会话"><a href="#3-4-保持SSH会话" class="headerlink" title="3.4 保持SSH会话"></a>3.4 保持SSH会话</h2><p>在使用云服务器的过程中，有时去做别的事了过了一段时间后再看 SSH 终端，发现先是没反应，无法输入，再过一会儿就提示连接已断开，这是因为默认情况下 SSH 会话有一个连接时间，一段时间后就会断开会话。如果需要处理一个耗时很长的事件，这可不是什么好事。为此，可以通过以下方式修改时间，以达到 SSH  会话保活的目的：</p>
 <ol>
-<li><p>登陆远程服务器后在 SSH 终端输入：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TMOUT=0</span><br></pre></td></tr></table></figure>
-
-<p>该方式方便、快捷，但缺点是仅对本次登陆有效，退出 SSH 后重新登录则需要再次设置。</p>
-</li>
-<li><p>修改ssh配置文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 打开配置文件</span></span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 找到 ClientAliveInterval，该参数指定了服务器端向客户端请求消息的时间间隔。默认是0，不发送</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 ClientAliveInterval 的值，单位为秒。如设置 600，即每 10 分钟发送一次请求保持会话。</span></span><br><span class="line">ClientAliveInterval = 600</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 找到 ClientAliveCountMax，该参数表示允许超时的次数。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果发现客户端没有响应，则判断一次超时，请根据实际需要进行设置。比如设置为10，表示允许超时6000 秒 = 100 分钟。</span></span><br><span class="line">ClientAliveCountMax = 10</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>登陆远程服务器后在 SSH 终端输入：</li>
 </ol>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TMOUT=0</span><br></pre></td></tr></table></figure>
+
+<p>  该方式方便、快捷，但缺点是仅对本次登陆有效，退出 SSH 后重新登录则需要再次设置。</p>
+<ol start="2">
+<li>修改ssh配置文件：</li>
+</ol>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 打开配置文件</span></span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 找到 ClientAliveInterval，该参数指定了服务器端向客户端请求消息的时间间隔。默认是0，不发送</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 ClientAliveInterval 的值，单位为秒。如设置 600，即每 10 分钟发送一次请求保持会话。</span></span><br><span class="line">ClientAliveInterval = 600</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 找到 ClientAliveCountMax，该参数表示允许超时的次数。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果发现客户端没有响应，则判断一次超时，请根据实际需要进行设置。比如设置为10，表示允许超时6000 秒 = 100 分钟。</span></span><br><span class="line">ClientAliveCountMax = 10</span><br></pre></td></tr></table></figure>
+
 <h2 id="3-5-本地与云的文件传输"><a href="#3-5-本地与云的文件传输" class="headerlink" title="3.5 本地与云的文件传输"></a>3.5 本地与云的文件传输</h2><p>为了使用云服务器跑数据，还需要在云服务器上准备一份数据文件。由于提高网络带宽的价格并不便宜，而且使用云跑数据本身对带宽并没有什么要求，因此我比较推荐在将数据上传至云或从云上下载时，临时提高 ECS 的带宽，并在完成之后重新恢复较低带宽以节省成本。数据文件比较大时，临时提高带宽更划算一些。文件总量比较大时，临时购买流量更划算一些。本地与服务器的文件拷贝指令为：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 本地文件复制到服务器：</span></span><br><span class="line">scp [本地文件路径] [服务器登录用户名]@[服务器地址]:[服务器文件存储路径]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如将本地用户目录下的 test.txt 复制到服务器 root 用户目录下并重命名为 db.txt：</span></span><br><span class="line">scp /Users/user/test.txt root@127.0.0.1:/root/db.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 若需要复制的是文件夹，则将命令 scp 改为 scp -r：</span></span><br><span class="line">scp -r /Users/user/test root@127.0.0.1:/root/db</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 服务器复制到本地：</span></span><br><span class="line">scp [服务器登录用户名]@[服务器地址]:[服务器文件存储路径] [本地文件路径]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如将服务器 root 用户目录下的 db.txt复制到本地用户目录下并重命名为 test.txt ：</span></span><br><span class="line">scp root@127.0.0.1:/root/db.txt /Users/user/test.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 若需要复制的是文件夹，则将命令 scp 改为 scp -r：</span></span><br><span class="line">scp -r root@127.0.0.1:/root/db /Users/user/test</span><br></pre></td></tr></table></figure>
 
@@ -496,7 +589,7 @@
 <p>这对于 Jupyter 任务来说也是一样的，我们可以通过将 Jupyter 任务转至后台持续运行来释放本地电脑的工作压力：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">nohup jupyter notebook &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> nohup jupyter notebook --allow-root &amp;</span></span><br></pre></td></tr></table></figure>
 
-<p>这样，当我们在 Jupyter 开始一项耗时任务后，即可直接断开 SSH 会话。<font color="#EB6D39">注意：在本地需要离线时，不能终止 Jupyter 的进程，而应该直接断开 SSH 连接。</font></p>
+<p>这样，当我们在 Jupyter 开始一项耗时任务后，即可直接断开 SSH 会话。<font color=#EB6D39>注意：在本地需要离线时，不能终止 Jupyter 的进程，而应该直接断开 SSH 连接。</font></p>
 <p>另外还有一点，由于 Jupyter 本身的局限性，当一个正在运行任务的 Jupyter 页面被关闭（而没有关闭服务）后，再次打开，只能保留前一次的结果，而不能恢复任务运行过程，因此，使用 nohup 命令转至后台的 Jupyter 任务应当是具有完整结果的，而不能再带有需要交互的部分，例如：</p>
 <ol>
 <li>将某个数据集预先确定好的特征进行哈希编码，并将编码完的数据重新输出存储。</li>
@@ -506,44 +599,46 @@
 <p>另外，除了基本的后台防挂起 nohup 外，还有一些工具也可以用来保持任务现场并恢复，例如：screen 和 tmux，可参考附录【7】、【8】，但终究因为 Jupyter 本身的原因，还是不太适合这种长时间可恢复的后台运行模式，我的建议是通过 Python 脚本进行长时间的后台操作，并尽量减少交互部分，及时将后续可能要用的数据保存成文件，而在 Jupyter 上仅作为一些可视化或测试、调整等的工具使用。</p>
 <h2 id="3-7-调整服务器的虚拟内存"><a href="#3-7-调整服务器的虚拟内存" class="headerlink" title="3.7 调整服务器的虚拟内存"></a>3.7 调整服务器的虚拟内存</h2><p>终于可以随心所欲折腾服务器的算力了，但在运行大量数据集的时候，很有可能报这个错：<code>Memory Error</code>，这个错在 Python 里面也不算罕见了，一般表示瞬间内存占用超过了可用内存总和导致代码崩了，但同样的代码，在本地运行成功，在配置更高的服务器却反而失败？后来通过 <code>free -m</code> 命令查看内存时发现原因其实很简单，就是因为 ECS 给我们的系统太纯净、太初始化了，以至于连交换内存都没有，所以即便是选购了 32G 的服务器，当进行一些编码、训练等大数据量任务时，瞬时内存占用会一下飙升，导致内存不足。好在现在的 ECS 大多都使用了固态硬盘，即便默认非固态硬盘的，升级成本也比较低，因此可以拿出一部分硬盘作为交换内存使用（参考附录【9】）。</p>
 <ol>
-<li><p>创建swap文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在 /usr 目录下创建交换内存文件</span></span><br><span class="line">cd /usr</span><br><span class="line">mkdir swap</span><br><span class="line">cd swap</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看目前总用量</span></span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建一个循环，每次复制 1024 字节，共复制 1024000 次（10G）并输出为 swapfile1 文件</span></span><br><span class="line">dd if=/dev/zero of=/usr/swap/swapfile1 bs=1024 count=1024000</span><br></pre></td></tr></table></figure>
-
-<p>最后的 <code>dd</code> 命令中，if 表示 infile，of 表示 outfile，bs=1024 表示写入的每个块的大小为 1024B，即 1KB。</p>
-</li>
-<li><p>查看刚才创建的 swap 文件大小即路径：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -sh /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>将目标文件设置为 swap 分区文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkswap /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>激活 swap，立即启用交换分区文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
-
-<p>至此交换内存已经设置好了，并已激活可用，但仅限本次开机可用，想要每次开机都自动加载这个交换内存，则需要修改 <code>/etc/fstab</code> 文件</p>
-</li>
-<li><p>编辑文件 <code>/etc/fstab</code> 中的 <code>swap</code> 行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/fstab</span><br></pre></td></tr></table></figure>
-
-<p>在 <code>/etc/fstab</code> 编辑状态下（UUID 省略后半部分），添加下面这段的最后一行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/dev/mapper/vg_localhost-lv_root   /         ext4    defaults        1 1</span><br><span class="line">UUID=cef520a0-df77-4........       /boot     ext4    defaults        1 2</span><br><span class="line"><span class="meta">#</span><span class="bash"> /dev/mapper/vg_localhost-lv_swap   swap      swap    defaults        0 0</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下面这行是关键：</span></span><br><span class="line">/usr/swap/swapfile1                swap      swap    defaults        0 0</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>创建swap文件：</li>
 </ol>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在 /usr 目录下创建交换内存文件</span></span><br><span class="line">cd /usr</span><br><span class="line">mkdir swap</span><br><span class="line">cd swap</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看目前总用量</span></span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建一个循环，每次复制 1024 字节，共复制 1024000 次（10G）并输出为 swapfile1 文件</span></span><br><span class="line">dd if=/dev/zero of=/usr/swap/swapfile1 bs=1024 count=1024000</span><br></pre></td></tr></table></figure>
+
+<p>  最后的 <code>dd</code> 命令中，if 表示 infile，of 表示 outfile，bs=1024 表示写入的每个块的大小为 1024B，即 1KB。<br>  2. 查看刚才创建的 swap 文件大小即路径：</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -sh /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>将目标文件设置为 swap 分区文件：</li>
+</ol>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkswap /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>激活 swap，立即启用交换分区文件：</li>
+</ol>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
+
+<p>  至此交换内存已经设置好了，并已激活可用，但仅限本次开机可用，想要每次开机都自动加载这个交换内存，则需要修改 <code>/etc/fstab</code> 文件</p>
+<ol start="5">
+<li>编辑文件 <code>/etc/fstab</code> 中的 <code>swap</code> 行：</li>
+</ol>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/fstab</span><br></pre></td></tr></table></figure>
+
+<p>  在 <code>/etc/fstab</code> 编辑状态下（UUID 省略后半部分），添加下面这段的最后一行：</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/dev/mapper/vg_localhost-lv_root   /         ext4    defaults        1 1</span><br><span class="line">UUID=cef520a0-df77-4........       /boot     ext4    defaults        1 2</span><br><span class="line"><span class="meta">#</span><span class="bash"> /dev/mapper/vg_localhost-lv_swap   swap      swap    defaults        0 0</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下面这行是关键：</span></span><br><span class="line">/usr/swap/swapfile1                swap      swap    defaults        0 0</span><br></pre></td></tr></table></figure>
+
 <p>保存并重启系统生效。</p>
 <h2 id="3-8-验证服务器"><a href="#3-8-验证服务器" class="headerlink" title="3.8 验证服务器"></a>3.8 验证服务器</h2><p>重启系统后，再次输入 <code>free -m</code> 命令，发现多了一个 <code>swap</code> 内存，大小为 10G，设置成功，服务器的基本配置已全部完成！</p>
 <hr>
 <h1 id="4-附录-参考指导"><a href="#4-附录-参考指导" class="headerlink" title="4. 附录[参考指导]"></a>4. 附录[参考指导]</h1><blockquote>
 <ul>
-<li><a href="https://www.cnblogs.com/mypath/articles/7877493.html" title="@LINK" target="_blank" rel="noopener">【1】linux下安装Anaconda（作者：猪啊美）<sup>【注】</sup></a></li>
-<li><a href="https://blog.csdn.net/m0_37748303/article/details/78764625" title="@LINK" target="_blank" rel="noopener">【2】阿里云连接jupyter notebook的步骤（作者：半监督）<sup>【注】</sup></a></li>
-<li><a href="https://help.aliyun.com/document_detail/25475.html?spm=a2c4e.11153940.blogcont98527.62.4d126b80ucvIpF#h2-url-6" title="@LINK" target="_blank" rel="noopener">【3】安全组应用案例六：允许公网远程连接实例（作者：阿里云）<sup>【注】</sup></a></li>
-<li><a href="https://support.huaweicloud.com/trouble-ecs/zh-cn_topic_0138293301.html" title="@LINK" target="_blank" rel="noopener">【4】怎样长时间保持SSH会话连接不断开？（作者：华为云）<sup>【注】</sup></a></li>
-<li><a href="https://blog.csdn.net/ludongdong/article/details/78524653" title="@LINK" target="_blank" rel="noopener">【5】mac 本地文件与服务器Linux文件之间的相互传输（作者：binary101010）<sup>【注】</sup></a></li>
-<li><a href="https://www.jianshu.com/p/6d1a48cc6ce2" title="@LINK" target="_blank" rel="noopener">【6】如何不挂起后台，继续运行jupyter（作者：aoaocool）<sup>【注】</sup></a></li>
-<li><a href="https://help.aliyun.com/knowledge_detail/42523.html" title="@LINK" target="_blank" rel="noopener">【7】云服务器 ECS Linux SSH 客户端断开后保持进程继续运行配置方法（作者：阿里云）<sup>【注】</sup></a></li>
-<li><a href="https://www.jianshu.com/p/300333a3f2ba" title="@LINK" target="_blank" rel="noopener">【8】使用tmux保持远程ssh连接（作者：步晓德）<sup>【注】</sup></a></li>
-<li><a href="https://www.cnblogs.com/llkmst/p/4684097.html" title="@LINK" target="_blank" rel="noopener">【9】Linux 修改swap虚拟内存大小（作者：L.L.K）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mypath/articles/7877493.html" title="@LINK">【1】linux下安装Anaconda（作者：猪啊美）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_37748303/article/details/78764625" title="@LINK">【2】阿里云连接jupyter notebook的步骤（作者：半监督）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/25475.html?spm=a2c4e.11153940.blogcont98527.62.4d126b80ucvIpF#h2-url-6" title="@LINK">【3】安全组应用案例六：允许公网远程连接实例（作者：阿里云）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://support.huaweicloud.com/trouble-ecs/zh-cn_topic_0138293301.html" title="@LINK">【4】怎样长时间保持SSH会话连接不断开？（作者：华为云）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/ludongdong/article/details/78524653" title="@LINK">【5】mac 本地文件与服务器Linux文件之间的相互传输（作者：binary101010）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6d1a48cc6ce2" title="@LINK">【6】如何不挂起后台，继续运行jupyter（作者：aoaocool）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/knowledge_detail/42523.html" title="@LINK">【7】云服务器 ECS Linux SSH 客户端断开后保持进程继续运行配置方法（作者：阿里云）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/300333a3f2ba" title="@LINK">【8】使用tmux保持远程ssh连接（作者：步晓德）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/llkmst/p/4684097.html" title="@LINK">【9】Linux 修改swap虚拟内存大小（作者：L.L.K）<sup>【注】</sup></a></li>
 </ul>
 </blockquote>
 
@@ -552,6 +647,8 @@
     
     
     
+
+    <footer class="post-footer">
 
 
 
@@ -596,7 +693,7 @@
     
     <br /> <br /> <br />
     
-    <div class="pagination">
+    <div class="pagination" style="border-radius: 10px;">
         
         
             <style type="text/css">
@@ -612,85 +709,78 @@
                     border-bottom: none;
                 }
             </style>
-            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fa fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
         
         
     </div>
 
 
-        <div class="reward-container">
+          <div class="reward-container">
   <div></div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
     感谢支持
   </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/wechatpay.png" alt="SLLiu 微信支付">
-        <p>微信支付</p>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Luis 微信支付">
+        <span>微信支付</span>
       </div>
-      
-      <div style="display: inline-block;">
-        <img src="/images/alipay.png" alt="SLLiu 支付宝">
-        <p>支付宝</p>
+      <div>
+        <img src="/images/alipay.png" alt="Luis 支付宝">
+        <span>支付宝</span>
       </div>
 
   </div>
 </div>
 
-        
+          
 
-<div>
-<ul class="post-copyright">
+<div class="post-copyright">
+<ul>
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>SLLiu
+      <strong>原作者： </strong>SLLiu
   </li>
   <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/" title="Linux云服务器远程任务随笔">https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/</a>
+      <strong>本文链接：</strong>
+      <a href="https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/" title="Linux云服务器远程任务随笔">https://www.liushulun.cn/post/note/note-cloud-server/note-cloud-server/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+    <strong>版权声明： </strong>所有文章均由 SLLiu 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
   </li>
 </ul>
 </div>
 
-
-      <footer class="post-footer">
-          
           <div class="post-tags">
               <a href="/tags/Server/" rel="tag"><i class="fa fa-tag"></i> Server</a>
               <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
               <a href="/tags/Cloud/" rel="tag"><i class="fa fa-tag"></i> Cloud</a>
-              <a href="/tags/云服务器/" rel="tag"><i class="fa fa-tag"></i> 云服务器</a>
-              <a href="/tags/远程连接/" rel="tag"><i class="fa fa-tag"></i> 远程连接</a>
+              <a href="/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 云服务器</a>
+              <a href="/tags/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/" rel="tag"><i class="fa fa-tag"></i> 远程连接</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/post/machinelearning/ml-introduction/ml-introduction/" rel="prev" title="ML入门-机器学习简介">
-      <i class="fa fa-chevron-left"></i> ML入门-机器学习简介
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/post/python/python-underline/python-underline/" rel="next" title="Python中的下划线与函数的花式调用">
-      Python中的下划线与函数的花式调用 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/machinelearning/ml-introduction/ml-introduction/" rel="prev" title="ML入门-机器学习简介">
+                  <i class="fa fa-chevron-left"></i> ML入门-机器学习简介
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/python/python-underline/python-underline/" rel="next" title="Python中的下划线与函数的花式调用">
+                  Python中的下划线与函数的花式调用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-          </div>
-          
+
+
+
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -699,7 +789,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -708,187 +798,56 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          本文目录
-        </li>
-        <li class="sidebar-nav-overview">
-          博客信息
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-云服务器的选择"><span class="nav-text">1. 云服务器的选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-连接远程服务器"><span class="nav-text">2. 连接远程服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-配置服务器环境"><span class="nav-text">3. 配置服务器环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-下载安装Anaconda"><span class="nav-text">3.1 下载安装Anaconda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-配置Jupyter-Notebook"><span class="nav-text">3.2 配置Jupyter Notebook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-配置服务器端口"><span class="nav-text">3.3 配置服务器端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-保持SSH会话"><span class="nav-text">3.4 保持SSH会话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-本地与云的文件传输"><span class="nav-text">3.5 本地与云的文件传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-服务器后台运行Jupyter"><span class="nav-text">3.6 服务器后台运行Jupyter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-调整服务器的虚拟内存"><span class="nav-text">3.7 调整服务器的虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-验证服务器"><span class="nav-text">3.8 验证服务器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-附录-参考指导"><span class="nav-text">4. 附录[参考指导]</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="SLLiu"
-      src="/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">SLLiu</p>
-  <div class="site-description" itemprop="description">Keep Learning</div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">64</span>
-          <span class="site-state-item-name">文章</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">84</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/liushulun" title="GitHub → https://github.com/liushulun" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:slliu96@foxmail.com" title="E-Mail → mailto:slliu96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/about/" title="Chats → /about/"><i class="fa fa-fw fa-comments"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/" title="Home → /"><i class="fa fa-fw fa-home"></i></a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-users"></i>
-      友链
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://renxingkai.github.io" title="https://renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://blog.juanertu.com" title="https://blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
-        </li>
-    </ul>
-  </div>
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 2018 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">LiuShulun</span>
-    <span class="post-meta-divider">|</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-line"></i>
     </span>
-      <span class="post-meta-item-text">全站总字数：</span>
-    <span title="全站总字数">349k</span>
-    <span class="post-meta-divider">|</span>
+      <span>全站总字数：</span>
+    <span title="全站总字数">343k</span>
+  </span>
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span class="post-meta-item-text">全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:28</span>
+      <span>全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:21</span>
+  </span>
 </div>
 
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
-
-
-
-  <script src="/js/local-search.js"></script>
-
-
-
-
-
-
+<script src="/js/local-search.js"></script>
 
 
 
@@ -897,38 +856,11 @@
 
   
 
-  
+
+
 
   
 
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : '5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz',
-      appKey     : 'YRRibTsHhmelPnfq41YO6B1r',
-      placeholder: "Nice !",
-      avatar     : 'wavatar',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
 
 
 </body>
