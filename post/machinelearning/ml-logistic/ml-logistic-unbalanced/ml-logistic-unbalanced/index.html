@@ -53,6 +53,7 @@
     lang   : 'zh-CN'
   };
 </script>
+
 <title>ML入门-类别样本不均衡问题 | Luis's Blogs</title>
   
 
@@ -117,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1101</p>
+      <p class="site-subtitle" itemprop="description">V 1102</p>
   </div>
 
   <div class="site-nav-right">
@@ -172,6 +173,7 @@
 
     </div>
   </div>
+
 
 </div>
         
@@ -260,6 +262,7 @@
     </ul>
   </div>
 
+
         </div>
       </div>
     </div>
@@ -335,6 +338,57 @@
     </span>
 
   
+
+
+
+
+
+
+<!-- 注释开始 #############################################
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+  </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
+
+############################################# 注释结束 -->
+
+
+
+<!-- 注释开始 #############################################
+  
+  <div style="position: fixed; width: 100%;">
+    
+      
+      <div class="post-tags">
+          <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
+          <a href="/tags/MachineLearning/" rel="tag"><i class="fa fa-tag"></i> MachineLearning</a>
+          <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag"><i class="fa fa-tag"></i> 人工智能</a>
+          <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          <a href="/tags/Logistic%E5%9B%9E%E5%BD%92/" rel="tag"><i class="fa fa-tag"></i> Logistic回归</a>
+      </div>
+  </div>
+############################################# 注释结束 -->
+
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
@@ -369,6 +423,72 @@
     
 
     <footer class="post-footer">
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+
+
+
+
+    
+    <br /> <br /> <br />
+    
+    <div class="pagination" style="border-radius: 10px;">
+        
+        
+            <style type="text/css">
+                .toContact {
+                    font-size: 18px;
+                    text-align: center;
+                    color: #EB6D39;
+                    border-bottom: none;
+                }
+                .toContact:hover {
+                    background: #EB6D39;
+                    color: #FFFFFF;
+                    border-bottom: none;
+                }
+            </style>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
+        
+    </div>
+
+
           <div class="reward-container">
   <div></div>
   <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
@@ -489,6 +609,7 @@
   </span>
 </div>
 
+
     </div>
   </footer>
 
@@ -543,6 +664,7 @@
     MathJax.typeset();
   }
 </script>
+
 
 
 
