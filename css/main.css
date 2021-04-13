@@ -3189,6 +3189,11 @@ body {
   color: #eb6d39;
   border-bottom-color: #eb6d39;
 }
+@media (max-width: 767px) {
+  .menu-item-search {
+    display: block !important;
+  }
+}
 .sidebar-inner {
   background: #ddd;
 }
