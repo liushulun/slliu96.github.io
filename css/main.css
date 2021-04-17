@@ -3135,7 +3135,7 @@ mjx-container[display="true"] + br {
   }
 }
 .use-motion .animated {
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 }
 .use-motion .menu-item {
   animation-duration: 0.15s;
@@ -3181,6 +3181,10 @@ body {
 .menu .menu-item .badge {
   color: #777;
   background: #eee;
+}
+.sub-menu {
+  margin: 0;
+  padding: 0;
 }
 .breadcrumb {
   color: #888;

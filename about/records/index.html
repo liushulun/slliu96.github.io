@@ -26,12 +26,12 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="推荐一个强大的毛玻璃特效开源库  Android 弹窗毛玻璃背景实践  实现一个可定制化的FlowLayout  Binder 这么弱还敢来面头条？  从动态代理角度看Retrofit，这才是Retrofit的精髓！  给 Retrofit 嵌套动态代理，高效处理运营打点难题  推荐一个必备的开源项目  Android 签名机制 v1、v2、v3  Flutter 在安卓上可以实现热更新了  说">
+<meta name="description" content="2021.04.17 - 切换评论后台Next-8.3.0 版本开始弃用 Valine 评论，正在寻找替代品。   2020.05.19 - 切换博客配置博客建站方式切换为分离数据文件形式，除了动画速度（不支持外部定义）外弃用所有直接修改源码的方案，后续会将改动归档至博客 DIY 教程系列中   2020.02.15 - 新增“收藏”栏之前在多处收集到的技术文，现已归档至：收藏。   2019.0">
 <meta property="og:type" content="website">
-<meta property="og:title" content="收藏-Android">
-<meta property="og:url" content="https://www.liushulun.cn/about/collections/colections-android.html">
+<meta property="og:title" content="博客记录">
+<meta property="og:url" content="https://www.liushulun.cn/about/records/index.html">
 <meta property="og:site_name" content="Luis&#39;s Blogs">
-<meta property="og:description" content="推荐一个强大的毛玻璃特效开源库  Android 弹窗毛玻璃背景实践  实现一个可定制化的FlowLayout  Binder 这么弱还敢来面头条？  从动态代理角度看Retrofit，这才是Retrofit的精髓！  给 Retrofit 嵌套动态代理，高效处理运营打点难题  推荐一个必备的开源项目  Android 签名机制 v1、v2、v3  Flutter 在安卓上可以实现热更新了  说">
+<meta property="og:description" content="2021.04.17 - 切换评论后台Next-8.3.0 版本开始弃用 Valine 评论，正在寻找替代品。   2020.05.19 - 切换博客配置博客建站方式切换为分离数据文件形式，除了动画速度（不支持外部定义）外弃用所有直接修改源码的方案，后续会将改动归档至博客 DIY 教程系列中   2020.02.15 - 新增“收藏”栏之前在多处收集到的技术文，现已归档至：收藏。   2019.0">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-12-31T16:00:00.000Z">
 <meta property="article:author" content="Luis">
@@ -39,7 +39,7 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://www.liushulun.cn/about/collections/colections-android">
+<link rel="canonical" href="https://www.liushulun.cn/about/records/">
 
 
 <script class="page-configurations">
@@ -52,7 +52,7 @@
   };
 </script>
 
-<title>收藏-Android | Luis's Blogs
+<title>博客记录 | Luis's Blogs
 </title>
   
 
@@ -185,7 +185,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           本文目录
@@ -198,6 +198,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#2021-04-17-%E5%88%87%E6%8D%A2%E8%AF%84%E8%AE%BA%E5%90%8E%E5%8F%B0"><span class="nav-text">2021.04.17 - 切换评论后台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2020-05-19-%E5%88%87%E6%8D%A2%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE"><span class="nav-text">2020.05.19 - 切换博客配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2020-02-15-%E6%96%B0%E5%A2%9E%E2%80%9C%E6%94%B6%E8%97%8F%E2%80%9D%E6%A0%8F"><span class="nav-text">2020.02.15 - 新增“收藏”栏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-09-21-%E5%88%87%E6%8D%A2%E4%B8%BAValine%E8%AF%84%E8%AE%BA%E5%BC%95%E6%93%8E"><span class="nav-text">2019.09.21 - 切换为Valine评论引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-06-04-%E6%95%B4%E7%90%86Hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%A1%B5%E5%BB%BA%E7%AB%8B%E6%B5%81%E7%A8%8B"><span class="nav-text">2019.06.04 - 整理Hexo个人博客页建立流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-03-12-%E5%A2%9E%E5%8A%A0Gitalk%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD"><span class="nav-text">2019.03.12 - 增加Gitalk评论功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-03-01-Post%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96"><span class="nav-text">2019.03.01 - Post布局优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-01-16-%E8%AE%BE%E7%AB%8B%E2%80%9C%E8%AE%B0%E5%BD%95%E2%80%9D%E4%B8%93%E6%A0%8F"><span class="nav-text">2019.01.16 - 设立“记录”专栏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-07-16-%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99"><span class="nav-text">2018.07.16 - 博客建站</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -319,35 +320,15 @@
         
 
                 
+                
+
+                
 
                     
                     <ul class="sub-menu menu">
                       
-                        
-  <li class="menu-item menu-item-machinelearning"><a href="/about/collections/collections-machinelearning" rel="section"><i class="fa fa-star fa-fw"></i>MachineLearning</a></li>
-
-
-                        
-  <li class="menu-item menu-item-android"><a href="/about/collections/colections-android" rel="section"><i class="fa fa-star fa-fw"></i>Android</a></li>
-
-
-                        
-  <li class="menu-item menu-item-java"><a href="/about/collections/colections-java" rel="section"><i class="fa fa-star fa-fw"></i>Java</a></li>
-
-
-                        
-  <li class="menu-item menu-item-python"><a href="/about/collections/colections-python" rel="section"><i class="fa fa-star fa-fw"></i>Python</a></li>
-
-
-                        
-  <li class="menu-item menu-item-others"><a href="/about/collections/collections-others" rel="section"><i class="fa fa-star fa-fw"></i>其他</a></li>
-
-
                     </ul>
                     
-                
-
-                
                 
 
                 
@@ -362,15 +343,14 @@
     
     <div class="post-block" lang="zh-CN"><header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">收藏-Android
+<h1 class="post-title" itemprop="name headline">博客记录
 </h1>
 
 <div class="post-meta-container">
   <ul class="breadcrumb">
             <li><a href="/about/">ABOUT</a></li>
-            <li><a href="/about/collections/">COLLECTIONS</a></li>
-            <li>COLECTIONS-ANDROID</li>
-          
+          <li>RECORDS</li>
+        
   </ul>
 </div>
 
@@ -379,80 +359,37 @@
       
       
       <div class="post-body">
-          <ul>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/SFBV00qjncyLoyp46FwuuA" title="@LINK">推荐一个强大的毛玻璃特效开源库</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xyq046463/article/details/79654392" title="@LINK">Android 弹窗毛玻璃背景实践</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/P1QjC_oMHD2EetN3HWbdoA" title="@LINK">实现一个可定制化的FlowLayout</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/LLUE0V9CY6B6I5NoKo-pgw" title="@LINK">Binder 这么弱还敢来面头条？</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_UqjC-fuDptjJCRvDsDlwQ" title="@LINK">从动态代理角度看Retrofit，这才是Retrofit的精髓！</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NFHNRQM9FAkxZDPbn5M-iA" title="@LINK">给 Retrofit 嵌套动态代理，高效处理运营打点难题</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NGIlPFSSzaCD2grVJjGfHw" title="@LINK">推荐一个必备的开源项目</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/5hGVk6IYVzkDRSb-DGMY-w" title="@LINK">Android 签名机制 v1、v2、v3</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_0fqpvNHdijPCgWrB-aHqQ" title="@LINK">Flutter 在安卓上可以实现热更新了</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/H5RO2V-mVI5FNOtEMIuxTA" title="@LINK">说一个头疼的问题：后端瞎返回数据导致APP崩溃，你会怎么办？</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/jNG_dRRhc3pDZK9fax4ycg" title="@LINK">花式实现时间轴，样式由你来定！</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/j0RBxRGleIm_PRkMYFtXbw" title="@LINK">Android自定义控件进阶篇，自定义LayoutManager</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/sHXzbGZjZMsem6VMbrSP7A" title="@LINK">放弃 EventBus，用 LiveData 撸一个事件总线框架</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/i0Qkp8rZ_IfmVEoWSxvpdw" title="@LINK">你的 App 为何启动那么慢？</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/FbEzNa9cvMk2z9nOeS_E5Q" title="@LINK">Android 面经：我是如何进入大厂腾讯的？</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ZVkrulyFZ1YOosQScT7Lmg" title="@LINK">推荐一个开源项目给大家，快速接入 AI 能力</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Pzlz0ouFX-nXgRGd5T6HTw" title="@LINK">自定义 behavior - 完美仿 QQ 浏览器首页，美团商家详情页</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/S31bHWLtUeR4-sjI-ULoUQ" title="@LINK">真正带你搞懂 RecyclerView 的缓存机制，再也不怕面试被虐了</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/p-32JsPzpgW4D3WjNhm9cA" title="@LINK">ConstraintLayout，看完一篇真的就够了么？</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/l5SznOSB1FTvFIvwCRl1-Q" title="@LINK">Android 多线程误区，我不信你们都懂！</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/dJC8z1YxOm_z-jRC2Wvz8A" title="@LINK">RxHttp：新一代 Android 网络请求神器，一条链发送各种请求</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/i_8wnO45dzZ_DtkBLabYuA" title="@LINK">Android 之 Lottie 实现炫酷动画背后的原理</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/B8pF8YF1nLd2-yX88gdELg" title="@LINK">AccessibilityService 帮你实现 Android 全局悬浮窗</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/54b62416a29b" title="@LINK">Android 监听Home 键</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1369600" title="@LINK">Android关于Path你所知道的和不知道的一切</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e635c3f851ea" title="@LINK">Android Handler机制4之Looper与Handler简介</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8f32da74cd8b" title="@LINK">Android的设计模式-观察者模式</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/i8US-ZyiCmVg2e6Wt1DaRw" title="@LINK">ConcurrentHashMap 能否保证绝对的线程安全？</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-pTzOQwU10Yj0Afh_Ti2pg" title="@LINK">面试官：什么是NIO？NIO的原理是什么？</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/znsizUb0Jr58lp56tZbVgg" title="@LINK">ViewPager 使用时遇到了一个坑</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/KCQP3uH-uabls6KlM9JsIA" title="@LINK">可能是目前最全的《Android面试题及解析》(379页)</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Jc2mrxeMVTJXudoPx5K4-w" title="@LINK">看你简历上写熟悉 AIDL，说一说 oneway 吧</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Mp8A1VreFsuj2USbyHRZjw" title="@LINK">谈谈你对 binder 的理解？</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/AJ4QUqdYMeQWgWEQAFPsww" title="@LINK">你真的懂 Context 吗？</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/eJ4cvtVit10oG3IQM72aDg" title="@LINK">LayoutInfalter的使用与源码解析</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Vm1MC6X0s1_RatuEVsrYBQ" title="@LINK">必问的事件分发，你答得上来吗</a></p>
-</li>
+          <div class="note default"><h3 id="2021-04-17-切换评论后台"><a href="#2021-04-17-切换评论后台" class="headerlink" title="2021.04.17 - 切换评论后台"></a>2021.04.17 - 切换评论后台</h3><p>Next-8.3.0 版本开始弃用 Valine 评论，正在寻找替代品。</p>
+</div>
+
+<div class="note success"><h3 id="2020-05-19-切换博客配置"><a href="#2020-05-19-切换博客配置" class="headerlink" title="2020.05.19 - 切换博客配置"></a>2020.05.19 - 切换博客配置</h3><p>博客建站方式切换为分离数据文件形式，除了动画速度（不支持外部定义）外弃用所有直接修改源码的方案，后续会将改动归档至博客 DIY 教程系列中</p>
+</div>
+
+<div class="note success"><h3 id="2020-02-15-新增“收藏”栏"><a href="#2020-02-15-新增“收藏”栏" class="headerlink" title="2020.02.15 - 新增“收藏”栏"></a>2020.02.15 - 新增“收藏”栏</h3><p>之前在多处收集到的技术文，现已归档至：<a href="/about/collections/" title="TOLINKS">收藏</a>。</p>
+</div>
+
+<div class="note success"><h3 id="2019-09-21-切换为Valine评论引擎"><a href="#2019-09-21-切换为Valine评论引擎" class="headerlink" title="2019.09.21 - 切换为Valine评论引擎"></a>2019.09.21 - 切换为Valine评论引擎</h3><p>夸一下 LeanCloud，阅读统计和 Valine 评论做的都挺好的。</p>
+</div>
+
+<div class="note success"><h3 id="2019-06-04-整理Hexo个人博客页建立流程"><a href="#2019-06-04-整理Hexo个人博客页建立流程" class="headerlink" title="2019.06.04 - 整理Hexo个人博客页建立流程"></a>2019.06.04 - 整理Hexo个人博客页建立流程</h3><p>建立以及 DIY 过程已全部记录至：<a href="/categories/BlogDIY/" title="TOLINKS">博客 DIY 系列</a></p>
+</div>
+
+<div class="note success"><h3 id="2019-03-12-增加Gitalk评论功能"><a href="#2019-03-12-增加Gitalk评论功能" class="headerlink" title="2019.03.12 - 增加Gitalk评论功能"></a>2019.03.12 - 增加Gitalk评论功能</h3><p>基于 Gitalk 实现评论系统</p>
+</div>
+
+<div class="note success"><h3 id="2019-03-01-Post布局优化"><a href="#2019-03-01-Post布局优化" class="headerlink" title="2019.03.01 - Post布局优化"></a>2019.03.01 - Post布局优化</h3><ul>
+<li>文章标签移至页面上方，便于阅读前了解大体内容</li>
+<li>页首和页尾均添加了“上一篇 / 下一篇”功能</li>
+<li>Description 显示优化</li>
+<li>时间显示优化</li>
 </ul>
+</div>
+
+<div class="note success"><h3 id="2019-01-16-设立“记录”专栏"><a href="#2019-01-16-设立“记录”专栏" class="headerlink" title="2019.01.16 - 设立“记录”专栏"></a>2019.01.16 - 设立“记录”专栏</h3><p>开始记录博客大事件</p>
+</div>
+
+<div class="note success"><h3 id="2018-07-16-博客建站"><a href="#2018-07-16-博客建站" class="headerlink" title="2018.07.16 - 博客建站"></a>2018.07.16 - 博客建站</h3><p>博客建立</p>
+</div>
 
       </div>
       
@@ -461,9 +398,8 @@
     </div>
   <ul class="breadcrumb">
             <li><a href="/about/">ABOUT</a></li>
-            <li><a href="/about/collections/">COLLECTIONS</a></li>
-            <li>COLECTIONS-ANDROID</li>
-          
+          <li>RECORDS</li>
+        
   </ul>
 
     

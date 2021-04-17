@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
@@ -115,7 +117,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1105</p>
+      <p class="site-subtitle" itemprop="description">V 1106</p>
   </div>
 
   <div class="site-nav-right">
@@ -296,19 +298,19 @@
           
             
                 
-  <li class="menu-item menu-item-favorites"><a href="/about/favorites/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>最爱</a></li>
+  <li class="menu-item menu-item-collections"><a href="/about/collections/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>收藏</a></li>
 
 
           
             
                 
-  <li class="menu-item menu-item-plans"><a href="/about/plans/" rel="section"><i class="fa fa-list-alt fa-fw"></i>计划</a></li>
+  <li class="menu-item menu-item-records"><a href="/about/records/" rel="section"><i class="fa fa-list-alt fa-fw"></i>记录</a></li>
 
 
           
             
                 
-  <li class="menu-item menu-item-collections"><a href="/about/collections/" rel="section"><i class="fa fa-star fa-fw"></i>收藏</a></li>
+  <li class="menu-item menu-item-plans"><a href="/about/plans/" rel="section"><i class="fas fa-blog fa-fw"></i>计划</a></li>
 
 
         </ul>
@@ -317,38 +319,38 @@
         
 
                 
-                
-
-                
-                
-
-                
 
                     
                     <ul class="sub-menu menu">
                       
                         
-  <li class="menu-item menu-item-machinelearning"><a href="/about/collections/collections-machinelearning.html" rel="section"><i class="fa fa-star fa-fw"></i>MachineLearning</a></li>
+  <li class="menu-item menu-item-machinelearning"><a href="/about/collections/collections-machinelearning" rel="section"><i class="fa fa-star fa-fw"></i>MachineLearning</a></li>
 
 
                         
-  <li class="menu-item menu-item-android"><a href="/about/collections/colections-android.html" rel="section"><i class="fa fa-star fa-fw"></i>Android</a></li>
+  <li class="menu-item menu-item-android"><a href="/about/collections/colections-android" rel="section"><i class="fa fa-star fa-fw"></i>Android</a></li>
 
 
                         
-  <li class="menu-item menu-item-java"><a href="/about/collections/colections-java.html" rel="section"><i class="fa fa-star fa-fw"></i>Java</a></li>
+  <li class="menu-item menu-item-java"><a href="/about/collections/colections-java" rel="section"><i class="fa fa-star fa-fw"></i>Java</a></li>
 
 
                         
-  <li class="menu-item menu-item-python"><a href="/about/collections/colections-python.html" rel="section"><i class="fa fa-star fa-fw"></i>Python</a></li>
+  <li class="menu-item menu-item-python"><a href="/about/collections/colections-python" rel="section"><i class="fa fa-star fa-fw"></i>Python</a></li>
 
 
                         
-  <li class="menu-item menu-item-others"><a href="/about/collections/collections-others.html" rel="section"><i class="fa fa-star fa-fw"></i>Others</a></li>
+  <li class="menu-item menu-item-others"><a href="/about/collections/collections-others" rel="section"><i class="fa fa-star fa-fw"></i>其他</a></li>
 
 
                     </ul>
                     
+                
+
+                
+                
+
+                
                 
         
       
@@ -534,6 +536,26 @@
 
 
 
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
 
   
 
