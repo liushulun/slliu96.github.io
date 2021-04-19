@@ -128,7 +128,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1106</p>
+      <p class="site-subtitle" itemprop="description">V 1107</p>
   </div>
 
   <div class="site-nav-right">
@@ -145,7 +145,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">61</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">79</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">82</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
@@ -238,7 +238,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -493,7 +493,7 @@
 <li>系统自带工具不依赖额外的软件，因此更适合仅需要建立连接而不需要集群管理等高级功能的情况    - Mac 下的“终端”    - Win 下的 CMD 和 PowerShell</li>
 </ol>
 <p>由于我只是为了利用云 ECS 的算力和持续运行，因此不需要什么高级功能，选择系统自带工具就足够了。命令格式为：<code>ssh [用户名]@[服务器地址]</code>，例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@127.0.0.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@127.0.0.1</span><br></pre></td></tr></table></figure>
 
 <p>对于新建的云 ECS，通常都有一个内网 ip 地址，但仅有这个地址的时候是无法远程访问的，还需要购买一个 弹性公网ip，华为云在默认情况下会选择购买，阿里云默认情况下不购买，需要自己区分。以下是华为云在购买 ECS 时弹性公网 IP （红圈所标）的设置部分：</p>
 <center>
@@ -525,17 +525,17 @@
 <h1 id="3-配置服务器环境"><a href="#3-配置服务器环境" class="headerlink" title="3. 配置服务器环境"></a>3. 配置服务器环境</h1><p>到这一步，云服务器已是可用状态，通过 SSH 登录后，会新开一个 SSH 终端用于操作云上的 Linux 系统，就和自己手动操作时时一样的。不过需要注意的是，SSH 云服务器的终端只有一个，当然还有一些别的技巧可以达到类似多开终端的效果，会在后面介绍。</p>
 <p>既然是要在云上跑训练集，当然 Python 环境、各种科学计算工具包是必不可少的，我个人更推荐直接使用 Anaconda 一次性集成开发环境。</p>
 <h2 id="3-1-下载安装Anaconda"><a href="#3-1-下载安装Anaconda" class="headerlink" title="3.1 下载安装Anaconda"></a>3.1 下载安装Anaconda</h2><p>首先在任何一个可以联网的设备上进入 <a target="_blank" rel="noopener" href="https://repo.continuum.io/archive/index.html" title="@LINK">Anaconda 安装包归档</a>，并找到自己想要安装的版本，以 Linux 下 64 位集成 Python3 环境的最新版本为例，其安装包名称为：<code>Anaconda3-2019.03-Linux-x86_64.sh</code>，在 SSH 终端中输入以下指令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下载安装包（默认在用户目录下，通过切换当前目录更改下载路径）：</span></span><br><span class="line">wget https://repo.continuum.io/archive/Anaconda3-2019.03-Linux-x86_64.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装 Anaconda（默认在用户目录内，通过切换当前目录更改下载路径）：</span></span><br><span class="line">bash Anaconda3-5.0.1-Linux-x86_64.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置环境变量：</span></span><br><span class="line">source .bashrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载安装包（默认在用户目录下，通过切换当前目录更改下载路径）：</span></span><br><span class="line">wget https://repo.continuum.io/archive/Anaconda3-2019.03-Linux-x86_64.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Anaconda（默认在用户目录内，通过切换当前目录更改下载路径）：</span></span><br><span class="line">bash Anaconda3-5.0.1-Linux-x86_64.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置环境变量：</span></span><br><span class="line"><span class="built_in">source</span> .bashrc</span><br></pre></td></tr></table></figure>
 
 <p>完成后，在 SSH 终端内输入 <code>python</code>，正确进入 Python 编辑环境则表示安装成功。某些情况下，可能需要手动配置环境变量：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编辑环境变量（所有用户有效）：</span></span><br><span class="line">vim /etc/profile</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑环境变量（仅当前用户有效）：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vim .bash_profile</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在文件末尾添加一行（用户名和安装目录请按实际路径填写）：</span></span><br><span class="line">export PATH=/home/root/anaconda3/bin:$PATH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 保存并使其生效（所有用户有效）：</span></span><br><span class="line">source /etc/profile</span><br><span class="line"><span class="meta">#</span><span class="bash"> 保存并使其生效（仅当前用户有效）：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> .bash_profile</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑环境变量（所有用户有效）：</span></span><br><span class="line">vim /etc/profile</span><br><span class="line"><span class="comment"># 编辑环境变量（仅当前用户有效）：</span></span><br><span class="line"><span class="comment"># vim .bash_profile</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在文件末尾添加一行（用户名和安装目录请按实际路径填写）：</span></span><br><span class="line"><span class="built_in">export</span> PATH=/home/root/anaconda3/bin:<span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存并使其生效（所有用户有效）：</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"><span class="comment"># 保存并使其生效（仅当前用户有效）：</span></span><br><span class="line"><span class="comment"># source .bash_profile</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="3-2-配置Jupyter-Notebook"><a href="#3-2-配置Jupyter-Notebook" class="headerlink" title="3.2 配置Jupyter Notebook"></a>3.2 配置Jupyter Notebook</h2><p>使用命令 <code>pip install jupyter</code> 安装 Jupyter 到当前环境中，如果需要切换环境，可以先在 Anaconda 中新建环境并切换至新环境后执行命令。</p>
 <p>安装好 Jupyter 后，像往常一样输入 <code>jupyter notebook</code> 启动，结果却发现连不上 Jupyter 服务，这是因为服务器上的 Jupyter 还没有配置外网访问。配置方式如下：</p>
 <ol>
 <li>生成 Jupyter 配置文件：</li>
 </ol>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">jupyter notebook --generate-config</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line">jupyter notebook --generate-config --allow-root</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 非 root 用户：</span></span><br><span class="line">jupyter notebook --generate-config</span><br><span class="line"><span class="comment"># root 用户：</span></span><br><span class="line">jupyter notebook --generate-config --allow-root</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>打开ipython，创建一个登录jupyter的密码:</li>
@@ -543,22 +543,22 @@
   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入 ipython 环境</span></span><br><span class="line">ipython</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入 password 模块</span></span><br><span class="line"><span class="keyword">from</span> notebook.auth <span class="keyword">import</span> passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改密码</span></span><br><span class="line">passwd()</span><br></pre></td></tr></table></figure>
 
 <p>  然后会要求输入一次密码和一次确认密码，同样，输入过程屏幕上不会有任何显示。正确输入密码后，会输出一个哈希值（省略后半部分），请复制或记录这个值：</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;sha1:5311cd8b9da9:70dd3321..............&#x27;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;sha1:5311cd8b9da9:70dd3321..............&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>修改 Jupyter 配置：</li>
 </ol>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">vi ~/.jupyter/jupyter_notebook_config.py</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi /root/.jupyter/jupyter_notebook_config.py</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 非 root 用户：</span></span><br><span class="line">vi ~/.jupyter/jupyter_notebook_config.py</span><br><span class="line"><span class="comment"># root 用户：</span></span><br><span class="line"><span class="comment"># vi /root/.jupyter/jupyter_notebook_config.py</span></span><br></pre></td></tr></table></figure>
 
 <p>  在打开的配置中添加以下参数：</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c.NotebookApp.ip=&#x27;*&#x27;</span><br><span class="line">c.NotebookApp.password = u&#x27;sha1:5311cd8b9da9:70dd3321..............&#x27;</span><br><span class="line">c.NotebookApp.open_browser = False</span><br><span class="line">c.NotebookApp.port = 8888</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c.NotebookApp.ip=<span class="string">&#x27;*&#x27;</span></span><br><span class="line">c.NotebookApp.password = u<span class="string">&#x27;sha1:5311cd8b9da9:70dd3321..............&#x27;</span></span><br><span class="line">c.NotebookApp.open_browser = False</span><br><span class="line">c.NotebookApp.port = 8888</span><br></pre></td></tr></table></figure>
 
 <p>  其中 <code>password</code> 项输入上一步复制的哈希值，<code>port</code> 项推荐使用默认的 8888 端口，也可以自己定义。</p>
 <h2 id="3-3-配置服务器端口"><a href="#3-3-配置服务器端口" class="headerlink" title="3.3 配置服务器端口"></a>3.3 配置服务器端口</h2><p>至此服务器上的环境均已配置就绪，但如果这时候在 SSH 终端使用命令打开 Jupyter Notebook：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">jupyter notebook</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> jupyter notebook --allow-root</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 非 root 用户：</span></span><br><span class="line">jupyter notebook</span><br><span class="line"><span class="comment"># root 用户：</span></span><br><span class="line"><span class="comment"># jupyter notebook --allow-root</span></span><br></pre></td></tr></table></figure>
 
 <p>或是在浏览器通过：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://公网ip:端口</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例：http://127.0.0.1:8888</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://公网ip:端口</span><br><span class="line"><span class="comment"># 例：http://127.0.0.1:8888</span></span><br></pre></td></tr></table></figure>
 
 <p>仍然会出现无法连接的情况，这是因为 ECS 的安全组还没有配置，8888 端口（或自己设置的端口号）还没有开放给公网。设置安全组的过程如下：</p>
 <ol>
@@ -568,28 +568,28 @@
 <li>选择协议类型为 __自定义 TCP__，输入端口号为 8888（或自定义端口号），授权 IP 设置为 0.0.0.0（即不限访问 IP，不论哪里的网络都可以连接访问云服务器的 Jupyter）</li>
 </ol>
 <p>配置完成后，即可通过 SSH 终端或浏览器输入地址的方式进入服务器的 Jupyter Notebook 了！如果仍旧提示无法访问，且云服务器所选的 Linux 系统为 Ubuntu（其他系统没试过），或许是因为防火墙的缘故，通过以下方式关闭：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw disable</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
 
 <p>接下来尽情享受云服务器带来的快感吧！</p>
 <h2 id="3-4-保持SSH会话"><a href="#3-4-保持SSH会话" class="headerlink" title="3.4 保持SSH会话"></a>3.4 保持SSH会话</h2><p>在使用云服务器的过程中，有时去做别的事了过了一段时间后再看 SSH 终端，发现先是没反应，无法输入，再过一会儿就提示连接已断开，这是因为默认情况下 SSH 会话有一个连接时间，一段时间后就会断开会话。如果需要处理一个耗时很长的事件，这可不是什么好事。为此，可以通过以下方式修改时间，以达到 SSH  会话保活的目的：</p>
 <ol>
 <li>登陆远程服务器后在 SSH 终端输入：</li>
 </ol>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TMOUT=0</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TMOUT=0</span><br></pre></td></tr></table></figure>
 
 <p>  该方式方便、快捷，但缺点是仅对本次登陆有效，退出 SSH 后重新登录则需要再次设置。</p>
 <ol start="2">
 <li>修改ssh配置文件：</li>
 </ol>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 打开配置文件</span></span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 找到 ClientAliveInterval，该参数指定了服务器端向客户端请求消息的时间间隔。默认是0，不发送</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 ClientAliveInterval 的值，单位为秒。如设置 600，即每 10 分钟发送一次请求保持会话。</span></span><br><span class="line">ClientAliveInterval = 600</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 找到 ClientAliveCountMax，该参数表示允许超时的次数。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果发现客户端没有响应，则判断一次超时，请根据实际需要进行设置。比如设置为10，表示允许超时6000 秒 = 100 分钟。</span></span><br><span class="line">ClientAliveCountMax = 10</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开配置文件</span></span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 找到 ClientAliveInterval，该参数指定了服务器端向客户端请求消息的时间间隔。默认是0，不发送</span></span><br><span class="line"><span class="comment"># 修改 ClientAliveInterval 的值，单位为秒。如设置 600，即每 10 分钟发送一次请求保持会话。</span></span><br><span class="line">ClientAliveInterval = 600</span><br><span class="line"></span><br><span class="line"><span class="comment"># 找到 ClientAliveCountMax，该参数表示允许超时的次数。</span></span><br><span class="line"><span class="comment"># 如果发现客户端没有响应，则判断一次超时，请根据实际需要进行设置。比如设置为10，表示允许超时6000 秒 = 100 分钟。</span></span><br><span class="line">ClientAliveCountMax = 10</span><br></pre></td></tr></table></figure>
 
 <h2 id="3-5-本地与云的文件传输"><a href="#3-5-本地与云的文件传输" class="headerlink" title="3.5 本地与云的文件传输"></a>3.5 本地与云的文件传输</h2><p>为了使用云服务器跑数据，还需要在云服务器上准备一份数据文件。由于提高网络带宽的价格并不便宜，而且使用云跑数据本身对带宽并没有什么要求，因此我比较推荐在将数据上传至云或从云上下载时，临时提高 ECS 的带宽，并在完成之后重新恢复较低带宽以节省成本。数据文件比较大时，临时提高带宽更划算一些。文件总量比较大时，临时购买流量更划算一些。本地与服务器的文件拷贝指令为：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 本地文件复制到服务器：</span></span><br><span class="line">scp [本地文件路径] [服务器登录用户名]@[服务器地址]:[服务器文件存储路径]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如将本地用户目录下的 test.txt 复制到服务器 root 用户目录下并重命名为 db.txt：</span></span><br><span class="line">scp /Users/user/test.txt root@127.0.0.1:/root/db.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 若需要复制的是文件夹，则将命令 scp 改为 scp -r：</span></span><br><span class="line">scp -r /Users/user/test root@127.0.0.1:/root/db</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 服务器复制到本地：</span></span><br><span class="line">scp [服务器登录用户名]@[服务器地址]:[服务器文件存储路径] [本地文件路径]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如将服务器 root 用户目录下的 db.txt复制到本地用户目录下并重命名为 test.txt ：</span></span><br><span class="line">scp root@127.0.0.1:/root/db.txt /Users/user/test.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 若需要复制的是文件夹，则将命令 scp 改为 scp -r：</span></span><br><span class="line">scp -r root@127.0.0.1:/root/db /Users/user/test</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本地文件复制到服务器：</span></span><br><span class="line">scp [本地文件路径] [服务器登录用户名]@[服务器地址]:[服务器文件存储路径]</span><br><span class="line"><span class="comment"># 例如将本地用户目录下的 test.txt 复制到服务器 root 用户目录下并重命名为 db.txt：</span></span><br><span class="line">scp /Users/user/test.txt root@127.0.0.1:/root/db.txt</span><br><span class="line"><span class="comment"># 若需要复制的是文件夹，则将命令 scp 改为 scp -r：</span></span><br><span class="line">scp -r /Users/user/<span class="built_in">test</span> root@127.0.0.1:/root/db</span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务器复制到本地：</span></span><br><span class="line">scp [服务器登录用户名]@[服务器地址]:[服务器文件存储路径] [本地文件路径]</span><br><span class="line"><span class="comment"># 例如将服务器 root 用户目录下的 db.txt复制到本地用户目录下并重命名为 test.txt ：</span></span><br><span class="line">scp root@127.0.0.1:/root/db.txt /Users/user/test.txt</span><br><span class="line"><span class="comment"># 若需要复制的是文件夹，则将命令 scp 改为 scp -r：</span></span><br><span class="line">scp -r root@127.0.0.1:/root/db /Users/user/<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="3-6-服务器后台运行Jupyter"><a href="#3-6-服务器后台运行Jupyter" class="headerlink" title="3.6 服务器后台运行Jupyter"></a>3.6 服务器后台运行Jupyter</h2><p>在选择云服务器训练数据时，除了考虑到算力的问题，当然也有持续运行的问题。尽管通过设置 SSH 的会花时间已经可以使得服务器的 Jupyter 一直在激活状态，但如果是自己的工作电脑，甚至办公本，平时还有大量的工作需要使用电脑，，一直在本地挂着一个 SSH 会话不能关机不能断开，总还是不妥，更何况如果遇到突然断网、突然死机等问题时，会话一关就中断运行，想想就让人抓狂。为此，给服务器的当前任务配置一个后台运行就显得尤为必要了。</p>
 <p>通常，在 Linux 中，可以用 <code>nohup [command]</code> 来保持一项任务不被挂起，使用 <code>nohup [command] &amp;</code> 来将任务转至后台并保持不被挂起。指令执行后，Linux 会立即将任务转至后台运行，且返回输出一个进程号：PID，当我们需要手动停止该进程时，可以通过 <code>kill -TRM [PID]</code> 来终止该进程。同时，该进程的所有输出均会默认存储至当前目录下的 <code>nohup.out</code> 文件中，使用命令 <code>tail -f nohup.out</code> 来实时查看动态输出，或者也可以使用：<code>nohup [command] &gt; out.log &amp;</code> 命令将输出重定向至自定义的文件（本例为out.log）并查看。</p>
 <p>这对于 Jupyter 任务来说也是一样的，我们可以通过将 Jupyter 任务转至后台持续运行来释放本地电脑的工作压力：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非 root 用户：</span></span><br><span class="line">nohup jupyter notebook &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash"> root 用户：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> nohup jupyter notebook --allow-root &amp;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 非 root 用户：</span></span><br><span class="line">nohup jupyter notebook &amp;</span><br><span class="line"><span class="comment"># root 用户：</span></span><br><span class="line"><span class="comment"># nohup jupyter notebook --allow-root &amp;</span></span><br></pre></td></tr></table></figure>
 
 <p>这样，当我们在 Jupyter 开始一项耗时任务后，即可直接断开 SSH 会话。<font color=#EB6D39>注意：在本地需要离线时，不能终止 Jupyter 的进程，而应该直接断开 SSH 连接。</font></p>
 <p>另外还有一点，由于 Jupyter 本身的局限性，当一个正在运行任务的 Jupyter 页面被关闭（而没有关闭服务）后，再次打开，只能保留前一次的结果，而不能恢复任务运行过程，因此，使用 nohup 命令转至后台的 Jupyter 任务应当是具有完整结果的，而不能再带有需要交互的部分，例如：</p>
@@ -603,29 +603,29 @@
 <ol>
 <li>创建swap文件：</li>
 </ol>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在 /usr 目录下创建交换内存文件</span></span><br><span class="line">cd /usr</span><br><span class="line">mkdir swap</span><br><span class="line">cd swap</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看目前总用量</span></span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建一个循环，每次复制 1024 字节，共复制 1024000 次（10G）并输出为 swapfile1 文件</span></span><br><span class="line">dd if=/dev/zero of=/usr/swap/swapfile1 bs=1024 count=1024000</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 /usr 目录下创建交换内存文件</span></span><br><span class="line"><span class="built_in">cd</span> /usr</span><br><span class="line">mkdir swap</span><br><span class="line"><span class="built_in">cd</span> swap</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看目前总用量</span></span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个循环，每次复制 1024 字节，共复制 1024000 次（10G）并输出为 swapfile1 文件</span></span><br><span class="line">dd <span class="keyword">if</span>=/dev/zero of=/usr/swap/swapfile1 bs=1024 count=1024000</span><br></pre></td></tr></table></figure>
 
 <p>  最后的 <code>dd</code> 命令中，if 表示 infile，of 表示 outfile，bs=1024 表示写入的每个块的大小为 1024B，即 1KB。<br>  2. 查看刚才创建的 swap 文件大小即路径：</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -sh /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -sh /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>将目标文件设置为 swap 分区文件：</li>
 </ol>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkswap /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkswap /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
 <li>激活 swap，立即启用交换分区文件：</li>
 </ol>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon /usr/swap/swapfile1</span><br></pre></td></tr></table></figure>
 
 <p>  至此交换内存已经设置好了，并已激活可用，但仅限本次开机可用，想要每次开机都自动加载这个交换内存，则需要修改 <code>/etc/fstab</code> 文件</p>
 <ol start="5">
 <li>编辑文件 <code>/etc/fstab</code> 中的 <code>swap</code> 行：</li>
 </ol>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/fstab</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/fstab</span><br></pre></td></tr></table></figure>
 
 <p>  在 <code>/etc/fstab</code> 编辑状态下（UUID 省略后半部分），添加下面这段的最后一行：</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/dev/mapper/vg_localhost-lv_root   /         ext4    defaults        1 1</span><br><span class="line">UUID=cef520a0-df77-4........       /boot     ext4    defaults        1 2</span><br><span class="line"><span class="meta">#</span><span class="bash"> /dev/mapper/vg_localhost-lv_swap   swap      swap    defaults        0 0</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下面这行是关键：</span></span><br><span class="line">/usr/swap/swapfile1                swap      swap    defaults        0 0</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/dev/mapper/vg_localhost-lv_root   /         ext4    defaults        1 1</span><br><span class="line">UUID=cef520a0-df77-4........       /boot     ext4    defaults        1 2</span><br><span class="line"><span class="comment"># /dev/mapper/vg_localhost-lv_swap   swap      swap    defaults        0 0</span></span><br><span class="line"><span class="comment"># 下面这行是关键：</span></span><br><span class="line">/usr/swap/swapfile1                swap      swap    defaults        0 0</span><br></pre></td></tr></table></figure>
 
 <p>保存并重启系统生效。</p>
 <h2 id="3-8-验证服务器"><a href="#3-8-验证服务器" class="headerlink" title="3.8 验证服务器"></a>3.8 验证服务器</h2><p>重启系统后，再次输入 <code>free -m</code> 命令，发现多了一个 <code>swap</code> 内存，大小为 10G，设置成功，服务器的基本配置已全部完成！</p>
@@ -826,14 +826,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>全站总字数：</span>
-    <span title="全站总字数">343k</span>
+    <span title="全站总字数">346k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:21</span>
+    <span title="全站总阅读时长">6:25</span>
   </span>
 </div>
 

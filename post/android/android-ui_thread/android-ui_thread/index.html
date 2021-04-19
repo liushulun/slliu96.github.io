@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1106</p>
+      <p class="site-subtitle" itemprop="description">V 1107</p>
   </div>
 
   <div class="site-nav-right">
@@ -135,7 +135,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">61</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">79</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">82</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
@@ -228,7 +228,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -417,7 +417,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HandlerThread newThread = <span class="keyword">new</span> HandlerThread(<span class="string">&quot;NewThread&quot;</span>);</span><br><span class="line">newThread.start();</span><br><span class="line">Handler newThreadHandler = <span class="keyword">new</span> Handler(newThread.getLooper()) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(<span class="meta">@NonNull</span> Message msg)</span> </span>&#123;</span><br><span class="line">        tvNewThreadText.setText(<span class="string">&quot;子线程内更新 UI&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">newThreadHandler.sendEmptyMessage(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
 
 <p>这段代码运行会抛出异常：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.</span><br></pre></td></tr></table></figure>
 
 <p>为什么子线程不能更新 UI 呢？这就需要从 3 个方面解释。</p>
 <h2 id="1-1-设计思想"><a href="#1-1-设计思想" class="headerlink" title="1.1 设计思想"></a>1.1 设计思想</h2><p>首先不得不提到，子线程更新 UI 会抛出异常肯定是 Android 有意为之，但 Android 为什么要这么设计呢？</p>
@@ -681,7 +681,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Toast generalToast;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在子线程中弹一个 Toast，并把这个 Toast 持久化到成员变量</span></span><br><span class="line">HandlerThread newThread = <span class="keyword">new</span> HandlerThread(<span class="string">&quot;NewThread&quot;</span>);</span><br><span class="line">newThread.start();</span><br><span class="line">Handler newThreadHandler = <span class="keyword">new</span> Handler(newThread.getLooper()) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(<span class="meta">@NonNull</span> Message msg)</span> </span>&#123;</span><br><span class="line">        generalToast = Toast.makeText(NewThreadActivity.<span class="keyword">this</span>, <span class="string">&quot;子线程中创建并显示的Toast&quot;</span>, Toast.LENGTH_LONG);</span><br><span class="line">        generalToast.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">newThreadHandler.sendEmptyMessage(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 确保子线程已经弹了 Toast 之后，也就是 generalToast 已经初始化，再在主线程更新 generalToast 的内容</span></span><br><span class="line">btUpdateInMainThread.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (generalToast != <span class="keyword">null</span>) &#123;</span><br><span class="line">            generalToast.setText(<span class="string">&quot;在主线程更新子线程创建的Toast的内容&quot;</span>);</span><br><span class="line">            generalToast.show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>运行发现报错了：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.</span><br></pre></td></tr></table></figure>
 
 <p>为什么 <code>Toast.makeText(...)</code> 不限制线程，但 <code>toast.setText(...)</code> 又限制线程呢？再仔细看看：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Toast</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Toast <span class="title">makeText</span><span class="params">(<span class="meta">@NonNull</span> Context context, <span class="meta">@Nullable</span> Looper looper,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="meta">@NonNull</span> CharSequence text, <span class="meta">@Duration</span> <span class="keyword">int</span> duration)</span> </span>&#123;</span><br><span class="line">        Toast result = <span class="keyword">new</span> Toast(context, looper);</span><br><span class="line"></span><br><span class="line">        LayoutInflater inflate = (LayoutInflater)</span><br><span class="line">                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);</span><br><span class="line">        View v = inflate.inflate(com.android.internal.R.layout.transient_notification, <span class="keyword">null</span>);</span><br><span class="line">        TextView tv = (TextView)v.findViewById(com.android.internal.R.id.message);</span><br><span class="line">        tv.setText(text);</span><br><span class="line"></span><br><span class="line">        result.mNextView = v;</span><br><span class="line">        result.mDuration = duration;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setText</span><span class="params">(CharSequence s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mNextView == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;This Toast was not created with Toast.makeText()&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        TextView tv = mNextView.findViewById(com.android.internal.R.id.message);</span><br><span class="line">        <span class="keyword">if</span> (tv == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;This Toast was not created with Toast.makeText()&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        tv.setText(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -915,14 +915,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>全站总字数：</span>
-    <span title="全站总字数">343k</span>
+    <span title="全站总字数">346k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:21</span>
+    <span title="全站总阅读时长">6:25</span>
   </span>
 </div>
 
