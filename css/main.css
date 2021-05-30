@@ -3265,6 +3265,9 @@ body {
   margin-left: 5px;
   margin-right: 5px;
 }
+.back-to-top.back-to-top-on {
+  bottom: 80px;
+}
 .main-inner .post-block {
   padding: 40px;
   background: var(--custom-color-block-background);
