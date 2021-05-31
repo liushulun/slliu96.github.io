@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="（1）将一篇文章置顶；（2）创建一个没有标题、无法点击进入的公告栏；（3）给博客增加一个版本记录；（4）从侧栏减掉文章计数，以及从“归档”中去掉文章；（5）禁止通过“下一篇”进入。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客DIY（7）文章置顶和公告栏">
+<meta property="og:url" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/index.html">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
+<meta property="og:description" content="（1）将一篇文章置顶；（2）创建一个没有标题、无法点击进入的公告栏；（3）给博客增加一个版本记录；（4）从侧栏减掉文章计数，以及从“归档”中去掉文章；（5）禁止通过“下一篇”进入。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/top_with_icon.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/untitle_post.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/quote_post.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/latest_version_in_post.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/latest_version_in_sidebar.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/menu_badges.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/latest_version_in_title.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/menu_badges.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/billboard_from_next_post.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/billboard_post.png">
+<meta property="article:published_time" content="2018-08-31T23:31:04.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="自定义">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/top_with_icon.png">
+
+
+<link rel="canonical" href="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+<title>Hexo博客DIY（7）文章置顶和公告栏 | Luis's Blogs</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="开/关导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">V 1120</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">62</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">83</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6"><span class="nav-text">1. 文章置顶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%85%AC%E5%91%8A%E6%A0%8F"><span class="nav-text">2. 公告栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%A2%9E%E5%8A%A0%E7%89%88%E6%9C%AC%E8%AE%B0%E5%BD%95"><span class="nav-text">3. 增加版本记录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E4%BB%8E%E4%BE%A7%E6%A0%8F%E5%8E%BB%E6%8E%89%E6%96%87%E7%AB%A0%E8%AE%A1%E6%95%B0%EF%BC%88%E5%B7%B2%E5%BC%83%E7%94%A8%EF%BC%89"><span class="nav-text">4. 从侧栏去掉文章计数（已弃用）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E4%BB%8E%E2%80%9C%E5%BD%92%E6%A1%A3%E2%80%9D%E5%8E%BB%E6%8E%89%E6%96%87%E7%AB%A0%EF%BC%88%E5%B7%B2%E5%BC%83%E7%94%A8%EF%BC%89"><span class="nav-text">5. 从“归档”去掉文章（已弃用）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E5%9C%A8%E5%BD%92%E6%A1%A3%E4%B8%AD%E7%A6%81%E6%AD%A2%E8%BF%9B%E5%85%A5"><span class="nav-text">6. 在归档中禁止进入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E7%A6%81%E6%AD%A2%E9%80%9A%E8%BF%87%E2%80%9C%E4%B8%8A-%E4%B8%8B%E4%B8%80%E7%AF%87%E2%80%9D%E8%BF%9B%E5%85%A5"><span class="nav-text">7. 禁止通过“上&#x2F;下一篇”进入</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:luis96@foxmail.com" title="E-Mail → mailto:luis96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Luis">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luis's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo博客DIY（7）文章置顶和公告栏
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-09-01 07:31:04" itemprop="dateCreated datePublished" datetime="2018-09-01T07:31:04+08:00">2018-09-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/BlogDIY/" itemprop="url" rel="index"><span itemprop="name">BlogDIY</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+<!-- 注释开始 #############################################
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+  </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
+
+############################################# 注释结束 -->
+
+
+
+<!-- 注释开始 #############################################
+  
+  <div style="position: fixed; width: 100%;">
+    
+      
+      <div class="post-tags">
+          <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+          <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag"><i class="fa fa-tag"></i> 自定义</a>
+      </div>
+  </div>
+############################################# 注释结束 -->
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>16k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>17 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">（1）将一篇文章置顶；（2）创建一个没有标题、无法点击进入的公告栏；（3）给博客增加一个版本记录；（4）从侧栏减掉文章计数，以及从“归档”中去掉文章；（5）禁止通过“下一篇”进入。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <span id="more"></span>
+
+<h1 id="1-文章置顶"><a href="#1-文章置顶" class="headerlink" title="1. 文章置顶"></a>1. 文章置顶</h1><p>Hexo 本身并没有内置文章置顶功能，因此需要自行安装。不过 Hexo 本身有一个对文章排序的组件，也就是在站点配置文件内的 <code>index_generator</code> 选项，置顶功能其实就是每次排序的时候，把其中的置顶文章排在最前，本质上是一个排序组件，Hexo 默认的是 <code>hexo-generator-index</code>，所以先卸载再重新安装一个可以置顶的排序组件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 先卸载</span></span><br><span class="line">npm uninstall --save hexo-generator-index</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 再安装</span></span><br><span class="line">npm install --save hexo-generator-index-pin-top</span><br></pre></td></tr></table></figure>
+
+<p>从插件名字上就能看得出来支持置顶了。该插件的 GitHub 地址：<a target="_blank" rel="noopener" href="https://github.com/netcan/hexo-generator-index-pin-top" title="@LINK">hexo-generator-index-pin-top</a>。插件安装完之后，只需要在文章头部信息栏内设置 <code>top</code> 属性即可：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hexo博客DIY（7）文章置顶和公告栏</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019-01-10 07:31:04</span></span><br><span class="line"><span class="attr">top:</span> <span class="literal">true</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<p>这样这篇文章就具有置顶效果了。不过，仅仅只是这么做，文章虽然确实置顶了，但是从文章列表上来看，和普通的文章没什么不同。如果不特意去对比文章发布时间，可能会以为只是最新的文章而已。例如一些说明、通知之类的，为了能有个比较突出的标志，可以在 <code>next/layout/_macro/post.swig</code> 文件中找到以下位置并添加代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-meta&quot;</span>&gt;</span><br><span class="line">  <span class="comment">// 加在这里</span></span><br><span class="line">  &#123;% <span class="keyword">if</span> post.top %&#125;</span><br><span class="line">    &lt;i <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;fa fa-thumb-tack&quot;</span> style=<span class="string">&quot;color: #EB6D39&quot;</span>&gt;&lt;/i&gt;</span><br><span class="line">    &lt;font color=EB6D39&gt;置顶&lt;/font&gt;</span><br><span class="line">    &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;|&lt;/span&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">  &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-time&quot;</span>&gt;</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>这里的图标、文字、以及各自对应的颜色都可以自定义。完成后的效果就是：</p>
+<center>
+
+<p><img data-src="./top_with_icon.png" alt="文章置顶效果" title="@ASSET"></p>
+</center>
+
+<hr>
+<h1 id="2-公告栏"><a href="#2-公告栏" class="headerlink" title="2. 公告栏"></a>2. 公告栏</h1><p>现在文章置顶已经成功实现了，但是还有个问题，比如像我的博客置顶的这篇文章是类似于一个窗格的形式，更符合“置顶公告栏”这么一个设定，没有标题、没有分类和标签、没有日期等等，但是如果不填写 title 栏，仍然会显示一个默认的“未命名”标题：</p>
+<center>
+
+<p><img data-src="./untitle_post.png" alt="无标题文章" title="@ASSET"></p>
+</center>
+
+<p>而且会导致搜索无法使用，因此如果想实现这种：</p>
+<center>
+
+<p><img data-src="./quote_post.png" alt="公告栏" title="@ASSET"></p>
+</center>
+
+<p>就需要在文章的头部信息栏加入一个 <code>type</code> 属性：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hexo博客DIY（7）文章置顶和公告栏</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019-01-10 07:31:04</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">&quot;quote&quot;</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<p>并且取值为 “quote”，这样文章就会变成一个完全没有标题和各种属性的引用块了。</p>
+<hr>
+<h1 id="3-增加版本记录"><a href="#3-增加版本记录" class="headerlink" title="3. 增加版本记录"></a>3. 增加版本记录</h1><p>目前主流的两个博客部署平台就是 GitHub Page 和 Coding 了，Coding 的部署速度还算比较快，GitHub 因为某些特殊原因，部署完之后实际内容生效时间的间隔有些长，表现为从本地 Hexo 部署到 Page 后，需要过几分钟网络上的内容才生效。有时做了一些小改变，也不知道到底是延迟未生效，还是改动本身没有作用。因此可以增加一个版本标志，每次部署的时候手动 +1，并显示在博客内，这样即可通过版本号是否一致来判断当前网络上的是否最新版本了。</p>
+<p>首先在站点配置文件 <code>blog/_config.yml</code> 中增加一个字段：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Update Version</span></span><br><span class="line"><span class="comment">## Custom tag for last update recording</span></span><br><span class="line"><span class="attr">latestVersion:</span> <span class="number">627</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在需要显示的地方使用以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span style=<span class="string">&quot;color: #666666;font-size:10px;&quot;</span>&gt;V&#123;&#123; config.latestVersion &#125;&#125;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+
+<p>具体的显示信息可以自己 DIY，如果想使用局部变量来获取这个数值，可以在 <code>themes/next/layout/_layout.swig</code> 中找到如下位置添加变量：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;# Language &amp; Config #&#125;</span><br><span class="line">&#123;% set title = __(<span class="string">&#x27;title&#x27;</span>) !== <span class="string">&#x27;title&#x27;</span> &amp;&amp; __(<span class="string">&#x27;title&#x27;</span>) || config.title %&#125;</span><br><span class="line">&#123;% set subtitle = __(<span class="string">&#x27;subtitle&#x27;</span>) !== <span class="string">&#x27;subtitle&#x27;</span> &amp;&amp; __(<span class="string">&#x27;subtitle&#x27;</span>) || config.subtitle %&#125;</span><br><span class="line">&#123;% set author = __(<span class="string">&#x27;author&#x27;</span>) !== <span class="string">&#x27;author&#x27;</span> &amp;&amp; __(<span class="string">&#x27;author&#x27;</span>) || config.author %&#125;</span><br><span class="line">&#123;% set description = __(<span class="string">&#x27;description&#x27;</span>) !== <span class="string">&#x27;description&#x27;</span> &amp;&amp; __(<span class="string">&#x27;description&#x27;</span>) || config.description %&#125;</span><br><span class="line">&#123;% set latestVersion = __(<span class="string">&#x27;latestVersion&#x27;</span>) !== <span class="string">&#x27;latestVersion&#x27;</span> &amp;&amp; __(<span class="string">&#x27;latestVersion&#x27;</span>) || config.latestVersion %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在需要使用的地方直接使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; latestVersion &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>引用即可，当然，使用类似的方法也可以显示在侧栏、标题栏等位置，出于这个主题手机版不会显示侧栏，因此可以选择同时显示在悬浮侧栏和置顶公告栏的最顶处，或同时显示在悬浮侧栏和博客标题栏。</p>
+<p>（1）在置顶公告栏处显示的效果如下图所示：</p>
+<center>
+
+<p><img data-src="./latest_version_in_post.png" alt="置顶公告栏显示博客版本" title="@ASSET"></p>
+</center>
+
+<p>这个效果是通过判断文章是否是”置顶公告栏“来设置的，可以先给置顶的公告栏增加一个自定义属性：<code>latestVersion</code>，然后在 <code>next/layout/_macro/post.swig</code> 文件中找到 <code>Post Body</code> 部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-body&#123;% if theme.han %&#125; han-init-context&#123;% endif %&#125;&#123;% if post.direction &amp;&amp; post.direction.toLowerCase() === &#x27;rtl&#x27; %&#125; rtl&#123;% endif %&#125;&quot;</span> itemprop=<span class="string">&quot;articleBody&quot;</span>&gt;</span><br><span class="line">  &#123;# Gallery support #&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> post.photos and post.photos.length %&#125;</span><br><span class="line">    ......</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">  &#123;############### ↓↓↓↓↓ 在置顶公告栏文中添加版本标识 ↓↓↓↓↓ ###############&#125;</span><br><span class="line">  &#123;## 显示版本标识 ##&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> post.latestVersion %&#125;</span><br><span class="line">    &lt;span style=<span class="string">&quot;color: #666666;font-size:10px;&quot;</span>&gt;V&#123;&#123; config.latestVersion &#125;&#125;&lt;/span&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">  &#123;############### ↑↑↑↑↑ 在置顶公告栏文中添加版本标识 ↑↑↑↑↑ ###############&#125;</span><br><span class="line"></span><br><span class="line">  &#123;% <span class="keyword">if</span> is_index %&#125;</span><br><span class="line">    ......</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>（2）悬浮侧栏的显示效果如下图所示：</p>
+<center>
+
+<p><img data-src="./latest_version_in_sidebar.png" alt="悬浮侧栏显示博客版本" title="@ASSET"></p>
+</center>
+
+<p>这个效果需要在文件 <code>next/layout/_macro/sidebar.swig</code> 里找到 <code>if theme.site_state</code> 并修改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> theme.site_state %&#125;</span><br><span class="line">  &lt;nav <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-state motion-element&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#123;############### ↓↓↓↓↓ 在侧栏中添加版本标识 ↓↓↓↓↓ ###############&#125;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-state-item&quot;</span>&gt;</span><br><span class="line">      &#123;########## 显示版本标识 ##########&#125;</span><br><span class="line">      &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-state-item-count&quot;</span>&gt;&#123;&#123; config.latestVersion &#125;&#125;&lt;/span&gt;</span><br><span class="line">      &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-state-item-name&quot;</span>&gt;&#123;&#123; __(<span class="string">&#x27;state.latestVersion&#x27;</span>) &#125;&#125;&lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &#123;############### ↑↑↑↑↑ 在侧栏中添加版本标识 ↑↑↑↑↑ ###############&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#123;% <span class="keyword">if</span> config.archive_dir != <span class="string">&#x27;/&#x27;</span> and site.posts.length &gt; <span class="number">0</span> %&#125;</span><br><span class="line">      ......</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">    &#123;% <span class="keyword">if</span> site.categories.length &gt; <span class="number">0</span> %&#125;</span><br><span class="line">      ......</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">    &#123;% <span class="keyword">if</span> site.tags.length &gt; <span class="number">0</span> %&#125;</span><br><span class="line">      ......</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">  &lt;/nav&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>并且在 <code>next/languages/</code> 目录下，找到 <code>en.yml</code> 和 <code>zh-CN.yml</code> 这两个语言文件（根据自己的博客语言需求修改对应的文件即可），分别在里面找到 <code>state</code> 字段并增加一个 <code>latestVersion</code> 属性：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 中文语言文件修改如下</span></span><br><span class="line"><span class="attr">state:</span></span><br><span class="line">  <span class="attr">latestVersion:</span> <span class="string">版本</span></span><br><span class="line">  <span class="attr">posts:</span> <span class="string">文章</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="string">页面</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">标签</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">分类</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 英文语言文件修改如下</span></span><br><span class="line"><span class="attr">state:</span></span><br><span class="line">  <span class="attr">latestVersion:</span> <span class="string">Version</span></span><br><span class="line">  <span class="attr">posts:</span> <span class="string">posts</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="string">pages</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">categories</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）在菜单栏小事的效果如下图所示：</p>
+<center>
+
+<p><img data-src="./menu_badges.png" alt="菜单栏右侧小标记" title="@ASSET"></p>
+</center>
+
+<p>可以通过修改 <code>next/layout/_macro/menu/menu-badge.swig</code> 实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro render(name) %&#125;</span><br><span class="line"></span><br><span class="line">  &#123;% set badges = &#123;</span><br><span class="line">    home: config.latestVersion,</span><br><span class="line">    archives: site.posts.length,</span><br><span class="line">    categories: site.categories.length,</span><br><span class="line">    tags: site.tags.length &#125;</span><br><span class="line">  %&#125;</span><br><span class="line">  &#123;% <span class="keyword">for</span> menu, count <span class="keyword">in</span> badges %&#125;</span><br><span class="line">    &#123;% <span class="keyword">if</span> name == menu %&#125;</span><br><span class="line">      &#123;% <span class="keyword">if</span> menu == <span class="string">&quot;home&quot;</span> %&#125;</span><br><span class="line">        &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;badge&quot;</span>&gt;V&#123;&#123; count &#125;&#125;&lt;/span&gt;</span><br><span class="line">      &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">        &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;badge&quot;</span>&gt;&#123;&#123; count &#125;&#125;&lt;/span&gt;</span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">  &#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endmacro %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（4）在博客标题栏显示的效果如下图所示：</p>
+<center>
+
+<p><img data-src="./latest_version_in_title.png" alt="博客标题栏显示博客版本" title="@ASSET"></p>
+</center>
+
+<p>首先在 <code>next/source/css/_common/components/header/site-meta.styl</code> 中添加需要显示的效果样式（根据自己的喜好自定义）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.site-titleVersion &#123;</span><br><span class="line">  font-size: 10px;</span><br><span class="line">  opacity: <span class="number">0.5</span>;</span><br><span class="line">  margin: 0px;</span><br><span class="line">  padding: 0px;</span><br><span class="line">  gravity: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在博客标题栏中添加版本信息，修改：<code>next/layout/_partials/header/brand.swig</code>，在主标题下面增加一行文字：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;custom-logo-site-title&quot;</span>&gt;</span><br><span class="line">......</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;## 博客标题栏中的站点版本 ##&#125;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-titleVersion&quot;</span>&gt;V&#123;&#123; config.latestVersion &#125;&#125;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;## 博客标题栏中的留言链接 ##&#125;</span><br><span class="line">&lt;a href=<span class="string">&quot;&#123;&#123; config.titleContact_url &#125;&#125;&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-titleContact&quot;</span>&gt;&#123;&#123; config.contact &#125;&#125;&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&#123;% <span class="keyword">if</span> subtitle %&#125;</span><br><span class="line">......</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体的样式和放置的位置可以根据喜好调整代码。此时博客标题栏中已经可以显示版本信息了，但是在页面加载或刷新时，其他的元素都有一个渐进的效果，为了不违和，也可以给博客标题栏中的版本信息增加相同的效果。还是在 <code>next/source/css/_common/components/header/site-meta.styl</code> 中，在最下面找到 <code>use-motion</code> 部分，这里定义的是需要动画的元素的初始状态。默认的动画是顶部间距从 -10 渐进到 0，如果想用默认动画，则只需要把 <code>site-titleVersion</code> 加到列表中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.use-motion &#123;</span><br><span class="line">  .brand &#123; <span class="attr">opacity</span>: <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">  .logo, .site-title, .site-subtitle, .custom-logo-image, .site-titleVersion &#123;</span><br><span class="line">    opacity: <span class="number">0</span>;</span><br><span class="line">    position: relative;</span><br><span class="line">    top: -10px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于我自己想让版本信息和下面的留言板链接统一，都从 -5 渐进到 5，因此需要单独设置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.use-motion &#123;</span><br><span class="line">  .brand &#123; <span class="attr">opacity</span>: <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">  .logo, .site-title, .site-subtitle, .custom-logo-image &#123;</span><br><span class="line">    opacity: <span class="number">0</span>;</span><br><span class="line">    position: relative;</span><br><span class="line">    top: -10px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .site-titleVersion, .site-titleContact &#123;</span><br><span class="line">    opacity: <span class="number">0</span>;</span><br><span class="line">    position: relative;</span><br><span class="line">    top: -5px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后找到动画脚本文件 <code>next/source/js/motion.js</code>，先在本地变量定义区定义好这个 CSS 样式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">NexT.motion.middleWares = &#123;</span><br><span class="line">  logo: <span class="function"><span class="keyword">function</span>(<span class="params">integrator</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sequence = [];</span><br><span class="line">    <span class="keyword">var</span> $brand = $(<span class="string">&#x27;.brand&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $image = $(<span class="string">&#x27;.custom-logo-image&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $title = $(<span class="string">&#x27;.site-title&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $subtitle = $(<span class="string">&#x27;.site-subtitle&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $logoLineTop = $(<span class="string">&#x27;.logo-line-before i&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $logoLineBottom = $(<span class="string">&#x27;.logo-line-after i&#x27;</span>);</span><br><span class="line">    <span class="comment">// 定义本地变量</span></span><br><span class="line">    <span class="keyword">var</span> $titleVersion = $(<span class="string">&#x27;.site-titleVersion&#x27;</span>)</span><br><span class="line">    <span class="keyword">var</span> $titleContact = $(<span class="string">&#x27;.site-titleContact&#x27;</span>)</span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后实现动画效果（为了表示层级关系，保留几个方法，但省略了内部源码）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">NexT.motion.middleWares = &#123;</span><br><span class="line">  logo: <span class="function"><span class="keyword">function</span>(<span class="params">integrator</span>) </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    <span class="comment">// ============== 定义本地变量 ==============</span></span><br><span class="line">    <span class="keyword">var</span> $titleVersion = $(<span class="string">&#x27;.site-titleVersion&#x27;</span>)</span><br><span class="line">    <span class="keyword">var</span> $titleContact = $(<span class="string">&#x27;.site-titleContact&#x27;</span>)</span><br><span class="line">    <span class="comment">// ========================================</span></span><br><span class="line"></span><br><span class="line">    $brand.length &gt; <span class="number">0</span> &amp;&amp; sequence.push(&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hasElement</span>(<span class="params">$elements</span>) </span>&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getMistLineSettings</span>(<span class="params">element, translateX</span>) </span>&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">pushImageToSequence</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;</span><br><span class="line">    NexT.utils.isMist() &amp;&amp; hasElement([$logoLineTop, $logoLineBottom])</span><br><span class="line">    &amp;&amp; sequence.push(</span><br><span class="line">      ......</span><br><span class="line">    );</span><br><span class="line">    NexT.utils.isMuse() &amp;&amp; hasElement($image) &amp;&amp; pushImageToSequence();</span><br><span class="line">    hasElement($title) &amp;&amp; sequence.push(&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;);</span><br><span class="line">    hasElement($subtitle) &amp;&amp; sequence.push(&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ============ 透明度从 0 渐进到 0.5 ============</span></span><br><span class="line">    <span class="comment">// ============ 顶间距从 -5 渐进到 5 ===========</span></span><br><span class="line">    <span class="comment">// ============ 动画时间为 100 毫秒 ============</span></span><br><span class="line">    hasElement($titleVersion) &amp;&amp; sequence.push(&#123;</span><br><span class="line">      e: $titleVersion,</span><br><span class="line">      p: &#123;<span class="attr">opacity</span>: <span class="number">0.5</span>, <span class="attr">top</span>: <span class="number">5</span>&#125;,</span><br><span class="line">      <span class="comment">// o: &#123;duration: 200&#125;</span></span><br><span class="line">      o: &#123;<span class="attr">duration</span>: <span class="number">100</span>&#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// ===========================================</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ============ 透明度从 0 渐进到 1 ============</span></span><br><span class="line">    <span class="comment">// ============ 顶间距从 -5 渐进到 5 ===========</span></span><br><span class="line">    <span class="comment">// ============ 动画时间为 100 毫秒 ============</span></span><br><span class="line">    hasElement($titleContact) &amp;&amp; sequence.push(&#123;</span><br><span class="line">      e: $titleContact,</span><br><span class="line">      p: &#123;<span class="attr">opacity</span>: <span class="number">1</span>, <span class="attr">top</span>: <span class="number">5</span>&#125;,</span><br><span class="line">      <span class="comment">// o: &#123;duration: 200&#125;</span></span><br><span class="line">      o: &#123;<span class="attr">duration</span>: <span class="number">100</span>&#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// ===========================================</span></span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>再次部署，动画效果已经加上了，一切和谐。</p>
+<hr>
+<h1 id="4-从侧栏去掉文章计数（已弃用）"><a href="#4-从侧栏去掉文章计数（已弃用）" class="headerlink" title="4. 从侧栏去掉文章计数（已弃用）"></a>4. 从侧栏去掉文章计数（已弃用）</h1><p>正常情况下，Next 主题侧栏会有一个显示文章、分类、标签的计数，但是如果我们创建了一个上文所示的“公告栏”，而只是用来做一些通知、信息展示等功能，可能就并不想把这些文章算进去。想要减掉这部分的文章数量，可以在 <code>next/layout/_macro/sidebar.swig</code> 文件里找到 <code>if theme.site_state</code> 的部分并修改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> theme.site_state %&#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">    &#123;########## 去掉侧栏中对博客置顶公告栏文章计数 ##########&#125;</span><br><span class="line">    &#123;##########          该方法已弃用          ##########&#125;</span><br><span class="line">    &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-state-item-count&quot;</span>&gt;&#123;&#123; site.posts.length - <span class="number">1</span> &#125;&#125;&lt;/span&gt;</span><br><span class="line">    &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-state-item-name&quot;</span>&gt;&#123;&#123; __(<span class="string">&#x27;state.posts&#x27;</span>) &#125;&#125;&lt;/span&gt;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实就是直接把 <code>site.posts.length</code> 减掉了 1 而已，方法是笨方法，因为如果删掉了那篇文章，或者新增了一篇，还要再改一次源码，不过这是个备用方法，<code>site</code> 属性是 Hexo 提供的，似乎没法用简单的办法修改其计算逻辑。</p>
+<hr>
+<h1 id="5-从“归档”去掉文章（已弃用）"><a href="#5-从“归档”去掉文章（已弃用）" class="headerlink" title="5. 从“归档”去掉文章（已弃用）"></a>5. 从“归档”去掉文章（已弃用）</h1><p>如果选择从侧栏的文章计数中去掉了某篇文章，可能也会希望“归档”里同样不记录，同样，归档里也有一个文章计数，还另有一个所有文章的列表，可以看到我的归档里并不包括置顶那个“公告栏”的文章，修改的方式也很类似，找到 <code>next/layout/archive.swig</code> 文件中 <code>ARCHIVE BLOCK</code> 部分并修改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;### ARCHIVE BLOCK ###&#125;</span><br><span class="line">&#123;#####################&#125;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-block archive&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">  &#123;% <span class="keyword">if</span> theme.cheers %&#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">  &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line"></span><br><span class="line">    &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;archive-page-counter&quot;</span>&gt;</span><br><span class="line">      &#123;% set posts_length = site.posts.length %&#125;</span><br><span class="line">      &#123;########## 设置 post_length 以修改归档页上方的文章计数 ##########&#125;</span><br><span class="line">      &#123;##########               该方法已弃用               ##########&#125;</span><br><span class="line">      &#123;&#123; _p(<span class="string">&quot;counter.archive_posts&quot;</span>, site.posts.length - <span class="number">1</span>) &#125;&#125;</span><br><span class="line">    &lt;/span&gt;</span><br><span class="line"></span><br><span class="line">  &#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同样，直接把 <code>site.posts.length</code> 减掉了 1 来去掉计数。</p>
+<p>同样在 <code>ARCHIVE BLOCK</code> 部分，再在刚才的代码下面找到循环遍历所有文章的部分并修改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> post <span class="keyword">in</span> page.posts %&#125;</span><br><span class="line">  &#123;########## 增加 if 判断文章是否设置字段 billboard: true ##########&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> not post.billboard %&#125;</span><br><span class="line"></span><br><span class="line">    &#123;########## 把原本 for 循环里面的代码放进这个 if 里面来 ##########&#125;</span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，只要我们在文章的头部信息栏内增加一个 <code>billboard</code> 标签（可以自定义，只要代码里和文章里一致即可），就能从“归档”的列表中去掉这篇文章！同理，也可以增加任意约束，比如去掉日期早于某个时候的文章、去掉带有某个标签的文章等等，只要把约束全部加进 <code>if</code> 里去即可。不过这里的修改只影响到“归档”中的列表，博客首页的所有文章还是会显示的，想要博客不加载某篇文章会在以后介绍。</p>
+<hr>
+<h1 id="6-在归档中禁止进入"><a href="#6-在归档中禁止进入" class="headerlink" title="6. 在归档中禁止进入"></a>6. 在归档中禁止进入</h1><p>上面说了两个方法，分别减掉侧栏和归档中的“博客公告栏”的计数，但如果再开启博客菜单栏右侧的小标记：</p>
+<center>
+
+<p><img data-src="./menu_badges.png" alt="菜单栏右侧小标记" title="@ASSET"></p>
+</center>
+
+<p>按照上面的方法，又要修改一次 <code>next/layout/_macro/menu/menu-badge.swig</code> 中的代码，所以是个治标不治本的办法。为此，干脆不改变计数，而是在归档中禁止点击进入“博客公告栏”的实际文章地址，并且在“博客公告栏”的上一篇和下一篇文章中，禁止通过“上一篇”或“下一篇”进入，禁止“上一篇”或“下一篇”进入会在下一节详解。</p>
+<p>首先观察 <code>next/layout/archive.swig</code> 中的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;##### ↓↓↓关键代码↓↓↓ #####&#125;</span><br><span class="line">&#123;% <span class="keyword">import</span> <span class="string">&#x27;_macro/post-collapse.swig&#x27;</span> <span class="keyword">as</span> post_template %&#125;</span><br><span class="line">&#123;##### ↑↑↑关键代码↑↑↑ #####&#125;</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">&#123;% <span class="keyword">for</span> post <span class="keyword">in</span> page.posts %&#125;</span><br><span class="line">  &#123;# Show year #&#125;</span><br><span class="line">  ......</span><br><span class="line">  &#123;# endshow #&#125;</span><br><span class="line"></span><br><span class="line">  &#123;##### ↓↓↓关键代码↓↓↓ #####&#125;</span><br><span class="line">  &#123;&#123; post_template.render(post) &#125;&#125;</span><br><span class="line">  &#123;##### ↑↑↑关键代码↑↑↑ #####&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现了一个很关键的依赖文件 <code>next/layout/_macro/post-collapse.swig</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro render(post) %&#125;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">      &lt;&#123;% <span class="keyword">if</span> theme.seo %&#125;h3&#123;% <span class="keyword">else</span> %&#125;h2&#123;% endif %&#125; <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-title&quot;</span>&gt;</span><br><span class="line">        ......</span><br><span class="line">        &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">          &#123;##### ↓↓↓关键代码↓↓↓ #####&#125;</span><br><span class="line">          &lt;a <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-title-link&quot;</span> href=<span class="string">&quot;&#123;&#123; url_for(post.path) &#125;&#125;&quot;</span> itemprop=<span class="string">&quot;url&quot;</span>&gt;</span><br><span class="line">            &#123;% <span class="keyword">if</span> post.type === <span class="string">&#x27;picture&#x27;</span> %&#125;</span><br><span class="line">              &#123;&#123; post.content &#125;&#125;</span><br><span class="line">            &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">              &lt;span itemprop=<span class="string">&quot;name&quot;</span>&gt;&#123;&#123; post.title | <span class="keyword">default</span>(__(<span class="string">&#x27;post.untitled&#x27;</span>)) &#125;&#125;&lt;/span&gt;</span><br><span class="line">            &#123;% endif %&#125;</span><br><span class="line">          &lt;/a&gt;</span><br><span class="line">          &#123;##### ↑↑↑关键代码↑↑↑ #####&#125;</span><br><span class="line">        &#123;% endif %&#125;</span><br><span class="line">      &lt;/&#123;% <span class="keyword">if</span> theme.seo %&#125;h3&#123;% <span class="keyword">else</span> %&#125;h2&#123;% endif %&#125;&gt;</span><br><span class="line"></span><br><span class="line">      ......</span><br><span class="line"></span><br><span class="line">    &lt;/header&gt;</span><br><span class="line">  &lt;/article&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endmacro %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>标记了“关键代码”的这一段，就是“归档”中实际显示每一篇文章的代码了，稍作修改，根据文章是否有 <code>billboard: true</code> 属性来做不同的处理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro render(post) %&#125;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">      &lt;&#123;% <span class="keyword">if</span> theme.seo %&#125;h3&#123;% <span class="keyword">else</span> %&#125;h2&#123;% endif %&#125; <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-title&quot;</span>&gt;</span><br><span class="line">        ......</span><br><span class="line">        &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">          &#123;##### ↓↓↓关键代码修改后↓↓↓ #####&#125;</span><br><span class="line">          &#123;% <span class="keyword">if</span> post.billboard %&#125;</span><br><span class="line">            &lt;a <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-title-link&quot;</span> href=<span class="string">&quot;javascript:void(0)&quot;</span> itemprop=<span class="string">&quot;url&quot;</span>&gt;&#123;&#123; post.title &#125;&#125;&lt;/a&gt;</span><br><span class="line">          &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">            &lt;a <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-title-link&quot;</span> href=<span class="string">&quot;&#123;&#123; url_for(post.path) &#125;&#125;&quot;</span> itemprop=<span class="string">&quot;url&quot;</span>&gt;</span><br><span class="line">                &#123;% <span class="keyword">if</span> post.type === <span class="string">&#x27;picture&#x27;</span> %&#125;</span><br><span class="line">                &#123;&#123; post.content &#125;&#125;</span><br><span class="line">                &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">                &lt;span itemprop=<span class="string">&quot;name&quot;</span>&gt;&#123;&#123; post.title | <span class="keyword">default</span>(__(<span class="string">&#x27;post.untitled&#x27;</span>)) &#125;&#125;&lt;/span&gt;</span><br><span class="line">                &#123;% endif %&#125;</span><br><span class="line">            &lt;/a&gt;</span><br><span class="line">          &#123;% endif %&#125;</span><br><span class="line">          &#123;##### ↑↑↑关键代码修改后↑↑↑ #####&#125;</span><br><span class="line">        &#123;% endif %&#125;</span><br><span class="line">      &lt;/&#123;% <span class="keyword">if</span> theme.seo %&#125;h3&#123;% <span class="keyword">else</span> %&#125;h2&#123;% endif %&#125;&gt;</span><br><span class="line"></span><br><span class="line">      ......</span><br><span class="line"></span><br><span class="line">    &lt;/header&gt;</span><br><span class="line">  &lt;/article&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endmacro %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于含有 <code>billboard: true</code> 属性的文章，保持和其他文章的样式一样，但是却把链接改成 <code>javascript:void(0)</code>，这样就变成一个“死链接”了，怎么点都没有效果。</p>
+<hr>
+<h1 id="7-禁止通过“上-下一篇”进入"><a href="#7-禁止通过“上-下一篇”进入" class="headerlink" title="7. 禁止通过“上/下一篇”进入"></a>7. 禁止通过“上/下一篇”进入</h1><p>通过上文的修改，这篇置顶的公告栏已经无法从“归档”和文章列表里进入了，但是还有一个方法可以进入，就是先点击进入这篇置顶公告栏的 前/后 一篇文章，然后通过“上/下一篇”的链接进入：</p>
+<center>
+
+<p><img data-src="./billboard_from_next_post.png" alt="点击“下一篇”进入" title="@ASSET"></p>
+</center>
+
+<p>这样就能以普通文章的形式查看了：</p>
+<center>
+
+<p><img data-src="./billboard_post.png" alt="查看置顶公告栏" title="@ASSET"></p>
+</center>
+
+<p>但其实因为这篇文章只是用来作为置顶公告栏使用，既没有标题又没有什么有价值的内容，这么显示出来挺不美观的，因此可能不希望让读者不经意间进入这篇文章的详细内容，为此可以修改 <code>themes/next-711/layout/_macro/post.swig</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;### Prev and Last ###&#125;</span><br><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> not is_index and (post.prev or post.next) %&#125;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-nav&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &#123;### 后一篇 ###&#125;</span><br><span class="line"></span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-nav-next post-nav-item&quot;</span>&gt;</span><br><span class="line">      &#123;### ↓↓↓重点修改下面这行↓↓↓ ###&#125;</span><br><span class="line">      &#123;% <span class="keyword">if</span> post.next and not post.next.billboard %&#125;</span><br><span class="line">      &#123;### ↑↑↑重点修改上面这行↑↑↑ ###&#125;</span><br><span class="line">        &lt;a href=<span class="string">&quot;&#123;&#123; url_for(post.next.path) &#125;&#125;&quot;</span> rel=<span class="string">&quot;next&quot;</span> title=<span class="string">&quot;&#123;&#123; post.next.title &#125;&#125;&quot;</span>&gt;</span><br><span class="line">          &lt;i <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;fa fa-chevron-left&quot;</span>&gt;&lt;/i&gt; &#123;&#123; post.next.title &#125;&#125;</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-nav-divider&quot;</span>&gt;&lt;/span&gt;</span><br><span class="line"></span><br><span class="line">    &#123;### 前一篇 ###&#125;</span><br><span class="line"></span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-nav-prev post-nav-item&quot;</span>&gt;</span><br><span class="line">      &#123;### ↓↓↓重点修改下面这行↓↓↓ ###&#125;</span><br><span class="line">      &#123;% <span class="keyword">if</span> post.prev and not post.prev.billboard %&#125;</span><br><span class="line">      &#123;### ↑↑↑重点修改上面这行↑↑↑ ###&#125;</span><br><span class="line">        &lt;a href=<span class="string">&quot;&#123;&#123; url_for(post.prev.path) &#125;&#125;&quot;</span> rel=<span class="string">&quot;prev&quot;</span> title=<span class="string">&quot;&#123;&#123; post.prev.title &#125;&#125;&quot;</span>&gt;</span><br><span class="line">          &#123;&#123; post.prev.title &#125;&#125; &lt;i <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;fa fa-chevron-right&quot;</span>&gt;&lt;/i&gt;</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% set isLast = loop.index % page.per_page === <span class="number">0</span> %&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> is_index and not isLast %&#125;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-eof&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面第 4 条中，去掉“归档”内的置顶公告栏文章，用到了文章内的自定义属性 <code>billboard</code>，这里也同样适用。在 <code>if</code> 判断上一篇和下一篇文章是否为空的地方，加一个 <code> and not post.prev.billboard</code>，表示 <code>当 上一篇 / 下一篇 文章不为空，并且 上一篇 / 下一篇 文章的 billboard 不为 true 时</code>，这样只要置顶公告栏文章设置了 <code>billboard: true</code> 就能同时从“归档”和“上一篇 / 下一篇”里消失了！不过这里有一个小小的坑，代码里面的 <code>prev</code> 直译过来应该是“前一个”，但在文章的“上一篇/下一篇”中对应的是右边那个，也是时间上更晚的一个，从直觉的角度来看或许更应该叫“下一个”。而 <code>next</code> 直译过来是“下一个”，但在文章的“上一篇/下一篇”中对应的是左边那个，时间上是更早的一个，从直觉上来看反倒应该是“前一个”才对，不知道是不是开发人员搞混了哈哈，记录一下以防踩坑。</p>
+<hr>
+<p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="@LINK">博客 DIY 系列</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+
+
+
+
+    
+    <br /> <br /> <br />
+    
+    <div class="pagination" style="border-radius: 10px;">
+        
+        
+            <style type="text/css">
+                .toContact {
+                    font-size: 18px;
+                    text-align: center;
+                    color: #EB6D39;
+                    border-bottom: none;
+                }
+                .toContact:hover {
+                    background: #EB6D39;
+                    color: #FFFFFF;
+                    border-bottom: none;
+                }
+            </style>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
+        
+    </div>
+
+
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    感谢鼓励
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Luis 微信支付">
+        <span>微信支付</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="Luis 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Luis
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/" title="Hexo博客DIY（7）文章置顶和公告栏">https://www.liushulun.cn/post/blogdiy/blogdiy-7-top/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>所有文章均由 Luis 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag"><i class="fa fa-tag"></i> 自定义</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/blogdiy/blogdiy-8-background/" rel="prev" title="Hexo博客DIY（8）博客各部分背景设置">
+                  <i class="fa fa-chevron-left"></i> Hexo博客DIY（8）博客各部分背景设置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/blogdiy/blogdiy-6-avatar-title/" rel="next" title="Hexo博客DIY（6）动态头像与动态浏览器标题">
+                  Hexo博客DIY（6）动态头像与动态浏览器标题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>全站总字数：</span>
+    <span title="全站总字数">347k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:25</span>
+  </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+  
+
+
+
+<style type="text/css">
+    .toBottom {
+        color: #EEEEEE;
+        border-bottom: none;
+    }
+    .toBottom:hover {
+        color: #EB6D39;
+        border-bottom: none;
+    }
+</style>
+<div class="back-to-top back-to-top-on" role="button" style="bottom: 30px;" onClick="window.open('#postBottom','_self')">
+    <span class="fa fa-arrow-down">
+        &emsp;页尾
+    </span>
+</div>
+
+<a id='postBottom'></a>
+</body>
+</html>

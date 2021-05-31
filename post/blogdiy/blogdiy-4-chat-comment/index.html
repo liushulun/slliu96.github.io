@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）未开启评论的文章在文末添加跳转留言区；（5）将博客二级标题替换为留言链接。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客DIY（4）在线聊天和文章评论">
+<meta property="og:url" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/index.html">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
+<meta property="og:description" content="（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）未开启评论的文章在文末添加跳转留言区；（5）将博客二级标题替换为留言链接。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/daovoice_apply_to_web.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/github_oauth_apps.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/github_new_oauth_app.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/github_oauth_app_info.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/valine_only_nick.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/valine_nick_email_link.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/valine_guest_info_custom.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/valine_show_system_info.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/valine_hide_system_info.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/go_to_contact_at_bottom.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/blog_subtitle.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/hide_subtitle.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/custom_subtitle.png">
+<meta property="article:published_time" content="2018-08-07T06:29:51.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="自定义">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/daovoice_apply_to_web.png">
+
+
+<link rel="canonical" href="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+<title>Hexo博客DIY（4）在线聊天和文章评论 | Luis's Blogs</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="开/关导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">V 1120</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">62</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">83</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-DaoVoice%E5%85%8D%E7%99%BB%E9%99%86%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD"><span class="nav-text">1. DaoVoice免登陆聊天功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Gitalk%E8%AF%84%E8%AE%BA"><span class="nav-text">2. Gitalk评论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Valine%E8%AF%84%E8%AE%BA"><span class="nav-text">3. Valine评论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E5%BC%80%E5%90%AFValine"><span class="nav-text">3.1 开启Valine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E9%9A%90%E8%97%8FValine%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF"><span class="nav-text">3.2 隐藏Valine系统信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%96%87%E6%9C%AB%E5%A2%9E%E5%8A%A0%E7%95%99%E8%A8%80%E5%8C%BA%E8%B7%B3%E8%BD%AC"><span class="nav-text">3.3 文末增加留言区跳转</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E4%BA%8C%E7%BA%A7%E6%A0%87%E9%A2%98%E6%9B%BF%E6%8D%A2%E4%B8%BA%E7%95%99%E8%A8%80%E9%93%BE%E6%8E%A5"><span class="nav-text">4. 二级标题替换为留言链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:luis96@foxmail.com" title="E-Mail → mailto:luis96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Luis">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luis's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo博客DIY（4）在线聊天和文章评论
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-07 14:29:51" itemprop="dateCreated datePublished" datetime="2018-08-07T14:29:51+08:00">2018-08-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/BlogDIY/" itemprop="url" rel="index"><span itemprop="name">BlogDIY</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+<!-- 注释开始 #############################################
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+  </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
+
+############################################# 注释结束 -->
+
+
+
+<!-- 注释开始 #############################################
+  
+  <div style="position: fixed; width: 100%;">
+    
+      
+      <div class="post-tags">
+          <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+          <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag"><i class="fa fa-tag"></i> 自定义</a>
+      </div>
+  </div>
+############################################# 注释结束 -->
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>16 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">（1）添加免登陆的在线对话、聊天功能；（2）使用 Gitalk 基于 GitHub 账号登陆的文章评论功能；（3）使用 Valine 免登录留言功能；（4）未开启评论的文章在文末添加跳转留言区；（5）将博客二级标题替换为留言链接。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <span id="more"></span>
+
+<h1 id="1-DaoVoice免登陆聊天功能"><a href="#1-DaoVoice免登陆聊天功能" class="headerlink" title="1. DaoVoice免登陆聊天功能"></a>1. DaoVoice免登陆聊天功能</h1><p>在我博客的右下角有一个悬浮聊天窗，点击即可直接发起会话，当我不在线时，后台会将消息发送到我的邮箱，这是基于 <a target="_blank" rel="noopener" href="http://www.daovoice.io/" title="@LINK">DaoVoice</a> 的实现方案。</p>
+<p>开启 DaoVoice 也比较简单，首先去<a target="_blank" rel="noopener" href="http://www.daovoice.io/" title="@LINK">官网</a>注册一个账号然后登录，进入控制台，点击左侧“应用设置”，并在子菜单选择“安装到网站”：</p>
+<center>
+
+<p><img data-src="./daovoice_apply_to_web.png" alt="DaoVoice 安装到网站" title="@ASSET"></p>
+</center>
+
+<p>在图里中间那个红框处标记了一个 app_id，把它记下来，接着到主题配置文件中，随表找一个地方顶格添加以下配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Daovoice</span></span><br><span class="line"><span class="attr">daovoice:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">app_id:</span> <span class="string">xxxxxxxx</span></span><br></pre></td></tr></table></figure>
+
+<p><code>daovoice_app_id</code> 就填写刚才控制台获得的那个。接下来，将图中上下两个红框那里的代码整体复制下来，找到并打开 <code>next/layout/_partials/head/head.swig</code>，在里面随便找一个顶格的空位粘贴进去，不过需要修改一点，在外层加一个 <code>if</code> 判断是否开启，然后在 app_id 处将固定的你的 id 改为从配置文件中读取，这样以后想要临时关闭 DaoVoice 时只需要把配置文件中 DaoVoice 的 <code>enable</code> 设置为 <code>false</code> 即可，更换了 DaoVoice 账号也只需要更新一下配置文件中 DaoVoice 的 <code>app_id</code> 即可。也可以直接复制我下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> theme.daovoice.enable %&#125;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params">i,s,o,g,r,a,m</span>)</span>&#123;i[<span class="string">&quot;DaoVoiceObject&quot;</span>]=r;i[r]=i[r]||<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;(i[r].q=i[r].q||[]).push(<span class="built_in">arguments</span>)&#125;,i[r].l=<span class="number">1</span>*<span class="keyword">new</span> <span class="built_in">Date</span>();a=s.createElement(o),m=s.getElementsByTagName(o)[<span class="number">0</span>];a.async=<span class="number">1</span>;a.src=g;a.charset=<span class="string">&quot;utf-8&quot;</span>;m.parentNode.insertBefore(a,m)&#125;)(<span class="built_in">window</span>,<span class="built_in">document</span>,<span class="string">&quot;script&quot;</span>,(<span class="string">&#x27;https:&#x27;</span> == <span class="built_in">document</span>.location.protocol ? <span class="string">&#x27;https:&#x27;</span> : <span class="string">&#x27;http:&#x27;</span>) + <span class="string">&quot;//widget.daovoice.io/widget/0f81ff2f.js&quot;</span>,<span class="string">&quot;daovoice&quot;</span>)</span><br><span class="line">  daovoice(<span class="string">&#x27;init&#x27;</span>, &#123;</span><br><span class="line">      app_id: <span class="string">&quot;&#123;&#123;theme.daovoice.app_id&#125;&#125;&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">  daovoice(<span class="string">&#x27;update&#x27;</span>);</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置完成后，在 DaoVoice 控制台的 应用设置 - 聊天设置 中可以自定义欢迎语以及按钮的位置、颜色等。</p>
+<hr>
+<h1 id="2-Gitalk评论"><a href="#2-Gitalk评论" class="headerlink" title="2. Gitalk评论"></a>2. Gitalk评论</h1><p>文章评论也有多种方案，Disqus、友言、畅言、Valine（基于 Leancloud）、Gitment、Gitalk 等，不过 Disqus 是韩国的，虽说国内是能有的不过有时候还是会莫名其妙像被墙起来了一样，友言和畅言已经停止维护，<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases/tag/v7.2.0" title="@LINK">最新版的 Next</a> 也把 Gitment 移除支持了，不过 Gitalk 和 Gitment 比较类似，都是基于 GitHub 的 Issue 实现的，我个人认为，使用 GitHub 托管的博客，使用 GitHub 自己的 Issue 服务来实现也相当契合，何况 GitHub 不仅免费的已经相当够用，而且还没有流量限制。</p>
+<p>Next 主题本身是支持 Gitalk 的，所以引入 Gitalk 只需要像 LeanCloud 和 DaoVoice 一样申请一个 app_id 即可。而由于 Gitalk 本身是基于 GitHub 实现的，所以我们甚至都不需要再另行注册一个账号！</p>
+<p>首先在 GitHub 新建一个仓库，用于存储评论的 Issue，当然如果你愿意也可以直接使用博客的仓库。然后在 GitHub 的设置里面，进入最下面的 __Developer settings__，然后再选择 __OAuth Apps__，然后点击右上角 “New OAuth App” 新建一个应用：</p>
+<center>
+
+<p><img data-src="./github_oauth_apps.png" alt="GitHub OAuth Apps" title="@ASSET"></p>
+</center>
+
+<p>在接下来的界面里，输入应用名和博客地址：</p>
+<center>
+
+<p><img data-src="./github_new_oauth_app.png" alt="Add a GitHub OAuth Apps" title="@ASSET"></p>
+</center>
+
+<p>这里需要注意：<font color=#EB6D39>博客地址是你访问时的真实地址，也就是进入自己的博客首页之后地址栏里的 URL，需要带上 https（或 https，根据自己的实际情况），如果购买绑定了自定义域名，需要填写自定义域名</font>。比如，我的博客绑定了域名为：<code>www.liushulun.cn</code>，由于我开启了强制 HTTPS，因此这里两个需要填写地址的地方，我都需要输入：<code>https://www.liushulun.cn</code>。</p>
+<p>新建好了应用后，在应用信息界面就能找到 <code>client_id</code> 和 <code>client_secret</code>：</p>
+<center>
+
+<p><img data-src="./github_oauth_app_info.png" alt="GitHub OAuth Apps Info" title="@ASSET"></p>
+</center>
+
+<p>复制下来，然后在主题配置文件中找到 Gitalk 相关的配置部分：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Gitalk</span></span><br><span class="line"><span class="comment"># Demo: https://gitalk.github.io</span></span><br><span class="line"><span class="attr">gitalk:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">github_id:</span>  <span class="comment"># Github repo owner</span></span><br><span class="line">  <span class="attr">repo:</span>  <span class="comment"># Repository name to store issues</span></span><br><span class="line">  <span class="attr">client_id:</span>  <span class="comment"># Github Application Client ID</span></span><br><span class="line">  <span class="attr">client_secret:</span>  <span class="comment"># Github Application Client Secret</span></span><br><span class="line">  <span class="attr">admin_user:</span>  <span class="comment"># GitHub repo owner and collaborators, only these guys can initialize github issues</span></span><br><span class="line">  <span class="attr">distraction_free_mode:</span> <span class="literal">true</span> <span class="comment"># Facebook-like distraction free mode</span></span><br><span class="line">  <span class="attr">per_page:</span> <span class="number">5</span></span><br><span class="line">  <span class="comment"># Gitalk&#x27;s display language depends on user&#x27;s browser or system environment</span></span><br><span class="line">  <span class="comment"># If you want everyone visiting your site to see a uniform language, you can set a force language value</span></span><br><span class="line">  <span class="comment"># Available values: en, es-ES, fr, ru, zh-CN, zh-TW</span></span><br><span class="line">  <span class="attr">language:</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>enable</code>：是否打开 Gitalk 评论功能</li>
+<li><code>github_id</code>：刚才申请 OAuth App 时所用的 GitHub 用户名，注意是用户名而不是地址，用来验证 OAuth App 密钥</li>
+<li><code>repo</code>：刚才新建的（或是已有的）用于保存评论 Issue 的仓库名，注意是仓库名而不是地址，用于指定评论保存在哪个仓库内</li>
+<li><code>client_id</code>：新建的 OAuth App 里面的 client_id 复制过来</li>
+<li><code>client_secret</code>：新建的 OAuth App 里面的 client_secret 复制过来</li>
+<li><code>admin_user</code>：<font color=#EB6D39>重要：这里填你自己的 GitHub 用户名（不是地址），默认情况下新发表的文章 Gitalk 评论是未初始化的状态，需要这里指定的 GitHub 用户才能初始化开启</font></li>
+<li><code>per_page</code>：评论列表一页显示几条评论</li>
+</ul>
+<p>由于是基于 GitHub Issue 的实现，Gitalk 评论支持使用 MarkDown 格式，交流代码会方便很多。不过缺点就是，任何人想要评论则必须使用 GitHub 账号登陆才行。</p>
+<hr>
+<h1 id="3-Valine评论"><a href="#3-Valine评论" class="headerlink" title="3. Valine评论"></a>3. Valine评论</h1><h2 id="3-1-开启Valine"><a href="#3-1-开启Valine" class="headerlink" title="3.1 开启Valine"></a>3.1 开启Valine</h2><p>Gitalk 评论虽然最符合程序员的喜好，毕竟基于 GitHub 的 Issue，可以自由改动、打 Tag等，但是缺点就是必须登录 GitHub 账号，有时候有些小问题就显得麻烦了，后来发现 LeanCloud 除了可以实现文章阅读统计外，还支持 Valine 评论功能，最关键的是免登陆，而且免费（目前）！于是我的博客最终选择了 Valine 作为评论引擎。</p>
+<p>首先 Valine 评论和 LeanCloud 阅读统计同时开启会有冲突（2019-12-04 无意间发现已经不会冲突了），解决方案是关掉 LeanCloud 独立的阅读统计，并在 Valine 设置项中开启统计功能即可，Valine 相关设置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Valine</span></span><br><span class="line"><span class="comment"># You can get your appid and appkey from https://leancloud.cn</span></span><br><span class="line"><span class="comment"># More info available at https://valine.js.org</span></span><br><span class="line"><span class="attr">valine:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span></span><br><span class="line">  <span class="attr">appid:</span> <span class="string">输入自己在</span> <span class="string">LeanCloud</span> <span class="string">处创建的应用中申请的</span> <span class="string">AppID</span></span><br><span class="line">  <span class="attr">appkey:</span> <span class="string">输入自己在</span> <span class="string">LeanCloud</span> <span class="string">处创建的应用中申请的</span> <span class="string">AppKey</span></span><br><span class="line">  <span class="attr">notify:</span> <span class="literal">false</span> <span class="comment"># mail notifier, See: https://github.com/xCss/Valine/wiki</span></span><br><span class="line">  <span class="attr">verify:</span> <span class="literal">false</span> <span class="comment"># Verification code</span></span><br><span class="line">  <span class="attr">placeholder:</span> <span class="string">Nice</span> <span class="string">!</span> <span class="comment"># comment box placeholder</span></span><br><span class="line">  <span class="comment"># avatar: mm # gravatar style</span></span><br><span class="line">  <span class="attr">avatar:</span> <span class="string">retro</span></span><br><span class="line">  <span class="attr">guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># custom comment header</span></span><br><span class="line">  <span class="attr">pageSize:</span> <span class="number">5</span> <span class="comment"># pagination size</span></span><br><span class="line">  <span class="attr">language:</span> <span class="comment"># language, available values: en, zh-cn</span></span><br><span class="line">  <span class="attr">visitor:</span> <span class="literal">true</span> <span class="comment"># leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same asleancloud_visitors&#x27; for counter compatibility. Article reading statistic https://valine.js.org/visitor.html</span></span><br><span class="line">  <span class="attr">comment_count:</span> <span class="literal">false</span> <span class="comment"># if false, comment count will only be displayed in post page, not in home page</span></span><br></pre></td></tr></table></figure>
+
+<p><code>appid</code>、<code>appkey</code> 的设置可以参照系列第三篇中 LeanCloud 阅读统计部分：《<a href="/post/blogdiy/blogdiy-3-counter/blogdiy-3-counter/#2-%E8%AE%BF%E5%AE%A2%E4%B8%8E%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1" title="@LINK">访客与阅读量统计</a>》，其他各个字段的含义在 Valine 官网配置详解（<a target="_blank" rel="noopener" href="https://valine.js.org/quickstart.html," title="@LINK">点此直达</a>）中都有说明了，很详细。</p>
+<p>但是当开启了 Valine 并部署后，会发现评论处只支持用户输入昵称评论，不能自己输入邮箱、网址等等，效果如下：</p>
+<center>
+
+<p><img data-src="./valine_only_nick.png" alt="Valine 只能输入昵称" title="@ASSET"></p>
+</center>
+
+<p>而官网提供的评论框可以同时输入昵称、邮箱、链接：</p>
+<center>
+
+<p><img data-src="./valine_nick_email_link.png" alt="官网 Valine 可输入全部信息" title="@ASSET"></p>
+</center>
+
+<p>这样当需要使用邮件沟通时，就比较麻烦了。后来通过查看官网的配置信息，以及查看了 Next 主题源码之后发现，原来是 Next 源码直接限制了只能输入昵称，找到 <code>next/layout/_third-party/comments/valine.swig</code>，可以发现源码里面有这么一段：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> GUEST = [<span class="string">&#x27;nick&#x27;</span>, <span class="string">&#x27;mail&#x27;</span>, <span class="string">&#x27;link&#x27;</span>];</span><br><span class="line">  <span class="keyword">var</span> guest = <span class="string">&#x27;&#123;&#123; theme.valine.guest_info &#125;&#125;&#x27;</span>;</span><br><span class="line">  guest = guest.split(<span class="string">&#x27;,&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> GUEST.indexOf(item) &gt; -<span class="number">1</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">new</span> Valine(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#comments&#x27;</span>,</span><br><span class="line">    verify: &#123;&#123; theme.valine.verify &#125;&#125;,</span><br><span class="line">    notify: &#123;&#123; theme.valine.notify &#125;&#125;,</span><br><span class="line">    appId: <span class="string">&#x27;&#123;&#123; theme.valine.appid &#125;&#125;&#x27;</span>,</span><br><span class="line">    appKey: <span class="string">&#x27;&#123;&#123; theme.valine.appkey &#125;&#125;&#x27;</span>,</span><br><span class="line">    placeholder: <span class="string">&#x27;&#123;&#123; theme.valine.placeholder &#125;&#125;&#x27;</span>,</span><br><span class="line">    avatar: <span class="string">&#x27;&#123;&#123; theme.valine.avatar &#125;&#125;&#x27;</span>,</span><br><span class="line">    guest_info:[<span class="string">&#x27;nick&#x27;</span>] ,  <span class="comment">//评论者只需要提供评论的昵称即可</span></span><br><span class="line">    meta: guest,</span><br><span class="line">    pageSize: <span class="string">&#x27;&#123;&#123; theme.valine.pageSize &#125;&#125;&#x27;</span> || <span class="number">10</span>,</span><br><span class="line">    visitor: &#123;&#123; theme.valine.visitor &#125;&#125;,</span><br><span class="line">    lang: <span class="string">&#x27;&#123;&#123; theme.valine.language &#125;&#125;&#x27;</span> || <span class="string">&#x27;zh-cn&#x27;</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>重点：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">guest_info:[<span class="string">&#x27;nick&#x27;</span>] ,  <span class="comment">//评论者只需要提供评论的昵称即可</span></span><br></pre></td></tr></table></figure>
+
+<p>也就是这里写死了只能输入昵称，其实作者的本意应该是，怕游客以为要全部输入才能评论，所以只开放一个昵称栏，这里到底是否需要设置其他信息可以自行决定，我是为了方便起见使用了昵称 + 邮箱的方式，首先看到 主题配置文件 <code>next/_config.yml</code> 中 Valine 的设置部分有这么个属性：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># custom comment header</span></span><br></pre></td></tr></table></figure>
+
+<p>这个属性对应在源码 <code>next/layout/_third-party/comments/valine.swig</code> 中传递给了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> guest = <span class="string">&#x27;&#123;&#123; theme.valine.guest_info &#125;&#125;&#x27;</span>;</span><br><span class="line">guest = guest.split(<span class="string">&#x27;,&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> GUEST.indexOf(item) &gt; -<span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">meta: guest,</span><br></pre></td></tr></table></figure>
+
+<p>这段代码的作用也就是从主体配置文件中获取 <code>guest_info</code> 属性，然后以 ‘,’ 分隔开，再从 <code>[&#39;nick&#39;, &#39;mail&#39;, &#39;link&#39;]</code> 中分别获取对应的字符串并组成数组，然后传给 <code>meta</code>。查看 Valine 官网资料可知，这个 <code>meta</code> 属性是 LeanCloud 存储评论的头部信息，方案 ① 就是输入框直接使用相同的属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">guest_info: guest,</span><br><span class="line">meta: guest,</span><br></pre></td></tr></table></figure>
+
+<p>但是可能我希望所有的评论，在存储到 LeanCloud 中时都带有全部 3 个属性，但用户评论时只可以输入 1 或 2 个信息（比如我），总之就是用户可以输入的信息和 LeanCloud 存储的信息不一致，那么就需要自定义一个属性了。</p>
+<p>首先在主题配置文件 <code>next/_config.yml</code> 的 Valine 设置部分添加一个自定义属性（命名可自定义）：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Valine</span></span><br><span class="line"><span class="comment"># You can get your appid and appkey from https://leancloud.cn</span></span><br><span class="line"><span class="comment"># More info available at https://valine.js.org</span></span><br><span class="line"><span class="attr">valine:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span></span><br><span class="line">  <span class="attr">appid:</span> <span class="string">5s8VV1vNdnt4bKoTcocYcY0U-gzGzoHsz</span></span><br><span class="line">  <span class="attr">appkey:</span> <span class="string">YRRibTsHhmelPnfq41YO6B1r</span></span><br><span class="line">  <span class="attr">notify:</span> <span class="literal">false</span> <span class="comment"># mail notifier, See: https://github.com/xCss/Valine/wiki</span></span><br><span class="line">  <span class="attr">verify:</span> <span class="literal">false</span> <span class="comment"># Verification code</span></span><br><span class="line">  <span class="attr">placeholder:</span> <span class="string">Nice</span> <span class="string">!</span> <span class="comment"># comment box placeholder</span></span><br><span class="line">  <span class="comment"># avatar: mm # gravatar style</span></span><br><span class="line">  <span class="attr">avatar:</span> <span class="string">retro</span></span><br><span class="line">  <span class="attr">guest_header:</span> <span class="string">nick,mail</span> <span class="comment"># 用户可以自定义输入的信息</span></span><br><span class="line">  <span class="attr">guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># custom comment header</span></span><br><span class="line">  <span class="attr">pageSize:</span> <span class="number">5</span> <span class="comment"># pagination size</span></span><br><span class="line">  <span class="attr">language:</span> <span class="comment"># language, available values: en, zh-cn</span></span><br><span class="line">  <span class="attr">visitor:</span> <span class="literal">true</span> <span class="comment"># leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same as leancloud_visitors&#x27; for counter compatibility. Article reading statistic https://valine.js.org/visitor.html</span></span><br><span class="line">  <span class="attr">comment_count:</span> <span class="literal">false</span> <span class="comment"># if false, comment count will only be displayed in post page, not in home page</span></span><br></pre></td></tr></table></figure>
+
+<p>重点：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">guest_header:</span> <span class="string">nick,mail</span> <span class="comment"># 用户可以自定义输入的信息</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在 Next 的 Valine 部署源码 <code>next/layout/_third-party/comments/valine.swig</code> 中修改这一部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> GUEST = [<span class="string">&#x27;nick&#x27;</span>, <span class="string">&#x27;mail&#x27;</span>, <span class="string">&#x27;link&#x27;</span>];</span><br><span class="line"><span class="keyword">var</span> guest = <span class="string">&#x27;&#123;&#123; theme.valine.guest_info &#125;&#125;&#x27;</span>;</span><br><span class="line">guest = guest.split(<span class="string">&#x27;,&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> GUEST.indexOf(item) &gt; -<span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ↓↓↓↓↓ 重点是以下这部分 ↓↓↓↓↓</span></span><br><span class="line"><span class="keyword">var</span> guest_header = <span class="string">&#x27;&#123;&#123; theme.valine.guest_header &#125;&#125;&#x27;</span>;</span><br><span class="line">guest_header = guest_header.split(<span class="string">&#x27;,&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> GUEST.indexOf(item) &gt; -<span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// ↑↑↑↑↑ 重点是以上这部分 ↑↑↑↑↑</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Valine(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#comments&#x27;</span>,</span><br><span class="line">  verify: &#123;&#123; theme.valine.verify &#125;&#125;,</span><br><span class="line">  notify: &#123;&#123; theme.valine.notify &#125;&#125;,</span><br><span class="line">  appId: <span class="string">&#x27;&#123;&#123; theme.valine.appid &#125;&#125;&#x27;</span>,</span><br><span class="line">  appKey: <span class="string">&#x27;&#123;&#123; theme.valine.appkey &#125;&#125;&#x27;</span>,</span><br><span class="line">  placeholder: <span class="string">&#x27;&#123;&#123; theme.valine.placeholder &#125;&#125;&#x27;</span>,</span><br><span class="line">  avatar: <span class="string">&#x27;&#123;&#123; theme.valine.avatar &#125;&#125;&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ↓↓↓↓↓ 重点是以下这部分 ↓↓↓↓↓</span></span><br><span class="line">  guest_info: guest_header,</span><br><span class="line">  <span class="comment">// ↑↑↑↑↑ 重点是以上这部分 ↑↑↑↑↑</span></span><br><span class="line"></span><br><span class="line">  meta: guest,</span><br><span class="line">  pageSize: <span class="string">&#x27;&#123;&#123; theme.valine.pageSize &#125;&#125;&#x27;</span> || <span class="number">10</span>,</span><br><span class="line">  visitor: &#123;&#123; theme.valine.visitor &#125;&#125;,</span><br><span class="line">  lang: <span class="string">&#x27;&#123;&#123; theme.valine.language &#125;&#125;&#x27;</span> || <span class="string">&#x27;zh-cn&#x27;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>主要就是获取主题配置文件中设置的 <code>guest_header</code> 然后组合成数组再传给 <code>guest_info</code> 即可。重新部署，效果如下：</p>
+<center>
+
+<p><img data-src="./valine_guest_info_custom.png" alt="Valine 自定义用户可输入信息" title="@ASSET"></p>
+</center>
+
+<h2 id="3-2-隐藏Valine系统信息"><a href="#3-2-隐藏Valine系统信息" class="headerlink" title="3.2 隐藏Valine系统信息"></a>3.2 隐藏Valine系统信息</h2><p>常规配置好 Valine 后，会发现评论时自动读取了用户的系统信息等，不仅不美观而且暴露隐私，非常不友好：</p>
+<center>
+
+<p><img data-src="./valine_show_system_info.png" alt="Valine 显示系统信息" title="@ASSET"></p>
+</center>
+
+<p>想要隐藏系统信息可修改 <code>next/source/css/_custom/custom.styl</code>，在末尾添加如下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Valine 隐藏系统信息</span></span><br><span class="line">.vsys&#123;</span><br><span class="line">  display:none !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：<code>custom.styl</code> 这个文件会在 <code>next/source/css/main.styl</code> 中被引入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Custom Layer</span></span><br><span class="line"><span class="comment">// --------------------------------------------------</span></span><br><span class="line">@<span class="keyword">import</span> <span class="string">&quot;_custom/&quot;</span> + $custom_styles;</span><br></pre></td></tr></table></figure>
+
+<p>隐藏后的效果：</p>
+<center>
+
+<p><img data-src="./valine_hide_system_info.png" alt="Valine 隐藏系统信息" title="@ASSET"></p>
+</center>
+
+<h2 id="3-3-文末增加留言区跳转"><a href="#3-3-文末增加留言区跳转" class="headerlink" title="3.3 文末增加留言区跳转"></a>3.3 文末增加留言区跳转</h2><p>附加一个小记录，当文章未开启评论功能时，在文首显示一条跳转留言区的功能。我个人是放在了文章最底部，和有评论时的位置相同，并且复用了博客首页文章列表底下的“页码导航栏”的样式，直接放进一个链接即可：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro render(post, is_index, post_extra_class) %&#125;</span><br><span class="line">......</span><br><span class="line">  &lt;article&gt;</span><br><span class="line">  ......</span><br><span class="line">  &lt;/article&gt;</span><br><span class="line"></span><br><span class="line">  &#123;####################&#125;</span><br><span class="line">  &#123;##### 留言提示 ######&#125;</span><br><span class="line">  &#123;####################&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> not post.comments and not is_index %&#125;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;pagination&quot;</span>&gt;</span><br><span class="line">      &lt;style type=<span class="string">&quot;text/css&quot;</span>&gt;</span><br><span class="line">        .toContact &#123;</span><br><span class="line">            color: #EB6D39;</span><br><span class="line">            border-bottom-color: #EB6D39;</span><br><span class="line">        &#125;</span><br><span class="line">        .toContact:hover &#123;</span><br><span class="line">          color: #000000;</span><br><span class="line">          border-bottom-color: #000000;</span><br><span class="line">        &#125;</span><br><span class="line">      &lt;/style&gt;</span><br><span class="line">      &lt;a href=<span class="string">&quot;/about/&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;toContact&quot;</span>&gt;本文未开启评论，点击前往留言区&lt;/a&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% endmacro %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<center>
+
+<p><img data-src="./go_to_contact_at_bottom.png" alt="文末跳转留言区" title="@ASSET"></p>
+</center>
+
+<hr>
+<h1 id="4-二级标题替换为留言链接"><a href="#4-二级标题替换为留言链接" class="headerlink" title="4. 二级标题替换为留言链接"></a>4. 二级标题替换为留言链接</h1><p>Next 主题的博客二级标题其实就是正标题下面的这一小段文字：</p>
+<center>
+
+<p><img data-src="./blog_subtitle.png" alt="Next 主题二级标题" title="@ASSET"></p>
+</center>
+
+<p>但是像我的博客其实并没有二级标题的必要，所以如图所示设置的和博客描述是一样的。但是这个标题区作为一个信息展示栏可以起到置顶的作用，根据我的个人需求，将二级标题改成了“留言区”的引导链接。</p>
+<p>首先需要注意的地方是，通常为了使得博客能被搜索到，都会在主题配置文件 <code>next/_config.yml</code> 中开启 SEO：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Change headers hierarchy on site-subtitle (will be main site description) and on all post / page titles for better SEO-optimization.</span></span><br><span class="line"><span class="attr">seo:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>因此这个二级标题还是不要直接删掉的好，可以通过让它在网页上不显示，而在页面元素中依然存在的方式巧妙地隐藏掉。在 <code>/next/layout/_partials/header/brand.swig</code> 中找到二级标题相关部分的源码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> subtitle %&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> theme.seo %&#125;</span><br><span class="line">    &lt;h1 <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-subtitle&quot;</span> itemprop=<span class="string">&quot;description&quot;</span>&gt;&#123;&#123; subtitle &#125;&#125;&lt;/h1&gt;</span><br><span class="line">  &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">    &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-subtitle&quot;</span>&gt;&#123;&#123; subtitle &#125;&#125;&lt;/p&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把其中的 <code>&lt;h1&gt;</code> 标签和 <code>&lt;p&gt;</code> 标签使用的样式 <code>site-subtitle</code> 替换掉，改为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> subtitle %&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> theme.seo %&#125;</span><br><span class="line">    &lt;h1 style=<span class="string">&quot;opacity: 0; font-size: 0px; margin: 0px;&quot;</span> itemprop=<span class="string">&quot;description&quot;</span>&gt;&#123;&#123; subtitle &#125;&#125;&lt;/h1&gt;</span><br><span class="line">  &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">    &lt;p style=<span class="string">&quot;opacity: 0; font-size: 0px; margin: 0px;&quot;</span>&gt;&#123;&#123; subtitle &#125;&#125;&lt;/p&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是改成透明，且去掉四周边距，这样在网页上就不会显示了，但实际上在页面元素中还是存在的，这样就不会影响 SEO 了：</p>
+<center>
+
+<p><img data-src="./hide_subtitle.png" alt="隐藏二级标题" title="@ASSET"></p>
+</center>
+
+<p>然后仿照二级标题的方式，首先在博客站点配置文件 <code>blog/_config.yml</code> 中增加两个字段：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Custom Subtitle</span></span><br><span class="line"><span class="attr">titleContact:</span> <span class="string">&quot;&amp;ensp;留 言&amp;ensp;&quot;</span></span><br><span class="line"><span class="attr">titleContact_url:</span> <span class="string">/about/</span></span><br></pre></td></tr></table></figure>
+
+<p>这里具体显示名称和链接地址以自定义的为准。然后再在 <code>next/source/css/_common/components/header/site-meta.styl</code> 中增加一个 CSS 样式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.site-titleContact &#123;</span><br><span class="line">  font-size: $subtitle-font-size;</span><br><span class="line">  color: #EB6D39;</span><br><span class="line">  border-bottom-color: #EB6D39;</span><br><span class="line">  &amp;:hover &#123;</span><br><span class="line">    color: $subtitle-color;</span><br><span class="line">    border-bottom-color: $subtitle-color;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然，这里的样式也可以随意根据自己的喜好调整。其中 <code>subtitle-font-size</code> 和 <code>subtitle-color</code> 都是原本二级标题已经定义好的变量，可以直接用。</p>
+<p>最后在 <code>/next/layout/_partials/header/brand.swig</code> 中增加一条链接，使用上面定义的样式和数据：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;custom-logo-site-title&quot;</span>&gt;</span><br><span class="line">......</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;## 博客标题栏中的留言链接 ##&#125;</span><br><span class="line">&lt;a href=<span class="string">&quot;&#123;&#123; config.titleContact_url &#125;&#125;&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;site-titleContact&quot;</span>&gt;&#123;&#123; config.contact &#125;&#125;&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&#123;% <span class="keyword">if</span> subtitle %&#125;</span><br><span class="line">......</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>放的位置以自定义为准。重新部署即可看到效果：</p>
+<center>
+
+<p><img data-src="./custom_subtitle.png" alt="自定义二级标题" title="@ASSET"></p>
+</center>
+
+<p>到这一步其实基本效果已经实现了，但是还有个问题：页面上的其他元素都有个加载进来的动画效果，而这个自定义的 <code>site-titleContact</code> 会导致刚打开页面就显示“留 言”，而其他元素过一会才显示，显得不和谐，因此需要为这个自定义的 CSS 样式添加一个动画效果。首先在 <code>next/source/css/_common/components/header/site-meta.styl</code> 中找到最下面 <code>use-motion</code> 部分，这里定义的是需要动画的元素的初始状态。默认的动画是顶部间距从 -10 渐进到 0，如果想用默认动画，则只需要把 <code>site-titleContact</code> 加到列表中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.use-motion &#123;</span><br><span class="line">  .brand &#123; <span class="attr">opacity</span>: <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">  .logo, .site-title, .site-subtitle, .custom-logo-image, .site-titleContact &#123;</span><br><span class="line">    opacity: <span class="number">0</span>;</span><br><span class="line">    position: relative;</span><br><span class="line">    top: -10px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于我这个链接是从 -5 渐进到 5，因此需要单独设置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.use-motion &#123;</span><br><span class="line">  .brand &#123; <span class="attr">opacity</span>: <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">  .logo, .site-title, .site-subtitle, .custom-logo-image &#123;</span><br><span class="line">    opacity: <span class="number">0</span>;</span><br><span class="line">    position: relative;</span><br><span class="line">    top: -10px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .site-titleContact &#123;</span><br><span class="line">    opacity: <span class="number">0</span>;</span><br><span class="line">    position: relative;</span><br><span class="line">    top: -5px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后找到动画脚本文件 <code>next/source/js/motion.js</code>，先在本地变量定义区定义好这个 CSS 样式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NexT.motion.middleWares = &#123;</span><br><span class="line">  logo: <span class="function"><span class="keyword">function</span>(<span class="params">integrator</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sequence = [];</span><br><span class="line">    <span class="keyword">var</span> $brand = $(<span class="string">&#x27;.brand&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $image = $(<span class="string">&#x27;.custom-logo-image&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $title = $(<span class="string">&#x27;.site-title&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $subtitle = $(<span class="string">&#x27;.site-subtitle&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $logoLineTop = $(<span class="string">&#x27;.logo-line-before i&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> $logoLineBottom = $(<span class="string">&#x27;.logo-line-after i&#x27;</span>);</span><br><span class="line">    <span class="comment">// 定义本地变量</span></span><br><span class="line">    <span class="keyword">var</span> $titleContact = $(<span class="string">&#x27;.site-titleContact&#x27;</span>)</span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后实现动画效果（为了表示层级关系，保留几个方法，但省略了内部源码）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">NexT.motion.middleWares = &#123;</span><br><span class="line">  logo: <span class="function"><span class="keyword">function</span>(<span class="params">integrator</span>) </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    <span class="comment">// ============== 定义本地变量 ==============</span></span><br><span class="line">    <span class="keyword">var</span> $titleContact = $(<span class="string">&#x27;.site-titleContact&#x27;</span>)</span><br><span class="line">    <span class="comment">// ========================================</span></span><br><span class="line"></span><br><span class="line">    $brand.length &gt; <span class="number">0</span> &amp;&amp; sequence.push(&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hasElement</span>(<span class="params">$elements</span>) </span>&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getMistLineSettings</span>(<span class="params">element, translateX</span>) </span>&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">pushImageToSequence</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;</span><br><span class="line">    NexT.utils.isMist() &amp;&amp; hasElement([$logoLineTop, $logoLineBottom])</span><br><span class="line">    &amp;&amp; sequence.push(</span><br><span class="line">      ......</span><br><span class="line">    );</span><br><span class="line">    NexT.utils.isMuse() &amp;&amp; hasElement($image) &amp;&amp; pushImageToSequence();</span><br><span class="line">    hasElement($title) &amp;&amp; sequence.push(&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;);</span><br><span class="line">    hasElement($subtitle) &amp;&amp; sequence.push(&#123;</span><br><span class="line">      ......</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ============ 透明度从 0 渐进到 1 ============</span></span><br><span class="line">    <span class="comment">// ============ 顶间距从 -5 渐进到 5 ===========</span></span><br><span class="line">    <span class="comment">// ============ 动画时间为 100 毫秒 ============</span></span><br><span class="line">    hasElement($titleContact) &amp;&amp; sequence.push(&#123;</span><br><span class="line">      e: $titleContact,</span><br><span class="line">      p: &#123;<span class="attr">opacity</span>: <span class="number">1</span>, <span class="attr">top</span>: <span class="number">5</span>&#125;,</span><br><span class="line">      <span class="comment">// o: &#123;duration: 200&#125;</span></span><br><span class="line">      o: &#123;<span class="attr">duration</span>: <span class="number">100</span>&#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// ===========================================</span></span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>再次部署，动画效果已经加上了，一切和谐。</p>
+<hr>
+<p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="@LINK">博客 DIY 系列</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+
+
+
+
+    
+    <br /> <br /> <br />
+    
+    <div class="pagination" style="border-radius: 10px;">
+        
+        
+            <style type="text/css">
+                .toContact {
+                    font-size: 18px;
+                    text-align: center;
+                    color: #EB6D39;
+                    border-bottom: none;
+                }
+                .toContact:hover {
+                    background: #EB6D39;
+                    color: #FFFFFF;
+                    border-bottom: none;
+                }
+            </style>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
+        
+    </div>
+
+
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    感谢鼓励
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Luis 微信支付">
+        <span>微信支付</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="Luis 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Luis
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/" title="Hexo博客DIY（4）在线聊天和文章评论">https://www.liushulun.cn/post/blogdiy/blogdiy-4-chat-comment/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>所有文章均由 Luis 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag"><i class="fa fa-tag"></i> 自定义</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/blogdiy/blogdiy-5-search/" rel="prev" title="Hexo博客DIY（5）博客站内本地搜索及相关问题">
+                  <i class="fa fa-chevron-left"></i> Hexo博客DIY（5）博客站内本地搜索及相关问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/blogdiy/blogdiy-3-counter/" rel="next" title="Hexo博客DIY（3）字数、访客、阅读统计">
+                  Hexo博客DIY（3）字数、访客、阅读统计 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>全站总字数：</span>
+    <span title="全站总字数">347k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:25</span>
+  </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+  
+
+
+
+<style type="text/css">
+    .toBottom {
+        color: #EEEEEE;
+        border-bottom: none;
+    }
+    .toBottom:hover {
+        color: #EB6D39;
+        border-bottom: none;
+    }
+</style>
+<div class="back-to-top back-to-top-on" role="button" style="bottom: 30px;" onClick="window.open('#postBottom','_self')">
+    <span class="fa fa-arrow-down">
+        &emsp;页尾
+    </span>
+</div>
+
+<a id='postBottom'></a>
+</body>
+</html>

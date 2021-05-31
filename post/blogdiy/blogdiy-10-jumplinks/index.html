@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页；（2）调整页码导航栏的隐藏级别。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客DIY（10）一键转到页首、页尾、主页">
+<meta property="og:url" content="https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/index.html">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
+<meta property="og:description" content="（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页；（2）调整页码导航栏的隐藏级别。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/custom_jump_links.gif">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/page_nav_default.png">
+<meta property="og:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/page_nav_custom.png">
+<meta property="article:published_time" content="2018-09-22T07:42:21.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="自定义">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/custom_jump_links.gif">
+
+
+<link rel="canonical" href="https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+<title>Hexo博客DIY（10）一键转到页首、页尾、主页 | Luis's Blogs</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="开/关导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">V 1120</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">62</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">83</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          本文目录
+        </li>
+        <li class="sidebar-nav-overview">
+          博客信息
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%A2%9E%E5%8A%A0%E8%B7%B3%E8%BD%AC%E9%93%BE%E6%8E%A5"><span class="nav-text">1. 增加跳转链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%B0%83%E6%95%B4%E9%A1%B5%E7%A0%81%E5%AF%BC%E8%88%AA%E6%A0%8F"><span class="nav-text">2. 调整页码导航栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:luis96@foxmail.com" title="E-Mail → mailto:luis96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Luis">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luis's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo博客DIY（10）一键转到页首、页尾、主页
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-09-22 15:42:21" itemprop="dateCreated datePublished" datetime="2018-09-22T15:42:21+08:00">2018-09-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/BlogDIY/" itemprop="url" rel="index"><span itemprop="name">BlogDIY</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+<!-- 注释开始 #############################################
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+  </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
+
+############################################# 注释结束 -->
+
+
+
+<!-- 注释开始 #############################################
+  
+  <div style="position: fixed; width: 100%;">
+    
+      
+      <div class="post-tags">
+          <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+          <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag"><i class="fa fa-tag"></i> 自定义</a>
+      </div>
+  </div>
+############################################# 注释结束 -->
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">（1）侧栏增加一键返回页首、一键跳到页尾、一键返回首页；（2）调整页码导航栏的隐藏级别。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <span id="more"></span>
+
+<h1 id="1-增加跳转链接"><a href="#1-增加跳转链接" class="headerlink" title="1. 增加跳转链接"></a>1. 增加跳转链接</h1><p>默认情况下，想象一下这几个场景：</p>
+<ol>
+<li>看一篇比较长的文章，前半部分看完之后有个疑问，想评论一下，结果发现评论在最底下</li>
+<li>看一篇比较长的文章，看到一半了，发现后面是看过的或者打算再返回主页看看别的，结果发现主侧栏上的“首页”按钮在最顶上</li>
+<li>看一篇比较长的文章，想看看最新的评论都有哪些，结果发现评论在最底下，看完评论想返回首页，结果首页又在最顶上</li>
+</ol>
+<p>  ……</p>
+<p>虽说滚几下滚轮，点一下滚动栏也没什么大不了的，但毕竟还是影响到了阅读体验，总觉得有种跳出当前专注的事情一样。Next 主题为此提供了一键返回顶部的功能，还能显示阅读进度，这都是不错的，不过毕竟只能一键返回顶部，一键下滑到底部和一键返回主页还是要自己加上去。</p>
+<p>我考虑了一下，如果把这三个都单独做成一个控件，似乎有点繁杂，最后感觉集成到悬浮侧栏是最好的，理由有四：</p>
+<ol>
+<li>不突兀，没有多余的控件</li>
+<li>阅读文章时大概率会浏览目录，不需要专门引导读者就能知道有这个功能，使用起来比较沉浸</li>
+<li>浮动侧栏不论文章怎么滑动、滑动到哪，位置都相对固定，不会因为文章的不同导致这三个功能的位置发生变化而使得读者找不到在哪</li>
+<li>不论文章是否有目录，浮动侧栏都显示这些功能，避免了某些情况下，文章没有任何目录标题（全部文字都是正文格式的长文），导致目录栏不显示，进而导致这三个功能不显示。</li>
+</ol>
+<p>具体的功能效果大家可以在阅读本文时先试试我的博客浮动侧栏最上面的“页首 | 主页 | 评论”这三个功能（动图加载较慢）：</p>
+<center>
+
+<p><img data-src="./custom_jump_links.gif" alt="自定义链接功能" title="@ASSET"></p>
+</center>
+
+<p>既然是加到浮动侧栏上，那就从浮动侧栏的样式文件入手，修改 <code>next/layout/_macro/sidebar.swig</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&lt;aside id=<span class="string">&quot;sidebar&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar&quot;</span>&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar-inner&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &#123;% set display_toc = is_post and theme.toc.enable or is_page and theme.toc.enable %&#125;</span><br><span class="line"></span><br><span class="line">    &#123;############## ↓↓↓在这里插入以下代码↓↓↓ ##############&#125;</span><br><span class="line">    &#123;## 所有文章都显示快捷栏，其他界面如果目录不为空也显示 ##&#125;</span><br><span class="line">    &#123;% <span class="keyword">if</span> is_post || toc(page.content).length &gt; <span class="number">0</span> %&#125;</span><br><span class="line">      &#123;## 用&lt;p&gt;&lt;/p&gt;标签包裹的控件会在下方空出一行而不只是换行 ##&#125;</span><br><span class="line">      &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;underline&quot;</span> style=<span class="string">&quot;width: 100%; display: inline-block&quot;</span>&gt;</span><br><span class="line">        &lt;style&gt;</span><br><span class="line">        .underline&#123; padding-bottom:1px; border-bottom:1px solid #EB6D39&#125;</span><br><span class="line">        &lt;/style&gt;</span><br><span class="line">        &lt;span style=<span class="string">&quot;width: 100%; font-size: 13px; color: #EB6D39;&quot;</span>&gt;</span><br><span class="line">          &#123;### Top Link ###&#125;</span><br><span class="line">          &lt;div style=<span class="string">&quot;cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block&quot;</span> onclick=<span class="string">&quot;window.location=&#x27;#&#x27;;&quot;</span>&gt;</span><br><span class="line">          页首</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">          &amp;ensp;|&amp;ensp;</span><br><span class="line">          &#123;### Home Link ###&#125;</span><br><span class="line">          &lt;div style=<span class="string">&quot;cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block&quot;</span> onclick=<span class="string">&quot;window.location=&#x27;/&#x27;;&quot;</span>&gt;</span><br><span class="line">          主页</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">          &amp;ensp;|&amp;ensp;</span><br><span class="line">          &#123;### Bottom Link ###&#125;</span><br><span class="line">          &lt;div style=<span class="string">&quot;cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block&quot;</span> onclick=<span class="string">&quot;window.scrollBy(0, document.getElementsByTagName(&#x27;BODY&#x27;)[0].scrollHeight);&quot;</span>&gt;</span><br><span class="line">          评论</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">        &lt;/span&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">    &#123;############## ↑↑↑在这里插入以上代码↑↑↑ ##############&#125;</span><br><span class="line"></span><br><span class="line">    &#123;% <span class="keyword">if</span> display_toc and toc(page.content).length &gt; <span class="number">1</span> %&#125;</span><br><span class="line">      &lt;ul <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar-nav motion-element&quot;</span>&gt;</span><br><span class="line">        &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar-nav-toc sidebar-nav-active&quot;</span> target=<span class="string">&quot;post-toc-wrap&quot;</span>&gt;</span><br><span class="line">          &#123;&#123; __(<span class="string">&#x27;sidebar.toc&#x27;</span>) &#125;&#125;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">        &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar-nav-overview&quot;</span> target=<span class="string">&quot;site-overview-wrap&quot;</span>&gt;</span><br><span class="line">          &#123;&#123; __(<span class="string">&#x27;sidebar.overview&#x27;</span>) &#125;&#125;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">&lt;/aside&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样就能随时随地跳转到页首、页尾和首页了。当然，也可以把这段代码按照自己的喜好进一步修改、或放到自己想要的位置。</p>
+<hr>
+<h1 id="2-调整页码导航栏"><a href="#2-调整页码导航栏" class="headerlink" title="2. 调整页码导航栏"></a>2. 调整页码导航栏</h1><p>首页的文章列表以及分类中的文章列表底部都有一个页码导航栏：</p>
+<center>
+
+<p><img data-src="./page_nav_default.png" alt="默认页码导航栏" title="@ASSET"></p>
+</center>
+
+<p>如上图所示，这个页码导航栏通常会将中间的页码省略，但如果页码比较多，默认情况下就会导致前后的页码要点很多下才能切换过去，因此可以适当减少省略的数量。修改：<code>next/layout/_partials/pagination.swig</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> page.prev or page.next %&#125;</span><br><span class="line">  &lt;nav <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;pagination&quot;</span>&gt;</span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: <span class="string">&#x27;&lt;i class=&quot;fa fa-angle-left&quot; aria-label=&quot;&#x27;</span>+__(<span class="string">&#x27;accessibility.prev_page&#x27;</span>)+<span class="string">&#x27;&quot;&gt;&lt;/i&gt;&#x27;</span>,</span><br><span class="line">        next_text: <span class="string">&#x27;&lt;i class=&quot;fa fa-angle-right&quot; aria-label=&quot;&#x27;</span>+__(<span class="string">&#x27;accessibility.next_page&#x27;</span>)+<span class="string">&#x27;&quot;&gt;&lt;/i&gt;&#x27;</span>,</span><br><span class="line">        mid_size: <span class="number">1</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &lt;/nav&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>mid_size</code> 代表当前页码到省略号之间有多少页，默认为 <code>mid_size: 1</code>，加入设置为 <code>mid_size: 3</code>，则效果如下：</p>
+<center>
+
+<p><img data-src="./page_nav_custom.png" alt="调整页码导航栏" title="@ASSET"></p>
+</center>
+
+<hr>
+<p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="@LINK">博客 DIY 系列</a></p>
+<hr>
+<h1 id="3-附录-参考指导"><a href="#3-附录-参考指导" class="headerlink" title="3. 附录[参考指导]"></a>3. 附录[参考指导]</h1><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/baitaibai/article/details/54561918" title="@LINK">【1】css样式中的class，style与id的优先级问题（作者：白太白QAQ）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kuoAT/p/6706327.html?utm_source=itdadao&utm_medium=referral" title="@LINK">【2】div和span显示在同一行（作者：适AT）<sup>【注】</sup></a></li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+
+
+
+
+    
+    <br /> <br /> <br />
+    
+    <div class="pagination" style="border-radius: 10px;">
+        
+        
+            <style type="text/css">
+                .toContact {
+                    font-size: 18px;
+                    text-align: center;
+                    color: #EB6D39;
+                    border-bottom: none;
+                }
+                .toContact:hover {
+                    background: #EB6D39;
+                    color: #FFFFFF;
+                    border-bottom: none;
+                }
+            </style>
+            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
+        
+        
+    </div>
+
+
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    感谢鼓励
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Luis 微信支付">
+        <span>微信支付</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="Luis 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Luis
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/" title="Hexo博客DIY（10）一键转到页首、页尾、主页">https://www.liushulun.cn/post/blogdiy/blogdiy-10-jumplinks/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>所有文章均由 Luis 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag"><i class="fa fa-tag"></i> 自定义</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/blogdiy/blogdiy-11-post-meta/" rel="prev" title="Hexo博客DIY（11）修改文章类别位置、文章顶部显示标签">
+                  <i class="fa fa-chevron-left"></i> Hexo博客DIY（11）修改文章类别位置、文章顶部显示标签
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/blogdiy/blogdiy-9-sidebar/" rel="next" title="Hexo博客DIY（9）侧栏个人链接居中">
+                  Hexo博客DIY（9）侧栏个人链接居中 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>全站总字数：</span>
+    <span title="全站总字数">347k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>全站总阅读时长 &asymp;</span>
+    <span title="全站总阅读时长">6:25</span>
+  </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+  
+
+
+
+<style type="text/css">
+    .toBottom {
+        color: #EEEEEE;
+        border-bottom: none;
+    }
+    .toBottom:hover {
+        color: #EB6D39;
+        border-bottom: none;
+    }
+</style>
+<div class="back-to-top back-to-top-on" role="button" style="bottom: 30px;" onClick="window.open('#postBottom','_self')">
+    <span class="fa fa-arrow-down">
+        &emsp;页尾
+    </span>
+</div>
+
+<a id='postBottom'></a>
+</body>
+</html>
