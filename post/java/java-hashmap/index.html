@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1120</p>
+      <p class="site-subtitle" itemprop="description">V 1121</p>
   </div>
 
   <div class="site-nav-right">
@@ -556,48 +556,58 @@
 
 
 
+
     
-    <br /> <br /> <br />
     
-    <div class="pagination" style="border-radius: 10px;">
-        
-        
-            <style type="text/css">
-                .toContact {
-                    font-size: 18px;
-                    text-align: center;
-                    color: #EB6D39;
-                    border-bottom: none;
-                }
-                .toContact:hover {
-                    background: #EB6D39;
-                    color: #FFFFFF;
-                    border-bottom: none;
-                }
-            </style>
-            <a href="/about/" class="toContact">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</a>
-        
-        
-    </div>
+    <style type="text/css">
+        .postEndContainer {
+            border-radius: 10px;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+        .toAbout {
+            font-size: 18px;
+            text-align: center;
+            color: #EB6D39;
+            cursor: pointer;
+            border-bottom: none;
+        }
+        .toAbout:hover {
+            background: #EB6D39;
+            color: #FFFFFF;
+            cursor: pointer;
+            border-bottom: none;
+        }
 
+        .postEndText {
+            animation: slideHorizontal 5.0s ease infinite;
+        }
+        
+        @keyframes slideHorizontal {
+            0% {
+                transform: translateX(0px);
+            }
+            20% {
+                transform: translateX(-100px);
+            }
+            40% {
+                transform: translateX(100px);
+            }
+            60% {
+                transform: translateX(0px);
+            }
+        }
+    </style>
+    
+        
+        <div class="pagination postEndContainer toAbout" onClick="window.open('/about/','_self')">
+            <div class="postEndText">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</div>
+        </div>
+    
 
-          <div class="reward-container">
-  <div></div>
-  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
-    感谢鼓励
-  </button>
-  <div class="post-reward">
-      <div>
-        <img src="/images/wechatpay.png" alt="Luis 微信支付">
-        <span>微信支付</span>
-      </div>
-      <div>
-        <img src="/images/alipay.png" alt="Luis 支付宝">
-        <span>支付宝</span>
-      </div>
+    
+    <img src="/images/reward.png" style="width: 300px; max-width: 100%;">
 
-  </div>
-</div>
 
           
 
