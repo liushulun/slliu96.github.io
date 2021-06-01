@@ -274,22 +274,22 @@ h6 {
   margin: 20px 0 15px;
 }
 h1 {
-  font-size: 1.675em;
+  font-size: 1.8em;
 }
 h2 {
-  font-size: 1.55em;
+  font-size: 1.6em;
 }
 h3 {
-  font-size: 1.425em;
+  font-size: 1.4em;
 }
 h4 {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 h5 {
-  font-size: 1.175em;
+  font-size: 1em;
 }
 h6 {
-  font-size: 1.05em;
+  font-size: 0.8em;
 }
 p {
   margin: 0 0 20px;
@@ -3206,15 +3206,12 @@ body {
 }
 .site-author-image {
   transition: transform 1s ease-out;
-  animation: rotate 5s linear infinite;
+  animation: rotateAvatar 5s linear infinite;
 }
 .site-author-image:hover {
-  transform: none;
+  animation: rotateAvatar 0.15s linear infinite;
 }
-/*@keyframes rotate{from{transform: rotate(0deg)}
-  to{transform: rotate(360deg)}
-  }*/
-@-moz-keyframes rotate {
+@-moz-keyframes rotateAvatar {
   from {
     transform: rotate(0deg);
   }
@@ -3222,7 +3219,7 @@ body {
     transform: rotate(360deg);
   }
 }
-@-webkit-keyframes rotate {
+@-webkit-keyframes rotateAvatar {
   from {
     transform: rotate(0deg);
   }
@@ -3230,7 +3227,7 @@ body {
     transform: rotate(360deg);
   }
 }
-@-o-keyframes rotate {
+@-o-keyframes rotateAvatar {
   from {
     transform: rotate(0deg);
   }
@@ -3238,7 +3235,7 @@ body {
     transform: rotate(360deg);
   }
 }
-@keyframes rotate {
+@keyframes rotateAvatar {
   from {
     transform: rotate(0deg);
   }
@@ -3332,10 +3329,10 @@ body {
   }
 }
 .posts-expand .post-title-link {
-  color: #eb6d39;
+  color: #444;
 }
 .posts-expand .post-title {
-  color: #eb6d39;
+  color: #444;
   font-size: 2em;
   font-weight: normal;
 }
@@ -3372,7 +3369,7 @@ body {
   margin-right: 10px;
 }
 .posts-expand .post-meta {
-  margin: 3px 0 60px 0;
+  margin: 3px 0 20px 0;
 }
 .posts-expand .post-meta time {
   border-bottom: none;
@@ -3380,8 +3377,6 @@ body {
 }
 .post-description {
   font-size: 0.8125em;
-  color: #eb6d39;
-  margin-top: 40px;
   text-align: center;
 }
 .post-description::before {
@@ -3399,6 +3394,10 @@ body {
 .post-body h5,
 .post-body h6 {
   border-bottom: none;
+}
+.post-body h1:before {
+  content: '§ ';
+  color: #eb6d39;
 }
 .post-body h1 {
   margin-bottom: 50px;

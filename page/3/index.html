@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -24,7 +24,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 <meta name="description" content="Keep Learning">
 <meta property="og:type" content="website">
@@ -32,7 +32,7 @@
 <meta property="og:url" content="https://www.liushulun.cn/page/3/index.html">
 <meta property="og:site_name" content="Luis&#39;s Blogs">
 <meta property="og:description" content="Keep Learning">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale" content="en_US">
 <meta property="article:author" content="Luis">
 <meta property="article:tag" content="AI, MachineLearning, Python, Java, Android">
 <meta name="twitter:card" content="summary">
@@ -47,7 +47,7 @@
     sidebar: "",
     isHome : true,
     isPost : false,
-    lang   : 'zh-CN'
+    lang   : 'en'
   };
 </script>
 
@@ -101,7 +101,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="开/关导航栏" role="button">
+    <div class="toggle" aria-label="Toggle Navigation" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -115,7 +115,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1121</p>
+      <p class="site-subtitle" itemprop="description">V 1122</p>
   </div>
 
   <div class="site-nav-right">
@@ -129,18 +129,18 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
         
             
-  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>关于</a></li>
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
 
 
       
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
       </li>
   </ul>
@@ -155,7 +155,7 @@
   </span>
   <div class="search-input-container">
     <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
+           placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
   <span class="popup-btn-close" role="button">
@@ -186,10 +186,10 @@
     <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
-          本文目录
+          Catalogue
         </li>
         <li class="sidebar-nav-overview">
-          博客信息
+          SiteInfo
         </li>
       </ul>
 
@@ -212,20 +212,20 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">62</span>
-          <span class="site-state-item-name">文章</span>
+          <span class="site-state-item-name">Posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">10</span>
-        <span class="site-state-item-name">分类</span></a>
+        <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">83</span>
-        <span class="site-state-item-name">标签</span></a>
+        <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
 </div>
@@ -270,7 +270,7 @@
     </header>
 
     
-  <div class="back-to-top" role="button" aria-label="返回顶部">
+  <div class="back-to-top" role="button" aria-label="Back to top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -315,15 +315,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2019-02-21 17:50:10" itemprop="dateCreated datePublished" datetime="2019-02-21T17:50:10+08:00">2019-02-21</time>
+      <time title="Created::2019-02-21 17:50:10" itemprop="dateCreated datePublished" datetime="2019-02-21T17:50:10+08:00">2019-02-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
         </span>
@@ -345,19 +345,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>5.2k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>6 Min</span>
     </span>
 </div>
 
@@ -372,7 +372,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/android/android-matrix/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -424,15 +424,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2019-02-10 14:26:51" itemprop="dateCreated datePublished" datetime="2019-02-10T14:26:51+08:00">2019-02-10</time>
+      <time title="Created::2019-02-10 14:26:51" itemprop="dateCreated datePublished" datetime="2019-02-10T14:26:51+08:00">2019-02-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
         </span>
@@ -454,19 +454,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>2.7k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>3 Min</span>
     </span>
 </div>
 
@@ -481,7 +481,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/android/android-jar/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -533,15 +533,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2019-02-07 14:26:51" itemprop="dateCreated datePublished" datetime="2019-02-07T14:26:51+08:00">2019-02-07</time>
+      <time title="Created::2019-02-07 14:26:51" itemprop="dateCreated datePublished" datetime="2019-02-07T14:26:51+08:00">2019-02-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
         </span>
@@ -563,19 +563,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>8.5k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>9 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>9 Min</span>
     </span>
 </div>
 
@@ -590,7 +590,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/android/android-cmake/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -642,15 +642,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2019-01-30 22:06:21" itemprop="dateCreated datePublished" datetime="2019-01-30T22:06:21+08:00">2019-01-30</time>
+      <time title="Created::2019-01-30 22:06:21" itemprop="dateCreated datePublished" datetime="2019-01-30T22:06:21+08:00">2019-01-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
         </span>
@@ -672,19 +672,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>294</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>1 Min</span>
     </span>
 </div>
 
@@ -699,7 +699,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/android/android-sqlite/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -751,15 +751,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2019-01-30 22:06:21" itemprop="dateCreated datePublished" datetime="2019-01-30T22:06:21+08:00">2019-01-30</time>
+      <time title="Created::2019-01-30 22:06:21" itemprop="dateCreated datePublished" datetime="2019-01-30T22:06:21+08:00">2019-01-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
         </span>
@@ -781,19 +781,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>952</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>1 Min</span>
     </span>
 </div>
 
@@ -808,7 +808,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/android/android-sharedpreference/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -860,15 +860,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2019-01-21 10:56:12" itemprop="dateCreated datePublished" datetime="2019-01-21T10:56:12+08:00">2019-01-21</time>
+      <time title="Created::2019-01-21 10:56:12" itemprop="dateCreated datePublished" datetime="2019-01-21T10:56:12+08:00">2019-01-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
         </span>
@@ -890,19 +890,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>3.9k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>4 Min</span>
     </span>
 </div>
 
@@ -917,7 +917,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/android/android-contentprovider/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -969,15 +969,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2019-01-13 19:26:51" itemprop="dateCreated datePublished" datetime="2019-01-13T19:26:51+08:00">2019-01-13</time>
+      <time title="Created::2019-01-13 19:26:51" itemprop="dateCreated datePublished" datetime="2019-01-13T19:26:51+08:00">2019-01-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
         </span>
@@ -999,19 +999,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>3.6k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>4 Min</span>
     </span>
 </div>
 
@@ -1026,7 +1026,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/android/android-broadcastreceiver/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -1078,15 +1078,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2019-01-06 12:08:21" itemprop="dateCreated datePublished" datetime="2019-01-06T12:08:21+08:00">2019-01-06</time>
+      <time title="Created::2019-01-06 12:08:21" itemprop="dateCreated datePublished" datetime="2019-01-06T12:08:21+08:00">2019-01-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
         </span>
@@ -1108,19 +1108,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>2.6k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>3 Min</span>
     </span>
 </div>
 
@@ -1135,7 +1135,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/android/android-service/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -1187,15 +1187,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2018-12-28 21:42:31" itemprop="dateCreated datePublished" datetime="2018-12-28T21:42:31+08:00">2018-12-28</time>
+      <time title="Created::2018-12-28 21:42:31" itemprop="dateCreated datePublished" datetime="2018-12-28T21:42:31+08:00">2018-12-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
         </span>
@@ -1217,19 +1217,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>5.2k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>6 Min</span>
     </span>
 </div>
 
@@ -1244,7 +1244,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/android/android-activity/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -1296,15 +1296,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2018-12-16 23:05:16" itemprop="dateCreated datePublished" datetime="2018-12-16T23:05:16+08:00">2018-12-16</time>
+      <time title="Created::2018-12-16 23:05:16" itemprop="dateCreated datePublished" datetime="2018-12-16T23:05:16+08:00">2018-12-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
         </span>
@@ -1326,19 +1326,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>2.7k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>3 Min</span>
     </span>
 </div>
 
@@ -1353,7 +1353,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/java/java-gc/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -1405,15 +1405,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2018-12-01 10:17:08" itemprop="dateCreated datePublished" datetime="2018-12-01T10:17:08+08:00">2018-12-01</time>
+      <time title="Created::2018-12-01 10:17:08" itemprop="dateCreated datePublished" datetime="2018-12-01T10:17:08+08:00">2018-12-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
         </span>
@@ -1435,19 +1435,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>6.8k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>8 Min</span>
     </span>
 </div>
 
@@ -1462,7 +1462,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/java/java-jvm/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -1514,15 +1514,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2018-11-20 14:00:00" itemprop="dateCreated datePublished" datetime="2018-11-20T14:00:00+08:00">2018-11-20</time>
+      <time title="Created::2018-11-20 14:00:00" itemprop="dateCreated datePublished" datetime="2018-11-20T14:00:00+08:00">2018-11-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Interview/" itemprop="url" rel="index"><span itemprop="name">Interview</span></a>
         </span>
@@ -1544,19 +1544,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>112</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>1 Min</span>
     </span>
 </div>
 
@@ -1571,7 +1571,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/interview/interview-network/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -1623,15 +1623,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2018-11-20 13:00:00" itemprop="dateCreated datePublished" datetime="2018-11-20T13:00:00+08:00">2018-11-20</time>
+      <time title="Created::2018-11-20 13:00:00" itemprop="dateCreated datePublished" datetime="2018-11-20T13:00:00+08:00">2018-11-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Interview/" itemprop="url" rel="index"><span itemprop="name">Interview</span></a>
         </span>
@@ -1653,19 +1653,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>537</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>1 Min</span>
     </span>
 </div>
 
@@ -1680,7 +1680,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/interview/interview-java/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -1732,15 +1732,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2018-11-20 12:00:00" itemprop="dateCreated datePublished" datetime="2018-11-20T12:00:00+08:00">2018-11-20</time>
+      <time title="Created::2018-11-20 12:00:00" itemprop="dateCreated datePublished" datetime="2018-11-20T12:00:00+08:00">2018-11-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Interview/" itemprop="url" rel="index"><span itemprop="name">Interview</span></a>
         </span>
@@ -1762,19 +1762,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>3.2k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>4 Min</span>
     </span>
 </div>
 
@@ -1789,7 +1789,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/interview/interview-android/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -1841,15 +1841,15 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">发表于</span>
+      <span class="post-meta-item-text">Posted:</span>
 
-      <time title="创建时间：2018-11-09 06:32:19" itemprop="dateCreated datePublished" datetime="2018-11-09T06:32:19+08:00">2018-11-09</time>
+      <time title="Created::2018-11-09 06:32:19" itemprop="dateCreated datePublished" datetime="2018-11-09T06:32:19+08:00">2018-11-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">分类于</span>
+      <span class="post-meta-item-text">Categories:</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/BlogDIY/" itemprop="url" rel="index"><span itemprop="name">BlogDIY</span></a>
         </span>
@@ -1871,19 +1871,19 @@
 <!-- 注释开始 #############################################
 ############################################# 注释结束 -->
 
-    <span class="post-meta-item" title="本文字数">
+    <span class="post-meta-item" title="Post Symbols">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
       </span>
-      <span class="post-meta-item-text">本文字数：</span>
+      <span class="post-meta-item-text">Post Symbols:</span>
       <span>2.2k</span>
     </span>
-    <span class="post-meta-item" title="阅读时长">
+    <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>2 Min</span>
     </span>
 </div>
 
@@ -1898,7 +1898,7 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/blogdiy/blogdiy-x-others/">
-                阅读全文 &raquo;
+                Read More &raquo;
               </a>
             </div>
           <!--/noindex-->
@@ -1921,7 +1921,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous Page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next Page"></i></a>
   </nav>
 
 
@@ -1966,15 +1966,15 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-      <span>全站总字数：</span>
-    <span title="全站总字数">347k</span>
+      <span>Site Symbols:</span>
+    <span title="Site Symbols">347k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span>全站总阅读时长 &asymp;</span>
-    <span title="全站总阅读时长">6:25</span>
+      <span>Site Read Time &asymp;</span>
+    <span title="Site Read Time">6:25</span>
   </span>
 </div>
 
@@ -2036,11 +2036,18 @@
         border-bottom: none;
     }
 </style>
-<div class="back-to-top back-to-top-on" role="button" style="bottom: 30px;" onClick="window.open('#postBottom','_self')">
-    <span class="fa fa-arrow-down">
-        &emsp;页尾
-    </span>
+<div class="scrollToBottom back-to-top back-to-top-on" role="button" style="bottom: 30px;" onClick="window.open('#postBottom','_self')">
+    <span class="fa fa-arrow-down"> Down</span>
 </div>
+
+<script>
+    $(function() {
+        $('.scrollToBottom').click(function(){
+            
+            $('html,body').animate({scrollTop:$('.bottom').offset().top}, 800);
+        });
+    })
+</script>
 
 <a id='postBottom'></a>
 </body>
