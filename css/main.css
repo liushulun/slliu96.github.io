@@ -3170,6 +3170,7 @@ body {
   padding: 5px 20px;
   position: relative;
   text-align: left;
+  font-weight: bold;
   transition-property: background-color;
   transition-duration: 0s;
 }
