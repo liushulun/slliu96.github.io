@@ -125,7 +125,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -141,8 +141,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -229,13 +229,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -409,7 +409,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Read Time &asymp;</span>
-      <span>17 Min</span>
+      <span>18 Min</span>
     </span>
 </div>
 
@@ -426,19 +426,19 @@
 <h1 id="1-解析法"><a href="#1-解析法" class="headerlink" title="1. 解析法"></a>1. 解析法</h1><p>在给定正则参数（超参数）λ 的情况下，目标函数的最优解为：$\hat{W} = \arg_W \min J(W)$，满足最优解的必要条件即一阶导数为零：$\dfrac {\partial J(W)} {\partial W} = 0$。</p>
 <h2 id="1-1-OLS最优解析解"><a href="#1-1-OLS最优解析解" class="headerlink" title="1.1 OLS最优解析解"></a>1.1 OLS最优解析解</h2><p><strong>（1）正规方程组</strong></p>
 <p>对 OLS 目标函数矩阵形式展开：</p>
-<p>$$<br>\begin{aligned}<br>J(W) &amp;= ||y - X W||^2_2 = (y - X W)^T (y - X W)<br>\<br>&amp;= y^T y - y^T X W - W^T X^T y + W^T X^T X W<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= ||y - X W||^2_2 = (y - X W)^T (y - X W)<br>\\<br>&amp;= y^T y - y^T X W - W^T X^T y + W^T X^T X W<br>\end{aligned}<br>$$</p>
 <p>根据矩阵的转置运算有：$A^T B = B^T A$，也即 $y^T X W = W^T X^T y$，因此上式等价于：</p>
 <p>$$<br>J(W) = y^T y - 2 W^T X^T y + W^T X^T X W<br>$$</p>
 <p>因此满足 OLS 最优解即：</p>
-<p>$$<br>\begin{aligned}<br>&amp;\dfrac {\partial J(W)} {\partial W} = 0<br>\<br>\Longrightarrow \quad &amp;\dfrac { \partial (y^T y - 2 W^T X^T y + W^T X^T X W)} { \partial W } = 0 \quad（0 矩阵）<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>&amp;\dfrac {\partial J(W)} {\partial W} = 0<br>\\<br>\Longrightarrow \quad &amp;\dfrac { \partial (y^T y - 2 W^T X^T y + W^T X^T X W)} { \partial W } = 0 \quad（0 矩阵）<br>\end{aligned}<br>$$</p>
 <p>根据矩阵的微分运算有：</p>
-<p>$<br>\begin{aligned}<br>&amp;① \quad \dfrac {\partial (A^T B)} {\partial A} = B<br>\<br>&amp;② \quad \dfrac {\partial (A^T B A)} {\partial A} = (B^T + B) A<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>&amp;① \quad \dfrac {\partial (A^T B)} {\partial A} = B<br>\\<br>&amp;② \quad \dfrac {\partial (A^T B A)} {\partial A} = (B^T + B) A<br>\end{aligned}<br>$</p>
 <p>进而得到下式：</p>
 <p>$$<br>0 - 2 X^T y + [ (X^T X)^T + (X^T X) ] W = 0<br>$$</p>
 <p>根据矩阵的运算法则有：</p>
-<p>$<br>\begin{aligned}<br>\because \quad &amp;X^T X = (X)^T (X^T)^T = (X^T X)^T<br>\<br>\therefore \quad &amp;X^T X 为对称矩阵<br>\<br>\Longrightarrow \quad &amp;X^T X = (X^TX)^T<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>\because \quad &amp;X^T X = (X)^T (X^T)^T = (X^T X)^T<br>\\<br>\therefore \quad &amp;X^T X 为对称矩阵<br>\\<br>\Longrightarrow \quad &amp;X^T X = (X^TX)^T<br>\end{aligned}<br>$</p>
 <p>进一步合并得：</p>
-<p>$$<br>\begin{aligned}<br>&amp;-2 X^T y + 2 X^T X W = 0<br>\<br>&amp;\Longrightarrow X^T X W = X^T y \quad （正规方程组）<br>\<br>&amp;\Longrightarrow \hat{W}_{OLS} = (X^T X)^{-1} X^T y<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>&amp;-2 X^T y + 2 X^T X W = 0<br>\\<br>&amp;\Longrightarrow X^T X W = X^T y \quad （正规方程组）<br>\\<br>&amp;\Longrightarrow \hat{W}_{OLS} = (X^T X)^{-1} X^T y<br>\end{aligned}<br>$$</p>
 <p>这种求解方式也称为用正规方程组解析求解最小二乘线性回归。但在解析 $ \hat{W}_{OLS} $ 的过程中涉及到了逆矩阵的计算，应当避免。</p>
 <p><strong>（2）Moore-Penrose广义逆</strong></p>
 <p>通常，训练的目标是 OLS 目标函数 $J(W) = ||y - XW||^2_2$ 最小，通俗来讲也即 $y$ 与 $X W$ 越接近越好，最好的情况即求解：$y = X W$。</p>
@@ -450,20 +450,20 @@
 <p>LaTeX 代码为 <code>X^&#123;\dag&#125;</code>，但 Hexo 不支持引入宏包无法显示，因此使用 $X^+$ 代替。</p>
 </blockquote>
 <p>Moore-Penrose 广义逆可采用奇异值分解（Singular Value Decomposition, SVD）实现：</p>
-<p>$<br>\begin{aligned}<br>&amp;若有：X = U \Sigma V^T,<br>\<br>&amp;其中 U, V 为正交阵，\Sigma 为对角阵（不一定为方阵）<br>\<br>&amp;则：X^+ = V \Sigma^+ V^T<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>&amp;若有：X = U \Sigma V^T,<br>\\<br>&amp;其中 U, V 为正交阵，\Sigma 为对角阵（不一定为方阵）<br>\\<br>&amp;则：X^+ = V \Sigma^+ V^T<br>\end{aligned}<br>$</p>
 <p>对角阵 $\Sigma$ 求伪逆，则将非零元素求倒数即可：</p>
-<p>$$<br>\Sigma = \left(<br>\begin{matrix}<br> \lambda_1 &amp; 0         &amp; \cdots &amp; 0<br> \<br> 0         &amp; \lambda_2 &amp; \cdots &amp; 0<br> \<br> \vdots    &amp; \vdots    &amp; \ddots &amp; \vdots<br> \<br> 0         &amp; 0         &amp; \cdots &amp; 0<br> \<br>\end{matrix}<br>\right),<br>\Sigma^+ = \left(<br>\begin{matrix}<br> \dfrac 1 \lambda_1 &amp; 0                  &amp; \cdots &amp; 0<br> \<br> 0                  &amp; \dfrac 1 \lambda_2 &amp; \cdots &amp; 0<br> \<br> \vdots             &amp; \vdots             &amp; \ddots &amp; \vdots<br> \<br> 0                  &amp; 0                  &amp; \cdots &amp; 0<br> \<br>\end{matrix}<br>\right),<br>$$</p>
+<p>$$<br>\Sigma = \left(<br>\begin{matrix}<br> \lambda_1 &amp; 0         &amp; \cdots &amp; 0<br> \\<br> 0         &amp; \lambda_2 &amp; \cdots &amp; 0<br> \\<br> \vdots    &amp; \vdots    &amp; \ddots &amp; \vdots<br> \\<br> 0         &amp; 0         &amp; \cdots &amp; 0<br> \\<br>\end{matrix}<br>\right),<br>\Sigma^+ = \left(<br>\begin{matrix}<br> \dfrac 1 \lambda_1 &amp; 0                  &amp; \cdots &amp; 0<br> \\<br> 0                  &amp; \dfrac 1 \lambda_2 &amp; \cdots &amp; 0<br> \\<br> \vdots             &amp; \vdots             &amp; \ddots &amp; \vdots<br> \\<br> 0                  &amp; 0                  &amp; \cdots &amp; 0<br> \\<br>\end{matrix}<br>\right),<br>$$</p>
 <p>这也是 Scikit-Learn 中 LinearRegression 推荐的求解方式。</p>
 <h2 id="1-2-Ridge最优解析解"><a href="#1-2-Ridge最优解析解" class="headerlink" title="1.2 Ridge最优解析解"></a>1.2 Ridge最优解析解</h2><p>Ridge 比 OLS 多一个 L2 正则，目标函数为：</p>
-<p>$$<br>\begin{aligned}<br>J(W) &amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\<br>&amp;= (y - X W)^T (y - X W) + \lambda W^T W<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\\<br>&amp;= (y - X W)^T (y - X W) + \lambda W^T W<br>\end{aligned}<br>$$</p>
 <p>其最优解也采用 SVD 分解的方式实现。求解偏导数等于零：</p>
-<p>$$<br>\begin{aligned}<br>\dfrac {\partial J(W)} {\partial W} &amp;= -2 X^T y + 2 (X^T X) W + 2 \lambda W = 0<br>\<br>\Longrightarrow \hat{W}_{Ridge} &amp;= (X^T X + \lambda I)^{-1} X^T y<br>\<br>&amp;（其中 I 为 D \times D 的单位阵）<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>\dfrac {\partial J(W)} {\partial W} &amp;= -2 X^T y + 2 (X^T X) W + 2 \lambda W = 0<br>\\<br>\Longrightarrow \hat{W}_{Ridge} &amp;= (X^T X + \lambda I)^{-1} X^T y<br>\\<br>&amp;（其中 I 为 D \times D 的单位阵）<br>\end{aligned}<br>$$</p>
 <p>对比 OLS 的解：</p>
 <p>$$<br>\hat{W}_{OLS} = (X^T X)^{-1} X^T y<br>$$</p>
 <p>对 Ridge 的解进行变形，配出一个 $\hat{W}_{OLS}$：</p>
-<p>$$<br>\begin{aligned}<br>\hat{W}<em>{Ridge} &amp;= (X^T X + \lambda I)^{-1} X^T y<br>\<br>&amp;= (X^T X + \lambda I)^{-1} (X^T X) (X^T X)^{-1} X^T y<br>\<br>&amp;= (X^T X + \lambda I)^{-1} (X^T X) \hat{W}</em>{OLS}<br>\end{aligned}<br>$$</p>
-<p>将 $(X^T X + \lambda I)^{-1}$ 看成是分母，将 $(X^T X)$ 看成分子，由于 $(X^T X + \lambda I) &gt; (X^T X)$，因此有 $\hat{W}<em>{Ridge} &lt; \hat{W}</em>{OLS}$。</p>
-<p>因此 $\hat{W}<em>{Ridge} $ 在 $ \hat{W}</em>{OLS}$ 的基础上进行了收缩，L2 正则也称为权重收缩。</p>
+<p>$$<br>\begin{aligned}<br>\hat{W}_{Ridge} &amp;= (X^T X + \lambda I)^{-1} X^T y<br>\\<br>&amp;= (X^T X + \lambda I)^{-1} (X^T X) (X^T X)^{-1} X^T y<br>\\<br>&amp;= (X^T X + \lambda I)^{-1} (X^T X) \hat{W}_{OLS}<br>\end{aligned}<br>$$</p>
+<p>将 $(X^T X + \lambda I)^{-1}$ 看成是分母，将 $(X^T X)$ 看成分子，由于 $(X^T X + \lambda I) &gt; (X^T X)$，因此有 $\hat{W}_{Ridge} &lt; \hat{W}_{OLS}$。</p>
+<p>因此 $\hat{W}_{Ridge} $ 在 $ \hat{W}_{OLS}$ 的基础上进行了收缩，L2 正则也称为权重收缩。</p>
 <h2 id="1-3-总结"><a href="#1-3-总结" class="headerlink" title="1.3 总结"></a>1.3 总结</h2><p>（1）OLS 的解为：$\hat{W}_{OLS} = (X^T X)^{-1} X^T y$，需要对矩阵 $X^T X$ 求逆。</p>
 <ul>
 <li>当输入特征存在共线性（某些特征可以用其他特征的线性组合表示），矩阵 X 是接近不满秩，矩阵 $X^T X$ 接近奇异，求逆不稳定。</li>
@@ -513,18 +513,18 @@
 <h2 id="2-2-梯度下降法数学解释"><a href="#2-2-梯度下降法数学解释" class="headerlink" title="2.2 梯度下降法数学解释"></a>2.2 梯度下降法数学解释</h2><p>对函数 $f(x)$ 进行一节泰勒展开得到：</p>
 <p>$$<br>f(x + \Delta x) \approx f(x) + \Delta x \nabla f(x)<br>$$</p>
 <p>要找到函数的最小值，也即每一次步进 $\Delta x$ 后的函数值均小于原函数值，因此有：</p>
-<p>$$<br>\begin{aligned}<br>&amp; f(x + \Delta x) &lt; f(x)<br>\<br>\Longrightarrow &amp; \Delta x \nabla f(x) &lt; 0<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>&amp; f(x + \Delta x) &lt; f(x)<br>\\<br>\Longrightarrow &amp; \Delta x \nabla f(x) &lt; 0<br>\end{aligned}<br>$$</p>
 <p>假设令 $\Delta x = - \eta \nabla f(x), \ \ (\eta &gt; 0)$，其中步长 $\eta$ 为一个较小的正数，从而有：</p>
 <p>$$<br>\Delta x \nabla f(x) = - \eta \left( \nabla f(x) \right)^2 &lt; 0<br>$$</p>
 <p>令 $\Delta x = - \eta \nabla f(x)$ 即可确保 $\left( \nabla f(x) \right)^2 &gt; 0$。</p>
 <p>因此，对 $x$ 的更新为：$x^{t + 1} = x + \Delta x = x^t - \eta \nabla f(x)$，也即 $x$ 向负梯度方向 $- \eta \nabla f(x)$ 移动步长 $\eta$，会使得$f(x^{t + 1}) &lt; f(x^t)$，$\eta$ 也称为学习率。</p>
 <p>由于只对 $f(x)$ 进行一阶泰勒展开，因此梯度下降法是一阶最优化算法。</p>
 <h2 id="2-3-OLS的梯度下降"><a href="#2-3-OLS的梯度下降" class="headerlink" title="2.3 OLS的梯度下降"></a>2.3 OLS的梯度下降</h2><p>OLS 的目标函数为：</p>
-<p>$$<br>\begin{aligned}<br>J(W) &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2<br>\<br>&amp;= ||y - X W||^2_2<br>\<br>&amp;= (y - X W)^T (y - X W)<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2<br>\\<br>&amp;= ||y - X W||^2_2<br>\\<br>&amp;= (y - X W)^T (y - X W)<br>\end{aligned}<br>$$</p>
 <p>其梯度为：</p>
 <p>$$<br>\nabla J(W) = -2 X^T y + 2 X^T X W = -2 X^T (y - X W)<br>$$</p>
 <p>梯度下降：</p>
-<p>$$<br>\begin{aligned}<br>W^{t + 1} &amp;= W^t - \eta \nabla J(W^t)<br>\<br>&amp;= W^t + 2 \eta X^T (y - X W^T)<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>W^{t + 1} &amp;= W^t - \eta \nabla J(W^t)<br>\\<br>&amp;= W^t + 2 \eta X^T (y - X W^T)<br>\end{aligned}<br>$$</p>
 <p>其中 $(y - X W^T)$ 即为预测残差 r，说明参数的更新量与输入 X 和预测残差 r 的相关性有关。$X^T$ 与 r 的相关性较强时需要把 $\eta$ 调大一些，则 r 逐渐与输入 $X^T$ 无关，直到无需再更新 W。</p>
 <p>OLS 的梯度下降过程：</p>
 <p>（1）从 t = 0 开始，随机寻找一个值 $W^{t = 0}$ 为初始值（或 0）；</p>
@@ -535,12 +535,12 @@
 <p>（1）迭代次数达到预设的最大次数。</p>
 <p>（2）迭代过程中目标函数的变化值小于预设值：$\dfrac{J(W^t) - J(W^{t + 1})}{J(W^t)} \le \varepsilon$。</p>
 <h2 id="2-4-Ridge的梯度下降"><a href="#2-4-Ridge的梯度下降" class="headerlink" title="2.4 Ridge的梯度下降"></a>2.4 Ridge的梯度下降</h2><p>Ridge 的目标函数为：</p>
-<p>$$<br>\begin{aligned}<br>J(W) &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} w^2_j<br>\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} w^2_j<br>\\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\end{aligned}<br>$$</p>
 <p>其梯度为：</p>
 <p>$$<br>\nabla J(W) = -2 X^T y + 2 X^T X W + 2 \lambda W<br>$$</p>
 <p>Ridge 的梯度下降过程与 OLS 的相同。</p>
 <h2 id="2-5-Lasso次梯度法"><a href="#2-5-Lasso次梯度法" class="headerlink" title="2.5 Lasso次梯度法"></a>2.5 Lasso次梯度法</h2><p>Lasso 的目标函数为：</p>
-<p>$$<br>\begin{aligned}<br>J(W) &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} |W_j|<br>\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||_1<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>J(W) &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} |W_j|<br>\\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||_1<br>\end{aligned}<br>$$</p>
 <p>绝对值函数 &amp;||W||_1&amp; 在原点 $W = 0$ 处不可导，无法使用梯度下降求解。</p>
 <p>（1）可用次梯度概念替换梯度，得到次梯度法。</p>
 <p>（2）或用坐标轴下降求解。</p>
@@ -625,16 +625,16 @@
 <p>$<br>\Delta f(x) \ge g \Delta x \Rightarrow g \le \dfrac {\Delta f(x)} {\Delta x}<br>$</p>
 <p>从该直线方程可知，$g$ 也就是在直线 $y = f(x_0)$ 下方的直线的斜率，所有 $g$ 的解（斜率）都称为函数的次导数（Subderivative），所有次导数（$g$ 的解）的集合称为函数 $f$ 在 $x_0$ 处的次微分（Subdifferential），记为 $\partial f(x_0)$。</p>
 <p>次微分是次导数的集合，定义该集合为区间 $[a, b]$：</p>
-<p>$$<br>a = \lim_{x \rightarrow x^-<em>0} \dfrac {f(x) - f(x_0)} {x - x_0}, \quad b = \lim</em>{x \rightarrow x^+_0} \dfrac {f(x) - f(x_0)} {x - x_0}<br>$$</p>
+<p>$$<br>a = \lim_{x \rightarrow x^-_0} \dfrac {f(x) - f(x_0)} {x - x_0}, \quad b = \lim_{x \rightarrow x^+_0} \dfrac {f(x) - f(x_0)} {x - x_0}<br>$$</p>
 <p>也即 $x_0$ 点的次微分的集合左边界 $a$ 是从点 $x_0$ 的左侧逼近函数值，右边界 $b$ 是从点 $x_0$ 的右侧逼近函数值。<strong>当函数在 $x_0$ 处可导时，该点的次微分只有一个点组成，也就是函数在该点的导数。</strong></p>
 <p>例如求凸函数 $f(x) = |x|$ 的次微分，由于 $f(x)$ 在点 $x = 0$ 处不可导，因此该点的次微分区间左边界为 $f(0^-) = -1$，右边界为 $f(0^+) = 1$：</p>
-<p>$$<br>\partial f(x) = \left {<br>\begin{aligned}<br>{ -1 }, &amp;&amp; {x &lt; 0}<br>\<br>[-1, +1], &amp;&amp; {x = 0}<br>\<br>{ +1 }, &amp;&amp; {x &gt; 0}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$<br>\partial f(x) = \left \{<br>\begin{aligned}<br>\{ -1 \}, &amp;&amp; {x &lt; 0}<br>\\<br>[-1, +1], &amp;&amp; {x = 0}<br>\\<br>\{ +1 \}, &amp;&amp; {x &gt; 0}<br>\end{aligned}<br>\right.<br>$$</p>
 <p>若求解多维点的次微分，则分别求解每个分量的次微分并组成向量，即作为函数在该点的次梯度。</p>
 <font color=EB6D39>
 
 <p>对可导函数，最优解的条件为 $f(x) = 0$，对此类仅局部可导，需要使用次微分的函数，最优解的条件为：</p>
-<p>$<br>0 \in \partial f(x^*) \Longleftrightarrow f(x^*) = \min_x f(x)<br>$</p>
-<p>当且仅当 0 属于函数 $f$ 在点 $x^*$ 处次梯度集合时，$x^*$ 为极值点。当然，因为函数在可导的点的次微分等于其导数，因此该条件可扩展到全局可导函数。</p>
+<p>$<br>0 \in \partial f(x^<em>) \Longleftrightarrow f(x^</em>) = \min_x f(x)<br>$</p>
+<p>当且仅当 0 属于函数 $f$ 在点 $x^<em>$ 处次梯度集合时，$x^</em>$ 为极值点。当然，因为函数在可导的点的次微分等于其导数，因此该条件可扩展到全局可导函数。</p>
 </font>
 
 <blockquote>
@@ -680,28 +680,28 @@
 <h2 id="4-1-Lasso坐标轴下降的数学解释"><a href="#4-1-Lasso坐标轴下降的数学解释" class="headerlink" title="4.1 Lasso坐标轴下降的数学解释"></a>4.1 Lasso坐标轴下降的数学解释</h2><p>Lasso 的目标函数为：$J(W) = ||y - X W||^2_2 + \lambda ||W||_1$。</p>
 <p>将 Lasso 目标函数中的损失和及正则项分别应用坐标轴下降法搜索，每次仅搜索一个维度。定义 $w_{-j}$ 为 $W$ 去掉 $w_j$ 后的剩余 $(D - 1)$ 维向量。</p>
 <p>（1）对 RSS 的第 j 维坐标轴下降（可导，直接计算梯度）：</p>
-<p>$$<br>\begin{aligned}<br>\dfrac {\partial} {\partial w_j} RSS(W) &amp;= \dfrac {\partial} {\partial w_j} \sum^N_{i = 1} (y_i - W^T X_i)^2<br>\<br>&amp;= \dfrac {\partial} {\partial w_j} \sum^N_{i = 1} (y_i - (W^T_{-j} X_{i, -j} + w_j x_{ij}))^2<br>\<br>&amp;= \dfrac {\partial} {\partial w_j} \sum^N_{i = 1} (y_i - W^T_{-j} X_{i, -j} - w_j x_{ij})^2<br>\<br>（复合函数求导） &amp;= -2 \sum^N_{i = 1} (y_i - W^T_{-j} X_{i, -j} - w_i x_{ij}) \cdot x_{ij}<br>\<br>&amp;= 2 \sum^N_{i = 1} x^2_{ij} w_j - 2 \sum^N_{i = 1} x_{ij} (y_i - W^T_{-j} X_{i, -j})<br>\ \<br>令：a_j &amp;= 2 \sum^N_{i = 1} x^2_{ij}, \quad c_j =  \sum^N_{i = 1} x_{ij} (y_i - W^T_{-j} X_{i, -j})<br>\ \<br>\Longrightarrow \dfrac {\partial} {\partial w_j} RSS(W) &amp;= a_j w_j - c_j<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>\dfrac {\partial} {\partial w_j} RSS(W) &amp;= \dfrac {\partial} {\partial w_j} \sum^N_{i = 1} (y_i - W^T X_i)^2<br>\\<br>&amp;= \dfrac {\partial} {\partial w_j} \sum^N_{i = 1} (y_i - (W^T_{-j} X_{i, -j} + w_j x_{ij}))^2<br>\\<br>&amp;= \dfrac {\partial} {\partial w_j} \sum^N_{i = 1} (y_i - W^T_{-j} X_{i, -j} - w_j x_{ij})^2<br>\\<br>（复合函数求导） &amp;= -2 \sum^N_{i = 1} (y_i - W^T_{-j} X_{i, -j} - w_i x_{ij}) \cdot x_{ij}<br>\\<br>&amp;= 2 \sum^N_{i = 1} x^2_{ij} w_j - 2 \sum^N_{i = 1} x_{ij} (y_i - W^T_{-j} X_{i, -j})<br>\\ \\<br>令：a_j &amp;= 2 \sum^N_{i = 1} x^2_{ij}, \quad c_j =  \sum^N_{i = 1} x_{ij} (y_i - W^T_{-j} X_{i, -j})<br>\\ \\<br>\Longrightarrow \dfrac {\partial} {\partial w_j} RSS(W) &amp;= a_j w_j - c_j<br>\end{aligned}<br>$$</p>
 <p>（2）再对 $R(W)$ 的第 j 维坐标轴下降（计算次梯度）：</p>
-<p>$$<br>\dfrac {\partial} {\partial w_j} R(W) = \dfrac {\partial} {\partial w_j} \lambda |w_j| =<br>\left {<br>\begin{aligned}<br>&amp; \dfrac {\partial} {\partial w_j} (- w_j \lambda) = { - \lambda }, &amp;&amp; {w_j &lt; 0}<br>\<br>&amp; [- \lambda, + \lambda], &amp;&amp; {w_j = 0}<br>\<br>&amp; \dfrac {\partial} {\partial w_j} (w_j \lambda) = { \lambda }, &amp;&amp; {w_j &gt; 0}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$<br>\dfrac {\partial} {\partial w_j} R(W) = \dfrac {\partial} {\partial w_j} \lambda |w_j| =<br>\left \{<br>\begin{aligned}<br>&amp; \dfrac {\partial} {\partial w_j} (- w_j \lambda) = \{ - \lambda \}, &amp;&amp; {w_j &lt; 0}<br>\\<br>&amp; [- \lambda, + \lambda], &amp;&amp; {w_j = 0}<br>\\<br>&amp; \dfrac {\partial} {\partial w_j} (w_j \lambda) = \{ \lambda \}, &amp;&amp; {w_j &gt; 0}<br>\end{aligned}<br>\right.<br>$$</p>
 <p>（3）合并为对 $J(W, \lambda)$ 的第 j 维坐标轴下降：</p>
-<p>$$<br>\begin{aligned}<br>&amp; \dfrac {\partial} {\partial w_j} J(W, \lambda) = \dfrac {\partial} {\partial w_j} (RSS + R(W))<br>\<br>&amp;= \left {<br>\begin{aligned}<br>&amp; { a_j w_j - c_j - \lambda }, &amp;&amp; {w_j &lt; 0}<br>\<br>&amp; [a_j w_j - c_j - \lambda, a_j w_j - c_j + \lambda] = [- c_j - \lambda, - c_j + \lambda], &amp;&amp; {w_j = 0}<br>\<br>&amp; { a_j w_j - c_j + \lambda }, &amp;&amp; {w_j &gt; 0}<br>\end{aligned}<br>\right.<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>&amp; \dfrac {\partial} {\partial w_j} J(W, \lambda) = \dfrac {\partial} {\partial w_j} (RSS + R(W))<br>\\<br>&amp;= \left \{<br>\begin{aligned}<br>&amp; \{ a_j w_j - c_j - \lambda \}, &amp;&amp; {w_j &lt; 0}<br>\\<br>&amp; [a_j w_j - c_j - \lambda, a_j w_j - c_j + \lambda] = [- c_j - \lambda, - c_j + \lambda], &amp;&amp; {w_j = 0}<br>\\<br>&amp; \{ a_j w_j - c_j + \lambda \}, &amp;&amp; {w_j &gt; 0}<br>\end{aligned}<br>\right.<br>\end{aligned}<br>$$</p>
 <p>（4）最优解需满足：$0 \in \dfrac {\partial} {\partial w_j} J(W, \lambda)$，对于可导部分，则为 $0 = \dfrac {\partial} {\partial w_j} J(W, \lambda)$：</p>
-<p>$$<br>\Longrightarrow \left {<br>\begin{aligned}<br>&amp; 0 = a_j w_j - c_j - \lambda, &amp;&amp; {w_j &lt; 0}<br>\<br>&amp; 0 \in [- c_j - \lambda, - c_j + \lambda], &amp;&amp; {w_j = 0}<br>\<br>&amp; 0 = a_j w_j - c_j + \lambda, &amp;&amp; {w_j &gt; 0}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$<br>\Longrightarrow \left \{<br>\begin{aligned}<br>&amp; 0 = a_j w_j - c_j - \lambda, &amp;&amp; {w_j &lt; 0}<br>\\<br>&amp; 0 \in [- c_j - \lambda, - c_j + \lambda], &amp;&amp; {w_j = 0}<br>\\<br>&amp; 0 = a_j w_j - c_j + \lambda, &amp;&amp; {w_j &gt; 0}<br>\end{aligned}<br>\right.<br>$$</p>
 <p>其中：</p>
-<p>$<br>\begin{aligned}<br>&amp; 0 \in [- c_j - \lambda, - c_j + \lambda]<br>\<br>&amp; \Longrightarrow \left {<br>\begin{aligned}<br>0 \ge - c_j - \lambda<br>\<br>0 \le - c_j + \lambda<br>\end{aligned}<br>\right.<br>\<br>&amp; \Longleftrightarrow c_j \in [- \lambda, \lambda]<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>&amp; 0 \in [- c_j - \lambda, - c_j + \lambda]<br>\\<br>&amp; \Longrightarrow \left \{<br>\begin{aligned}<br>0 \ge - c_j - \lambda<br>\\<br>0 \le - c_j + \lambda<br>\end{aligned}<br>\right.<br>\\<br>&amp; \Longleftrightarrow c_j \in [- \lambda, \lambda]<br>\end{aligned}<br>$</p>
 <p>由于 $a_j = 2 \sum^N_{i = 1} x^2_{ij} &gt; 0$，</p>
 <p>① 当 $w_j &lt; 0$ 时有：</p>
-<p>$<br>\begin{aligned}<br>&amp; 0 = a_j w_j - c_j - \lambda<br>\<br>&amp; w_j = \dfrac {c_j + \lambda} {a_j} &lt; 0<br>\<br>&amp; \Longrightarrow c_j &lt; - \lambda<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>&amp; 0 = a_j w_j - c_j - \lambda<br>\\<br>&amp; w_j = \dfrac {c_j + \lambda} {a_j} &lt; 0<br>\\<br>&amp; \Longrightarrow c_j &lt; - \lambda<br>\end{aligned}<br>$</p>
 <p>② 同理，当 $w_j &gt; 0$ 时有：</p>
-<p>$<br>\begin{aligned}<br>&amp; 0 = a_j w_j - c_j + \lambda<br>\<br>&amp; w_j = \dfrac {c_j - \lambda} {a_j} &gt; 0<br>\<br>&amp; \Longrightarrow c_j &gt; \lambda<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>&amp; 0 = a_j w_j - c_j + \lambda<br>\\<br>&amp; w_j = \dfrac {c_j - \lambda} {a_j} &gt; 0<br>\\<br>&amp; \Longrightarrow c_j &gt; \lambda<br>\end{aligned}<br>$</p>
 <p>因此可以转换为下式：</p>
-<p>$$<br>\hat{w_j}(c_j) = \left {<br>\begin{aligned}<br>&amp; \dfrac {c_j + \lambda} {a_j}, &amp;&amp; {c_j &lt; - \lambda}<br>\<br>&amp; 0, &amp;&amp; {c_j \in [- \lambda, \lambda]}<br>\<br>&amp; \dfrac {c_j - \lambda} {a_j}, &amp;&amp; {c_j &gt; \lambda}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$<br>\hat{w_j}(c_j) = \left \{<br>\begin{aligned}<br>&amp; \dfrac {c_j + \lambda} {a_j}, &amp;&amp; {c_j &lt; - \lambda}<br>\\<br>&amp; 0, &amp;&amp; {c_j \in [- \lambda, \lambda]}<br>\\<br>&amp; \dfrac {c_j - \lambda} {a_j}, &amp;&amp; {c_j &gt; \lambda}<br>\end{aligned}<br>\right.<br>$$</p>
 <h2 id="4-2-Lasso坐标轴下降步骤"><a href="#4-2-Lasso坐标轴下降步骤" class="headerlink" title="4.2 Lasso坐标轴下降步骤"></a>4.2 Lasso坐标轴下降步骤</h2><p>由于 $a_j = 2 \sum^N_{i = 1} x^2_{ij}$ 对于已知的输入 $X$ 是可以预计算的，因此 Lasso 坐标轴下降的步骤如下：</p>
 <p>① 预计算 $a_j = 2 \sum^N_{i = 1} x^2_{ij}$</p>
 <p>② 初始化参数 $W$（全 0 或随机）</p>
 <p>③ 选择变化幅度最大的维度、或随机选择、或轮流选择需要更新的参数 $w_j$</p>
 <p>④ 计算 $c_j =  \sum^N_{i = 1} x_{ij} (y_i - W^T_{-j} X_{i, -j})$</p>
-<p>⑤ 计算 $\hat{w_j}(c_j) = \left {<br>\begin{aligned}<br>&amp; \dfrac {c_j + \lambda} {a_j}, &amp;&amp; {c_j &lt; - \lambda}<br>\<br>&amp; 0, &amp;&amp; {c_j \in [- \lambda, \lambda]}<br>\<br>&amp; \dfrac {c_j - \lambda} {a_j}, &amp;&amp; {c_j &gt; \lambda}<br>\end{aligned}<br>\right.$</p>
+<p>⑤ 计算 $\hat{w_j}(c_j) = \left \{<br>\begin{aligned}<br>&amp; \dfrac {c_j + \lambda} {a_j}, &amp;&amp; {c_j &lt; - \lambda}<br>\\<br>&amp; 0, &amp;&amp; {c_j \in [- \lambda, \lambda]}<br>\\<br>&amp; \dfrac {c_j - \lambda} {a_j}, &amp;&amp; {c_j &gt; \lambda}<br>\end{aligned}<br>\right.$</p>
 <p>⑥ 重复第 3 ~ 5 步直到收敛</p>
 <p>⑦ 根据训练好的 $W$ 调整 $\lambda$ 的取值。</p>
 <font color=EB6D39>
@@ -923,7 +923,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

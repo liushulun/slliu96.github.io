@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -134,8 +134,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -222,13 +222,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -421,12 +421,14 @@
 </ul>
 <p>再给出几个下载链接：</p>
 <ul>
-<li>FFmpeg：<a target="_blank" rel="noopener" href="https://ffmpeg.org/download.html#releases" title="@LINK">点此下载</a></li>
-<li>NDK：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/downloads/index.html" title="@LINK">点此下载</a></li>
-</ul>
+<li><p>FFmpeg：<a target="_blank" rel="noopener" href="https://ffmpeg.org/download.html#releases" title="@LINK">点此下载</a></p>
+</li>
+<li><p>NDK：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/downloads/index.html" title="@LINK">点此下载</a></p>
 <blockquote>
 <p>@注：<font color=red>不建议使用 AndroidStudio 自带的 ndk-bundle 编译，不建议使用最新版 FFmpeg，不建议使用最新版 NDK，理由不明（笑）。</font></p>
 </blockquote>
+</li>
+</ul>
 <p>使用最新的 FFmpeg 4.x，按照网上主流的做法，修改 <code>configure</code> 文件然后新建脚本 <code>build_android.sh</code> 的方法，会报如下错误：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line">Makefile:67: /common.mak: No such file or directory</span><br><span class="line">Makefile:114: /libavutil/Makefile: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">C compiler <span class="built_in">test</span> failed.</span><br><span class="line"></span><br><span class="line">If you think configure made a mistake, make sure you are using the latest</span><br><span class="line">version from Git.  If the latest version fails, report the problem to the</span><br><span class="line">ffmpeg-user@ffmpeg.org mailing list or IRC <span class="comment">#ffmpeg on irc.freenode.net.</span></span><br><span class="line">Include the <span class="built_in">log</span> file <span class="string">&quot;config.log&quot;</span> produced by configure as this will <span class="built_in">help</span></span><br><span class="line">solve the problem.</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">make: *** No rule to make target `/tests/Makefile<span class="string">&#x27;.  Stop.</span></span><br></pre></td></tr></table></figure>
 
@@ -435,12 +437,10 @@
 <li><ol>
 <li>先不要修改 <code>configure</code> 文件，直接执行：<code>./configure</code>，但是大概率会报这个错误：</li>
 </ol>
-</li>
-</ul>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nasm/yasm not found or too old. Use --disable-x86asm <span class="keyword">for</span> a crippled build.</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nasm/yasm not found or too old. Use --disable-x86asm <span class="keyword">for</span> a crippled build.</span><br></pre></td></tr></table></figure>
 
-<p>  只要按照提示加上 <code>--disable-x86asm</code> 参数即可，重新执行完会自动生成缺失的文件。</p>
-<ul>
+<p>只要按照提示加上 <code>--disable-x86asm</code> 参数即可，重新执行完会自动生成缺失的文件。</p>
+</li>
 <li><ol start="2">
 <li>再重新执行脚本：<code>sudo ./build_android.sh</code>。</li>
 </ol>
@@ -679,7 +679,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

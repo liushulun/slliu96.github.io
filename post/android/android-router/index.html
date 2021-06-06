@@ -119,7 +119,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -135,8 +135,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -223,13 +223,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -454,14 +454,13 @@
 <li><p>app 主 Module 并不依赖 module_user，两个 Module 都是独立的</p>
 </li>
 <li><p>编译打包，Build 日志中，ARouter 输出确实找到了 LoginActivity 和 RegisterActivity 的路由：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Note: ARouter::Compiler &gt;&gt;&gt; Found activity route: priv.luis.user.LoginActivity &lt;&lt;&lt;</span><br><span class="line">Note: ARouter::Compiler &gt;&gt;&gt; Found activity route: priv.luis.user.RegisterActivity &lt;&lt;&lt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但是打包完再反解后发现，module_user 没有被打进 APK 内，MainActivity 请求路由到 LoginActivity 时 ARouter 也报错：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ARouter::There is no route match the path [/user/login]</span><br><span class="line">ARouter::There is no route match the path [/user/register]</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Note: ARouter::Compiler &gt;&gt;&gt; Found activity route: priv.luis.user.LoginActivity &lt;&lt;&lt;</span><br><span class="line">Note: ARouter::Compiler &gt;&gt;&gt; Found activity route: priv.luis.user.RegisterActivity &lt;&lt;&lt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>但是打包完再反解后发现，module_user 没有被打进 APK 内，MainActivity 请求路由到 LoginActivity 时 ARouter 也报错：</li>
-</ul>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ARouter::There is no route match the path [/user/login]</span><br><span class="line">ARouter::There is no route match the path [/user/register]</span><br></pre></td></tr></table></figure>
-
 <p>也就是说，想要使用路由框架，首先也要确保 Module 能正确被打包进去，那方案只有两种：</p>
 <ul>
 <li><p>（1）app 主 Module 添加所有业务子 Module 的依赖。</p>
@@ -671,7 +670,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

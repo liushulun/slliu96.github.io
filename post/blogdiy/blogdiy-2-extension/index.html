@@ -120,7 +120,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -136,8 +136,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -224,13 +224,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -423,22 +423,17 @@
 <hr>
 <h1 id="3-文件下载"><a href="#3-文件下载" class="headerlink" title="3. 文件下载"></a>3. 文件下载</h1><p>很多时候我们想要给读者提供一个小的例程或者说明文档时，会把文件传到网盘上然后分享出来，不过这么做不仅麻烦，而且随时面临文件失效、被移动、修改后要重新上传等问题，所以如果能直接在博客内提供下载会更好。实际上这种静态博客的所有文件都是能下载的，因为其都对应了一个具体的地址，只不过一般我们在文章内放入的，点击链接会跳转到浏览器打开后的界面，我们希望这个链接可以是下载链接的形式，就能用以下方法实现：</p>
 <ol>
-<li>在站点配置文件内找到：</li>
-</ol>
-  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>将其改为 <code>true</code> 即可，然后在 <code>blog/source/</code> 下建立一个文件夹（也可以放在已有文件夹内），比如我新建一个 <strong>post_files</strong> 文件夹存放，然后文件放在：</li>
-</ol>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blog&#x2F;source&#x2F;TestWord.docx</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>在文章内需要提供下载的地方这么写即可：</li>
-</ol>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[测试下载 Word](.&#x2F;TestWord.docx)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>测试一下：<a href="./TestWord.docx" title="@LINK">点击下载 Word</a>、<a href="./TestExcel.xlsx" title="@LINK">点击下载 Excel</a></li>
+<li><p>在站点配置文件内找到：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将其改为 <code>true</code> 即可，然后在 <code>blog/source/</code> 下建立一个文件夹（也可以放在已有文件夹内），比如我新建一个 <strong>post_files</strong> 文件夹存放，然后文件放在：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blog&#x2F;source&#x2F;TestWord.docx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在文章内需要提供下载的地方这么写即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[测试下载 Word](.&#x2F;TestWord.docx)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试一下：<a href="./TestWord.docx" title="@LINK">点击下载 Word</a>、<a href="./TestExcel.xlsx" title="@LINK">点击下载 Excel</a></p>
+</li>
 </ol>
 <p>不过，目前已知 TXT 文本、图片、RTF 富文本、MarkDown 文本等无法提供下载，点击后会直接跳转到浏览器打开文件的界面，建议多个小文件做成压缩包的形式再提供下载，大文件去掉扩展名或先改变扩展名，下载后再改回来。不过，如果去掉文件扩展名，下载下来之后会自动增加一个“dms”扩展名，需要手动改为正确扩展名才可用。</p>
 <hr>
@@ -663,7 +658,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

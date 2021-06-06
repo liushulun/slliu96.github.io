@@ -131,7 +131,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -147,8 +147,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -235,13 +235,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -463,7 +463,7 @@
 <ol>
 <li><strong>target</strong>：需要应用变化的控件</li>
 <li><strong>propertyName</strong>：需要改变的控件具体要改变的属性名。</li>
-<li>**xxx…**：需要改变的范围，是一个可变长参数，与上文中 ValueAnimator 的一样，就不重述了。</li>
+<li><strong>xxx…</strong>：需要改变的范围，是一个可变长参数，与上文中 ValueAnimator 的一样，就不重述了。</li>
 </ol>
 <p>这里主要讲一下 <strong>propertyName</strong> 的一个注意事项。在源码中，propertyName 最后会被<code>setPropertyName(String propertyName);</code>方法调用，对于这个方法源码的解释有这么一段：</p>
 <center>
@@ -531,7 +531,7 @@
 <li><code>playSequentially(property2)</code></li>
 </ol>
 <p>这两个方法从字面上就很好理解了，<code>playTogether()</code> 是同时进行，<code>playSequentially()</code> 是逐一进行。这里 property1 和 property2 不是具体的参数，因为这两种方法都分别各有两种类型的参数。</p>
-<p><code>playTogether()</code> 方法的参数可以是： <em>Collection&lt;Animator&gt;</em> 和 <em>Animator…</em> （注意后者是可变长参数），先看后者很明显可以知道，毕竟这个方法是要实现“同时进行”，所以肯定支持多个动画一起作为可变长参数传入，第一个 Collection&lt;&gt; 就是集合，泛型是 Animator 类，也就是说 Collection 集合内的每一个元素都要是 Animator 的对象，这和可变长的 Animator… 是一样的。之所以是集合还是因为这个方法要同时执行所有动画，所以所有的动画在逻辑上是“一层”的，没有顺序、前后之分，在 Java 中就用集合来表示。</p>
+<p><code>playTogether()</code> 方法的参数可以是： <em>Collection\&lt;Animator&gt;</em> 和 <em>Animator…</em> （注意后者是可变长参数），先看后者很明显可以知道，毕竟这个方法是要实现“同时进行”，所以肯定支持多个动画一起作为可变长参数传入，第一个 Collection&lt;&gt; 就是集合，泛型是 Animator 类，也就是说 Collection 集合内的每一个元素都要是 Animator 的对象，这和可变长的 Animator… 是一样的。之所以是集合还是因为这个方法要同时执行所有动画，所以所有的动画在逻辑上是“一层”的，没有顺序、前后之分，在 Java 中就用集合来表示。</p>
 <p><code>playSequentially()</code> 的方法参数可以是：List<Animator> 和 Animator…（注意后者依然是可变长参数），与上面的大同小异，传进去的都是一个或多个 Animator 的对象，但是这里是 List 列表而不是集合，就是因为这个方法是逐一进行，是有执行的前后顺序之分的，在 Java 中就用 List 来表示。</p>
 <p>从参数来看，无论是哪一种，目的都是传 Animator 对象过去，也就是我们要先定义一个个 Animator 的对象，然后制定出每一个 Animator 需要做的动画效果，再把这些（或一个）Animator 交给 AnimatorSet 替我们完成。在 Demo 中，我们可以这样运用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//放大动画</span></span><br><span class="line">ObjectAnimator zoomInAnim = ObjectAnimator.ofFloat(sivImage, <span class="string">&quot;scaleToMatrix&quot;</span>, <span class="number">1f</span>, <span class="number">2f</span>);</span><br><span class="line"><span class="comment">//缩小动画</span></span><br><span class="line">ObjectAnimator zoomOutAnim = ObjectAnimator.ofFloat(sivImage, <span class="string">&quot;scaleToMatrix&quot;</span>, <span class="number">2f</span>, <span class="number">1f</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//ObjectAnimator 继承自 ValueAnimator，而后者又继承自 Animator</span></span><br><span class="line">AnimatorSet animatorSet = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line"><span class="comment">//以下四种都是对的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//同时进行方式一</span></span><br><span class="line">animatorSet.playTogether(zoomInAnim, zoomOutAnim);</span><br><span class="line"><span class="comment">//同时进行方式二</span></span><br><span class="line">ArrayList&lt;Animator&gt; arrayList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">arrayList.add(zoomInAnim);</span><br><span class="line">arrayList.add(zoomOutAnim);</span><br><span class="line"><span class="comment">//关于 Collection 的详情可以参考网上，这里不细展开</span></span><br><span class="line">Collection&lt;Animator&gt; collection = arrayList;</span><br><span class="line">animatorSet.playTogether(collection);</span><br><span class="line">animatorSet.setDuration(<span class="number">1000</span>);</span><br><span class="line">animatorSet.start();</span><br><span class="line"></span><br><span class="line"><span class="comment">//逐一进行方式一</span></span><br><span class="line">animatorSet.playSequentially(zoomInAnim, zoomOutAnim);</span><br><span class="line"><span class="comment">//逐一进行方式二</span></span><br><span class="line">List&lt;Animator&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.add(zoomInAnim);</span><br><span class="line">list.add(zoomOutAnim);</span><br><span class="line">animatorSet.playSequentially(list);</span><br><span class="line">animatorSet.setDuration(<span class="number">1000</span>);</span><br><span class="line">animatorSet.start();</span><br></pre></td></tr></table></figure>
@@ -609,7 +609,7 @@
 <p><img data-src="./fixed_multi_animator.gif" alt="改进的并行动画" title="@ASSET"></p>
 </center>
 
-<p>这下这个 “*<del>脑洞大开然鹅好像并没有什么卵用也不知道为什么要写这么多的需求</del>*” 总算是解决了，代码而言是真的很简单也很少，但是思路和解决方案希望可以给同是初学的读者们一些灵感，用以运用在大型、复杂的项目中去。<br>本篇结合前一篇写的 <a href="/2018/09/06/Android/android-matrix-basic/">关于Matrix</a> 的文章，应该可以解决大部分情况下简单的动画场景了，但是这两篇博客的讲解可以说是非常皮毛的，甚至对于我自己的实际应用都远远不够，但还是那句话，本文主要目的是提供一种思维方式，再灵活运用进实际的项目中去。对于深入的 ObjectAnimator、 ValueAnimator、 Matrix内容，还是应该细读官方的文档和源码为好。</p>
+<p>这下这个 “<em><del>脑洞大开然鹅好像并没有什么卵用也不知道为什么要写这么多的需求</del></em>” 总算是解决了，代码而言是真的很简单也很少，但是思路和解决方案希望可以给同是初学的读者们一些灵感，用以运用在大型、复杂的项目中去。<br>本篇结合前一篇写的 <a href="/2018/09/06/Android/android-matrix-basic/">关于Matrix</a> 的文章，应该可以解决大部分情况下简单的动画场景了，但是这两篇博客的讲解可以说是非常皮毛的，甚至对于我自己的实际应用都远远不够，但还是那句话，本文主要目的是提供一种思维方式，再灵活运用进实际的项目中去。对于深入的 ObjectAnimator、 ValueAnimator、 Matrix内容，还是应该细读官方的文档和源码为好。</p>
 <hr>
 <h1 id="5-附录-参考指导"><a href="#5-附录-参考指导" class="headerlink" title="5. 附录[参考指导]"></a>5. 附录[参考指导]</h1><blockquote>
 <ul>
@@ -821,7 +821,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

@@ -123,7 +123,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -139,8 +139,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -227,13 +227,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -422,7 +422,7 @@
         <span id="more"></span>
 
 <p>前言：在机器学习的优化求解算法中，梯度下降法是无约束优化问题优化求解最常用的方法之一，还有一种求解方法就是牛顿法。相比梯度下降法，牛顿法的收敛速度更快，但同时，每次迭代需要的计算量也更大。</p>
-<p>在牛顿法之前，需要先了解：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/7681487?fr=aladdin" title="@LINK">泰勒公式</a>。泰勒公式通俗地讲，就是当函数 $f$ 在点 $x$ 处的一阶导数、二阶导数……n 阶导数已知时，即可使用 n 阶泰勒展开来逼近函数 $f$ 在点 $x$ 的 <font color=red>邻域</font> 的函数值，因此泰勒公式求的是一个点的邻域的近似函数值。</p>
+<p>在牛顿法之前，需要先了解：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/泰勒公式/7681487?fr=aladdin" title="@LINK">泰勒公式</a>。泰勒公式通俗地讲，就是当函数 $f$ 在点 $x$ 处的一阶导数、二阶导数……n 阶导数已知时，即可使用 n 阶泰勒展开来逼近函数 $f$ 在点 $x$ 的 <font color=red>邻域</font> 的函数值，因此泰勒公式求的是一个点的邻域的近似函数值。</p>
 <p>对应优化求解中，通常我们习惯于使用迭代法来求解，而迭代法的本质即：每次向正确的方向移动一小段，直到达到给定条件。这就与泰勒公式不谋而合——每次移动一小段之后的函数值可以使用移动前该点的泰勒展开来逼近，因此牛顿法或拟牛顿法都是在泰勒公式的基础上进行的。</p>
 <hr>
 <h1 id="1-牛顿法"><a href="#1-牛顿法" class="headerlink" title="1. 牛顿法"></a>1. 牛顿法</h1><p>牛顿法（Newton - Raphson，牛顿 - 拉夫逊）是牛顿在 17 世纪提出的用于求解方程的根的方法。其求解思想如下：</p>
@@ -444,7 +444,7 @@
 <p>在实际问题中，通常输入 $X$ 的维度都大于 1，因此将一阶导数替换为梯度（即 $f$ 分别对每个 $x_i$ 求偏导后组成向量）：</p>
 <p>$<br>\nabla f(x_1, \cdots, x_D)<br>$</p>
 <p>将二阶导数替换为海森（Hessian）矩阵 H：</p>
-<p>$<br>H(X) = \left[<br>\begin{matrix}<br>\dfrac {\partial^2 f} {\partial^2 x^2_1} &amp; \dfrac {\partial^2 f} {\partial x_1 \partial x_2} &amp; \cdots &amp; \dfrac {\partial^2 f} {\partial x_1 \partial x_D}<br>\<br>\dfrac {\partial^2 f} {\partial x_2 \partial x_1} &amp; \dfrac {\partial^2 f} {\partial^2 x^2_2} &amp; \cdots &amp; \dfrac {\partial^2 f} {\partial x_2 \partial x_D}<br>\<br>\vdots &amp; \vdots &amp; \ddots &amp; \vdots<br>\<br>\dfrac {\partial^2 f} {\partial x_D \partial x_1} &amp; \dfrac {\partial^2 f} {\partial x_D \partial x_2} &amp; \cdots &amp; \dfrac {\partial^2 f} {\partial^2 x^2_D}<br>\end{matrix}<br>\right]<br>$</p>
+<p>$<br>H(X) = \left[<br>\begin{matrix}<br>\dfrac {\partial^2 f} {\partial^2 x^2_1} &amp; \dfrac {\partial^2 f} {\partial x_1 \partial x_2} &amp; \cdots &amp; \dfrac {\partial^2 f} {\partial x_1 \partial x_D}<br>\\<br>\dfrac {\partial^2 f} {\partial x_2 \partial x_1} &amp; \dfrac {\partial^2 f} {\partial^2 x^2_2} &amp; \cdots &amp; \dfrac {\partial^2 f} {\partial x_2 \partial x_D}<br>\\<br>\vdots &amp; \vdots &amp; \ddots &amp; \vdots<br>\\<br>\dfrac {\partial^2 f} {\partial x_D \partial x_1} &amp; \dfrac {\partial^2 f} {\partial x_D \partial x_2} &amp; \cdots &amp; \dfrac {\partial^2 f} {\partial^2 x^2_D}<br>\end{matrix}<br>\right]<br>$</p>
 <p>Hessian 矩阵即：第 i 行第 j 列的元素为 $f$ 先对 $x_i$ 求偏导后再对 $x_j$ 求偏导。由于 $f$ 先对 $x_i$ 再对 $x_j$ 求偏导和 $f$ 先对 $x_j$ 再对 $x_i$ 求偏导相等，即 $\dfrac {\partial^2 f} {\partial x_i \partial x_j} = \dfrac {\partial^2 f} {\partial x_j \partial x_i}$，因此 Hessian 矩阵是对称的。</p>
 <p>这样，牛顿法的迭代公式就变换为：</p>
 <p>$$<br>x^{(t + 1)} = x^{(t)} - H^{-1} (X^{(t)}) \ \nabla f(X^{(t)})<br>$$</p>
@@ -497,7 +497,7 @@
 <h2 id="2-1-BFGS"><a href="#2-1-BFGS" class="headerlink" title="2.1 BFGS"></a>2.1 BFGS</h2><p>BFGS（Broyden, Fletcher, Glodfarb, Shanno）被认为是数值效果最好的拟牛顿法，且具有全局收敛性和超线性收敛速度。</p>
 <p>BFGS 算法采用迭代法逼近 Hessian 矩阵：$B^{(t + 1)} = B^{(t)} + \Delta B^{(t)}$，初始值 $B^{(0)} = I$ 为单位矩阵，因此关键在于如何构造 $\Delta B^{(t)}$。</p>
 <p>为保证矩阵 $B$ 的正定性，令 $\Delta B^{(t)} = \alpha u u^T + \beta v v^T$，代入上述拟牛顿法条件可得：</p>
-<p>$<br>\begin{aligned}<br>y^{(t)} &amp;= B^{(t + 1)} s^{(t)} = (B^{(t)} + \Delta B^{(t)}) s^{(t)} = B^{(t)} s^{(t)} + \Delta B^{(t)} s^{(t)}<br>\<br>&amp;= B^{(t)} s^{(t)} + \alpha u u^T s^{(t)} + \beta v v^T s^{(t)}<br>\<br>&amp;= B^{(t)} s^{(t)} + u (\alpha u^T s^{(t)}) + v (\beta v^T s^{(t)})<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>y^{(t)} &amp;= B^{(t + 1)} s^{(t)} = (B^{(t)} + \Delta B^{(t)}) s^{(t)} = B^{(t)} s^{(t)} + \Delta B^{(t)} s^{(t)}<br>\\<br>&amp;= B^{(t)} s^{(t)} + \alpha u u^T s^{(t)} + \beta v v^T s^{(t)}<br>\\<br>&amp;= B^{(t)} s^{(t)} + u (\alpha u^T s^{(t)}) + v (\beta v^T s^{(t)})<br>\end{aligned}<br>$</p>
 <blockquote>
 <p>@注：当 $u^T$ 或 $v^T$ 的维数与 $s^{(t)}$ 的维数一致（由于 $\Delta B^{(t)}$ 是构造的，因此可以构造为相同维数）时，$u^T s^{(t)}$ 以及 $v^T s^{(t)}$ 均为一个标量数值（向量的转置 x 向量 = 数值）。</p>
 </blockquote>
@@ -509,7 +509,7 @@
 <p>代入 $\Delta B^{(t)}$ 的表达式得：</p>
 <font color=EB6D39>
 
-<p>$$<br>\begin{aligned}<br>\Delta B^{(t)} &amp;= \alpha u u^T + \beta v v^T<br>\<br>&amp;= \dfrac {y^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}} - \dfrac {B^{(t)} s^{(t)} (B^{(t)} s^{(t)})^T} {(s^{(t)})^T (B^{(t)})^T s^{(t)}}<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>\Delta B^{(t)} &amp;= \alpha u u^T + \beta v v^T<br>\\<br>&amp;= \dfrac {y^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}} - \dfrac {B^{(t)} s^{(t)} (B^{(t)} s^{(t)})^T} {(s^{(t)})^T (B^{(t)})^T s^{(t)}}<br>\end{aligned}<br>$$</p>
 </font>
 
 <blockquote>
@@ -543,7 +543,7 @@
 <p>@注：由于向量 $s^{(t)}$（X的变化量）和向量 $y^{(t)}$（梯度变化量）的维数相同（都与 $X$ 维度相等），因此 $s^{(t)} (y^{(t)})^T$ 和 $s^{(t)} (s^{(t)})^T$ 是矩阵，而 $(y^{(t)})^T s^{(t)}$ 是一个数值，因此 $\rho^{(t)}$ 是一个常数。</p>
 </blockquote>
 <p>则有：</p>
-<p>$<br>\begin{aligned}<br>(V^{(t)})^T &amp;= \left( I - \rho^{(t)} y^{(t)} (s^{(t)})^T \right)^T<br>\<br>&amp;= I - \rho^{(t)} \left( y^{(t)} (s^{(t)})^T \right)^T<br>\<br>&amp;= I - \rho^{(t)} s^{(t)} (y^{(t)})^T<br>\<br>&amp;= I - \dfrac {s^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}}<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>(V^{(t)})^T &amp;= \left( I - \rho^{(t)} y^{(t)} (s^{(t)})^T \right)^T<br>\\<br>&amp;= I - \rho^{(t)} \left( y^{(t)} (s^{(t)})^T \right)^T<br>\\<br>&amp;= I - \rho^{(t)} s^{(t)} (y^{(t)})^T<br>\\<br>&amp;= I - \dfrac {s^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}}<br>\end{aligned}<br>$</p>
 <p>因此原 Hessian 更新公式变为：</p>
 <font color=EB6D39>
 
@@ -551,10 +551,10 @@
 </font>
 
 <p>将上述迭代更新公式展开得：</p>
-<p>$<br>\begin{aligned}<br>D^{(t + 1)} &amp;= (V^{(t)})^T D^{(t)} V^{(t)} + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>\<br>&amp; \Downarrow<br>\<br>D^{(1)} &amp;= (V^{(0)})^T D^{(0)} V^{(0)} + \rho^{(0)} s^{(0)} (s^{(0)})^T<br>\ \<br>D^{(2)} &amp;= (V^{(1)})^T D^{(1)} V^{(1)} + \rho^{(1)} s^{(1)} (s^{(1)})^T<br>\<br>&amp;= (V^{(1)})^T \left( (V^{(0)})^T D^{(0)} V^{(0)} + \rho^{(0)} s^{(0)} (s^{(0)})^T \right) V^{(1)} + \rho^{(1)} s^{(1)} (s^{(1)})^T<br>\<br>&amp;= (V^{(1)})^T (V^{(0)})^T D^{(0)} V^{(0)} V^{(1)} + (V^{(1)})^T \rho^{(0)} s^{(0)} (s^{(0)})^T V^{(1)} + \rho^{(1)} s^{(1)} (s^{(1)})^T<br>\<br>&amp; \ \ \vdots<br>\<br>D^{(t + 1)} &amp;= \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(0)})^T \right] D^{(0)} \left[ V^{(0)} V^{(1)} \dots V^{(t)} \right]<br>\<br>&amp; \ + \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(1)})^T \right] \left[ \rho^{(0)} s^{(0)} (s^{(0)})^T \right] \left[ V^{(1)} V^{(2)} \dots V^{(t)} \right]<br>\<br>&amp; \ + \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(2)})^T \right] \left[ \rho^{(1)} s^{(1)} (s^{(1)})^T \right] \left[ V^{(2)} V^{(3)} \dots V^{(t)} \right]<br>\<br>&amp; \ + \ \cdots \cdots<br>\<br>&amp; \ + (V^{(t)})^T \left[ \rho^{(t - 1)} s^{(t - 1)} (s^{(t - 1)})^T \right] V^{(t)}<br>\<br>&amp; \ + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>\end{aligned}<br>$</p>
-<p>从上述迭代过程可知，计算 $D^{(t + 1)}$ 需要用到 $\left { s^{(k)} y^{(k)} \right }^t_{k = 0}$，若存储空间有限，仅能存储 m 组 $\left { s^{(k)} y^{(k)} \right }$，当 $t &gt; m$ 时，应当丢弃较早生成的 $\left { s^{(k)} y^{(k)} \right }$。当然，由于丢弃了部分信息，此时计算的 $D^{(m + 1)}$ 是 $D^{(t + 1)}$ 的近似，也即 Hessian 矩阵的逆矩阵的进一步近似。</p>
+<p>$<br>\begin{aligned}<br>D^{(t + 1)} &amp;= (V^{(t)})^T D^{(t)} V^{(t)} + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>\\<br>&amp; \Downarrow<br>\\<br>D^{(1)} &amp;= (V^{(0)})^T D^{(0)} V^{(0)} + \rho^{(0)} s^{(0)} (s^{(0)})^T<br>\\ \\<br>D^{(2)} &amp;= (V^{(1)})^T D^{(1)} V^{(1)} + \rho^{(1)} s^{(1)} (s^{(1)})^T<br>\\<br>&amp;= (V^{(1)})^T \left( (V^{(0)})^T D^{(0)} V^{(0)} + \rho^{(0)} s^{(0)} (s^{(0)})^T \right) V^{(1)} + \rho^{(1)} s^{(1)} (s^{(1)})^T<br>\\<br>&amp;= (V^{(1)})^T (V^{(0)})^T D^{(0)} V^{(0)} V^{(1)} + (V^{(1)})^T \rho^{(0)} s^{(0)} (s^{(0)})^T V^{(1)} + \rho^{(1)} s^{(1)} (s^{(1)})^T<br>\\<br>&amp; \ \ \vdots<br>\\<br>D^{(t + 1)} &amp;= \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(0)})^T \right] D^{(0)} \left[ V^{(0)} V^{(1)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(1)})^T \right] \left[ \rho^{(0)} s^{(0)} (s^{(0)})^T \right] \left[ V^{(1)} V^{(2)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(2)})^T \right] \left[ \rho^{(1)} s^{(1)} (s^{(1)})^T \right] \left[ V^{(2)} V^{(3)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \ \cdots \cdots<br>\\<br>&amp; \ + (V^{(t)})^T \left[ \rho^{(t - 1)} s^{(t - 1)} (s^{(t - 1)})^T \right] V^{(t)}<br>\\<br>&amp; \ + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>\end{aligned}<br>$</p>
+<p>从上述迭代过程可知，计算 $D^{(t + 1)}$ 需要用到 $\left \{ s^{(k)} y^{(k)} \right \}^t_{k = 0}$，若存储空间有限，仅能存储 m 组 $\left \{ s^{(k)} y^{(k)} \right \}$，当 $t &gt; m$ 时，应当丢弃较早生成的 $\left \{ s^{(k)} y^{(k)} \right \}$。当然，由于丢弃了部分信息，此时计算的 $D^{(m + 1)}$ 是 $D^{(t + 1)}$ 的近似，也即 Hessian 矩阵的逆矩阵的进一步近似。</p>
 <p>当 $t &gt; m + 1$ 时，构造近似公式：</p>
-<p>$<br>\begin{aligned}<br>D^{(t + 1)} &amp;= \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(t - m + 1)})^T \right] D^{(0)} \left[ V^{(t - m + 1)} V^{(1)} \dots V^{(t)} \right]<br>\<br>&amp; \ + \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(t - m + 2)})^T \right] \left[ \rho^{(0)} s^{(0)} (s^{(0)})^T \right] \left[ V^{(t - m + 2)} V^{(2)} \dots V^{(t)} \right]<br>\<br>&amp; \ + \ \cdots \cdots<br>\<br>&amp; \ + (V^{(t)})^T \left[ \rho^{(t - 1)} s^{(t - 1)} (s^{(t - 1)})^T \right] V^{(t)}<br>\<br>&amp; \ + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>D^{(t + 1)} &amp;= \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(t - m + 1)})^T \right] D^{(0)} \left[ V^{(t - m + 1)} V^{(1)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \left[ (V^{(t)})^T (V^{(t - 1)})^T \dots (V^{(t - m + 2)})^T \right] \left[ \rho^{(0)} s^{(0)} (s^{(0)})^T \right] \left[ V^{(t - m + 2)} V^{(2)} \dots V^{(t)} \right]<br>\\<br>&amp; \ + \ \cdots \cdots<br>\\<br>&amp; \ + (V^{(t)})^T \left[ \rho^{(t - 1)} s^{(t - 1)} (s^{(t - 1)})^T \right] V^{(t)}<br>\\<br>&amp; \ + \rho^{(t)} s^{(t)} (s^{(t)})^T<br>\end{aligned}<br>$</p>
 <p>$D^{(t)}$ 的迭代计算很繁琐，但计算 $D^{(t)}$ 的目的是为了得到搜索方向 $d^{(t)} = D^{(t)} g^{(t)}$，因此可以设计快速计算 $D^{(t)} g^{(t)}$ 的方法：</p>
 <center>
 
@@ -568,7 +568,7 @@
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/itplus/article/details/21897715" title="@LINK">牛顿法与拟牛顿法学习笔记（五）L-BFGS 算法（作者：皮果提）</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/snaillup/article/details/53524415" title="@LINK">spark L-BFGS实现（作者：snaillup）</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/scalanlp/breeze/blob/master/math/src/main/scala/breeze/optimize/LBFGS.scala" title="@LINK">LBFGS.scala（作者：ScalaNLP）</a></li>
-<li><a target="_blank" rel="noopener" href="https://liuxiaofei.com.cn/blog/lbfgs%E6%96%B9%E6%B3%95%E6%8E%A8%E5%AF%BC/#lbfgs%E6%96%B9%E6%B3%95%E6%8E%A8%E5%AF%BC" title="@LINK">LBFGS方法推导（作者：慢慢的回味）</a></li>
+<li><a target="_blank" rel="noopener" href="https://liuxiaofei.com.cn/blog/lbfgs方法推导/#lbfgs方法推导" title="@LINK">LBFGS方法推导（作者：慢慢的回味）</a></li>
 </ol>
 </blockquote>
 <hr>
@@ -599,16 +599,16 @@
 <p>观察目标函数的损失和部分：</p>
 <p>$<br>J_1 (W) = \sum^N_{i = 1} \left( - y_i \log (\mu (X_i; W)) - (1 - y_i) \log (1 - \mu (X_i; W)) \right)<br>$</p>
 <h2 id="3-1-梯度"><a href="#3-1-梯度" class="headerlink" title="3.1 梯度"></a>3.1 梯度</h2><p>最优化问题的求解离不开梯度的计算，由于目标函数中包含了 $\mu$，即 Sigmoid 变换，记 $\mu_i = \mu (X_i; W) = \sigma (W^T X_i)$，令 $z_i = W^T X_i$，根据复合函数的求导，$\dfrac {\partial \mu_i} {\partial W}$ 的求解如下：</p>
-<p>$<br>\begin{aligned}<br>\dfrac {\partial \mu_i} {\partial W} &amp;= \dfrac {\partial \sigma (W^T X_i)} {\partial W} = \dfrac {\partial \sigma {z_i}} {\partial W}<br>\<br>&amp;= \dfrac {d \sigma (z_i)} {d z_i} \dfrac {\partial z_i} {\partial W}<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>\dfrac {\partial \mu_i} {\partial W} &amp;= \dfrac {\partial \sigma (W^T X_i)} {\partial W} = \dfrac {\partial \sigma {z_i}} {\partial W}<br>\\<br>&amp;= \dfrac {d \sigma (z_i)} {d z_i} \dfrac {\partial z_i} {\partial W}<br>\end{aligned}<br>$</p>
 <p>其中 ① 复合函数外层 $\sigma (z_i)$ 求导：</p>
-<p>$<br>\begin{aligned}<br>\dfrac {d \sigma (z_i)} {d z_i} &amp;= \dfrac {d (\dfrac {1} {1 + e^{- z_i}})} {d z_i}<br>\<br>&amp;= - \dfrac {1} {(1 + e^{- z_i})^2} \times \dfrac {d (1 + e^{- z_i})} {d z_i}<br>\<br>&amp;= - \dfrac {1} {(1 + e^{- z_i})^2} \times (- e^{- z_i})<br>\<br>&amp;= \dfrac {1} {(1 + e^{- z_i})^2} \times (e^{- z_i})<br>\<br>&amp;= \dfrac {1} {1 + e^{- z_i}} \times \dfrac {(1 + e^{- z_i}) - 1} {1 + e^{- z_i}}<br>\<br>&amp;= \sigma (z_i) \times (1 - \sigma (z_i))<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>\dfrac {d \sigma (z_i)} {d z_i} &amp;= \dfrac {d (\dfrac {1} {1 + e^{- z_i}})} {d z_i}<br>\\<br>&amp;= - \dfrac {1} {(1 + e^{- z_i})^2} \times \dfrac {d (1 + e^{- z_i})} {d z_i}<br>\\<br>&amp;= - \dfrac {1} {(1 + e^{- z_i})^2} \times (- e^{- z_i})<br>\\<br>&amp;= \dfrac {1} {(1 + e^{- z_i})^2} \times (e^{- z_i})<br>\\<br>&amp;= \dfrac {1} {1 + e^{- z_i}} \times \dfrac {(1 + e^{- z_i}) - 1} {1 + e^{- z_i}}<br>\\<br>&amp;= \sigma (z_i) \times (1 - \sigma (z_i))<br>\end{aligned}<br>$</p>
 <p>② 复合函数内层 $z_i$ 求导：</p>
 <p>$<br>\dfrac {\partial z_i} {\partial W} = \dfrac {\partial (W^T X_i)} {\partial W} = X_i<br>$</p>
 <p>综合上述 2 式得：</p>
-<p>$<br>\begin{aligned}<br>\dfrac {\partial \mu_i} {\partial W} &amp;= \dfrac {d \sigma (z_i)} {d z_i} \dfrac {\partial z_i} {\partial W}<br>\<br>&amp;= \sigma (z_i) \times (1 - \sigma (z_i)) \times X_i<br>\<br>&amp;= \mu_i \times (1 - \mu_i) \times X_i<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>\dfrac {\partial \mu_i} {\partial W} &amp;= \dfrac {d \sigma (z_i)} {d z_i} \dfrac {\partial z_i} {\partial W}<br>\\<br>&amp;= \sigma (z_i) \times (1 - \sigma (z_i)) \times X_i<br>\\<br>&amp;= \mu_i \times (1 - \mu_i) \times X_i<br>\end{aligned}<br>$</p>
 <p>回到目标函数梯度，将上式代入求导得：</p>
-<p>$<br>\begin{aligned}<br>J_1 (W) &amp;= \sum^N_{i = 1} \left( - y_i \log (\mu (X_i; W)) - (1 - y_i) \log (1 - \mu (X_i; W)) \right)<br>\<br>&amp;= \sum^N_{i = 1} \left( - y_i \log \mu_i - (1 - y_i) \log (1 - \mu_i) \right)<br>\<br>&amp;= - \sum^N_{i = 1} \left(y_i \log \mu_i + (1 - y_i) \log (1 - \mu_i) \right)<br>\end{aligned}<br>$</p>
-<p>$<br>\begin{aligned}<br>g_1 (W) &amp;= \nabla J_1 (W) = \dfrac {d J_1 (W)} {d W}<br>\<br>&amp;= - d \left( \sum^N_{i = 1} \left( y_i \log \mu_i + (1 - y_i) \log (1 - \mu_i) \right) \right) / d W<br>\<br>&amp;= - \sum^N_{i = 1} \left( y_i \dfrac {1} {\mu_i} \times \dfrac {\partial \mu_i} {\partial W} + (1 - y_i) \dfrac {1} {1 - \mu_i} \times - \dfrac {\partial \mu_i} {\partial W} \right)<br>\<br>&amp;= - \sum^N_{i = 1} \left( y_i \dfrac {1} {\mu_i} - (1 - y_i) \dfrac {1} {1 - \mu_i} \right) \times \mu_i (1 - \mu_i) X_i<br>\<br>&amp;= - \sum^N_{i = 1} \left( y_i (1 - \mu_i) - (1 - y_i) \mu_i \right) \times X_i<br>\<br>&amp;= - \sum^N_{i = 1} (y_i - \mu_i) \times X_i<br>\<br>&amp;= (\mu - y) X<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>J_1 (W) &amp;= \sum^N_{i = 1} \left( - y_i \log (\mu (X_i; W)) - (1 - y_i) \log (1 - \mu (X_i; W)) \right)<br>\\<br>&amp;= \sum^N_{i = 1} \left( - y_i \log \mu_i - (1 - y_i) \log (1 - \mu_i) \right)<br>\\<br>&amp;= - \sum^N_{i = 1} \left(y_i \log \mu_i + (1 - y_i) \log (1 - \mu_i) \right)<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>g_1 (W) &amp;= \nabla J_1 (W) = \dfrac {d J_1 (W)} {d W}<br>\\<br>&amp;= - d \left( \sum^N_{i = 1} \left( y_i \log \mu_i + (1 - y_i) \log (1 - \mu_i) \right) \right) / d W<br>\\<br>&amp;= - \sum^N_{i = 1} \left( y_i \dfrac {1} {\mu_i} \times \dfrac {\partial \mu_i} {\partial W} + (1 - y_i) \dfrac {1} {1 - \mu_i} \times - \dfrac {\partial \mu_i} {\partial W} \right)<br>\\<br>&amp;= - \sum^N_{i = 1} \left( y_i \dfrac {1} {\mu_i} - (1 - y_i) \dfrac {1} {1 - \mu_i} \right) \times \mu_i (1 - \mu_i) X_i<br>\\<br>&amp;= - \sum^N_{i = 1} \left( y_i (1 - \mu_i) - (1 - y_i) \mu_i \right) \times X_i<br>\\<br>&amp;= - \sum^N_{i = 1} (y_i - \mu_i) \times X_i<br>\\<br>&amp;= (\mu - y) X<br>\end{aligned}<br>$</p>
 <p>整理可得 Logistic 回归损失和部分的梯度表达式：</p>
 <font color=EB6D39>
 
@@ -619,7 +619,7 @@
 <p>首先要提一下矩阵的形式。在机器学习中有一个很重要的工具包 <code>numpy</code>，这个工具包里其中两个很重要的类：<code>numpy.matrix</code> 和 <code>numpy.array</code>也即矩阵和向量，通常手动创建一个矩阵的时候可以用如下方式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>A = np.matrix([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(A)</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
 
-<p>这就可以视为一个 2 x 2 的矩阵：$\left[ \begin{matrix} 1 &amp; 2 \ 3 &amp; 4 \end{matrix} \right]$，但是当我们如下创建一个向量时：</p>
+<p>这就可以视为一个 2 x 2 的矩阵：$\left[ \begin{matrix} 1 &amp; 2 \\ 3 &amp; 4 \end{matrix} \right]$，但是当我们如下创建一个向量时：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>B = np.array([<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(B)</span><br><span class="line">[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(B.shape)</span><br><span class="line">(<span class="number">2</span>,)</span><br></pre></td></tr></table></figure>
 
 <p>可以看到，尽管输出的 B 的形式还是 <code>[1 2]</code>，但这是一个 2 行（也即 1 列）的向量（之所以没有标出 <code>(2, 1)</code> 是因为向量要么只有 1 行要么只有 1 列，防止与矩阵的 n x m 搞混了）。也就是说，默认情况下的向量是列向量，这也符合机器学习中的直觉，例如标签 y，预测值，或单个特征等都是列向量。</p>
@@ -628,7 +628,7 @@
 </font>
 
 <h2 id="3-2-Hessian矩阵"><a href="#3-2-Hessian矩阵" class="headerlink" title="3.2 Hessian矩阵"></a>3.2 Hessian矩阵</h2><p>Logistic 损失和部分的梯度为 $g_1 (W) = X^T (\mu - y)$，由此求解 Hessian 矩阵：</p>
-<p>$<br>\begin{aligned}<br>H_1 (W) &amp;= \dfrac {\partial g_1 (W)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} (\mu_i - y_i) X_i \right)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} X^T_i (\mu_i - y_i) \right)} {\partial W}<br>\<br>&amp;= \sum^N_{i = 1} X^T_i \dfrac {\partial (\mu_i)} {\partial W}<br>\<br>&amp;= \sum^N_{i = 1} X^T_i \mu_i (1 - \mu_i) X_i<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>H_1 (W) &amp;= \dfrac {\partial g_1 (W)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} (\mu_i - y_i) X_i \right)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} X^T_i (\mu_i - y_i) \right)} {\partial W}<br>\\<br>&amp;= \sum^N_{i = 1} X^T_i \dfrac {\partial (\mu_i)} {\partial W}<br>\\<br>&amp;= \sum^N_{i = 1} X^T_i \mu_i (1 - \mu_i) X_i<br>\end{aligned}<br>$</p>
 <blockquote>
 <p>@注：说明：$\dfrac {\partial (a^T y)} {\partial y} = a^T$</p>
 </blockquote>
@@ -639,7 +639,7 @@
 </font>
 
 <h2 id="3-3-牛顿法求解Logistic损失函数和极小值：IRLS"><a href="#3-3-牛顿法求解Logistic损失函数和极小值：IRLS" class="headerlink" title="3.3 牛顿法求解Logistic损失函数和极小值：IRLS"></a>3.3 牛顿法求解Logistic损失函数和极小值：IRLS</h2><p>当解得梯度 $g_1 (W) = X^T (\mu - y)$ 和 Hessian 矩阵 $H_1 (W) = X^T S X$ 后，即可代入牛顿迭代公式中：</p>
-<p>$<br>\begin{aligned}<br>W^{(t + 1)} &amp;= W^{(t)} - H(W^{(t)})^{-1} g(W)<br>\<br>&amp;= W^{(t)} - (X^T S^{(t)} X)^{-1} X^T (\mu - y)<br>\<br>&amp;= (X^T S^{(t)} X)^{-1} (X^T S^{(t)} X) \times W^{(t)} - (X^T S^{(t)} X)^{-1} X^T (\mu - y)<br>\<br>&amp;= (X^T S^{(t)} X)^{-1} \times \left( X^T S^{(t)} X W^{(t)} - X^T (\mu - y) \right)<br>\<br>&amp;= (X^T S^{(t)} X)^{-1} \times \left( X^T S^{(t)} X W^{(t)} - X^T S^{(t)} {S^{(t)}}^{-1} (\mu - y) \right)<br>\<br>&amp;= (X^T S^{(t)} X)^{-1} X^T S^{(t)} \times \left( X W^{(t)} - {S^{(t)}}^{-1} (\mu - y) \right)<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>W^{(t + 1)} &amp;= W^{(t)} - H(W^{(t)})^{-1} g(W)<br>\\<br>&amp;= W^{(t)} - (X^T S^{(t)} X)^{-1} X^T (\mu - y)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} (X^T S^{(t)} X) \times W^{(t)} - (X^T S^{(t)} X)^{-1} X^T (\mu - y)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} \times \left( X^T S^{(t)} X W^{(t)} - X^T (\mu - y) \right)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} \times \left( X^T S^{(t)} X W^{(t)} - X^T S^{(t)} {S^{(t)}}^{-1} (\mu - y) \right)<br>\\<br>&amp;= (X^T S^{(t)} X)^{-1} X^T S^{(t)} \times \left( X W^{(t)} - {S^{(t)}}^{-1} (\mu - y) \right)<br>\end{aligned}<br>$</p>
 <p>令 $z^{(t)} \triangleq X W^{(t)} - {S^{(t)}}^{-1} (\mu - y)$，则得到牛顿法迭代求 Logistic 损失函数和极小值的解：</p>
 <font color=EB6D39>
 
@@ -648,7 +648,7 @@
 
 <p>对比线性回归 $X W = y$ 方程中最小二乘的解：$\hat{W}_{OLS} = (X^T X)^{-1} X^T y$，给每个样本加权（每个样本的权重为 $S_i$）即可得加权最小二乘的解：</p>
 <p>$<br>\hat{W}_{OLS_weight} = (X^T S X)^{-1} X^T y<br>$</p>
-<p>牛顿迭代法求得的 Logistic 损失函数和极小值的解 与 加权最小二乘的解形式类似，因此也称为 **<font color=EB6D39>迭代加权最小二乘（Iteratively Reweighted Least Squares, IRLS）</font>**，其中每个样本的权重为 $S_i = \mu_i (1 - \mu_i)$。而 IRLS 又通过 共轭梯度（Conjugate Gradient）法 求解，因此 Scikit-Learn 中采用牛顿法求解的优化算法为 <code>&#39;newton-cg&#39;</code>。</p>
+<p>牛顿迭代法求得的 Logistic 损失函数和极小值的解 与 加权最小二乘的解形式类似，因此也称为 <strong><font color=EB6D39>迭代加权最小二乘（Iteratively Reweighted Least Squares, IRLS）</font></strong>，其中每个样本的权重为 $S_i = \mu_i (1 - \mu_i)$。而 IRLS 又通过 共轭梯度（Conjugate Gradient）法 求解，因此 Scikit-Learn 中采用牛顿法求解的优化算法为 <code>&#39;newton-cg&#39;</code>。</p>
 <hr>
 <h1 id="4-Logistic的优化求解器Solver"><a href="#4-Logistic的优化求解器Solver" class="headerlink" title="4. Logistic的优化求解器Solver"></a>4. Logistic的优化求解器Solver</h1><p>Logistic 回归有多种优化求解方法。当使用 L2 正则时，可采用所有优化算法，而由于 L1 正则在零点处不可导，因此次不能使用需要计算梯度 / Hessian 矩阵的方法，此时可以类似 Lasso 求解，采用坐标轴下降法。</p>
 <p>Scikit-Learn 中的 Logistic 类已在：<a href="/post/machinelearning/ml-logistic/ml-logistic-introduction/ml-logistic-introduction/" title="@LINK">《ML入门——Logistic回归简介》</a> 文中介绍，此处展开参数 <code>solver</code> 的一些可选项：</p>
@@ -862,7 +862,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

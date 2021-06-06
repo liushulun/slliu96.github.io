@@ -128,7 +128,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -144,8 +144,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -232,13 +232,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -426,7 +426,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-Logistic回归简介"><a href="#1-Logistic回归简介" class="headerlink" title="1. Logistic回归简介"></a>1. Logistic回归简介</h1><p>回归任务和分类任务都属于有监督学习（Supervised Learning），其训练数据的格式为：$D = { X_i, y_i }^N_{i = 1}$。回归任务中 $y_i \in R$，而分类任务中 $y_i \in C, C = { 1, \cdots c }$，任务目标都为：学习一个从输入 $X$ 到输出 $y$ 的映射 $f$。分类任务的图示如下：</p>
+<h1 id="1-Logistic回归简介"><a href="#1-Logistic回归简介" class="headerlink" title="1. Logistic回归简介"></a>1. Logistic回归简介</h1><p>回归任务和分类任务都属于有监督学习（Supervised Learning），其训练数据的格式为：$D = \{ X_i, y_i \}^N_{i = 1}$。回归任务中 $y_i \in R$，而分类任务中 $y_i \in C, C = \{ 1, \cdots c \}$，任务目标都为：学习一个从输入 $X$ 到输出 $y$ 的映射 $f$。分类任务的图示如下：</p>
 <center>
 
 <p><img data-src="./classify_demo.png" alt="分类任务图示" title="@ASSET"></p>
@@ -435,7 +435,7 @@
 <p>典型的分类任务有：垃圾邮件过滤、手写数字/文本识别、语音识别、人脸识别、医疗诊断、金融风控等。</p>
 <p>贝努力（Bernoulli）分布：$y \sim Bernoulli(\mu)$，其中 $\mu$ 为分布的期望，表示 $y = 1$ 的概率。则该分布的概率密度函数为：</p>
 <p>$<br>p(y; \mu) = \mu^y (1 - \mu)^{(1 - y)}<br>$</p>
-<p>以两类分类为例。两类分类任务中，假设样本的输出为 $y_i \in { 0, 1 }$，当给定输入 $X$ 的情况下，输出 y 符合贝努力分布：</p>
+<p>以两类分类为例。两类分类任务中，假设样本的输出为 $y_i \in \{ 0, 1 \}$，当给定输入 $X$ 的情况下，输出 y 符合贝努力分布：</p>
 <p>$<br>y | X \sim Bernoulli(\mu (X))<br>$</p>
 <p>其中期望 $\mu (X)$ 表示在给定 $X$ 的情况下，$y = 1$ 的概率。则其概率密度函数为：</p>
 <p>$<br>p(y | X; \mu) = \mu (X)^y (1 - \mu (X))^{1 - y}<br>$</p>
@@ -470,7 +470,7 @@
 
 <h2 id="1-2-决策边界"><a href="#1-2-决策边界" class="headerlink" title="1.2 决策边界"></a>1.2 决策边界</h2><p>更一般地：根据需要划分的类别，分类器将输入控件 $X$ 划分为一些互不相交的区域。这些区域的边界叫决策边界（Decision Boundaries）。根据预测函数 $f$ 的不同，会使得决策面或光滑、或粗糙。</p>
 <p>当决策面是输入 $X$ 的线性函数时，称为线性决策面，对应的分类器就是线性分类器。</p>
-<p>分类器为每个类别分配一个判别函数，根据判别函数来判断一个新样本属于该类别的可能性，然后将新样本归类为可能性最大的一类。假设有 C 个类别，则对应有 C 个判别函数：$\delta_c (X), c \in { 1, \cdots, C }$。</p>
+<p>分类器为每个类别分配一个判别函数，根据判别函数来判断一个新样本属于该类别的可能性，然后将新样本归类为可能性最大的一类。假设有 C 个类别，则对应有 C 个判别函数：$\delta_c (X), c \in \{ 1, \cdots, C \}$。</p>
 <p>对一个新样本 $X$，通常是找到最大的 $\delta_c (X)$，即该样本的类别为：</p>
 <p>$$<br>\hat{y} = \arg_c \max \delta_c (X)<br>$$</p>
 <p>判别函数 $\delta_c (X)$ 和  $\delta_k (X)$ 相等的点的集合，就是分类 C 和分类 K 之间的决策面：</p>
@@ -482,7 +482,7 @@
 <p>例如两类分类问题中，决策函数 $f_1 = p(y = 1 | X)$ 即为类别 $y = 1$ 的判别函数，决策函数 $f_0 = p(y = 0 | X)$ 即为类别 $y = 0$ 的判别函数。若对一新样本 $X$，有 $f_1 (X) &gt; f_0 (X)$，则新样本 $X$ 被分入类别 $y = 1$。</p>
 <hr>
 <h1 id="2-Logistic损失函数"><a href="#2-Logistic损失函数" class="headerlink" title="2. Logistic损失函数"></a>2. Logistic损失函数</h1><h2 id="2-1-负log似然损失"><a href="#2-1-负log似然损失" class="headerlink" title="2.1 负log似然损失"></a>2.1 负log似然损失</h2><p>以两类分类问题为例，直观地，可以定义一种损失：0 / 1 损失，预测类别正确时预测损失为 0，否则为 1。记为：</p>
-<p>$<br>L(y, \hat{y}) = \left {<br>\begin{aligned}<br>0, &amp;&amp; {y = \hat{y}}<br>\<br>1, &amp;&amp; {y \ne \hat{y}}<br>\end{aligned}<br>\right.<br>$</p>
+<p>$<br>L(y, \hat{y}) = \left \{<br>\begin{aligned}<br>0, &amp;&amp; {y = \hat{y}}<br>\\<br>1, &amp;&amp; {y \ne \hat{y}}<br>\end{aligned}<br>\right.<br>$</p>
 <p>但 0 / 1 损失不连续，优化计算不方便。因此需要寻找其他 <strong>替代损失函数（Surrogate Loss Function）</strong>。替代损失函数应当符合几个特征：</p>
 <ul>
 <li>通常是凸函数，计算方便。</li>
@@ -495,28 +495,28 @@
 </center>
 
 <p>图中横轴为 $y \hat{y}$ 取值，纵轴为损失。</p>
-<p>定义两类分类中，真值 $y$ 只有两种取值：$y \in { 1, -1 }$，而预测值可取连续值：$\hat{y} \in { - \infty, + \infty }$，以符号区分预测值的预测类别（正数对应类别 1，负数对应类别 -1），当 $y$ 和 $\hat{y}$ 符号相同时（即 $y \hat{y} &gt; 0$，对应图中横坐标右半部分）表示预测正确，此时损失为 0。反之亦然。</p>
+<p>定义两类分类中，真值 $y$ 只有两种取值：$y \in \{ 1, -1 \}$，而预测值可取连续值：$\hat{y} \in \{ - \infty, + \infty \}$，以符号区分预测值的预测类别（正数对应类别 1，负数对应类别 -1），当 $y$ 和 $\hat{y}$ 符号相同时（即 $y \hat{y} &gt; 0$，对应图中横坐标右半部分）表示预测正确，此时损失为 0。反之亦然。</p>
 <p>可以看出，浅蓝色曲线 L2 损失并不能很好地代替 0 / 1 损失，因此优化 L2 损失并不能很好地优化模型的准确度。</p>
 <p>整理 Logistic 回归模型：$y | X \sim Bernoulli (\mu (X))$，对应的概率密度函数为：</p>
 <p>$<br>p(y | X; \mu (X)) = \mu (X)^y (1 - \mu (X))^{(1 - y)}<br>$</p>
 <p>其中，$\mu (X)$ 是线性模型经过 Sigmoid 变化而来：$\mu (X) = \sigma (W^T X)$。</p>
 <p>Logistic 的似然函数为：$likelihood (f) = p(D) = \prod^N_{i = 1} p(y_i | x_i)$，则 $\log$ 似然函数为：</p>
-<p>$<br>\begin{aligned}<br>l(\mu) &amp;= \log p(D) = \log \prod^N_{i = 1} p(y_i | x_i) = \sum^N_{i = 1} \log p(y_i | x_i)<br>\<br>&amp;= \sum^N_{i = 1} \log \left( \mu (X_i)^{y_i} (1 - \mu (X_i))^{(1 - y_i)} \right)<br>\<br>&amp;= \sum^N_{i = 1} y_i \log (\mu (X_i)) + (1 - y_i) \log (1 - \mu (X_i))<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>l(\mu) &amp;= \log p(D) = \log \prod^N_{i = 1} p(y_i | x_i) = \sum^N_{i = 1} \log p(y_i | x_i)<br>\\<br>&amp;= \sum^N_{i = 1} \log \left( \mu (X_i)^{y_i} (1 - \mu (X_i))^{(1 - y_i)} \right)<br>\\<br>&amp;= \sum^N_{i = 1} y_i \log (\mu (X_i)) + (1 - y_i) \log (1 - \mu (X_i))<br>\end{aligned}<br>$</p>
 <p>取极大似然估计        ：</p>
-<p>$<br>\begin{aligned}<br>\max l(\mu) &amp;= - \min l(\mu)<br>\<br>&amp;= \min - \left( \sum^N_{i = 1} y_i \log (\mu (X_i)) + (1 - y_i) \log (1 - \mu (X_i)) \right)<br>\<br>&amp;= \min \sum^N_{i = 1} - y_i \log (\mu (X_i)) - (1 - y_i) \log (1 - \mu (X_i))<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>\max l(\mu) &amp;= - \min l(\mu)<br>\\<br>&amp;= \min - \left( \sum^N_{i = 1} y_i \log (\mu (X_i)) + (1 - y_i) \log (1 - \mu (X_i)) \right)<br>\\<br>&amp;= \min \sum^N_{i = 1} - y_i \log (\mu (X_i)) - (1 - y_i) \log (1 - \mu (X_i))<br>\end{aligned}<br>$</p>
 <p><strong><font color=red>因此极大似然估计等价于最小训练集上的负 $\log$ 损失。而负 $\log$ 似然损失亦被称为 Logistic 损失。</font></strong></p>
 <h2 id="2-2-交叉熵损失"><a href="#2-2-交叉熵损失" class="headerlink" title="2.2 交叉熵损失"></a>2.2 交叉熵损失</h2><p>Logistic 损失亦被称为 <strong>交叉熵损失（Corss Entropy Loss, CE）</strong>。</p>
 <p>交叉熵损失：两个分布之间的差异（已知真实分布的情况下，预测分布与真实分布之间的差异）。定义交叉熵 $H(p, q)$ 如下：</p>
-<p>$$<br>\begin{aligned}<br>H(p, q) &amp;= \sum_x p(x) \log (\dfrac {1} {q(x)})<br>\<br>&amp;= - \sum_x p(x) \log (q(x))<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>H(p, q) &amp;= \sum_x p(x) \log (\dfrac {1} {q(x)})<br>\\<br>&amp;= - \sum_x p(x) \log (q(x))<br>\end{aligned}<br>$$</p>
 <p>假设预测值 $\hat{y} = 1$ 的概率为 $\mu (X)$，即 $\hat{y} \sim Bernoulli (\mu (X))$，则预测值 $\hat{y} = 0$ 的概率为 $1 - \mu (X)$。</p>
 <p>（1）假设已知真值 $y = 1$，即 $y | X \sim Bernoulli (1)$，即在已知真值 $y = 1$ 的情况下，$y$ 取 1 的概率 $\mu = p(y = 1) = 1$，因此 $y = 0$ 的概率 $p(y = 0) = 0$。则这两个分布之间的交叉熵为：</p>
-<p>$<br>\begin{aligned}<br>CE(y = 1, \hat{y}) &amp;= - \sum_y p(y | X) \log p(\hat{y} | X)<br>\<br>&amp;= \left( - p(y = 1 | X) \log p(\hat{y} = 1 | X) \right) + \left( - p(y = 0 | X) \log p(\hat{y} = 0 | X) \right)<br>\<br>&amp;= - \log \mu (X)<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>CE(y = 1, \hat{y}) &amp;= - \sum_y p(y | X) \log p(\hat{y} | X)<br>\\<br>&amp;= \left( - p(y = 1 | X) \log p(\hat{y} = 1 | X) \right) + \left( - p(y = 0 | X) \log p(\hat{y} = 0 | X) \right)<br>\\<br>&amp;= - \log \mu (X)<br>\end{aligned}<br>$</p>
 <p>（2）同理，假设已知真值 $y = 0$，即 $y | X \sim Bernoulli (0)$，因此 $\mu = p(y = 1) = 0$，$p(y = 0) = 1$，此时这两个分布之间的交叉熵为：</p>
-<p>$<br>\begin{aligned}<br>CE(y = 0, \hat{y}) &amp;= - \sum_y p(y | X) \log p(\hat{y} | X)<br>\<br>&amp;= \left( - p(y = 1 | X) \log p(\hat{y} = 1 | X) \right) + \left( - p(y = 0 | X) \log p(\hat{y} = 0 | X) \right)<br>\<br>&amp;= - \log (1 - \mu (X))<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>CE(y = 0, \hat{y}) &amp;= - \sum_y p(y | X) \log p(\hat{y} | X)<br>\\<br>&amp;= \left( - p(y = 1 | X) \log p(\hat{y} = 1 | X) \right) + \left( - p(y = 0 | X) \log p(\hat{y} = 0 | X) \right)<br>\\<br>&amp;= - \log (1 - \mu (X))<br>\end{aligned}<br>$</p>
 <p>整理合并得：</p>
-<p>$<br>CE(y, \hat{y}) = \left {<br>\begin{aligned}<br>&amp; - \log \mu (X), &amp;&amp; {y = 1}<br>\<br>&amp; - \log (1 - \mu (X)), &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$</p>
+<p>$<br>CE(y, \hat{y}) = \left \{<br>\begin{aligned}<br>&amp; - \log \mu (X), &amp;&amp; {y = 1}<br>\\<br>&amp; - \log (1 - \mu (X)), &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$</p>
 <p>定义 $p_t$（Probability of Ground Truth Class）为：</p>
-<p>$<br>p_t = \left {<br>\begin{aligned}<br>&amp; \mu (X), &amp;&amp; {if (y = 1)}<br>\<br>&amp; 1 - \mu (X), &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$</p>
+<p>$<br>p_t = \left \{<br>\begin{aligned}<br>&amp; \mu (X), &amp;&amp; {if (y = 1)}<br>\\<br>&amp; 1 - \mu (X), &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$</p>
 <p>则可得到交叉熵损失简洁表达式：</p>
 <p>$$<br>CE(y, \hat{y}) = - \log (p_t)<br>$$</p>
 <p>交叉熵损失与 $p_t$ 的关系曲线如下：</p>
@@ -530,7 +530,7 @@
 </blockquote>
 <hr>
 <h1 id="3-Logistic正则项"><a href="#3-Logistic正则项" class="headerlink" title="3. Logistic正则项"></a>3. Logistic正则项</h1><p>Logistic 回归采用 Logistic 损失 / 交叉熵损失，由于预测值 $\hat{y} = 1$ 的概率为 $\mu (X)$，因此可使用 $\mu (X)$ 表示 $\hat{y}$：</p>
-<p>$<br>\begin{aligned}<br>&amp; L(y, \mu(X)) = -y \log (\mu (X)) - (1- y) \log (1 - \mu (X))<br>\<br>&amp; \mu (X) = \sigma (W^T X)<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>&amp; L(y, \mu(X)) = -y \log (\mu (X)) - (1- y) \log (1 - \mu (X))<br>\\<br>&amp; \mu (X) = \sigma (W^T X)<br>\end{aligned}<br>$</p>
 <p>Logistic 回归的目标函数同样包括训练集上的损失和与正则项，正则项同样可选 L1 正则、L2 正则、或 L1 + L2 正则。</p>
 <p>假设有一个两类分类任务，且训练样本完全可分（即所有同类样本均可被分对），为了使 Logistic 损失和最小（完全可分时最小损失和即为 0），则对每个样本有：$L(y_i, \mu (x_i)) = 0$。当想要使得每个样本损失均为 0 时，即：</p>
 <blockquote>
@@ -831,7 +831,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

@@ -122,7 +122,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -138,8 +138,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -226,13 +226,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -435,7 +435,7 @@
 </center>
 
 <hr>
-<h1 id="2-文首显示标签并与分类对齐"><a href="#2-文首显示标签并与分类对齐" class="headerlink" title="2. 文首显示标签并与分类对齐"></a>2. 文首显示标签并与分类对齐</h1><p>在 Next 主题中所有的文章称为 __Post__，默认情况下 Post 的标签是在文章底部的，不够我个人觉得这样并不适合读者在阅读文章前了解文章的大致方向，或许应该像论文一样，把标签放在文首更好。关于文章内的各个控件、内容的布局都在：<code>next/layout/_macro/post.swig</code> 文件中。先找到文章标签对应的代码：</p>
+<h1 id="2-文首显示标签并与分类对齐"><a href="#2-文首显示标签并与分类对齐" class="headerlink" title="2. 文首显示标签并与分类对齐"></a>2. 文首显示标签并与分类对齐</h1><p>在 Next 主题中所有的文章称为 <strong>Post</strong>，默认情况下 Post 的标签是在文章底部的，不够我个人觉得这样并不适合读者在阅读文章前了解文章的大致方向，或许应该像论文一样，把标签放在文首更好。关于文章内的各个控件、内容的布局都在：<code>next/layout/_macro/post.swig</code> 文件中。先找到文章标签对应的代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;footer <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-footer&quot;</span>&gt;</span><br><span class="line">  &#123;### ↓↓↓以下就是标签代码↓↓↓ ###&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> post.tags and post.tags.length and not is_index %&#125;</span><br><span class="line">    &#123;% <span class="keyword">if</span> theme.tag_icon %&#125;</span><br><span class="line">      &#123;% set tag_indicate = <span class="string">&#x27;&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;&#x27;</span> %&#125;</span><br><span class="line">    &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">      &#123;% set tag_indicate = <span class="string">&#x27;#&#x27;</span> %&#125;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-tags&quot;</span>&gt;</span><br><span class="line">      &#123;% <span class="keyword">for</span> tag <span class="keyword">in</span> post.tags %&#125;</span><br><span class="line">        &lt;a href=<span class="string">&quot;&#123;&#123; url_for(tag.path) &#125;&#125;&quot;</span> rel=<span class="string">&quot;tag&quot;</span>&gt;&#123;&#123; tag_indicate &#125;&#125; &#123;&#123; tag.name &#125;&#125;&lt;/a&gt;</span><br><span class="line">      &#123;% endfor %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">  &#123;### ↑↑↑以上就是标签代码↑↑↑ ###&#125;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">&lt;/footer&gt;</span><br></pre></td></tr></table></figure>
 
 <p>这段就是标签的代码了。直接把这段剪切到上面和分类代码同级的地方：</p>
@@ -675,7 +675,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

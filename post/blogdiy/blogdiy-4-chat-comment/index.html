@@ -131,7 +131,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -147,8 +147,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -235,13 +235,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -422,8 +422,8 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-DaoVoice免登陆聊天功能"><a href="#1-DaoVoice免登陆聊天功能" class="headerlink" title="1. DaoVoice免登陆聊天功能"></a>1. DaoVoice免登陆聊天功能</h1><p>在我博客的右下角有一个悬浮聊天窗，点击即可直接发起会话，当我不在线时，后台会将消息发送到我的邮箱，这是基于 <a target="_blank" rel="noopener" href="http://www.daovoice.io/" title="@LINK">DaoVoice</a> 的实现方案。</p>
-<p>开启 DaoVoice 也比较简单，首先去<a target="_blank" rel="noopener" href="http://www.daovoice.io/" title="@LINK">官网</a>注册一个账号然后登录，进入控制台，点击左侧“应用设置”，并在子菜单选择“安装到网站”：</p>
+<h1 id="1-DaoVoice免登陆聊天功能"><a href="#1-DaoVoice免登陆聊天功能" class="headerlink" title="1. DaoVoice免登陆聊天功能"></a>1. DaoVoice免登陆聊天功能</h1><p>在我博客的右下角有一个悬浮聊天窗，点击即可直接发起会话，当我不在线时，后台会将消息发送到我的邮箱，这是基于 <a target="_blank" rel="noopener" href="http://www.daovoice.io" title="@LINK">DaoVoice</a> 的实现方案。</p>
+<p>开启 DaoVoice 也比较简单，首先去<a target="_blank" rel="noopener" href="http://www.daovoice.io" title="@LINK">官网</a>注册一个账号然后登录，进入控制台，点击左侧“应用设置”，并在子菜单选择“安装到网站”：</p>
 <center>
 
 <p><img data-src="./daovoice_apply_to_web.png" alt="DaoVoice 安装到网站" title="@ASSET"></p>
@@ -439,7 +439,7 @@
 <hr>
 <h1 id="2-Gitalk评论"><a href="#2-Gitalk评论" class="headerlink" title="2. Gitalk评论"></a>2. Gitalk评论</h1><p>文章评论也有多种方案，Disqus、友言、畅言、Valine（基于 Leancloud）、Gitment、Gitalk 等，不过 Disqus 是韩国的，虽说国内是能有的不过有时候还是会莫名其妙像被墙起来了一样，友言和畅言已经停止维护，<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases/tag/v7.2.0" title="@LINK">最新版的 Next</a> 也把 Gitment 移除支持了，不过 Gitalk 和 Gitment 比较类似，都是基于 GitHub 的 Issue 实现的，我个人认为，使用 GitHub 托管的博客，使用 GitHub 自己的 Issue 服务来实现也相当契合，何况 GitHub 不仅免费的已经相当够用，而且还没有流量限制。</p>
 <p>Next 主题本身是支持 Gitalk 的，所以引入 Gitalk 只需要像 LeanCloud 和 DaoVoice 一样申请一个 app_id 即可。而由于 Gitalk 本身是基于 GitHub 实现的，所以我们甚至都不需要再另行注册一个账号！</p>
-<p>首先在 GitHub 新建一个仓库，用于存储评论的 Issue，当然如果你愿意也可以直接使用博客的仓库。然后在 GitHub 的设置里面，进入最下面的 __Developer settings__，然后再选择 __OAuth Apps__，然后点击右上角 “New OAuth App” 新建一个应用：</p>
+<p>首先在 GitHub 新建一个仓库，用于存储评论的 Issue，当然如果你愿意也可以直接使用博客的仓库。然后在 GitHub 的设置里面，进入最下面的 <strong>Developer settings</strong>，然后再选择 <strong>OAuth Apps</strong>，然后点击右上角 “New OAuth App” 新建一个应用：</p>
 <center>
 
 <p><img data-src="./github_oauth_apps.png" alt="GitHub OAuth Apps" title="@ASSET"></p>
@@ -476,7 +476,7 @@
 <p>首先 Valine 评论和 LeanCloud 阅读统计同时开启会有冲突（2019-12-04 无意间发现已经不会冲突了），解决方案是关掉 LeanCloud 独立的阅读统计，并在 Valine 设置项中开启统计功能即可，Valine 相关设置如下：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Valine</span></span><br><span class="line"><span class="comment"># You can get your appid and appkey from https://leancloud.cn</span></span><br><span class="line"><span class="comment"># More info available at https://valine.js.org</span></span><br><span class="line"><span class="attr">valine:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span></span><br><span class="line">  <span class="attr">appid:</span> <span class="string">输入自己在</span> <span class="string">LeanCloud</span> <span class="string">处创建的应用中申请的</span> <span class="string">AppID</span></span><br><span class="line">  <span class="attr">appkey:</span> <span class="string">输入自己在</span> <span class="string">LeanCloud</span> <span class="string">处创建的应用中申请的</span> <span class="string">AppKey</span></span><br><span class="line">  <span class="attr">notify:</span> <span class="literal">false</span> <span class="comment"># mail notifier, See: https://github.com/xCss/Valine/wiki</span></span><br><span class="line">  <span class="attr">verify:</span> <span class="literal">false</span> <span class="comment"># Verification code</span></span><br><span class="line">  <span class="attr">placeholder:</span> <span class="string">Nice</span> <span class="string">!</span> <span class="comment"># comment box placeholder</span></span><br><span class="line">  <span class="comment"># avatar: mm # gravatar style</span></span><br><span class="line">  <span class="attr">avatar:</span> <span class="string">retro</span></span><br><span class="line">  <span class="attr">guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># custom comment header</span></span><br><span class="line">  <span class="attr">pageSize:</span> <span class="number">5</span> <span class="comment"># pagination size</span></span><br><span class="line">  <span class="attr">language:</span> <span class="comment"># language, available values: en, zh-cn</span></span><br><span class="line">  <span class="attr">visitor:</span> <span class="literal">true</span> <span class="comment"># leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same asleancloud_visitors&#x27; for counter compatibility. Article reading statistic https://valine.js.org/visitor.html</span></span><br><span class="line">  <span class="attr">comment_count:</span> <span class="literal">false</span> <span class="comment"># if false, comment count will only be displayed in post page, not in home page</span></span><br></pre></td></tr></table></figure>
 
-<p><code>appid</code>、<code>appkey</code> 的设置可以参照系列第三篇中 LeanCloud 阅读统计部分：《<a href="/post/blogdiy/blogdiy-3-counter/blogdiy-3-counter/#2-%E8%AE%BF%E5%AE%A2%E4%B8%8E%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1" title="@LINK">访客与阅读量统计</a>》，其他各个字段的含义在 Valine 官网配置详解（<a target="_blank" rel="noopener" href="https://valine.js.org/quickstart.html," title="@LINK">点此直达</a>）中都有说明了，很详细。</p>
+<p><code>appid</code>、<code>appkey</code> 的设置可以参照系列第三篇中 LeanCloud 阅读统计部分：《<a href="/post/blogdiy/blogdiy-3-counter/blogdiy-3-counter/#2-访客与阅读量统计" title="@LINK">访客与阅读量统计</a>》，其他各个字段的含义在 Valine 官网配置详解（<a target="_blank" rel="noopener" href="https://valine.js.org/quickstart.html," title="@LINK">点此直达</a>）中都有说明了，很详细。</p>
 <p>但是当开启了 Valine 并部署后，会发现评论处只支持用户输入昵称评论，不能自己输入邮箱、网址等等，效果如下：</p>
 <center>
 
@@ -798,7 +798,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

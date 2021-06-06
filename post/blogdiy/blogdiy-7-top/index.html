@@ -128,7 +128,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -144,8 +144,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -232,13 +232,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -569,7 +569,7 @@
 <p>但其实因为这篇文章只是用来作为置顶公告栏使用，既没有标题又没有什么有价值的内容，这么显示出来挺不美观的，因此可能不希望让读者不经意间进入这篇文章的详细内容，为此可以修改 <code>themes/next-711/layout/_macro/post.swig</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;### Prev and Last ###&#125;</span><br><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> not is_index and (post.prev or post.next) %&#125;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-nav&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &#123;### 后一篇 ###&#125;</span><br><span class="line"></span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-nav-next post-nav-item&quot;</span>&gt;</span><br><span class="line">      &#123;### ↓↓↓重点修改下面这行↓↓↓ ###&#125;</span><br><span class="line">      &#123;% <span class="keyword">if</span> post.next and not post.next.billboard %&#125;</span><br><span class="line">      &#123;### ↑↑↑重点修改上面这行↑↑↑ ###&#125;</span><br><span class="line">        &lt;a href=<span class="string">&quot;&#123;&#123; url_for(post.next.path) &#125;&#125;&quot;</span> rel=<span class="string">&quot;next&quot;</span> title=<span class="string">&quot;&#123;&#123; post.next.title &#125;&#125;&quot;</span>&gt;</span><br><span class="line">          &lt;i <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;fa fa-chevron-left&quot;</span>&gt;&lt;/i&gt; &#123;&#123; post.next.title &#125;&#125;</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-nav-divider&quot;</span>&gt;&lt;/span&gt;</span><br><span class="line"></span><br><span class="line">    &#123;### 前一篇 ###&#125;</span><br><span class="line"></span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-nav-prev post-nav-item&quot;</span>&gt;</span><br><span class="line">      &#123;### ↓↓↓重点修改下面这行↓↓↓ ###&#125;</span><br><span class="line">      &#123;% <span class="keyword">if</span> post.prev and not post.prev.billboard %&#125;</span><br><span class="line">      &#123;### ↑↑↑重点修改上面这行↑↑↑ ###&#125;</span><br><span class="line">        &lt;a href=<span class="string">&quot;&#123;&#123; url_for(post.prev.path) &#125;&#125;&quot;</span> rel=<span class="string">&quot;prev&quot;</span> title=<span class="string">&quot;&#123;&#123; post.prev.title &#125;&#125;&quot;</span>&gt;</span><br><span class="line">          &#123;&#123; post.prev.title &#125;&#125; &lt;i <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;fa fa-chevron-right&quot;</span>&gt;&lt;/i&gt;</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% set isLast = loop.index % page.per_page === <span class="number">0</span> %&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> is_index and not isLast %&#125;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-eof&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在上面第 4 条中，去掉“归档”内的置顶公告栏文章，用到了文章内的自定义属性 <code>billboard</code>，这里也同样适用。在 <code>if</code> 判断上一篇和下一篇文章是否为空的地方，加一个 <code> and not post.prev.billboard</code>，表示 <code>当 上一篇 / 下一篇 文章不为空，并且 上一篇 / 下一篇 文章的 billboard 不为 true 时</code>，这样只要置顶公告栏文章设置了 <code>billboard: true</code> 就能同时从“归档”和“上一篇 / 下一篇”里消失了！不过这里有一个小小的坑，代码里面的 <code>prev</code> 直译过来应该是“前一个”，但在文章的“上一篇/下一篇”中对应的是右边那个，也是时间上更晚的一个，从直觉的角度来看或许更应该叫“下一个”。而 <code>next</code> 直译过来是“下一个”，但在文章的“上一篇/下一篇”中对应的是左边那个，时间上是更早的一个，从直觉上来看反倒应该是“前一个”才对，不知道是不是开发人员搞混了哈哈，记录一下以防踩坑。</p>
+<p>在上面第 4 条中，去掉“归档”内的置顶公告栏文章，用到了文章内的自定义属性 <code>billboard</code>，这里也同样适用。在 <code>if</code> 判断上一篇和下一篇文章是否为空的地方，加一个 <code>and not post.prev.billboard</code>，表示 <code>当 上一篇 / 下一篇 文章不为空，并且 上一篇 / 下一篇 文章的 billboard 不为 true 时</code>，这样只要置顶公告栏文章设置了 <code>billboard: true</code> 就能同时从“归档”和“上一篇 / 下一篇”里消失了！不过这里有一个小小的坑，代码里面的 <code>prev</code> 直译过来应该是“前一个”，但在文章的“上一篇/下一篇”中对应的是右边那个，也是时间上更晚的一个，从直觉的角度来看或许更应该叫“下一个”。而 <code>next</code> 直译过来是“下一个”，但在文章的“上一篇/下一篇”中对应的是左边那个，时间上是更早的一个，从直觉上来看反倒应该是“前一个”才对，不知道是不是开发人员搞混了哈哈，记录一下以防踩坑。</p>
 <hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="@LINK">博客 DIY 系列</a></p>
 
@@ -769,7 +769,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

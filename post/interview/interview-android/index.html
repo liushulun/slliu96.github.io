@@ -35,8 +35,8 @@
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-11-20T04:00:00.000Z">
 <meta property="article:author" content="Luis">
-<meta property="article:tag" content="Interview">
 <meta property="article:tag" content="Android">
+<meta property="article:tag" content="Interview">
 <meta property="article:tag" content="面试题">
 <meta name="twitter:card" content="summary">
 
@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -134,8 +134,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -222,13 +222,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -377,8 +377,8 @@
     
       
       <div class="post-tags">
-          <a href="/tags/Interview/" rel="tag"><i class="fa fa-tag"></i> Interview</a>
           <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          <a href="/tags/Interview/" rel="tag"><i class="fa fa-tag"></i> Interview</a>
           <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 面试题</a>
       </div>
   </div>
@@ -483,14 +483,16 @@
 <h2 id="MVC模式"><a href="#MVC模式" class="headerlink" title="- MVC模式"></a>- MVC模式</h2><p>MVC 即：Model - View - Controller 模式，Model 与 View、View 与 Controller、Controller 与 Model，都是单向直接通信，View 层负责 UI 逻辑，Model 层负责数据，Controller 负责替 View 层操作 Model 层，但由于 Android 中，Activity 通常会同时担任 View 层和 Controller 层，随着业务变得复杂，Activity 也会越来越臃肿，而且 Activity 与 Model 层交互时，相当于 View 层可以与 Model 层直接交互，没有完全解耦。</p>
 <h2 id="MVP模式"><a href="#MVP模式" class="headerlink" title="- MVP模式"></a>- MVP模式</h2><p>MVP 即：Model - View - Presenter 模式，Presenter 与 View、Presenter 与 Model 之间都是双向通信，而 Model 与 View 之间完全没有直接通信，从而彻底解耦。并且由于将 MVC 模式中的 Controller 完全解放成独立的 Presenter，也避免了 Activity 中逻辑代码过多的情况。</p>
 <ul>
-<li>MVP 模式的变种：Passive View</li>
+<li><p>MVP 模式的变种：Passive View</p>
+<p>Passive View 即：被动 View 层，是 MVP 模式最广泛的一个变种，其核心思想就是：View 层所需的数据，不是由其主动拉取 Presenter 获得的，而是被动地由 Presenter 推送的，在 Android 中，也就是 View 层开放自己被动接受数据的接口，Presenter 在转发 View 层请求数据的逻辑给 Model 后，由 Model 通过 Presenter 来主动调用 View 的接口来回传数据。</p>
+</li>
 </ul>
-<p>  Passive View 即：被动 View 层，是 MVP 模式最广泛的一个变种，其核心思想就是：View 层所需的数据，不是由其主动拉取 Presenter 获得的，而是被动地由 Presenter 推送的，在 Android 中，也就是 View 层开放自己被动接受数据的接口，Presenter 在转发 View 层请求数据的逻辑给 Model 后，由 Model 通过 Presenter 来主动调用 View 的接口来回传数据。</p>
 <h2 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="- MVVM模式"></a>- MVVM模式</h2><p>MVVM 即：Model - View - ViewModel 模式，View 仍然对应了 UI 层，Model 仍然是负责主要的数据处理，但一些和 View 层有关的属性及操作则放入了 ViewModel 中实现，其关键在于 DataBinding 技术，View 的变化和 ViewModel 的操作会双向同步，实际上是 Jetpack 框架替开发人员做了一些工作。</p>
 <ul>
-<li>DataBinding 原理</li>
+<li><p>DataBinding 原理</p>
+<p>DataBinding 会对布局文件中使用 <code>&lt;layout&gt;</code> 标签包裹的元素预处理，会为每个元素增加一个 <code>tag</code> 属性，然后将各个元素抽取出来生成一个名为 <code>xxxxx-layout.xml</code> 的文件（<code>xxxxx</code> 是原本 xml 布局文件的命名），文件中将原本的所有 View 标签，都转换成了 <code>&lt;Target id=&quot;xxx&quot; tag=&quot;yyy&quot; view=&quot;ZzzView&quot;&gt;</code> 的形式，其中根布局对应的 tag 是 <code>layout</code>，然后根据原布局文件和新生成的文件，生成一个继承自 <code>ViewDataBinding</code> 的类，并将布局文件中的元素，都根据类型和 id 创建成员变量。</p>
+</li>
 </ul>
-<p>  DataBinding 会对布局文件中使用 <code>&lt;layout&gt;</code> 标签包裹的元素预处理，会为每个元素增加一个 <code>tag</code> 属性，然后将各个元素抽取出来生成一个名为 <code>xxxxx-layout.xml</code> 的文件（<code>xxxxx</code> 是原本 xml 布局文件的命名），文件中将原本的所有 View 标签，都转换成了 <code>&lt;Target id=&quot;xxx&quot; tag=&quot;yyy&quot; view=&quot;ZzzView&quot;&gt;</code> 的形式，其中根布局对应的 tag 是 <code>layout</code>，然后根据原布局文件和新生成的文件，生成一个继承自 <code>ViewDataBinding</code> 的类，并将布局文件中的元素，都根据类型和 id 创建成员变量。</p>
 <h2 id="路由框架"><a href="#路由框架" class="headerlink" title="- 路由框架"></a>- 路由框架</h2><p><a href="/post/android/android-router/android-router" title="@LINKS">Android-浅析ARouter路由框架</a></p>
 <hr>
 <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h2 id="单例模式"><a href="#单例模式" class="headerlink" title="- 单例模式"></a>- 单例模式</h2><h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="- 工厂模式"></a>- 工厂模式</h2><h2 id="DCL双锁检测"><a href="#DCL双锁检测" class="headerlink" title="- DCL双锁检测"></a>- DCL双锁检测</h2><h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="- 观察者模式"></a>- 观察者模式</h2><h2 id="中介者模式"><a href="#中介者模式" class="headerlink" title="- 中介者模式"></a>- 中介者模式</h2><h2 id="EventBus"><a href="#EventBus" class="headerlink" title="- EventBus"></a>- EventBus</h2><hr>
@@ -614,8 +616,8 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Interview/" rel="tag"><i class="fa fa-tag"></i> Interview</a>
               <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+              <a href="/tags/Interview/" rel="tag"><i class="fa fa-tag"></i> Interview</a>
               <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 面试题</a>
           </div>
 
@@ -692,7 +694,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

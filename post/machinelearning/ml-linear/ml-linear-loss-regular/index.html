@@ -123,7 +123,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -139,8 +139,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -227,13 +227,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -438,20 +438,20 @@
 <p>似然函数（Likelihood）为：$likelihood(f) = p(D)$，定义为数据出现的概率。在回归任务中，通常假定所有数据都是独立同分布的，因而对所有数据 $D$，其联合概率等于每个独立样本概率的积：</p>
 <p>$$<br>p(D) = \prod^N_{i = 1} p(y_i | x_i)<br>$$</p>
 <p>对似然函数取 $\log$ 运算（$\log$ 是单调函数，不改变极值点位置，与似然函数等价）得到 $\log$ 似然函数（积取 log 等于 log 再取和，）即为：</p>
-<p>$$<br>\begin{aligned}<br>l(f) &amp;= \log p(D) = \sum^N_{i = 1} \log p(y_i | x_i)<br>\<br>&amp;= \sum^N_{i = 1} \log \left[ \dfrac {1} {\sqrt {2 \pi} \sigma} \exp \left( - \dfrac {(y_i - f(x))^2} {2 \sigma^2} \right) \right]<br>\<br>&amp;= \sum^N_{i = 1} \log \left[ (2 \pi)^{- \dfrac {1} {2}} \cdot \sigma^{-1} \cdot \exp \left( - \dfrac {(y_i - f(x))^2} {2 \sigma^2} \right) \right]<br>\<br>&amp;= \sum^N_{i = 1} \left[ - \dfrac {1} {2} \log (2 \pi) - \log \sigma - \dfrac {(y_i - f(x))^2} {2 \sigma^2} \right]<br>\<br>&amp;= - \dfrac {N} {2} \log (2 \pi) - N \log \sigma - \sum^N_{i = 1} \dfrac {(y_i - f(x))^2} {2 \sigma^2}<br>\end{aligned}<br>$$</p>
-<p>去掉 $l(f)$ 中常数项（不影响极值点位置），当 $l(f)$ 取最大值时可得 **<font color=EB6D39>极大似然估计</font>**：</p>
-<p>$$<br>\begin{aligned}<br>&amp; \max l(f)<br>\<br>= &amp; \max \left( - \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\<br>= &amp; \min \left( \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\<br>= &amp; \dfrac {1} {2 \sigma^2} \min \sum^N_{i = 1} (y_i - f(x_i))^2<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>l(f) &amp;= \log p(D) = \sum^N_{i = 1} \log p(y_i | x_i)<br>\\<br>&amp;= \sum^N_{i = 1} \log \left[ \dfrac {1} {\sqrt {2 \pi} \sigma} \exp \left( - \dfrac {(y_i - f(x))^2} {2 \sigma^2} \right) \right]<br>\\<br>&amp;= \sum^N_{i = 1} \log \left[ (2 \pi)^{- \dfrac {1} {2}} \cdot \sigma^{-1} \cdot \exp \left( - \dfrac {(y_i - f(x))^2} {2 \sigma^2} \right) \right]<br>\\<br>&amp;= \sum^N_{i = 1} \left[ - \dfrac {1} {2} \log (2 \pi) - \log \sigma - \dfrac {(y_i - f(x))^2} {2 \sigma^2} \right]<br>\\<br>&amp;= - \dfrac {N} {2} \log (2 \pi) - N \log \sigma - \sum^N_{i = 1} \dfrac {(y_i - f(x))^2} {2 \sigma^2}<br>\end{aligned}<br>$$</p>
+<p>去掉 $l(f)$ 中常数项（不影响极值点位置），当 $l(f)$ 取最大值时可得 <strong><font color=EB6D39>极大似然估计</font></strong>：</p>
+<p>$$<br>\begin{aligned}<br>&amp; \max l(f)<br>\\<br>= &amp; \max \left( - \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\\<br>= &amp; \min \left( \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\\<br>= &amp; \dfrac {1} {2 \sigma^2} \min \sum^N_{i = 1} (y_i - f(x_i))^2<br>\end{aligned}<br>$$</p>
 <p>同样，去掉系数 $\dfrac {1} {2 \sigma^2}$ 不影响极值点位置，而其中的似然项</p>
 <p>$<br>\sum^N_{i = 1} (y_i - f(x_i))^2 = RSS(f)<br>$</p>
 <p>恰好 是残差平方和 / 训练集上的 L2 损失和，因此：</p>
-<p>$$<br>\begin{aligned}<br>\max l(f) &amp;<br>\<br>极大似然估计 &amp;<br>\end{aligned}<br>\begin{aligned}<br>\Longleftrightarrow \min \sum^N_{i = 1} (y_i - f(x_i))^2 \Longleftrightarrow<br>\<br>\quad<br>\end{aligned}<br>\begin{aligned}<br>&amp; \min RSS(f)<br>\<br>&amp; 最小二乘<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>\max l(f) &amp;<br>\\<br>极大似然估计 &amp;<br>\end{aligned}<br>\begin{aligned}<br>\Longleftrightarrow \min \sum^N_{i = 1} (y_i - f(x_i))^2 \Longleftrightarrow<br>\\<br>\quad<br>\end{aligned}<br>\begin{aligned}<br>&amp; \min RSS(f)<br>\\<br>&amp; 最小二乘<br>\end{aligned}<br>$$</p>
 <center>
 
 <p><strong><font color=red>极大似然估计等价于最小二乘。</font></strong></p>
 </center>
 
 <p>又由于 log 似然即：$l(f)$，与极大似然有：</p>
-<p>$$<br>\begin{aligned}<br>&amp; \max l(f)：极大似然估计<br>\<br>= &amp; \max \left( - \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\<br>= &amp; \min \left( \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\<br>= &amp; \min - l(f)：负 log 似然最小<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>&amp; \max l(f)：极大似然估计<br>\\<br>= &amp; \max \left( - \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\\<br>= &amp; \min \left( \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\\<br>= &amp; \min - l(f)：负 log 似然最小<br>\end{aligned}<br>$$</p>
 <center>
 
 <p><strong><font color=red>极大似然估计等价于负 log 似然最小。</font></strong></p>
@@ -465,7 +465,7 @@
 <p>将上述极大似然估计推广为一般形式：</p>
 <p>$$<br>l(\theta) = \log (D | \theta) = \sum^N_{i = 1}\log p(X_i | \theta)<br>$$</p>
 <p>其中 $\theta$ 为需要求解的分布的参数，$X$ 为每条样本。</p>
-<p>统计中需要根据观测数据 $D= { X_i }^N_{i = 1}$ 估计分布的参数 $\theta$，一种常用的参数估计即为 **<font color=EB6D39>极大似然估计</font>**，即，使得 log 似然函数 $l(f)$ 最大时的 $\theta$ 作为估计值：</p>
+<p>统计中需要根据观测数据 $D= \{ X_i \}^N_{i = 1}$ 估计分布的参数 $\theta$，一种常用的参数估计即为 <strong><font color=EB6D39>极大似然估计</font></strong>，即，使得 log 似然函数 $l(f)$ 最大时的 $\theta$ 作为估计值：</p>
 <p>$$<br>\hat{\theta} = \arg_{\theta} \max l(\theta)<br>$$</p>
 <h2 id="1-2-L1-损失与极大似然估计"><a href="#1-2-L1-损失与极大似然估计" class="headerlink" title="1.2 L1 损失与极大似然估计"></a>1.2 L1 损失与极大似然估计</h2><p>L1 损失最小也等价于极大似然估计，此时噪声模型为 Laplace 分布：</p>
 <p>$$<br>\varepsilon \sim Laplace(\mu, b) = \dfrac {1} {2 b} \exp \left( - \dfrac {|x - \mu|} {b} \right)<br>$$</p>
@@ -484,16 +484,16 @@
 
 <p>则对每一个 $w_j$，其概率密度函数为：</p>
 <p>$<br>p(w_j) = \dfrac {1} {\sqrt {2 \pi} \tau} \exp \left( - \dfrac {w_j^2} {2 \tau^2} \right)<br>$</p>
-<p>因此对 $W$，其联合概率密度函数即为 **<font color=EB6D39>先验</font>**：</p>
+<p>因此对 $W$，其联合概率密度函数即为 <strong><font color=EB6D39>先验</font></strong>：</p>
 <p>$$<br>先验 \quad p(W) = \prod^D_{j = 1} p(w_j) = \prod^D_{j = 1} \dfrac {1} {\sqrt {2 \pi} \tau} \exp \left( - \dfrac {w_j^2} {2 \tau^2} \right)<br>$$</p>
-<p>根据 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F" title="@LINK">贝叶斯公式</a>，参数的 <strong><font color=EB6D39>后验分布</font></strong> 正比于 **<font color=EB6D39>先验 x 似然</font>**：</p>
+<p>根据 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/贝叶斯公式" title="@LINK">贝叶斯公式</a>，参数的 <strong><font color=EB6D39>后验分布</font></strong> 正比于 <strong><font color=EB6D39>先验 x 似然</font></strong>：</p>
 <p>$$<br>后验 \quad p(W | D) \propto p(W) p(D | W)<br>$$</p>
 <p>去掉正比系数（不影响极值点位置）并两边同取 log 运算可得：</p>
-<p>$<br>\begin{aligned}<br>&amp; \log p(W | D) = \log p(W) + \log p(D | W)<br>\<br>&amp;= - \dfrac {D} {2} \log (2 \pi) - D \log \tau - \sum^D_{j = 1} \dfrac {w^2_j} {2 \tau^2} - \dfrac {N} {2} \log (2 \pi) - N \log \sigma - \sum^N_{i = 1} \dfrac {(y_i - f(x_i; w))^2} {2 \sigma^2}<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>&amp; \log p(W | D) = \log p(W) + \log p(D | W)<br>\\<br>&amp;= - \dfrac {D} {2} \log (2 \pi) - D \log \tau - \sum^D_{j = 1} \dfrac {w^2_j} {2 \tau^2} - \dfrac {N} {2} \log (2 \pi) - N \log \sigma - \sum^N_{i = 1} \dfrac {(y_i - f(x_i; w))^2} {2 \sigma^2}<br>\end{aligned}<br>$</p>
 <p>贝叶斯最大后验估计（Maximun A Posteriori estimation, MAP）为</p>
 <p>$<br>\hat{W} = \arg_W \max \log p(W | D)<br>$</p>
 <p>将上述 $\log p(W | D)$ 代入并去掉与 $W$ 无关的常数项（不影响极值点位置）后得：</p>
-<p>$<br>\begin{aligned}<br>\hat{W} &amp;= \arg_W \max \log p(W | D)<br>\<br>&amp;= \arg_W \max \left( - \sum^D_{j = 1} \dfrac {w^2_j} {2 \tau^2} - \sum^N_{i = 1} \dfrac {(y_i - f(x_i; w))^2} {2 \sigma^2} \right)<br>\<br>&amp;= \arg_W \min \left( \sum^D_{j = 1} \dfrac {w^2_j} {2 \tau^2} + \sum^N_{i = 1} \dfrac {(y_i - f(x_i; w))^2} {2 \sigma^2} \right)<br>\<br>乘以 2 \sigma^2 &amp;= \arg_W \min \left( \dfrac {\sigma^2} {\tau^2} \sum^D_{j = 1} w^2_j + \sum^N_{i = 1} (y_i - f(x_i; w))^2 \right)<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>\hat{W} &amp;= \arg_W \max \log p(W | D)<br>\\<br>&amp;= \arg_W \max \left( - \sum^D_{j = 1} \dfrac {w^2_j} {2 \tau^2} - \sum^N_{i = 1} \dfrac {(y_i - f(x_i; w))^2} {2 \sigma^2} \right)<br>\\<br>&amp;= \arg_W \min \left( \sum^D_{j = 1} \dfrac {w^2_j} {2 \tau^2} + \sum^N_{i = 1} \dfrac {(y_i - f(x_i; w))^2} {2 \sigma^2} \right)<br>\\<br>乘以 2 \sigma^2 &amp;= \arg_W \min \left( \dfrac {\sigma^2} {\tau^2} \sum^D_{j = 1} w^2_j + \sum^N_{i = 1} (y_i - f(x_i; w))^2 \right)<br>\end{aligned}<br>$</p>
 <p>上式令 $\lambda = \dfrac {\sigma^2} {\tau^2}$ 得：</p>
 <p>$$<br>\hat{W} = \arg_W \min \left( \sum^N_{i = 1} (y_i - f(x_i; w))^2 + \lambda \sum^D_{j = 1} w^2_j \right)<br>$$</p>
 <p><strong>等价于岭回归的目标参数</strong>，因此有结论：</p>
@@ -708,7 +708,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

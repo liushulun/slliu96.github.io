@@ -35,8 +35,8 @@
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-04-03T01:22:18.000Z">
 <meta property="article:author" content="Luis">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="源码">
+<meta property="article:tag" content="Java">
 <meta property="article:tag" content="ThreadLocal">
 <meta name="twitter:card" content="summary">
 
@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -134,8 +134,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -222,13 +222,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -377,8 +377,8 @@
     
       
       <div class="post-tags">
-          <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           <a href="/tags/%E6%BA%90%E7%A0%81/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
+          <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           <a href="/tags/ThreadLocal/" rel="tag"><i class="fa fa-tag"></i> ThreadLocal</a>
       </div>
   </div>
@@ -410,7 +410,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-认识ThreadLocal"><a href="#1-认识ThreadLocal" class="headerlink" title="1. 认识ThreadLocal"></a>1. 认识ThreadLocal</h1><p>ThreadLocal 是 Java 中一种很重要的机制 / 数据处理方式，尤其在并发中，数据是否共有、唯一，会直接影响项目的运行逻辑。一般情况下，防止并发冲突或数据不安全的做法是给对象、方法加同步锁 <code>synchronized</code>。但同步锁并不是万能的，例如同步锁会降低批量处理的效率，或者当业务需要保证数据的隔离性，使用同步锁则需要在方法内频繁销毁、重建对象，如果数据使用独立的处理模块，还会破坏模块化，提高耦合。为此，JDK 1.2 增加了一个工具类：即 **<code>ThreadLocal</code>**。</p>
+<h1 id="1-认识ThreadLocal"><a href="#1-认识ThreadLocal" class="headerlink" title="1. 认识ThreadLocal"></a>1. 认识ThreadLocal</h1><p>ThreadLocal 是 Java 中一种很重要的机制 / 数据处理方式，尤其在并发中，数据是否共有、唯一，会直接影响项目的运行逻辑。一般情况下，防止并发冲突或数据不安全的做法是给对象、方法加同步锁 <code>synchronized</code>。但同步锁并不是万能的，例如同步锁会降低批量处理的效率，或者当业务需要保证数据的隔离性，使用同步锁则需要在方法内频繁销毁、重建对象，如果数据使用独立的处理模块，还会破坏模块化，提高耦合。为此，JDK 1.2 增加了一个工具类：即 <strong><code>ThreadLocal</code></strong>。</p>
 <hr>
 <h1 id="2-不使用ThreadLocal的问题"><a href="#2-不使用ThreadLocal的问题" class="headerlink" title="2. 不使用ThreadLocal的问题"></a>2. 不使用ThreadLocal的问题</h1><p>为了更好地理解 ThreadLocal 的设计理念，首先考虑以下两个更普遍一些的场景：</p>
 <ul>
@@ -560,8 +560,8 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
               <a href="/tags/%E6%BA%90%E7%A0%81/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
               <a href="/tags/ThreadLocal/" rel="tag"><i class="fa fa-tag"></i> ThreadLocal</a>
           </div>
 
@@ -638,7 +638,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

@@ -122,7 +122,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -138,8 +138,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -226,13 +226,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -450,7 +450,7 @@
 </ol>
 <hr>
 <h1 id="3-过程中的坑"><a href="#3-过程中的坑" class="headerlink" title="3. 过程中的坑"></a>3. 过程中的坑</h1><p>以下每个小节都是一个记录的坑，为了文章更有逻辑，有些坑我合并成了一节来写。</p>
-<h2 id="3-1-多线程和多进程问题"><a href="#3-1-多线程和多进程问题" class="headerlink" title="3.1 多线程和多进程问题"></a>3.1 多线程和多进程问题</h2><p>最早第一次改进时，我仅仅只是用多线程式：multithreading 模块，在一个小型计算 Demo 上尝试过，表面上来看似乎确实是并行处理，所以我想当然地认为多线程可以解决多核 CPU 利用率的问题，因此我写出了第一个版本的改进代码后，欣喜若狂，然而上数据一测编码时间几乎没有什么缩减，后来再看监视器，发现 CPU 利用率依然还处在单核上，这个结果一度让我差点放弃，好在研究了一下 multiprocessing 的内容，由此进而了解到了 multiprocessing 模块，这两者非常类似，调用方式也几乎一样，最大的区别就是：①multithreading 本质是 threading 线程、②multiprocessing 本质是 processing 进程。<br>进程和线程的关系想必大家都知道，一个进程可以包括多个线程，而<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%BF%9B%E7%A8%8B/382503?fr=aladdin" title="@LINK">进程</a>是 CPU 资源分配和调度的基本单位，因此从通俗的话来讲，是进程向 CPU 申请资源，然后再提供给线程使用，对于常见的 CPU 而言，通常一个物理核心就对应了一个（支持超线程的 CPU 则对应多个，但 CPU 的线程和应用的线程不是一回事） <strong>可并行处理的</strong> 进程，因此想要发挥出 <strong>多核</strong> 的优势，就要调用 __多进程__。还好，正如上文所说，multiprocessing 和 multithreading 的 API 还是基本类似的，因此下文的坑将直接按照多进程的实现模式举例。</p>
+<h2 id="3-1-多线程和多进程问题"><a href="#3-1-多线程和多进程问题" class="headerlink" title="3.1 多线程和多进程问题"></a>3.1 多线程和多进程问题</h2><p>最早第一次改进时，我仅仅只是用多线程式：multithreading 模块，在一个小型计算 Demo 上尝试过，表面上来看似乎确实是并行处理，所以我想当然地认为多线程可以解决多核 CPU 利用率的问题，因此我写出了第一个版本的改进代码后，欣喜若狂，然而上数据一测编码时间几乎没有什么缩减，后来再看监视器，发现 CPU 利用率依然还处在单核上，这个结果一度让我差点放弃，好在研究了一下 multiprocessing 的内容，由此进而了解到了 multiprocessing 模块，这两者非常类似，调用方式也几乎一样，最大的区别就是：①multithreading 本质是 threading 线程、②multiprocessing 本质是 processing 进程。<br>进程和线程的关系想必大家都知道，一个进程可以包括多个线程，而<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/进程/382503?fr=aladdin" title="@LINK">进程</a>是 CPU 资源分配和调度的基本单位，因此从通俗的话来讲，是进程向 CPU 申请资源，然后再提供给线程使用，对于常见的 CPU 而言，通常一个物理核心就对应了一个（支持超线程的 CPU 则对应多个，但 CPU 的线程和应用的线程不是一回事） <strong>可并行处理的</strong> 进程，因此想要发挥出 <strong>多核</strong> 的优势，就要调用 <strong>多进程</strong>。还好，正如上文所说，multiprocessing 和 multithreading 的 API 还是基本类似的，因此下文的坑将直接按照多进程的实现模式举例。</p>
 <h2 id="3-2-并行顺序读取数据问题"><a href="#3-2-并行顺序读取数据问题" class="headerlink" title="3.2 并行顺序读取数据问题"></a>3.2 并行顺序读取数据问题</h2><p>首先，Python 中多进程有两种常用方式，第一个是生成多个进程并分别执行，第二个是利用进程池的方式，在很多时候进程池其实是更好的方案，因为进程池可以不必手动管理每个进程的周期，也不用手动安排进程的工作流程，只需要指定最大进程数即可，而且还支持异步获取每个进程执行完后的返回值，<font color=#EB6D39>但是！</font>进程池方式比手动方式稍慢一些，由于追求速度，因此最终采取手动管理方式。<br>现在假设我们开启 4 个进程同时执行一个任务，代码应该大致如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">work</span>():</span></span><br><span class="line">    get_data() <span class="comment"># 每个线程都从整体数据中获取第 index 部分的数据</span></span><br><span class="line"></span><br><span class="line">process_list = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">    process.append(multiprocessing.Process(target=work, args=()))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> process_list:</span><br><span class="line">    p.start()</span><br><span class="line">    p.join()</span><br></pre></td></tr></table></figure>
 
@@ -742,7 +742,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

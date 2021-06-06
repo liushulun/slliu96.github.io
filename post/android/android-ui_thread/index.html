@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -134,8 +134,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -222,13 +222,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -449,9 +449,12 @@
 
 <p>看源码注释就能明白，当一个 Activity 销毁时，会在其 ActivityVlientRecord 中把自己的 Window 保存到 mPendingRemoveWindow 中，然后移除 Window 中所有 View，直到新的 Activity 的 Window 被添加为止，但是在通过 <code>startActivityNow(...)</code> 启动 Activity 时，ActivityClientRecord 都是 <code>new</code> 出来的，调用到 <code>performLaunchActivity(...)</code> 时，<code>r.mPendingRemoveWindow</code> 肯定是 <code>null</code>，那什么场景会用到这个 <code>mPendingRemoveWindow</code> 呢？查找 <code>performLaunchActivity(...)</code> 的调用发现：</p>
 <ul>
-<li>在 <code>handleRelaunchActivityInner(...)</code> 中，先调用了 <code>handleDestroyActivity(...)</code>，这一步就把当前 Activity 的 Window 存进了 <code>mPendingRemoveWindow</code></li>
-<li>接下来调用了 <code>handleLaunchActivity(...)</code></li>
-<li>然后在其内部调用了 <code>performLaunchActivity(...)</code></li>
+<li><p>在 <code>handleRelaunchActivityInner(...)</code> 中，先调用了 <code>handleDestroyActivity(...)</code>，这一步就把当前 Activity 的 Window 存进了 <code>mPendingRemoveWindow</code></p>
+</li>
+<li><p>接下来调用了 <code>handleLaunchActivity(...)</code></p>
+</li>
+<li><p>然后在其内部调用了 <code>performLaunchActivity(...)</code></p>
+</li>
 </ul>
 <p>这下明白了，当一个 Activity 被系统回收等等场景销毁时，有可能接下来又会回到这个 Activity，这种情况下就可以先把 Window 缓存下来，当自己这个 Activity 再次被激活时，就可以直接复用 Activity 上一次的 Window 而不需要从新分配。当然，由于 <code>r.window.clearContentView();</code>，Window 中的 View 被清空了，所以还是需要重新走一遍视图加载。这样做的好处也许是在效率和内存消耗中的一种折中，或许是因为 View 会占用很大内存，所以需要回收 View，但 Window 本身占用较少，每次都回收再让系统重新分配可能比缓存占用的内存更多、或者可能带来更大的内存抖动风险，所以选择临时缓存。</p>
 <p>从上面的分析知道，而当一个 Activity 被新启动时，<code>performLaunchActivity(...)</code> 传入的 <code>ActivityClientRecord.mPendingRemoveWindow</code> 肯定是 <code>null</code>，跳转到 <code>Activity.attach(...)</code> 中查看：</p>
@@ -490,8 +493,10 @@
 
 <p>注意两个重点：</p>
 <ul>
-<li>如果<code>handleResumeActivity(...)</code> 是因为 startActivityNow 触发的，则ActivityClientRecord 中的 Window 是在 <code>Activity.attach(...)</code> 才 <code>new</code> 出来的，所以并没有缓存下来的 DecorView，因此 <code>View decor = r.window.getDecorView();</code> 这一步会走到 <code>new</code> 一个 DecorView 的逻辑，所以此时这个 DecorView 也还没有 ViewRootImpl，或者说 Activity 还没有 ViewRootImpl。</li>
-<li>而如果 <code>handleResumeActivity(...)</code> 是由于 relaunch 触发的，则会在 relaunch 时将 <code>r.mPreserveWindow</code> 置为 true，表示 Window 和 DecorView 会缓存下来复用，则 Activity 其实已经拥有了 Window、DecorView、以及 ViewRootImpl 了。</li>
+<li><p>如果<code>handleResumeActivity(...)</code> 是因为 startActivityNow 触发的，则ActivityClientRecord 中的 Window 是在 <code>Activity.attach(...)</code> 才 <code>new</code> 出来的，所以并没有缓存下来的 DecorView，因此 <code>View decor = r.window.getDecorView();</code> 这一步会走到 <code>new</code> 一个 DecorView 的逻辑，所以此时这个 DecorView 也还没有 ViewRootImpl，或者说 Activity 还没有 ViewRootImpl。</p>
+</li>
+<li><p>而如果 <code>handleResumeActivity(...)</code> 是由于 relaunch 触发的，则会在 relaunch 时将 <code>r.mPreserveWindow</code> 置为 true，表示 Window 和 DecorView 会缓存下来复用，则 Activity 其实已经拥有了 Window、DecorView、以及 ViewRootImpl 了。</p>
+</li>
 </ul>
 <p>接下来再通过 <code>wm.addView(decor, l)</code> 把新建的 DecorView 按照其窗口属性 <code>WindowManager.LayoutParams</code> 添加到目标 Activity 的 WindowManager 中，这个 WindwoManager 的实现类是 WindowManagerImpl，找到 <code>addView(...)</code> 的实现方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerImpl</span> <span class="keyword">implements</span> <span class="title">WindowManager</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WindowManagerGlobal mGlobal = WindowManagerGlobal.getInstance();</span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">    <span class="comment">// handleResumeActivity(...) 中，调用该方法传入的 View 实际上就是 DecorView</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(<span class="meta">@NonNull</span> View view, <span class="meta">@NonNull</span> ViewGroup.LayoutParams params)</span> </span>&#123;</span><br><span class="line">        applyDefaultToken(params);</span><br><span class="line">        <span class="comment">// 这个 mGlobal 是 WindowManagerGlobal 实例对象</span></span><br><span class="line">        mGlobal.addView(view, params, mContext.getDisplay(), mParentWindow);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对应 mGlobal.addView(...) 的源码</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerGlobal</span> </span>&#123;</span><br><span class="line">    <span class="comment">//  这里传入的 View 实际上是 DecorView</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(View view, ViewGroup.LayoutParams params, Display display, Window parentWindow)</span> </span>&#123;</span><br><span class="line">        ......</span><br><span class="line">        ViewRootImpl root;</span><br><span class="line">        ......</span><br><span class="line">        <span class="keyword">synchronized</span> (mLock) &#123;</span><br><span class="line">            ......</span><br><span class="line">            <span class="comment">// 目标 Activity 的 ViewRootImpl 就是在这里初始化的！</span></span><br><span class="line">            root = <span class="keyword">new</span> ViewRootImpl(view.getContext(), display);</span><br><span class="line">            ......</span><br><span class="line">            <span class="comment">// mRoots 是一个 ArrayList&lt;ViewRootImpl&gt; 类型的集合</span></span><br><span class="line">            mRoots.add(root);</span><br><span class="line">            mParams.add(wparams);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// do this last because it fires off messages to start doing things</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 加载 DecorView</span></span><br><span class="line">                root.setView(view, wparams, panelParentView);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (RuntimeException e) &#123;</span><br><span class="line">                。。。。。。</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -932,7 +937,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

@@ -122,7 +122,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -138,8 +138,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -226,13 +226,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -423,24 +423,27 @@
 <hr>
 <h1 id="2-搜索无法使用"><a href="#2-搜索无法使用" class="headerlink" title="2. 搜索无法使用"></a>2. 搜索无法使用</h1><p>在使用搜索功能时，有时可能会遇到：点击搜索后，一直处于加载中的状态，无法正确显示搜索框。其原因可能是以下几点之一导致的：</p>
 <ol>
-<li>如果你是最近才开始建立的这个博客，但在网上查看别人介绍的关于如何开启搜索的文章时间又比较久远，那么可能你照着创建好了以后是搜不到结果的。如果按照之前版本的做法，即使完全照做，建立好本地搜索后，直接从网址进入博客搜索内容载体：<code>xxx.github.io/search.xml</code> 还是会出现 404 页面不存在的情况。</li>
+<li><p>如果你是最近才开始建立的这个博客，但在网上查看别人介绍的关于如何开启搜索的文章时间又比较久远，那么可能你照着创建好了以后是搜不到结果的。如果按照之前版本的做法，即使完全照做，建立好本地搜索后，直接从网址进入博客搜索内容载体：<code>xxx.github.io/search.xml</code> 还是会出现 404 页面不存在的情况。</p>
+<p>按照当时的版本，网上的文章可能会告诉你这代表你的搜索模块没有装成功，让你完全去掉搜索后重新安装再试，不过这个现象很可能是因为以前版本的本地搜索，搜索内容存放载体是 <code>search.xml</code>，而现在的存放载体已经变成了 <code>search.json</code>，可以在站点配置文件内查看到：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The following content is not recommended to modify</span></span><br><span class="line"><span class="comment"># 搜索数据文件路径设置，不建议改动：</span></span><br><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.json</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br></pre></td></tr></table></figure>
+
+<p>同样，你也可以在 Hexo 命令三连之后，在博客根目录下的 public 文件夹内找到这个文件：search.json</p>
+</li>
+<li><p>如果上面的没有做错，还是出现了无法搜索的情况，那就有可能是因为特殊字符的原因了，对于这个特殊字符：<code>\u8</code>，会导致本地搜索无法正确读取并编码，如何确定这种问题？就是直接在你的博客首页网址后面接上 <code>/search.json</code> 跳转到搜索载体，如果页面上显示的是很多文字，那就说明你的文章内没有特殊字符：</p>
+<center>
+
+<p><img data-src="./search_json_normal.png" alt="正常的 search.json 样式" title="@ASSET"></p>
+</center>
+
+<p>否则会出现报错，由于我无法重现，因此从 <a target="_blank" rel="noopener" href="https://www.sqlsec.com/2017/12/hexosearch.html" title="@LINK">这篇文章（作者：国光）</a>内找了一个图片：</p>
+<center>
+
+<p><img data-src="./search_json_error.png" alt="有特殊字符的 search.json 样式" title="@ASSET"></p>
+</center>
+
+<p>Sublime Text3 和 VS Code 都可以看到这个字符，因此可以使用这两个编辑器查看并删除字符。</p>
+</li>
 </ol>
-<p>  按照当时的版本，网上的文章可能会告诉你这代表你的搜索模块没有装成功，让你完全去掉搜索后重新安装再试，不过这个现象很可能是因为以前版本的本地搜索，搜索内容存放载体是 <code>search.xml</code>，而现在的存放载体已经变成了 <code>search.json</code>，可以在站点配置文件内查看到：</p>
-  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The following content is not recommended to modify</span></span><br><span class="line"><span class="comment"># 搜索数据文件路径设置，不建议改动：</span></span><br><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.json</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br></pre></td></tr></table></figure>
-
-<p>  同样，你也可以在 Hexo 命令三连之后，在博客根目录下的 public 文件夹内找到这个文件：search.json<br>  3. 如果上面的没有做错，还是出现了无法搜索的情况，那就有可能是因为特殊字符的原因了，对于这个特殊字符：<code>\u8</code>，会导致本地搜索无法正确读取并编码，如何确定这种问题？就是直接在你的博客首页网址后面接上 <code>/search.json</code> 跳转到搜索载体，如果页面上显示的是很多文字，那就说明你的文章内没有特殊字符：</p>
-  <center>
-
-<p>  <img data-src="./search_json_normal.png" alt="正常的 search.json 样式" title="@ASSET"></p>
-  </center>
-
-<p>  否则会出现报错，由于我无法重现，因此从 <a target="_blank" rel="noopener" href="https://www.sqlsec.com/2017/12/hexosearch.html" title="@LINK">这篇文章（作者：国光）</a>内找了一个图片：</p>
-  <center>
-
-<p>  <img data-src="./search_json_error.png" alt="有特殊字符的 search.json 样式" title="@ASSET"></p>
-  </center>
-
-<p>  Sublime Text3 和 VS Code 都可以看到这个字符，因此可以使用这两个编辑器查看并删除字符。</p>
 <hr>
 <h1 id="3-搜索没有结果"><a href="#3-搜索没有结果" class="headerlink" title="3. 搜索没有结果"></a>3. 搜索没有结果</h1><p>还有一种情况，就是已经开启搜索功能，直接进入搜索内容文件 <code>xxx.github.io/search.json</code> 也能打开并且没有异常，搜索框可以正确弹出，但是无论你搜索什么内容，下面的搜索结果栏都是空白的：</p>
 <center>
@@ -663,7 +666,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

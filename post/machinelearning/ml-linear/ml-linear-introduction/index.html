@@ -135,7 +135,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -151,8 +151,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -239,13 +239,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -433,7 +433,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-什么是回归"><a href="#1-什么是回归" class="headerlink" title="1. 什么是回归"></a>1. 什么是回归</h1><p>假设有一数据集 $D = { X_i, y_i }^N_{i = 1}$，其中 N 为训练样本数目，i 为样本索引，$X_i$ 为第 i 个样本的输入特征，$y_i$ 为第 i 个样本的输出/响应，那么：</p>
+<h1 id="1-什么是回归"><a href="#1-什么是回归" class="headerlink" title="1. 什么是回归"></a>1. 什么是回归</h1><p>假设有一数据集 $D = \{ X_i, y_i \}^N_{i = 1}$，其中 N 为训练样本数目，i 为样本索引，$X_i$ 为第 i 个样本的输入特征，$y_i$ 为第 i 个样本的输出/响应，那么：</p>
 <p><strong>根据训练样本 D，学习一个从输入 $X$ 到输出 $y$ 的映射 $f$，使得 $y_i = f(X_i)$，<font color=EB6D39>且 $y_i \in R$</font>，这就是回归任务。</strong></p>
 <blockquote>
 <p>@注：没有特殊说明的情况下，$W$、$X$、$y$ 等均为矩阵（一维矩阵有时作为向量使用）形式，在强调向量性质时使用 $\vec{X}$、$\vec{W}$、$\vec{y}$ 表示。</p>
@@ -442,7 +442,7 @@
 <p>当学习到回归任务的映射 f 后，即可对新的输入数据 $X$ 预测其输出 $\hat{y} = f(X)$。</p>
 <hr>
 <h1 id="2-什么是线性回归"><a href="#2-什么是线性回归" class="headerlink" title="2. 什么是线性回归"></a>2. 什么是线性回归</h1><p>线性回归是最简单的回归模型之一：即从输入 $X$ 到输出 $y$ 的映射 $f$ 为线性关系：</p>
-<p>$<br>\begin{aligned}<br>y &amp;= f(X) = W^T X<br>\ &amp;= [w_0, w_1, …, w_D] \begin{bmatrix} 1 \ x_1 \ … \ x_D \end{bmatrix} = w_0 + \sum^D_{j = 1} w_j x_j<br>\end{aligned}<br>$</p>
+<p>$<br>\begin{aligned}<br>y &amp;= f(X) = W^T X<br>\\ &amp;= [w_0, w_1, …, w_D] \begin{bmatrix} 1 \\ x_1 \\ … \\ x_D \end{bmatrix} = w_0 + \sum^D_{j = 1} w_j x_j<br>\end{aligned}<br>$</p>
 <p>$X = (1, x_1, …, x_D)^T$</p>
 <p>其中，$w_0$ 为截距项/偏置（bias），$w_j$ 为第 j 维特征的权重/回归系数，$x_j$ 为第 j 维特征，D 为特征维数，j 为特征索引，$X$ 为特征向量。</p>
 <p>$X$ 在 D 维特征的基础上，再增加一个常数项1，与 $w_0$ 相乘作为截距项，是为了表达式更简洁。也即，$b（bias）= w_0$。</p>
@@ -508,7 +508,7 @@
 <h3 id="3-2-1-L2损失"><a href="#3-2-1-L2损失" class="headerlink" title="3.2.1 L2损失"></a>3.2.1 L2损失</h3><p>在前面的例中，当损失函数采用 RSS 时，损失函数为二次函数，范数为 2，因此也称为 L2 损失（差的平方即为距离的 L2 模长），表达式为：</p>
 <p>$$<br>L(y, \hat{y}) = (y - \hat{y})^2 = r^2<br>$$</p>
 <p>此时目标函数即为：</p>
-<p>$$<br>J(W) = \sum^N_{i = 1} L(y_i, \hat{y}<em>i) = \sum^N</em>{i = 1} r^2_i<br>$$</p>
+<p>$$<br>J(W) = \sum^N_{i = 1} L(y_i, \hat{y}_i) = \sum^N_{i = 1} r^2_i<br>$$</p>
 <p>L2 损失是二次函数，因此最大的优点就是：处处可导，优化计算方便。但缺点也很明显：对噪声敏感。若数据中某点的预测残差 r 特别大（下图红点），经过平方放大后 $ r^2 $ 会更大，则会在模型中占主导作用，由于模型的训练目标是使得目标函数最小，在 L2 损失的模型中，也即使得 RSS 最小，因此会导致模型向该噪声点偏移（变为下图橙线）：</p>
 <center>
 
@@ -521,7 +521,7 @@
 <h3 id="3-2-2-L1损失"><a href="#3-2-2-L1损失" class="headerlink" title="3.2.2 L1损失"></a>3.2.2 L1损失</h3><p>为了减弱噪声点对模型的影响，同时保留损失函数“避免抵消正负”的特性，除了采用平方之外，还可以采用绝对值。当损失函数采用绝对值计量预测误差总和时，损失函数为绝对值函数，范数为 1，因此也称为 L1 损失（差的绝对值即为距离的 L1 模长），表达式为：</p>
 <p>$$<br>L(y, \hat{y}) = |y - \hat{y}| = |r|<br>$$</p>
 <p>此时目标函数即为：</p>
-<p>$$<br>J(W) = \sum^N_{i = 1} L(y_i, \hat{y}<em>i) = \sum^N</em>{i = 1} |r|_i<br>$$</p>
+<p>$$<br>J(W) = \sum^N_{i = 1} L(y_i, \hat{y}_i) = \sum^N_{i = 1} |r|_i<br>$$</p>
 <p>L1 函数是绝对值函数，因此最大的有点是：对噪声不敏感：</p>
 <center>
 
@@ -530,9 +530,9 @@
 
 <p>但缺点同样明显：在零点处左右导数不相等，因此不可导，不便于优化计算。</p>
 <h3 id="3-2-3-Huber损失"><a href="#3-2-3-Huber损失" class="headerlink" title="3.2.3 Huber损失"></a>3.2.3 Huber损失</h3><p>为了结合 L2 和 L1 损失的优点，同时规避二者的缺点，可以考虑选择一个新的损失函数：其在靠近零点处表达式为 L2 损失，具有“可导”的优点，在远离零点处表达式为 L1 损失，具有“抗噪声”的优点，得到如下表达式：</p>
-<p>$$<br>L_{\delta} (r) = \left {<br>\begin{aligned}<br>&amp; \frac {1} {2} r^2 &amp;&amp; {|r| \le \delta}<br>\<br>\delta |r| &amp; - \frac {1} {2} \delta^2 &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$<br>L_{\delta} (r) = \left \{<br>\begin{aligned}<br>&amp; \frac {1} {2} r^2 &amp;&amp; {|r| \le \delta}<br>\\<br>\delta |r| &amp; - \frac {1} {2} \delta^2 &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$$</p>
 <p>或代入预测残差：</p>
-<p>$$<br>L_{\delta} (r) = \left {<br>\begin{aligned}<br>&amp; \frac {1} {2} (y - \hat{y})^2 &amp;&amp; {|r| \le \delta}<br>\<br>\delta |y &amp; - \hat{y}| - \frac {1} {2} \delta^2 &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$$</p>
+<p>$$<br>L_{\delta} (r) = \left \{<br>\begin{aligned}<br>&amp; \frac {1} {2} (y - \hat{y})^2 &amp;&amp; {|r| \le \delta}<br>\\<br>\delta |y &amp; - \hat{y}| - \frac {1} {2} \delta^2 &amp;&amp; {Otherwise}<br>\end{aligned}<br>\right.<br>$$</p>
 <p>Huber 损失的图像如下：</p>
 <center>
 
@@ -580,11 +580,11 @@
 <li><p>过拟合（Overfitting）：过于复杂的模型与训练数据拟合的太好，导致推广性和扩展性较差，因此和测试数据拟合的较差。</p>
 </li>
 <li><p>欠拟合（Underfitting）：过于简单的模型与训练数据尚且拟合的较差，更加不足以拟合测试数据。</p>
-</li>
-</ul>
 <blockquote>
 <p>@注：线性回归采用的线性模型比较简单，因此当特征维数不太高时，线性回归的过拟合现象通常不太严重。</p>
 </blockquote>
+</li>
+</ul>
 <h2 id="5-1-sin-函数曲线实例"><a href="#5-1-sin-函数曲线实例" class="headerlink" title="5.1 $\sin$函数曲线实例"></a>5.1 $\sin$函数曲线实例</h2><p>假设数据产生模型为：$y = \sin (2 \pi x) + \varepsilon$，其中 $\sin$ 函数如下：</p>
 <center>
 
@@ -650,7 +650,7 @@
 
 <p>常用的正则项如下：</p>
 <p>① L2 正则（L2 范数：平方距离）：$R(W) = ||W||^2_2 = \sum^D_{j = 1} w^2_j$</p>
-<p>② L1 正则（L1 范数：绝对值距离）：$R(W) = ||W||<em>1 = \sum^D</em>{j = 1} |w_j|$</p>
+<p>② L1 正则（L1 范数：绝对值距离）：$R(W) = ||W||_1 = \sum^D_{j = 1} |w_j|$</p>
 <p>其中 $W$ 为模型参数，D 为参数的维数。<font color=EB6D39>这里需要注意，正则项求和中，只对 $1 \sim D$ 求和，也即不惩罚截距项（Bias）$b = w_0$，因此在实际任务中，通常需要先对数据作中心化处理，去掉截距项的影响。</font></p>
 <p>还有一种 L0 正则（L0 范数：向量中非零元素数目）：$R(W) = ||W||_0$，但因为 L0 正则是 NP 问题，优化计算不方便，且 L1 范数是 L0 范数的最优凸近似，更方便优化计算，因此常用 L1 正则去近似 L0 正则。</p>
 <p>L1 / L0 正则可以得到稀疏解，因此可以起到特征选择的作用，这是因为当确定某个系数 $w_j = 0$ 时，对应的特征 $x_j$ 是无用的，在某些场景（如医学等）下，下一次采样可考虑去掉该特征。</p>
@@ -665,7 +665,7 @@
 <p>其中 R 为 Risk，表示 $W$ 复杂度的风险，新的目标函数也称为 <strong>结构风险</strong>。正则项的加入使目标函数符合奥拉姆剃刀（Occam’s Razor）原理：简单有效，选择能解释数据的模型中最简单的一个。</p>
 <p>常用的正则项有：L2 正则、L1 正则。</p>
 <p>（1）L2 正则：$R(W) = ||W||^2_2 = \sum^D_{j = 1} w^2_j$</p>
-<p>（2）L1 正则：$R(W) = ||W||<em>1 = \sum^D</em>{j = 1} |w_j|$</p>
+<p>（2）L1 正则：$R(W) = ||W||_1 = \sum^D_{j = 1} |w_j|$</p>
 <p>其中 $W$ 为模型参数，D 为参数的维数。</p>
 <h2 id="6-1-岭回归"><a href="#6-1-岭回归" class="headerlink" title="6.1 岭回归"></a>6.1 岭回归</h2><p>岭回归（Ridge）：L2 损失 + L2 正则 + LinearRegression。</p>
 <p>岭回归正则项对截距项不施加惩罚，也即：</p>
@@ -673,7 +673,7 @@
 <p>线性模型中增加常数项 $x_0 = 1$ 用于表示截距项：</p>
 <p>$$<br>f(X; W) = W^T X = \sum^D_{j = 0} w_j x_j，（j 从 0 开始）<br>$$</p>
 <p>当 j = 0 时，$x_0 = 1 \rightarrow w_0 x_0 = w_0$ 作为截距项。因此而得岭回归目标函数（目标函数的损失和部分不惩罚截距项，所以目标函数不需要从 0 开始）：</p>
-<p>$$<br>\begin{aligned}<br>J(W; \lambda) &amp;= \sum^N_{i = 1} L \left( y_i, f(X_i; W) \right) + \lambda R(W)<br>\ &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} w^2_j<br>\ &amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>J(W; \lambda) &amp;= \sum^N_{i = 1} L \left( y_i, f(X_i; W) \right) + \lambda R(W)<br>\\ &amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} w^2_j<br>\\ &amp;= ||y - X W||^2_2 + \lambda ||W||^2_2<br>\end{aligned}<br>$$</p>
 <p>Scikit-Learn 中的岭回归：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.Ridge</span></span><br><span class="line">Ridge(alpha=<span class="number">1.0</span>,</span><br><span class="line">      fit_intercept=<span class="literal">True</span>,</span><br><span class="line">      normalize=<span class="literal">False</span>,</span><br><span class="line">      copy_X=<span class="literal">True</span>,</span><br><span class="line">      max_iter=<span class="literal">None</span>,</span><br><span class="line">      tol=<span class="number">0.001</span>,</span><br><span class="line">      solver=<span class="string">&#x27;auto&#x27;</span>,</span><br><span class="line">      random_state=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
 
@@ -692,7 +692,7 @@
 <li>Selection：L1 正则可能使得 $W$ 中某些元素变为 0 得到稀疏解，从而起到特征选择的作用。</li>
 </ul>
 <p>Lasso 的目标函数为：</p>
-<p>$$<br>\begin{aligned}<br>J(W; \lambda) &amp;= \sum^N_{i = 1} L \left( y_i, f(X_i; W) \right) + \lambda R(W)<br>\<br>&amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} |w_j|<br>\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||_1<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>J(W; \lambda) &amp;= \sum^N_{i = 1} L \left( y_i, f(X_i; W) \right) + \lambda R(W)<br>\\<br>&amp;= \sum^N_{i = 1} (y_i - W^T X_i)^2 + \lambda \sum^D_{j = 1} |w_j|<br>\\<br>&amp;= ||y - X W||^2_2 + \lambda ||W||_1<br>\end{aligned}<br>$$</p>
 <p>Scikit-Learn 中的 Lasso：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.linear_model.Lasso</span></span><br><span class="line">Lasso(alpha=<span class="number">1.0</span>,</span><br><span class="line">      fit_intercept=<span class="literal">True</span>,</span><br><span class="line">      normalize=<span class="literal">False</span>,</span><br><span class="line">      precompute=<span class="literal">False</span>,</span><br><span class="line">      copy_X=<span class="literal">True</span>,</span><br><span class="line">      max_iter=<span class="literal">None</span>,</span><br><span class="line">      tol=<span class="number">0.001</span>,</span><br><span class="line">      warm_start=<span class="literal">False</span>,</span><br><span class="line">      random_state=<span class="literal">None</span>,</span><br><span class="line">      selection=<span class="string">&#x27;cyclic&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
@@ -936,7 +936,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 

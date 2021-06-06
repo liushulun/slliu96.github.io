@@ -126,7 +126,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1125</p>
+      <p class="site-subtitle" itemprop="description">V 1130</p>
   </div>
 
   <div class="site-nav-right">
@@ -142,8 +142,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">62</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">85</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -230,13 +230,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">Categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -455,7 +455,7 @@
 <p>点击OK，就会创建 <code>HelloC.c</code> 和 <code>HelloC.h</code> 并自动将头文件导入到C文件中。函数很简单，直接返回一个String： <code>&quot;Hello from C&quot;</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;HelloC.h&quot;</span><br><span class="line">#include &lt;jni.h&gt;</span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT jstring JNICALL <span class="title">Java_com_demo_ndktest_MainActivity_helloFromC</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        JNIEnv *env,</span></span></span><br><span class="line"><span class="function"><span class="params">        jobject obj <span class="comment">/* this */</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (*env)-&gt;NewStringUTF(env, <span class="string">&quot;Hello from C&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这里要说明一点，代码中 <code>Java_com_demo_ndktest_MainActivity_helloFromC</code> 可以看成是一个方法名，但是这个方法名有严格的命名限制，先进行分解：首先命名必须以 <code>Java_</code> 开头，后面紧跟着的 <code>com_demo</code> 是项目的包名， <code>ndktest</code> 是项目名， <code>MainActivity</code> 是调用这个JNI方法的类名，最后 <code>helloFromC</code> 才是这个JNI方法的方法名。如果把 <code>com_demo_ndktest_MainActivity</code> 连在一起看，其实就是调用这个JNI方法的类的绝对路径，在本例中也即 <code>MainActivity</code> 的绝对路径，只不过把包的层级表示从点“**.<strong>”换成了下划线“</strong>_**”。<br>另外， <code>extern &quot;C&quot; </code> 关键字通常在C/C++混合编程中用于 <strong>指定使用C编译方式编译的代码块</strong> ，但是这里本来就是在C文件中写C语言代码，所以没有必要也不允许使用这个关键字了。<br>如果怕出错，可以在我们想要调用这个JNI方法的类的最上方找到绝对路径，再把点都替换成下划线即可：</p>
+<p>这里要说明一点，代码中 <code>Java_com_demo_ndktest_MainActivity_helloFromC</code> 可以看成是一个方法名，但是这个方法名有严格的命名限制，先进行分解：首先命名必须以 <code>Java_</code> 开头，后面紧跟着的 <code>com_demo</code> 是项目的包名， <code>ndktest</code> 是项目名， <code>MainActivity</code> 是调用这个JNI方法的类名，最后 <code>helloFromC</code> 才是这个JNI方法的方法名。如果把 <code>com_demo_ndktest_MainActivity</code> 连在一起看，其实就是调用这个JNI方法的类的绝对路径，在本例中也即 <code>MainActivity</code> 的绝对路径，只不过把包的层级表示从点“<strong>.</strong>”换成了下划线“<strong>_</strong>”。<br>另外， <code>extern &quot;C&quot;</code> 关键字通常在C/C++混合编程中用于 <strong>指定使用C编译方式编译的代码块</strong> ，但是这里本来就是在C文件中写C语言代码，所以没有必要也不允许使用这个关键字了。<br>如果怕出错，可以在我们想要调用这个JNI方法的类的最上方找到绝对路径，再把点都替换成下划线即可：</p>
 <center>
 
 <p><img data-src="./set_package_name.png" alt="设置包名" title="@ASSET"></p>
@@ -749,7 +749,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:25</span>
+    <span title="Site Read Time">6:26</span>
   </span>
 </div>
 
