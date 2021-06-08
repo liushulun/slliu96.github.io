@@ -120,7 +120,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -201,7 +201,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%B5%AE%E5%8A%A8%E4%BE%A7%E6%A0%8F%E4%B8%AA%E4%BA%BA%E9%93%BE%E6%8E%A5%E5%B1%85%E4%B8%AD"><span class="nav-text">1. 浮动侧栏个人链接居中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E6%A0%87%E7%AD%BE%E9%A1%B5%E8%AF%8D%E4%BA%91%E6%A0%B7%E5%BC%8F"><span class="nav-text">2. 修改标签页词云样式</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2DIY%EF%BC%889%EF%BC%89%E4%BE%A7%E6%A0%8F%E4%B8%AA%E4%BA%BA%E9%93%BE%E6%8E%A5%E5%B1%85%E4%B8%AD"><span class="nav-text">Hexo博客DIY（9）侧栏个人链接居中</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%B5%AE%E5%8A%A8%E4%BE%A7%E6%A0%8F%E4%B8%AA%E4%BA%BA%E9%93%BE%E6%8E%A5%E5%B1%85%E4%B8%AD"><span class="nav-text">1. 浮动侧栏个人链接居中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E6%A0%87%E7%AD%BE%E9%A1%B5%E8%AF%8D%E4%BA%91%E6%A0%B7%E5%BC%8F"><span class="nav-text">2. 修改标签页词云样式</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -411,24 +411,16 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-浮动侧栏个人链接居中"><a href="#1-浮动侧栏个人链接居中" class="headerlink" title="1. 浮动侧栏个人链接居中"></a>1. 浮动侧栏个人链接居中</h1><p>默认情况下，侧栏中个人信息的链接是这样的：</p>
-<center>
-
+<h1 id="Hexo博客DIY（9）侧栏个人链接居中"><a href="#Hexo博客DIY（9）侧栏个人链接居中" class="headerlink" title="Hexo博客DIY（9）侧栏个人链接居中"></a>Hexo博客DIY（9）侧栏个人链接居中</h1><h2 id="1-浮动侧栏个人链接居中"><a href="#1-浮动侧栏个人链接居中" class="headerlink" title="1. 浮动侧栏个人链接居中"></a>1. 浮动侧栏个人链接居中</h2><p>默认情况下，侧栏中个人信息的链接是这样的：</p>
 <p><img data-src="./sidebar_author_links_default.png" alt="默认背景" title="@ASSET"></p>
-</center>
-
 <p>上下都是中心对称，偏偏只有个人链接这块是左对齐的，强迫症简直不能忍啊！这里的链接其实是每行两个，倒是可以直接设置为居中显示，不过因为每个链接的长度都不一样，如果直接设置居中会导致每行的图标的位置很可能是错开的。所以其实我想要的 <strong>居中</strong> 只是把现在这样整体往右移一点，这块对应的样式文件在：<code>next/source/css/_common/components/sidebar/sidebar-author-links.styl</code>，可以这么修改：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">.links-<span class="keyword">of</span>-author &#123;</span><br><span class="line">  margin-top: 20px;</span><br><span class="line"></span><br><span class="line">  a, span.exturl &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除下面的两行：</span></span><br><span class="line">    <span class="comment">// margin-right: 10px;</span></span><br><span class="line">    <span class="comment">// margin-bottom: 10px;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 插入下面两行：</span></span><br><span class="line">    position: relative;</span><br><span class="line">    left: <span class="number">18</span>%</span><br><span class="line"></span><br><span class="line">    border-bottom-color: $black-light;</span><br><span class="line">    font-size: 13px;</span><br><span class="line">    <span class="keyword">if</span> hexo-<span class="function"><span class="title">config</span>(<span class="params"><span class="string">&#x27;social_icons.transition&#x27;</span></span>)</span> &#123; the-transition(); &#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里的 <code>left: 18%</code> 表示左侧位移 18%，这个值只是我自己肉眼看出来的大致值，应当根据自己的链接的长度手动调整。修改后的效果如下：</p>
-<center>
-
 <p><img data-src="./sidebar_author_links_custom.png" alt="默认背景" title="@ASSET"></p>
-</center>
-
 <p>确实是笨方法，不过目前还没找到用什么更好的办法去实现，留着以后有更好的办法时再更新。</p>
 <hr>
-<h1 id="2-修改标签页词云样式"><a href="#2-修改标签页词云样式" class="headerlink" title="2. 修改标签页词云样式"></a>2. 修改标签页词云样式</h1><p>标签词云样式在之前的文章：<a href="/post/BlogDIY/blogdiy-2-extension/blogdiy-2-extension/" title="@LINK">Hexo博客DIY（2）内置的小功能扩展</a>中的第 2 条有介绍，不过那篇主要是介绍如何给词云显示出更丰富的效果。这里小小的记录一下，标签页词云的布局修改，比如不同标签之间的间隔之类的，样式文件在 <code>next/source/css/_common/components/pages/tag-cloud.styl</code>：</p>
+<h2 id="2-修改标签页词云样式"><a href="#2-修改标签页词云样式" class="headerlink" title="2. 修改标签页词云样式"></a>2. 修改标签页词云样式</h2><p>标签词云样式在之前的文章：<a href="/post/BlogDIY/blogdiy-2-extension/blogdiy-2-extension/" title="@LINK">Hexo博客DIY（2）内置的小功能扩展</a>中的第 2 条有介绍，不过那篇主要是介绍如何给词云显示出更丰富的效果。这里小小的记录一下，标签页词云的布局修改，比如不同标签之间的间隔之类的，样式文件在 <code>next/source/css/_common/components/pages/tag-cloud.styl</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.tag-cloud &#123;</span><br><span class="line">  text-align: center;</span><br><span class="line"></span><br><span class="line">  a &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    margin: 10px <span class="number">0</span> 20px 20px;  <span class="comment">// 修改间距</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  a:hover &#123;</span><br><span class="line">    color: $link-hover-color !important;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里的边距顺序是：上、右、下、左，除了边距外，其他样式也可以按照需要自行修改。</p>
@@ -624,14 +616,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -199,7 +199,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E8%AE%A4%E8%AF%86ThreadLocal"><span class="nav-text">1. 认识ThreadLocal</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%B8%8D%E4%BD%BF%E7%94%A8ThreadLocal%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">2. 不使用ThreadLocal的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-ThreadLocal%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="nav-text">3. ThreadLocal如何解决问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-ThreadLocal%E5%92%8C%E5%90%8C%E6%AD%A5%E9%94%81%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-text">4. ThreadLocal和同步锁的比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-ThreadLocal%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-text">5. ThreadLocal源码分析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-ThreadLocal"><span class="nav-text">Java-ThreadLocal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%AE%A4%E8%AF%86ThreadLocal"><span class="nav-text">1. 认识ThreadLocal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%8D%E4%BD%BF%E7%94%A8ThreadLocal%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">2. 不使用ThreadLocal的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-ThreadLocal%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="nav-text">3. ThreadLocal如何解决问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ThreadLocal%E5%92%8C%E5%90%8C%E6%AD%A5%E9%94%81%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-text">4. ThreadLocal和同步锁的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-ThreadLocal%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-text">5. ThreadLocal源码分析</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -410,26 +410,20 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-认识ThreadLocal"><a href="#1-认识ThreadLocal" class="headerlink" title="1. 认识ThreadLocal"></a>1. 认识ThreadLocal</h1><p>ThreadLocal 是 Java 中一种很重要的机制 / 数据处理方式，尤其在并发中，数据是否共有、唯一，会直接影响项目的运行逻辑。一般情况下，防止并发冲突或数据不安全的做法是给对象、方法加同步锁 <code>synchronized</code>。但同步锁并不是万能的，例如同步锁会降低批量处理的效率，或者当业务需要保证数据的隔离性，使用同步锁则需要在方法内频繁销毁、重建对象，如果数据使用独立的处理模块，还会破坏模块化，提高耦合。为此，JDK 1.2 增加了一个工具类：即 <strong><code>ThreadLocal</code></strong>。</p>
+<h1 id="Java-ThreadLocal"><a href="#Java-ThreadLocal" class="headerlink" title="Java-ThreadLocal"></a>Java-ThreadLocal</h1><h2 id="1-认识ThreadLocal"><a href="#1-认识ThreadLocal" class="headerlink" title="1. 认识ThreadLocal"></a>1. 认识ThreadLocal</h2><p>ThreadLocal 是 Java 中一种很重要的机制 / 数据处理方式，尤其在并发中，数据是否共有、唯一，会直接影响项目的运行逻辑。一般情况下，防止并发冲突或数据不安全的做法是给对象、方法加同步锁 <code>synchronized</code>。但同步锁并不是万能的，例如同步锁会降低批量处理的效率，或者当业务需要保证数据的隔离性，使用同步锁则需要在方法内频繁销毁、重建对象，如果数据使用独立的处理模块，还会破坏模块化，提高耦合。为此，JDK 1.2 增加了一个工具类：即 <strong><code>ThreadLocal</code></strong>。</p>
 <hr>
-<h1 id="2-不使用ThreadLocal的问题"><a href="#2-不使用ThreadLocal的问题" class="headerlink" title="2. 不使用ThreadLocal的问题"></a>2. 不使用ThreadLocal的问题</h1><p>为了更好地理解 ThreadLocal 的设计理念，首先考虑以下两个更普遍一些的场景：</p>
-<ul>
-<li><ol>
+<h2 id="2-不使用ThreadLocal的问题"><a href="#2-不使用ThreadLocal的问题" class="headerlink" title="2. 不使用ThreadLocal的问题"></a>2. 不使用ThreadLocal的问题</h2><p>为了更好地理解 ThreadLocal 的设计理念，首先考虑以下两个更普遍一些的场景：</p>
+<ol>
 <li>一个客户端，需要并发地和服务器交互，并且每个连接都需要持久化（需要保存 Cookie）。</li>
-</ol>
-</li>
-<li><ol start="2">
 <li>一个客户端，需要并发地存取数据库，并且每个连接都可能会提交超过一个操作。</li>
 </ol>
-</li>
-</ul>
 <p>（1）如果按最简单的方式来做，每个线程都维护一套自己的网络请求框架，确实不会导致什么异常，但是第一：实际项目中不可能采用这个方案，第二：这么做简直就是“高耦合低内聚”的代表，第三：重新参考以上两条。项目中，绝大部分情况下，一个连接会话会在一个独立的线程内执行，这个线程需要维护一个仅对自己可见的 Cookie，不仅对其他会话不可见，同时也要确保只能获取到自己的 Cookie。</p>
 <p>（2）同样，每个线程都独立维护一套数据库会话管理是不现实的，通常会封装到一个工具类中，从工具类中获取、开启、关闭会话以及提交事务等。假如有一个业务：当修改用户信息时，把这个操作记录保存下来。假如每一次的操作都从连接池获取 Connection，就有可能一个操作执行了另一个可能因为某些原因没有执行，所以一般通过以下方式来获取管理 Connection：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DBUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 省略一些成员变量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Connection connection;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取连接实例</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(driver);</span><br><span class="line">            connnection = DriverManager.getConnection(url, username, password);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> connnection;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关闭连接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">closeConnection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (connnection != <span class="keyword">null</span>) &#123;</span><br><span class="line">                connnection.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然后用 Transaction 统一提交事务。到目前为止，如果是单线程做这个操作，那是没问题的，但是如果出现并发的情况呢？如果并发很低并且操作轻量，给这个业务方法上同步锁，也是没有问题的，但是如果并发稍微高一些，就不可能放个同步锁了，这时如果还使用这个方案，很有可能会出现 <code>No operations allowed after connection closed</code> 错误，这是因为连接是共享的，如果后启动的线程 2 先执行完并且关闭了连接，先启动的线程 1 再执行相关操作时连接已经被关闭了。</p>
 <hr>
-<h1 id="3-ThreadLocal如何解决问题"><a href="#3-ThreadLocal如何解决问题" class="headerlink" title="3. ThreadLocal如何解决问题"></a>3. ThreadLocal如何解决问题</h1><p>ThreadLocal 为每个线程分配了一个独立的资源副本，并在内部通过一个 Table 表来维护每个线程和其拥有的独立资源副本的映射关系，所有的线程共享这个 Table。简单点说，ThreadLocal 中通过 <code>set()</code> 方法存入对象，通过 <code>get()</code> 方法取出对象，且线程存入的对象只有该线程自己可以获取到，，每个线程也只能获取到自己之前存入的对象，如果没有存入则调用 <code>get()</code> 返回的是 <code>null</code>。</p>
+<h2 id="3-ThreadLocal如何解决问题"><a href="#3-ThreadLocal如何解决问题" class="headerlink" title="3. ThreadLocal如何解决问题"></a>3. ThreadLocal如何解决问题</h2><p>ThreadLocal 为每个线程分配了一个独立的资源副本，并在内部通过一个 Table 表来维护每个线程和其拥有的独立资源副本的映射关系，所有的线程共享这个 Table。简单点说，ThreadLocal 中通过 <code>set()</code> 方法存入对象，通过 <code>get()</code> 方法取出对象，且线程存入的对象只有该线程自己可以获取到，，每个线程也只能获取到自己之前存入的对象，如果没有存入则调用 <code>get()</code> 返回的是 <code>null</code>。</p>
 <p>因此针对以上两个场景，用 ThreadLocal 就可以很好地解决痛点。</p>
 <p>（1）首先是会话连接的持久化，每个线程在建立连接后，调用 <code>set()</code>将自己的 Cookie 存入，并在需要的时候调用 <code>get()</code> 获取即可，对于每个会话线程，<code>get()</code> 到的都只是自己的 Cookie。</p>
 <p>（2）第二个数据库连接管理，也可以把共用的 Connection 放进 ThreadLocal 中管理，改成如下：</p>
@@ -437,9 +431,9 @@
 
 <p>当一个新线程调用 <code>DBUtil.getConnection()</code> 时，会先判断当前线程是否已经存入了一个连接，如果已经存入则直接获取并返回，否则创建一个新的连接，关闭连接时同理。这样，线程之间的连接都是自己的独立对象，不会互相影响。</p>
 <hr>
-<h1 id="4-ThreadLocal和同步锁的比较"><a href="#4-ThreadLocal和同步锁的比较" class="headerlink" title="4. ThreadLocal和同步锁的比较"></a>4. ThreadLocal和同步锁的比较</h1><p>当然，ThreadLocal 并不是万能的，相比较同步锁方式，由于每个线程都拥有自己的资源副本，因此消耗的内存也更多，需要根据具体的业务确定方案。详细分析将在之后重新整理一份独立文章。</p>
+<h2 id="4-ThreadLocal和同步锁的比较"><a href="#4-ThreadLocal和同步锁的比较" class="headerlink" title="4. ThreadLocal和同步锁的比较"></a>4. ThreadLocal和同步锁的比较</h2><p>当然，ThreadLocal 并不是万能的，相比较同步锁方式，由于每个线程都拥有自己的资源副本，因此消耗的内存也更多，需要根据具体的业务确定方案。详细分析将在之后重新整理一份独立文章。</p>
 <hr>
-<h1 id="5-ThreadLocal源码分析"><a href="#5-ThreadLocal源码分析" class="headerlink" title="5. ThreadLocal源码分析"></a>5. ThreadLocal源码分析</h1><p>暂未完成</p>
+<h2 id="5-ThreadLocal源码分析"><a href="#5-ThreadLocal源码分析" class="headerlink" title="5. ThreadLocal源码分析"></a>5. ThreadLocal源码分析</h2><p>暂未完成</p>
 
     </div>
 
@@ -631,14 +625,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

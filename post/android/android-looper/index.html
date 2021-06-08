@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -199,7 +199,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Looper%E7%AE%80%E4%BB%8B"><span class="nav-text">1. Looper简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Looper%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="nav-text">2. Looper初始化和实例化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Looper%E6%80%BB%E7%BB%93"><span class="nav-text">3. Looper总结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Looper"><span class="nav-text">Android-Looper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Looper%E7%AE%80%E4%BB%8B"><span class="nav-text">1. Looper简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Looper%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="nav-text">2. Looper初始化和实例化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Looper%E6%80%BB%E7%BB%93"><span class="nav-text">3. Looper总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -410,7 +410,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>前言：本文是针对 Looper 内部的一些分析，但涉及到的知识还可能出现在以下文章中，建议都参考一遍：</p>
+<h1 id="Android-Looper"><a href="#Android-Looper" class="headerlink" title="Android-Looper"></a>Android-Looper</h1><p>前言：本文是针对 Looper 内部的一些分析，但涉及到的知识还可能出现在以下文章中，建议都参考一遍：</p>
 <ul>
 <li><a href="/post/java/java-threadlocal/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
 <li><a href="/post/android/android-message/android-message/" title="@LINK">Android——Message</a></li>
@@ -419,7 +419,7 @@
 <li><a href="/post/android/android-handler/android-handler/" title="@LINK">Android——Handler</a></li>
 </ul>
 <hr>
-<h1 id="1-Looper简介"><a href="#1-Looper简介" class="headerlink" title="1. Looper简介"></a>1. Looper简介</h1><p>首先看一下源码中对 Looper 的注释说明：</p>
+<h2 id="1-Looper简介"><a href="#1-Looper简介" class="headerlink" title="1. Looper简介"></a>1. Looper简介</h2><p>首先看一下源码中对 Looper 的注释说明：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Class used to run a message loop for a thread.  Threads by default do</span></span><br><span class="line"><span class="comment">  * not have a message loop associated with them; to create one, call</span></span><br><span class="line"><span class="comment">  * &#123;<span class="doctag">@link</span> #prepare&#125; in the thread that is to run the loop, and then</span></span><br><span class="line"><span class="comment">  * &#123;<span class="doctag">@link</span> #loop&#125; to have it process messages until the loop is stopped.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * &lt;p&gt;Most interaction with a message loop is through the</span></span><br><span class="line"><span class="comment">  * &#123;<span class="doctag">@link</span> Handler&#125; class.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * &lt;p&gt;This is a typical example of the implementation of a Looper thread,</span></span><br><span class="line"><span class="comment">  * using the separation of &#123;<span class="doctag">@link</span> #prepare&#125; and &#123;<span class="doctag">@link</span> #loop&#125; to create an</span></span><br><span class="line"><span class="comment">  * initial Handler to communicate with the Looper.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * &lt;pre&gt;</span></span><br><span class="line"><span class="comment">  *  class LooperThread extends Thread &#123;</span></span><br><span class="line"><span class="comment">  *      public Handler mHandler;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  *      public void run() &#123;</span></span><br><span class="line"><span class="comment">  *          Looper.prepare();</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  *          mHandler = new Handler() &#123;</span></span><br><span class="line"><span class="comment">  *              public void handleMessage(Message msg) &#123;</span></span><br><span class="line"><span class="comment">  *                  // process incoming messages here</span></span><br><span class="line"><span class="comment">  *              &#125;</span></span><br><span class="line"><span class="comment">  *          &#125;;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  *          Looper.loop();</span></span><br><span class="line"><span class="comment">  *      &#125;</span></span><br><span class="line"><span class="comment">  *  &#125;&lt;/pre&gt;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Looper</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * API Implementation Note:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * This class contains the code required to set up and manage an event loop</span></span><br><span class="line"><span class="comment">     * based on MessageQueue.  APIs that affect the state of the queue should be</span></span><br><span class="line"><span class="comment">     * defined on MessageQueue or Handler rather than on Looper itself.  For example,</span></span><br><span class="line"><span class="comment">     * idle handlers and sync barriers are defined on the queue whereas preparing the</span></span><br><span class="line"><span class="comment">     * thread, looping, and quitting are defined on the looper.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>大致翻译：</p>
@@ -431,7 +431,7 @@
 <p>（4）Looper 类中包含某些代码，是需要通过 MessageQueue 来设置和管理事件循环的。影响消息队列的状态的 API 应该在 MessageQueue 或 Handler 中而不是在 Looper 本身定义，例如 <code>Idle Handler</code> 和同步障栅是在消息队列中定义的，而 Thread 的前期准备、消息循环、退出则是在 Looper 中完成的。</p>
 <p>以上内容可能涉及到 Handler 或 Message 的内容，可以通过系列对应的文章查阅。</p>
 <hr>
-<h1 id="2-Looper初始化和实例化"><a href="#2-Looper初始化和实例化" class="headerlink" title="2. Looper初始化和实例化"></a>2. Looper初始化和实例化</h1><p>Looper 类光是从名字就能看出来作用，通过之前对 Handler 的源码分析可以知道，Handler 构造时，可以手动传入一个 Looper 对象和处理消息的回调 Callback，用来与 Handler 绑定，此时这个 Handler 则会用来处理该 Looper 的消息队列中的消息，并且与该 Looper 处在同一线程，而默认构造方法则最终都调用了以下构造方法，并且内部给 Looper 传入了一个 <code>null</code>：</p>
+<h2 id="2-Looper初始化和实例化"><a href="#2-Looper初始化和实例化" class="headerlink" title="2. Looper初始化和实例化"></a>2. Looper初始化和实例化</h2><p>Looper 类光是从名字就能看出来作用，通过之前对 Handler 的源码分析可以知道，Handler 构造时，可以手动传入一个 Looper 对象和处理消息的回调 Callback，用来与 Handler 绑定，此时这个 Handler 则会用来处理该 Looper 的消息队列中的消息，并且与该 Looper 处在同一线程，而默认构造方法则最终都调用了以下构造方法，并且内部给 Looper 传入了一个 <code>null</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Use the &#123;<span class="doctag">@link</span> Looper&#125; for the current thread with the specified callback interface</span></span><br><span class="line"><span class="comment">  * and set whether the handler should be asynchronous.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * Handlers are synchronous by default unless this constructor is used to make</span></span><br><span class="line"><span class="comment">  * one that is strictly asynchronous.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * Asynchronous messages represent interrupts or events that do not require global ordering</span></span><br><span class="line"><span class="comment">  * with respect to synchronous messages.  Asynchronous messages are not subject to</span></span><br><span class="line"><span class="comment">  * the synchronization barriers introduced by &#123;<span class="doctag">@link</span> MessageQueue#enqueueSyncBarrier(long)&#125;.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> callback The callback interface in which to handle messages, or null.</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> async If true, the handler calls &#123;<span class="doctag">@link</span> Message#setAsynchronous(boolean)&#125; for</span></span><br><span class="line"><span class="comment">  * each &#123;<span class="doctag">@link</span> Message&#125; that is sent to it or &#123;<span class="doctag">@link</span> Runnable&#125; that is posted to it.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@hide</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(<span class="meta">@Nullable</span> Callback callback, <span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (FIND_POTENTIAL_LEAKS) &#123;</span><br><span class="line">        <span class="keyword">final</span> Class&lt;? extends Handler&gt; klass = getClass();</span><br><span class="line">        <span class="keyword">if</span> ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &amp;&amp;</span><br><span class="line">                (klass.getModifiers() &amp; Modifier.STATIC) == <span class="number">0</span>) &#123;</span><br><span class="line">            Log.w(TAG, <span class="string">&quot;The following Handler class should be static or leaks might occur: &quot;</span> +</span><br><span class="line">                klass.getCanonicalName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mLooper = Looper.myLooper();</span><br><span class="line">    <span class="keyword">if</span> (mLooper == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">            <span class="string">&quot;Can&#x27;t create handler inside thread &quot;</span> + Thread.currentThread()</span><br><span class="line">                    + <span class="string">&quot; that has not called Looper.prepare()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    mQueue = mLooper.mQueue;</span><br><span class="line">    mCallback = callback;</span><br><span class="line">    mAsynchronous = async;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>可以看到默认情况下会调用 <code>Looper.myLooper()</code>，再查看一下这个方法：</p>
@@ -451,14 +451,14 @@
 
 <p>这么设计的好处我个人理解为：① Looper、Handler、Thread 这些类都是由系统进行资源管理的，用户不应具有太大的修改权限，并且 Looper 类是 <code>final</code> 修饰的，也不允许用户继承重写。② Looper 必须和指定的线程绑定，指定调用 <code>prepare()</code> 方法可以强调这一特性。③ Looper 只能和一个线程绑定，使用 ThreadLocal 管理，采用 <code>new</code> 的方式可能会有多线程的问题。</p>
 <hr>
-<h1 id="3-Looper总结"><a href="#3-Looper总结" class="headerlink" title="3. Looper总结"></a>3. Looper总结</h1><p>其实到这里 Looper 的工作原理和流程就已经可以总结了：</p>
-<ul>
-<li>① Looper 是一个消息循环。</li>
-<li>② Looper 内有成员变量 MessageQueue，并通过它循环取出、派发消息进行事件处理。</li>
-<li>③ Looper 无法通过构造方法实例化，而是通过 <code>prepare()</code> 方法，并在内部调用了 <code>myLooper()</code> 方法来实例化一个 Looper 对象，且会和线程绑定，通过对应线程的 ThreadLocal 来存取。</li>
-<li>④ Looper 所在的线程决定了 Handler 处理消息时所在的线程。实例化 Handler 时，可以自行创建某线程的 Looper 实例化对象，并将其与 Handler 绑定，则 Handler 处理的消息即来自于 Looper 所在的线程。</li>
-<li>⑤ 线程默认是不具有消息循环的，也即默认情况下一个 Thread 是不会维护 Looper 的，通过继承重写 Thread，并在其中调用 <code>Looper.prepare()</code> 来创建消息循环，再通过 <code>Looper.loop()</code> 来开启循环。</li>
-</ul>
+<h2 id="3-Looper总结"><a href="#3-Looper总结" class="headerlink" title="3. Looper总结"></a>3. Looper总结</h2><p>其实到这里 Looper 的工作原理和流程就已经可以总结了：</p>
+<ol>
+<li>Looper 是一个消息循环。</li>
+<li>Looper 内有成员变量 MessageQueue，并通过它循环取出、派发消息进行事件处理。</li>
+<li>Looper 无法通过构造方法实例化，而是通过 <code>prepare()</code> 方法，并在内部调用了 <code>myLooper()</code> 方法来实例化一个 Looper 对象，且会和线程绑定，通过对应线程的 ThreadLocal 来存取。</li>
+<li>Looper 所在的线程决定了 Handler 处理消息时所在的线程。实例化 Handler 时，可以自行创建某线程的 Looper 实例化对象，并将其与 Handler 绑定，则 Handler 处理的消息即来自于 Looper 所在的线程。</li>
+<li>线程默认是不具有消息循环的，也即默认情况下一个 Thread 是不会维护 Looper 的，通过继承重写 Thread，并在其中调用 <code>Looper.prepare()</code> 来创建消息循环，再通过 <code>Looper.loop()</code> 来开启循环。</li>
+</ol>
 <p>但在实际开发中其实有些比较常见的问题：</p>
 <p>（1）平时用 Handler 处理消息时，并没有调用 <code>Looper.prepare()</code> 或通过其手动创建一个 Looper 对象，但依然可以正常处理消息。这是因为，Android 的主线程即 UI 线程，有一定的特殊性，整个 App 过程中仅允许存在一个 UI 线程，而 App 的主线程对应在 <code>ActivityThread.main()</code> 方法，其也是整个 App 的入口方法，在这个方法里面就生成了 Looper 的实例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Looper.prepareMainLooper();</span><br></pre></td></tr></table></figure>
@@ -479,11 +479,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Returns the application&#x27;s main looper, which lives in the main thread of the application.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Looper <span class="title">getMainLooper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (Looper.class) &#123;</span><br><span class="line">        <span class="keyword">return</span> sMainLooper;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>可以看到实际上就是返回了主线程的 <code>sMainLooper</code>，所以也不需要手动创建 Looper 实例对象。</p>
-<p>（3）利用 <font color=#EB6D39>“Handler 处理消息所在线程由其实例化时传入的 Looper 对象决定”</font> 这一特性，可以衍生出主线程和子线程之间交互的方式：</p>
-<ul>
-<li>① 子线程向主线程发送消息：在子线程实例化 Handler 时传入 <code>Looper.getMainLooper()</code> 参数。</li>
-<li>② 主线程向子线程发送消息：在主线程实例化 Handler 时传入一个在子线程中调用过 <code>prepare()</code> 方法已初始化的 Looper 对象。</li>
-</ul>
+<p>（3）利用 <strong>Handler 处理消息所在线程由其实例化时传入的 Looper 对象决定</strong> 这一特性，可以衍生出主线程和子线程之间交互的方式：</p>
+<ol>
+<li>子线程向主线程发送消息：在子线程实例化 Handler 时传入 <code>Looper.getMainLooper()</code> 参数。</li>
+<li>主线程向子线程发送消息：在主线程实例化 Handler 时传入一个在子线程中调用过 <code>prepare()</code> 方法已初始化的 Looper 对象。</li>
+</ol>
 <p>针对以上情形 ②，主线程开启子线程后向下执行，如果主线程发送消息的时间较早，可能子线程还没有完成对 Looper 的实例化，则会导致空指针异常，此时可以将子线程用 <code>HandlerThread</code> 类代替，实例化时传入一个 <code>String</code> 类型的线程标记名，HandlerThread 不能重写 <code>run()</code> 方法，当然也不需要显式调用 <code>prepare()</code> 和 <code>loop()</code>，通过 <code>HandlerThread.getLooper()</code> 即可获取 Looper 实例对象。</p>
 
     </div>
@@ -676,14 +676,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

@@ -121,7 +121,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -202,7 +202,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%A2%9E%E5%8A%A0%E8%B7%B3%E8%BD%AC%E9%93%BE%E6%8E%A5"><span class="nav-text">1. 增加跳转链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%B0%83%E6%95%B4%E9%A1%B5%E7%A0%81%E5%AF%BC%E8%88%AA%E6%A0%8F"><span class="nav-text">2. 调整页码导航栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2DIY%EF%BC%8810%EF%BC%89%E4%B8%80%E9%94%AE%E8%BD%AC%E5%88%B0%E9%A1%B5%E9%A6%96%E3%80%81%E9%A1%B5%E5%B0%BE%E3%80%81%E4%B8%BB%E9%A1%B5"><span class="nav-text">Hexo博客DIY（10）一键转到页首、页尾、主页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%A2%9E%E5%8A%A0%E8%B7%B3%E8%BD%AC%E9%93%BE%E6%8E%A5"><span class="nav-text">1. 增加跳转链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%B0%83%E6%95%B4%E9%A1%B5%E7%A0%81%E5%AF%BC%E8%88%AA%E6%A0%8F"><span class="nav-text">2. 调整页码导航栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -412,7 +412,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-增加跳转链接"><a href="#1-增加跳转链接" class="headerlink" title="1. 增加跳转链接"></a>1. 增加跳转链接</h1><p>默认情况下，想象一下这几个场景：</p>
+<h1 id="Hexo博客DIY（10）一键转到页首、页尾、主页"><a href="#Hexo博客DIY（10）一键转到页首、页尾、主页" class="headerlink" title="Hexo博客DIY（10）一键转到页首、页尾、主页"></a>Hexo博客DIY（10）一键转到页首、页尾、主页</h1><h2 id="1-增加跳转链接"><a href="#1-增加跳转链接" class="headerlink" title="1. 增加跳转链接"></a>1. 增加跳转链接</h2><p>默认情况下，想象一下这几个场景：</p>
 <ol>
 <li><p>看一篇比较长的文章，前半部分看完之后有个疑问，想评论一下，结果发现评论在最底下</p>
 </li>
@@ -431,38 +431,26 @@
 <li>不论文章是否有目录，浮动侧栏都显示这些功能，避免了某些情况下，文章没有任何目录标题（全部文字都是正文格式的长文），导致目录栏不显示，进而导致这三个功能不显示。</li>
 </ol>
 <p>具体的功能效果大家可以在阅读本文时先试试我的博客浮动侧栏最上面的“页首 | 主页 | 评论”这三个功能（动图加载较慢）：</p>
-<center>
-
 <p><img data-src="./custom_jump_links.gif" alt="自定义链接功能" title="@ASSET"></p>
-</center>
-
 <p>既然是加到浮动侧栏上，那就从浮动侧栏的样式文件入手，修改 <code>next/layout/_macro/sidebar.swig</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&lt;aside id=<span class="string">&quot;sidebar&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar&quot;</span>&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar-inner&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &#123;% set display_toc = is_post and theme.toc.enable or is_page and theme.toc.enable %&#125;</span><br><span class="line"></span><br><span class="line">    &#123;############## ↓↓↓在这里插入以下代码↓↓↓ ##############&#125;</span><br><span class="line">    &#123;## 所有文章都显示快捷栏，其他界面如果目录不为空也显示 ##&#125;</span><br><span class="line">    &#123;% <span class="keyword">if</span> is_post || toc(page.content).length &gt; <span class="number">0</span> %&#125;</span><br><span class="line">      &#123;## 用&lt;p&gt;&lt;/p&gt;标签包裹的控件会在下方空出一行而不只是换行 ##&#125;</span><br><span class="line">      &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;underline&quot;</span> style=<span class="string">&quot;width: 100%; display: inline-block&quot;</span>&gt;</span><br><span class="line">        &lt;style&gt;</span><br><span class="line">        .underline&#123; padding-bottom:1px; border-bottom:1px solid #EB6D39&#125;</span><br><span class="line">        &lt;/style&gt;</span><br><span class="line">        &lt;span style=<span class="string">&quot;width: 100%; font-size: 13px; color: #EB6D39;&quot;</span>&gt;</span><br><span class="line">          &#123;### Top Link ###&#125;</span><br><span class="line">          &lt;div style=<span class="string">&quot;cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block&quot;</span> onclick=<span class="string">&quot;window.location=&#x27;#&#x27;;&quot;</span>&gt;</span><br><span class="line">          页首</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">          &amp;ensp;|&amp;ensp;</span><br><span class="line">          &#123;### Home Link ###&#125;</span><br><span class="line">          &lt;div style=<span class="string">&quot;cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block&quot;</span> onclick=<span class="string">&quot;window.location=&#x27;/&#x27;;&quot;</span>&gt;</span><br><span class="line">          主页</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">          &amp;ensp;|&amp;ensp;</span><br><span class="line">          &#123;### Bottom Link ###&#125;</span><br><span class="line">          &lt;div style=<span class="string">&quot;cursor: pointer; font-size: 13px; color: #EB6D39; display: inline-block&quot;</span> onclick=<span class="string">&quot;window.scrollBy(0, document.getElementsByTagName(&#x27;BODY&#x27;)[0].scrollHeight);&quot;</span>&gt;</span><br><span class="line">          评论</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">        &lt;/span&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">    &#123;############## ↑↑↑在这里插入以上代码↑↑↑ ##############&#125;</span><br><span class="line"></span><br><span class="line">    &#123;% <span class="keyword">if</span> display_toc and toc(page.content).length &gt; <span class="number">1</span> %&#125;</span><br><span class="line">      &lt;ul <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar-nav motion-element&quot;</span>&gt;</span><br><span class="line">        &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar-nav-toc sidebar-nav-active&quot;</span> target=<span class="string">&quot;post-toc-wrap&quot;</span>&gt;</span><br><span class="line">          &#123;&#123; __(<span class="string">&#x27;sidebar.toc&#x27;</span>) &#125;&#125;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">        &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;sidebar-nav-overview&quot;</span> target=<span class="string">&quot;site-overview-wrap&quot;</span>&gt;</span><br><span class="line">          &#123;&#123; __(<span class="string">&#x27;sidebar.overview&#x27;</span>) &#125;&#125;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">&lt;/aside&gt;</span><br></pre></td></tr></table></figure>
 
 <p>这样就能随时随地跳转到页首、页尾和首页了。当然，也可以把这段代码按照自己的喜好进一步修改、或放到自己想要的位置。</p>
 <hr>
-<h1 id="2-调整页码导航栏"><a href="#2-调整页码导航栏" class="headerlink" title="2. 调整页码导航栏"></a>2. 调整页码导航栏</h1><p>首页的文章列表以及分类中的文章列表底部都有一个页码导航栏：</p>
-<center>
-
+<h2 id="2-调整页码导航栏"><a href="#2-调整页码导航栏" class="headerlink" title="2. 调整页码导航栏"></a>2. 调整页码导航栏</h2><p>首页的文章列表以及分类中的文章列表底部都有一个页码导航栏：</p>
 <p><img data-src="./page_nav_default.png" alt="默认页码导航栏" title="@ASSET"></p>
-</center>
-
 <p>如上图所示，这个页码导航栏通常会将中间的页码省略，但如果页码比较多，默认情况下就会导致前后的页码要点很多下才能切换过去，因此可以适当减少省略的数量。修改：<code>next/layout/_partials/pagination.swig</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> page.prev or page.next %&#125;</span><br><span class="line">  &lt;nav <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;pagination&quot;</span>&gt;</span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: <span class="string">&#x27;&lt;i class=&quot;fa fa-angle-left&quot; aria-label=&quot;&#x27;</span>+__(<span class="string">&#x27;accessibility.prev_page&#x27;</span>)+<span class="string">&#x27;&quot;&gt;&lt;/i&gt;&#x27;</span>,</span><br><span class="line">        next_text: <span class="string">&#x27;&lt;i class=&quot;fa fa-angle-right&quot; aria-label=&quot;&#x27;</span>+__(<span class="string">&#x27;accessibility.next_page&#x27;</span>)+<span class="string">&#x27;&quot;&gt;&lt;/i&gt;&#x27;</span>,</span><br><span class="line">        mid_size: <span class="number">1</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &lt;/nav&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其中 <code>mid_size</code> 代表当前页码到省略号之间有多少页，默认为 <code>mid_size: 1</code>，加入设置为 <code>mid_size: 3</code>，则效果如下：</p>
-<center>
-
 <p><img data-src="./page_nav_custom.png" alt="调整页码导航栏" title="@ASSET"></p>
-</center>
-
 <hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="@LINK">博客 DIY 系列</a></p>
 <hr>
-<h1 id="3-附录-参考指导"><a href="#3-附录-参考指导" class="headerlink" title="3. 附录[参考指导]"></a>3. 附录[参考指导]</h1><blockquote>
+<h2 id="3-附录-参考指导"><a href="#3-附录-参考指导" class="headerlink" title="3. 附录[参考指导]"></a>3. 附录[参考指导]</h2><blockquote>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/baitaibai/article/details/54561918" title="@LINK">【1】css样式中的class，style与id的优先级问题（作者：白太白QAQ）<sup>【注】</sup></a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kuoAT/p/6706327.html?utm_source=itdadao&utm_medium=referral" title="@LINK">【2】div和span显示在同一行（作者：适AT）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/baitaibai/article/details/54561918" title="@LINK">【1】css样式中的class，style与id的优先级问题（作者：白太白QAQ）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kuoAT/p/6706327.html?utm_source=itdadao&utm_medium=referral" title="@LINK">【2】div和span显示在同一行（作者：适AT）</a></li>
 </ul>
 </blockquote>
 
@@ -655,14 +643,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

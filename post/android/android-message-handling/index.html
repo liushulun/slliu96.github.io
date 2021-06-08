@@ -117,7 +117,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -198,7 +198,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">1. 消息处理机制基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="nav-text">2. 主线程中的消息处理机制</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="nav-text">Android-消息处理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">1. 消息处理机制基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="nav-text">2. 主线程中的消息处理机制</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -408,7 +408,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-消息处理机制基本原理"><a href="#1-消息处理机制基本原理" class="headerlink" title="1. 消息处理机制基本原理"></a>1. 消息处理机制基本原理</h1><p>消息处理机制中涉及到的关键细化内容在以下系列文章中：</p>
+<h1 id="Android-消息处理机制"><a href="#Android-消息处理机制" class="headerlink" title="Android-消息处理机制"></a>Android-消息处理机制</h1><h2 id="1-消息处理机制基本原理"><a href="#1-消息处理机制基本原理" class="headerlink" title="1. 消息处理机制基本原理"></a>1. 消息处理机制基本原理</h2><p>消息处理机制中涉及到的关键细化内容在以下系列文章中：</p>
 <ul>
 <li><a href="/post/java/java-threadlocal/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
 <li><a href="/post/android/android-message/android-message/" title="@LINK">Android——Message</a></li>
@@ -423,7 +423,7 @@
 <p>Android 的主线程即 UI 线程在一个 App 进程中唯一，在 <code>ActivityThread.main()</code> 方法中调用了 <code>Looper.prepareMainLooper()</code>，因此在主线程在运行时已经开启了消息循环，因此在主线程中使用 Handler 不需要显示调用 <code>Looper.prepare()</code> 和 <code>Looper.loop()</code>，并且在子线程中更新 UI 时，如果使用 <code>Looper.getMainLooper()</code> 来实例化 Handler，则消息都会被发送到主线程。</p>
 <p>因此可以利用消息处理机制的特性，把接收线程的 Looper 传给发送线程并用来初始化 Handler，即可实现进程间通信。但使用该方法实现主线程向子线程通信时可能发生异常，这是因为主线程开启子线程后就向下执行，主线程的发送 Handler 初始化时，子线程的接收 Looper 可能还没有完成实例化或 <code>prepare()</code> 或 <code>loop()</code> 等初始化操作，导致空指针或 RuntimeException。为此可以使用 HandlerThread 类替代普通的子线程，实例化时只需传入一个 String 作为线程名即可。但 HandlerThread 不能重写 <code>run()</code> 方法，当然也无需手动调用 <code>prepare()</code> 和 <code>loop()</code> 初始化。</p>
 <hr>
-<h1 id="2-主线程中的消息处理机制"><a href="#2-主线程中的消息处理机制" class="headerlink" title="2. 主线程中的消息处理机制"></a>2. 主线程中的消息处理机制</h1><p>思考一个问题：根据上面的分析可知，一个线程在处理消息时，是通过 <code>for</code> 循环来不断轮询 MessageQueue 的，但是在主线程中，如果消息耗时或出现异常，就会导致 UI 更新延迟甚至 <code>main()</code> 方法异常退出，那主线程的消息处理机制是如何避免这些情况的呢？</p>
+<h2 id="2-主线程中的消息处理机制"><a href="#2-主线程中的消息处理机制" class="headerlink" title="2. 主线程中的消息处理机制"></a>2. 主线程中的消息处理机制</h2><p>思考一个问题：根据上面的分析可知，一个线程在处理消息时，是通过 <code>for</code> 循环来不断轮询 MessageQueue 的，但是在主线程中，如果消息耗时或出现异常，就会导致 UI 更新延迟甚至 <code>main()</code> 方法异常退出，那主线程的消息处理机制是如何避免这些情况的呢？</p>
 <p>未完待续</p>
 
     </div>
@@ -615,14 +615,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

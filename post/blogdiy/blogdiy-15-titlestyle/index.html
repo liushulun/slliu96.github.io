@@ -120,7 +120,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -201,7 +201,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E9%A6%96%E9%A1%B5%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%A0%87%E9%A2%98%E9%AB%98%E4%BA%AE"><span class="nav-text">1. 首页文章列表标题高亮</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%AD%A3%E6%96%87%E6%A0%87%E9%A2%98%E9%AB%98%E4%BA%AE"><span class="nav-text">2. 正文标题高亮</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2DIY%EF%BC%8815%EF%BC%89%E9%A6%96%E9%A1%B5%E5%8F%8A%E6%AD%A3%E6%96%87%E7%9A%84%E6%A0%87%E9%A2%98%E9%AB%98%E4%BA%AE%E3%80%81%E5%8A%A0%E7%B2%97"><span class="nav-text">Hexo博客DIY（15）首页及正文的标题高亮、加粗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A6%96%E9%A1%B5%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E6%A0%87%E9%A2%98%E9%AB%98%E4%BA%AE"><span class="nav-text">1. 首页文章列表标题高亮</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%AD%A3%E6%96%87%E6%A0%87%E9%A2%98%E9%AB%98%E4%BA%AE"><span class="nav-text">2. 正文标题高亮</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -390,7 +390,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>648</span>
+      <span>674</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
@@ -411,27 +411,19 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>前言：可能是我自己的喜好问题，我总觉得 Next 默认的标题不够突出，要么颜色可以更突出一些，要么文字可以再加粗一些，总之感觉上没有高亮感。为此我想修改一下标题的样式，换个更具有视觉冲击的颜色！</p>
+<h1 id="Hexo博客DIY（15）首页及正文的标题高亮、加粗"><a href="#Hexo博客DIY（15）首页及正文的标题高亮、加粗" class="headerlink" title="Hexo博客DIY（15）首页及正文的标题高亮、加粗"></a>Hexo博客DIY（15）首页及正文的标题高亮、加粗</h1><p>前言：可能是我自己的喜好问题，我总觉得 Next 默认的标题不够突出，要么颜色可以更突出一些，要么文字可以再加粗一些，总之感觉上没有高亮感。为此我想修改一下标题的样式，换个更具有视觉冲击的颜色！</p>
 <hr>
-<h1 id="1-首页文章列表标题高亮"><a href="#1-首页文章列表标题高亮" class="headerlink" title="1. 首页文章列表标题高亮"></a>1. 首页文章列表标题高亮</h1><p>首先是首页文章列表显示的文章标题，修改 <code>next/source/css/_common/components/post/post-title.styl</code>：</p>
+<h2 id="1-首页文章列表标题高亮"><a href="#1-首页文章列表标题高亮" class="headerlink" title="1. 首页文章列表标题高亮"></a>1. 首页文章列表标题高亮</h2><p>首先是首页文章列表显示的文章标题，修改 <code>next/source/css/_common/components/post/post-title.styl</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.posts-expand .post-title-link &#123;</span><br><span class="line">  display: inline-block;</span><br><span class="line">  position: relative;</span><br><span class="line">  color: #EB6D39;  <span class="comment">// 这里修改颜色，按照个人喜好自定义</span></span><br><span class="line">  border-bottom: none;</span><br><span class="line">  line-height: <span class="number">1.2</span>;</span><br><span class="line">  vertical-align: top;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>设置完之后的效果如下：</p>
-<center>
-
 <p><img data-src="./title_highlight_in_home.png" alt="首页标题高亮" title="@ASSET"></p>
-</center>
-
 <hr>
-<h1 id="2-正文标题高亮"><a href="#2-正文标题高亮" class="headerlink" title="2. 正文标题高亮"></a>2. 正文标题高亮</h1><p>为了风格统一，再把正文内的标题颜色也改为相同的高亮色，因为和下面的很多信息放在一块，顺便再加个粗凸显一下，修改 <code>next/source/css/_schemes/Gemini/index.styl</code>：</p>
+<h2 id="2-正文标题高亮"><a href="#2-正文标题高亮" class="headerlink" title="2. 正文标题高亮"></a>2. 正文标题高亮</h2><p>为了风格统一，再把正文内的标题颜色也改为相同的高亮色，因为和下面的很多信息放在一块，顺便再加个粗凸显一下，修改 <code>next/source/css/_schemes/Gemini/index.styl</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.posts-expand .post-title &#123;</span><br><span class="line">  font-size: <span class="number">1.</span>7em;</span><br><span class="line">  color: #EB6D39;  <span class="comment">// 这里修改颜色，按照个人喜好自定义</span></span><br><span class="line">  font-weight: bold;  <span class="comment">// 这里选择加粗，可选：100~900，整 100 取值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>修改完之后的效果如下：</p>
-<center>
-
 <p><img data-src="./title_highlight_in_post.png" alt="正文标题高亮加粗" title="@ASSET"></p>
-</center>
-
 <hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="@LINK">博客 DIY 系列</a></p>
 
@@ -624,14 +616,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

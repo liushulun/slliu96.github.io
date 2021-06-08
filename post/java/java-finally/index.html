@@ -117,7 +117,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -198,7 +198,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-finally%E5%92%8Creturn%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-text">1. finally和return的执行顺序</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-finally%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">Java-finally关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-finally%E5%92%8Creturn%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-text">1. finally和return的执行顺序</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -387,7 +387,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>825</span>
+      <span>840</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
@@ -408,7 +408,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-finally和return的执行顺序"><a href="#1-finally和return的执行顺序" class="headerlink" title="1. finally和return的执行顺序"></a>1. finally和return的执行顺序</h1><p>一句话总结：当 <code>try - catch</code> 中使用 <code>break</code> 或 <code>return</code> 返回时，<code>finally</code> 会执行，当调用了 <code>System.exit(0)</code> 退出时，由于直接终止了 JVM，因此 <code>finally</code> 不会执行。</p>
+<h1 id="Java-finally关键字"><a href="#Java-finally关键字" class="headerlink" title="Java-finally关键字"></a>Java-finally关键字</h1><h2 id="1-finally和return的执行顺序"><a href="#1-finally和return的执行顺序" class="headerlink" title="1. finally和return的执行顺序"></a>1. finally和return的执行顺序</h2><p>一句话总结：当 <code>try - catch</code> 中使用 <code>break</code> 或 <code>return</code> 返回时，<code>finally</code> 会执行，当调用了 <code>System.exit(0)</code> 退出时，由于直接终止了 JVM，因此 <code>finally</code> 不会执行。</p>
 <p>在 try - catch 中的 return 语句执行之后、方法返回之前，程序会将 return 的返回值写入内存中，然后等待 finally 语句执行完，如果在 finally 代码块中，只改变了引用（例如对变量重新赋值），由于 return 时已经将返回值写入了内存中，则不会改变，而如果是改变了同一个变量的值，则会改变。如果 finally 中包含 return 语句，则会覆盖原本的return。例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123;</span><br><span class="line">        i = <span class="number">20</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(getValue());</span><br></pre></td></tr></table></figure>
 
@@ -609,14 +609,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

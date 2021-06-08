@@ -28,7 +28,7 @@
   </script>
 <meta name="description" content="。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android——BroadcastReceiver">
+<meta property="og:title" content="Android-BroadcastReceiver">
 <meta property="og:url" content="https://www.liushulun.cn/post/android/android-broadcastreceiver/index.html">
 <meta property="og:site_name" content="Luis&#39;s Blogs">
 <meta property="og:description" content="。">
@@ -54,7 +54,7 @@
   };
 </script>
 
-<title>Android——BroadcastReceiver | Luis's Blogs</title>
+<title>Android-BroadcastReceiver | Luis's Blogs</title>
   
 
 
@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -199,7 +199,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E5%85%A8%E5%B1%80%E5%B9%BF%E6%92%AD%E5%92%8C%E5%85%A8%E5%B1%80%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E5%99%A8"><span class="nav-text">4.1 全局广播和全局广播接收器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%9C%AC%E5%9C%B0%E5%B9%BF%E6%92%AD%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E5%99%A8"><span class="nav-text">4.2 本地广播和本地广播接收器</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-BroadcastReceiver"><span class="nav-text">Android-BroadcastReceiver</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E5%85%A8%E5%B1%80%E5%B9%BF%E6%92%AD%E5%92%8C%E5%85%A8%E5%B1%80%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E5%99%A8"><span class="nav-text">4.1 全局广播和全局广播接收器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%9C%AC%E5%9C%B0%E5%B9%BF%E6%92%AD%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E5%99%A8"><span class="nav-text">4.2 本地广播和本地广播接收器</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -311,7 +311,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android——BroadcastReceiver
+          Android-BroadcastReceiver
         </h1>
 
         <div class="post-meta-container">
@@ -389,7 +389,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>3.6k</span>
+      <span>3.7k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
@@ -410,7 +410,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>BroadcastReceiver 本质上通过设置过滤来有选择地响应某些事件，例如网络状态的变化、锁屏的变化等等，其本身没有用户界面，但可以启动 Activity 或 Service，或使用 NotificationManager 通知用户。</p>
+<h1 id="Android-BroadcastReceiver"><a href="#Android-BroadcastReceiver" class="headerlink" title="Android-BroadcastReceiver"></a>Android-BroadcastReceiver</h1><p>BroadcastReceiver 本质上通过设置过滤来有选择地响应某些事件，例如网络状态的变化、锁屏的变化等等，其本身没有用户界面，但可以启动 Activity 或 Service，或使用 NotificationManager 通知用户。</p>
 <p>BroadcastReceiver 有两种注册方式：在 Manifest 中静态注册、在代码中通过 <code>registerReceiver()</code> 动态注册。在 Manifest 中静态注册的广播接收会随系统的启动而保持活跃，即便 App 未运行，只要接收到指定广播均会触发响应。</p>
 <p>广播按照类型分为两种：全局广播和本地广播</p>
 <ul>
@@ -592,7 +592,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接:</strong>
-      <a href="https://www.liushulun.cn/post/android/android-broadcastreceiver/" title="Android——BroadcastReceiver">https://www.liushulun.cn/post/android/android-broadcastreceiver/</a>
+      <a href="https://www.liushulun.cn/post/android/android-broadcastreceiver/" title="Android-BroadcastReceiver">https://www.liushulun.cn/post/android/android-broadcastreceiver/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明: </strong>所有文章均由 Luis 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
@@ -610,8 +610,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/post/android/android-contentprovider/" rel="prev" title="Android——ContentProvider">
-                  <i class="fa fa-chevron-left"></i> Android——ContentProvider
+                <a href="/post/android/android-contentprovider/" rel="prev" title="Android-ContentProvider">
+                  <i class="fa fa-chevron-left"></i> Android-ContentProvider
                 </a>
             </div>
             <div class="post-nav-item">
@@ -672,14 +672,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

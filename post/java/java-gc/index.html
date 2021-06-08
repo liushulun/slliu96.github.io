@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -199,7 +199,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-GC%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%A0%B8%E5%BF%83%E5%88%A4%E5%AE%9A%E5%8E%9F%E5%88%99"><span class="nav-text">1. GC的两种核心判定原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="nav-text">1.1 引用计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%BC%95%E7%94%A8%E9%93%BE"><span class="nav-text">1.2 引用链</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%B8%B8%E8%A7%81%E7%9A%84GC%E7%AE%97%E6%B3%95"><span class="nav-text">2. 常见的GC算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="nav-text">2.1 引用计数法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E6%B3%95"><span class="nav-text">2.2 标记清除法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E5%A4%8D%E5%88%B6%E6%B3%95"><span class="nav-text">2.3 复制法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E6%B3%95"><span class="nav-text">2.4 标记整理法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E6%B3%95"><span class="nav-text">2.5 分代收集法</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM%E7%9A%84GC%E7%AD%96%E7%95%A5"><span class="nav-text">JVM的GC策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-GC%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%A0%B8%E5%BF%83%E5%88%A4%E5%AE%9A%E5%8E%9F%E5%88%99"><span class="nav-text">1. GC的两种核心判定原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="nav-text">1.1 引用计数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%BC%95%E7%94%A8%E9%93%BE"><span class="nav-text">1.2 引用链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B8%B8%E8%A7%81%E7%9A%84GC%E7%AE%97%E6%B3%95"><span class="nav-text">2. 常见的GC算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="nav-text">2.1 引用计数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E6%B3%95"><span class="nav-text">2.2 标记清除法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%A4%8D%E5%88%B6%E6%B3%95"><span class="nav-text">2.3 复制法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E6%B3%95"><span class="nav-text">2.4 标记整理法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E6%B3%95"><span class="nav-text">2.5 分代收集法</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -410,34 +410,32 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>前言：GC 即：Garbage Collection 垃圾回收，是 JVM 中非常必要的一个机制，之所以需要 GC，是因为程序在运行中，会产生很多 Garbage，而 JVM 的内存是有限制的，如果不及时对这些 Garbage 进行整理和清除，会使得内存占用越来越大，最后导致没有足够的内存生成新的对象。GC 中有一个很重要的前提：Stop-The-World，也即：JVM 由于要执行 GC 而停止了应用程序的执行。当 GC 发生时，除了 GC 所需的线程外，其他所有线程都处于等待状态直到 GC 任务完成。而通常做 GC 优化的目的，就是减少 GC 发生，以减少卡顿。</p>
+<h1 id="JVM的GC策略"><a href="#JVM的GC策略" class="headerlink" title="JVM的GC策略"></a>JVM的GC策略</h1><p>前言：GC 即：Garbage Collection 垃圾回收，是 JVM 中非常必要的一个机制，之所以需要 GC，是因为程序在运行中，会产生很多 Garbage，而 JVM 的内存是有限制的，如果不及时对这些 Garbage 进行整理和清除，会使得内存占用越来越大，最后导致没有足够的内存生成新的对象。GC 中有一个很重要的前提：Stop-The-World，也即：JVM 由于要执行 GC 而停止了应用程序的执行。当 GC 发生时，除了 GC 所需的线程外，其他所有线程都处于等待状态直到 GC 任务完成。而通常做 GC 优化的目的，就是减少 GC 发生，以减少卡顿。</p>
 <hr>
-<h1 id="1-GC的两种核心判定原则"><a href="#1-GC的两种核心判定原则" class="headerlink" title="1. GC的两种核心判定原则"></a>1. GC的两种核心判定原则</h1><h2 id="1-1-引用计数"><a href="#1-1-引用计数" class="headerlink" title="1.1 引用计数"></a>1.1 引用计数</h2><p>引用计数也即：为实际内存中存储的对象所具有引用记录引用数，例如：</p>
+<h2 id="1-GC的两种核心判定原则"><a href="#1-GC的两种核心判定原则" class="headerlink" title="1. GC的两种核心判定原则"></a>1. GC的两种核心判定原则</h2><h3 id="1-1-引用计数"><a href="#1-1-引用计数" class="headerlink" title="1.1 引用计数"></a>1.1 引用计数</h3><p>引用计数也即：为实际内存中存储的对象所具有引用记录引用数，例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 省略类 A 和 B 之间的关系</span></span><br><span class="line">A a = <span class="keyword">new</span> A();</span><br><span class="line">B b = <span class="keyword">new</span> B();</span><br><span class="line">b = a;</span><br></pre></td></tr></table></figure>
 
 <p>此时，<code>new A()</code> 执行后在内存中实际存储的对象数据，就具有了 <code>a</code> 和 <code>b</code> 两个引用，则其引用计数为 2，而 <code>new B()</code> 生成的实际对象数据则引用计数为 0。</p>
 <p>引用计数法的核心思想即：一个对象，每增加一个引用，则引用计数 +1，每减少一个引用，则引用计数 -1，任何时刻，计数值为 0 的对象，就是不可再使用的（例如，<code>b = a;</code> 后，原本 <code>new</code> 出来的 <code>B</code> 对象，就无法再通过代码获取到了），即可马上将自己当做空闲空间链接到空闲链表。</p>
-<h2 id="1-2-引用链"><a href="#1-2-引用链" class="headerlink" title="1.2 引用链"></a>1.2 引用链</h2><p>提出一个初始根节点对象的概念：GC Root，当一个对象产生时，会将其建立与 GC Root 的直接或间接连接，例如一个外部类可能直接连接 GC Root，而该类的子类则先连接到该类，再连接到 GC Root。也就是说，GC Root 本身也是对象，只是这些对象，在整个程序运行期间，都有用或不会被销毁，那么与这些对象相连接的对象，则说明是有用的，则不需要被回收。而某些对象与这些 GC Roots 没有连接，则说明这些对象不是必要的，则 GC 可以回收。这些引用关系，被称为：<font color=#EB6D39>引用链</font>。</p>
+<h3 id="1-2-引用链"><a href="#1-2-引用链" class="headerlink" title="1.2 引用链"></a>1.2 引用链</h3><p>提出一个初始根节点对象的概念：GC Root，当一个对象产生时，会将其建立与 GC Root 的直接或间接连接，例如一个外部类可能直接连接 GC Root，而该类的子类则先连接到该类，再连接到 GC Root。也就是说，GC Root 本身也是对象，只是这些对象，在整个程序运行期间，都有用或不会被销毁，那么与这些对象相连接的对象，则说明是有用的，则不需要被回收。而某些对象与这些 GC Roots 没有连接，则说明这些对象不是必要的，则 GC 可以回收。这些引用关系，被称为：<strong>引用链</strong>。</p>
 <p>例如：通常一个 Java 程序，都是从 <code>main</code> 方法开始执行，可以将 <code>main</code> 方法的实际内存引用作为 GC Root，如果在 <code>main</code> 方法中声明两个对象：<code>A a;</code> 和 <code>B b;</code>，则 <code>a</code> 和 <code>b</code> 都是与 <code>main</code> 相连接的平行平级的对象，这时如果执行：<code>b = a;</code>，则将内存中 <code>a</code> 的实际引用（指向内存中的实际数据）赋值给了 <code>b</code>，则原本 <code>b</code> 的引用（内存中实际的一个 <code>B</code> 的对象）被中断，此时的引用链则是：</p>
 <p><code>main</code> 连接到平行平级的 <code>a</code> 和 <code>b</code>，然后 <code>a</code> 和 <code>b</code> 同时连接到内存中 <code>A</code> 的实际对象，而内存中 <code>B</code> 的实际对象则失去任何引用。</p>
 <p>当一个对象，可以连接到 GC Root，则称之为是“可达的”，或“具有可达性”，否则为“不可达”或“不具有可达性”。</p>
 <hr>
-<h1 id="2-常见的GC算法"><a href="#2-常见的GC算法" class="headerlink" title="2. 常见的GC算法"></a>2. 常见的GC算法</h1><p>常见的 GC 算法有：引用计数法、标记清除法、复制法、标记整理法、分代收集法。</p>
-<h2 id="2-1-引用计数法"><a href="#2-1-引用计数法" class="headerlink" title="2.1 引用计数法"></a>2.1 引用计数法</h2><p>即是通过判断引用计数是否为 0 来决定是否回收，引用计数法最致命的缺点，是当发生循环引用时，无法回收无用对象。例如：</p>
+<h2 id="2-常见的GC算法"><a href="#2-常见的GC算法" class="headerlink" title="2. 常见的GC算法"></a>2. 常见的GC算法</h2><p>常见的 GC 算法有：引用计数法、标记清除法、复制法、标记整理法、分代收集法。</p>
+<h3 id="2-1-引用计数法"><a href="#2-1-引用计数法" class="headerlink" title="2.1 引用计数法"></a>2.1 引用计数法</h3><p>即是通过判断引用计数是否为 0 来决定是否回收，引用计数法最致命的缺点，是当发生循环引用时，无法回收无用对象。例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A a = <span class="keyword">new</span> A();</span><br><span class="line">B b = <span class="keyword">new</span> B();</span><br><span class="line"></span><br><span class="line">a.friend = b;</span><br><span class="line">b.friend = a;</span><br></pre></td></tr></table></figure>
 
 <p>则 <code>a</code> 和 <code>b</code> 二者互相引用，执行完这段代码后，其引用计数始终不为 0，则 GC 始终无法回收。</p>
-<h2 id="2-2-标记清除法"><a href="#2-2-标记清除法" class="headerlink" title="2.2 标记清除法"></a>2.2 标记清除法</h2><p>标记清除法分为“标记”和“清除”两个阶段。</p>
+<h3 id="2-2-标记清除法"><a href="#2-2-标记清除法" class="headerlink" title="2.2 标记清除法"></a>2.2 标记清除法</h3><p>标记清除法分为“标记”和“清除”两个阶段。</p>
 <ul>
-<li><p>标记阶段，从 GC Root 出发，遍历所有的子节点，并将所有可达的对象进行标记。</p>
-</li>
-<li><p>清除阶段，遍历所有的对象，将未标记的对象回收。</p>
-</li>
+<li>标记阶段，从 GC Root 出发，遍历所有的子节点，并将所有可达的对象进行标记。</li>
+<li>清除阶段，遍历所有的对象，将未标记的对象回收。</li>
 </ul>
 <p>标记清除法最致命的缺点是：多次 GC 会导致内存碎片化，即空闲内存在实际内存中不是连续的，导致当有大内存对象产生时，无法找到足够的连续内存而又一次触发 GC。</p>
-<h2 id="2-3-复制法"><a href="#2-3-复制法" class="headerlink" title="2.3 复制法"></a>2.3 复制法</h2><p>将内存划分为大小相等的两个区域，每次只使用其中一半，当 GC 发生时，找出其中存活的对象，按照顺序复制到另一半内存中连续的区域，然后直接把之前的一半内存清空，这样就不会出现内存碎片的情况。这种方案适用于大部分对象生命周期都比较短的情况，例如新生代中的对象，而当遇到极端情况，例如一半的内存中，在 GC 时所有的对象都存活，则直接把这一半内存全部复制到另一半，结果还是全部存活，又要复制回来···，实际上就是浪费了 50% 的空间，所以像老年代（存放经过多次 GC 后仍然存活的对象，所以这些对象被 GC 后仍然存活的几率很高）就不能用这种方案。</p>
-<h2 id="2-4-标记整理法"><a href="#2-4-标记整理法" class="headerlink" title="2.4 标记整理法"></a>2.4 标记整理法</h2><p>标记整理法和标记清除法类似，都是通过遍历标记所有可达的对象，但不是直接清理掉不可达对象，而是将所有含有标记的对象，向内存的一侧移动，用空闲指针来标记最后一个存活对象，然后清理掉空闲指针之后的内存空间，这样清理后的空闲内存则是连续的一段。</p>
-<h2 id="2-5-分代收集法"><a href="#2-5-分代收集法" class="headerlink" title="2.5 分代收集法"></a>2.5 分代收集法</h2><p>首先需要明确的是，分代收集法本质上并不是一种 GC 算法，对于一个复杂的系统，例如 JVM，只是用一种单一的 GC 算法是不足以应对所有场景的，因此需要针对多个场景制定一套算法，而分代收集法就是基于这个理念创立的。</p>
+<h3 id="2-3-复制法"><a href="#2-3-复制法" class="headerlink" title="2.3 复制法"></a>2.3 复制法</h3><p>将内存划分为大小相等的两个区域，每次只使用其中一半，当 GC 发生时，找出其中存活的对象，按照顺序复制到另一半内存中连续的区域，然后直接把之前的一半内存清空，这样就不会出现内存碎片的情况。这种方案适用于大部分对象生命周期都比较短的情况，例如新生代中的对象，而当遇到极端情况，例如一半的内存中，在 GC 时所有的对象都存活，则直接把这一半内存全部复制到另一半，结果还是全部存活，又要复制回来···，实际上就是浪费了 50% 的空间，所以像老年代（存放经过多次 GC 后仍然存活的对象，所以这些对象被 GC 后仍然存活的几率很高）就不能用这种方案。</p>
+<h3 id="2-4-标记整理法"><a href="#2-4-标记整理法" class="headerlink" title="2.4 标记整理法"></a>2.4 标记整理法</h3><p>标记整理法和标记清除法类似，都是通过遍历标记所有可达的对象，但不是直接清理掉不可达对象，而是将所有含有标记的对象，向内存的一侧移动，用空闲指针来标记最后一个存活对象，然后清理掉空闲指针之后的内存空间，这样清理后的空闲内存则是连续的一段。</p>
+<h3 id="2-5-分代收集法"><a href="#2-5-分代收集法" class="headerlink" title="2.5 分代收集法"></a>2.5 分代收集法</h3><p>首先需要明确的是，分代收集法本质上并不是一种 GC 算法，对于一个复杂的系统，例如 JVM，只是用一种单一的 GC 算法是不足以应对所有场景的，因此需要针对多个场景制定一套算法，而分代收集法就是基于这个理念创立的。</p>
 <p>堆区本身有 3 个区域划分：新生代（Young Generation）、老年代（Old Generation）、永久代（Permanent Generation）。</p>
 <p>（1）新生代：所有新生成的对象都在新生代，新生代的目标就是尽可能快速的收集生命周期短的对象。新生代又分为三个区（通常是两个 Survivor 区，但也可以增加）：Eden 区，Survivor 1 区，Survivor 2 区。</p>
 <ul>
@@ -576,8 +574,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/post/android/android-activity/" rel="prev" title="Android——Activity">
-                  <i class="fa fa-chevron-left"></i> Android——Activity
+                <a href="/post/android/android-activity/" rel="prev" title="Android-Activity">
+                  <i class="fa fa-chevron-left"></i> Android-Activity
                 </a>
             </div>
             <div class="post-nav-item">
@@ -638,14 +636,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

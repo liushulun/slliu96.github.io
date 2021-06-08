@@ -121,7 +121,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -202,7 +202,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BE%A7%E6%A0%8F%E5%A4%B4%E5%83%8F%E5%8A%A8%E7%94%BB"><span class="nav-text">1. 侧栏头像动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A0%87%E7%AD%BE%E9%A1%B5%E5%8A%A8%E6%80%81%E6%A0%87%E9%A2%98"><span class="nav-text">2. 浏览器标签页动态标题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2DIY%EF%BC%886%EF%BC%89%E5%8A%A8%E6%80%81%E5%A4%B4%E5%83%8F%E4%B8%8E%E5%8A%A8%E6%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A0%87%E9%A2%98"><span class="nav-text">Hexo博客DIY（6）动态头像与动态浏览器标题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BE%A7%E6%A0%8F%E5%A4%B4%E5%83%8F%E5%8A%A8%E7%94%BB"><span class="nav-text">1. 侧栏头像动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A0%87%E7%AD%BE%E9%A1%B5%E5%8A%A8%E6%80%81%E6%A0%87%E9%A2%98"><span class="nav-text">2. 浏览器标签页动态标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -412,33 +412,21 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-侧栏头像动画"><a href="#1-侧栏头像动画" class="headerlink" title="1. 侧栏头像动画"></a>1. 侧栏头像动画</h1><p>先从简单的开始吧！修改头像其实很简单，直接把头像放进 <code>next/source/images/</code> 下，然后再主题配置文件中，找到以下部分：</p>
+<h1 id="Hexo博客DIY（6）动态头像与动态浏览器标题"><a href="#Hexo博客DIY（6）动态头像与动态浏览器标题" class="headerlink" title="Hexo博客DIY（6）动态头像与动态浏览器标题"></a>Hexo博客DIY（6）动态头像与动态浏览器标题</h1><h2 id="1-侧栏头像动画"><a href="#1-侧栏头像动画" class="headerlink" title="1. 侧栏头像动画"></a>1. 侧栏头像动画</h2><p>先从简单的开始吧！修改头像其实很简单，直接把头像放进 <code>next/source/images/</code> 下，然后再主题配置文件中，找到以下部分：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Sidebar Avatar</span></span><br><span class="line"><span class="attr">avatar:</span></span><br><span class="line">  <span class="comment"># In theme directory (source/images): /images/avatar.gif</span></span><br><span class="line">  <span class="comment"># In site directory (source/uploads): /uploads/avatar.gif</span></span><br><span class="line">  <span class="comment"># You can also use other linking images.</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">/images/avatar.jpg</span></span><br><span class="line">  <span class="comment"># If true, the avatar would be dispalyed in circle.</span></span><br><span class="line">  <span class="attr">rounded:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.</span></span><br><span class="line">  <span class="attr">opacity:</span> <span class="number">1</span></span><br><span class="line">  <span class="comment"># If true, the avatar would be rotated with the cursor.</span></span><br><span class="line">  <span class="attr">rotated:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 <p>在 <code>url</code> 处指定头像文件即可，头像可以是网络图片，只需要把本地路径替换为网络图片的网址即可。另外，当打开了 <code>rotated</code> 后，鼠标移到头像处会逆时针旋转半圈，鼠标移开又转回来，不过这个效果看起来好像也比较普通，如果你想让鼠标一过去头像就控记不住记几鬼畜疯狂旋转，就像这样：</p>
-<center>
-
 <p><img data-src="./avatar_rotate_hover.gif" alt="鼠标覆盖头像鬼畜式旋转" title="@ASSET"></p>
-</center>
-
 <p>请找到这个文件并愤怒地打开它：<code>/next/source/css/_common/components/sidebar/sidebar-author.styl</code>，然后找到如下部分修改：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> hexo-<span class="function"><span class="title">config</span>(<span class="params"><span class="string">&#x27;avatar.rotated&#x27;</span></span>)</span> &#123;</span><br><span class="line">  .site-author-image &#123;</span><br><span class="line">    transition: transform <span class="number">1.</span>0s ease-out;</span><br><span class="line">    <span class="comment">/*animation: rotate 5s linear infinite;*/</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/*@keyframes rotate&#123;from&#123;transform: rotate(0deg)&#125;</span></span><br><span class="line"><span class="comment">  to&#123;transform: rotate(360deg)&#125;</span></span><br><span class="line"><span class="comment">  &#125;*/</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 原本只是简单地逆时针旋转 180°</span></span><br><span class="line"><span class="comment">  .site-author-image:hover &#123;</span></span><br><span class="line"><span class="comment">    transform: rotateZ(-180deg);</span></span><br><span class="line"><span class="comment">  &#125;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  .site-author-image:hover &#123;</span><br><span class="line">    animation: rotate <span class="number">0.</span>15s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line">  @keyframes rotate&#123;<span class="keyword">from</span>&#123;<span class="attr">transform</span>: rotate(0deg)&#125;</span><br><span class="line">  to&#123;<span class="attr">transform</span>: rotate(360deg)&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>.site-author-image:hover</code> 就是鼠标覆盖上去时的代码，代码的意思就是：动画是 rotate，时间是 0.15 秒（也即 0.15 秒转一圈），动画速度是线性，动画重复无限次，在下方定义了旋转的角度是从 0 ~ 360°，其中正数是顺时针旋转，负数是逆时针旋转。设置完了以后别忘了 Hexo 三连一下试试效果。如果你不想这么鬼畜，想走文艺路线，就换一下注释并且让它转的缓慢一点唱片式旋转，变成：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> hexo-<span class="function"><span class="title">config</span>(<span class="params"><span class="string">&#x27;avatar.rotated&#x27;</span></span>)</span> &#123;</span><br><span class="line">  .site-author-image &#123;</span><br><span class="line">    transition: transform <span class="number">1.</span>0s ease-out;</span><br><span class="line">    animation: rotate 5s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line">  @keyframes rotate&#123;<span class="keyword">from</span>&#123;<span class="attr">transform</span>: rotate(0deg)&#125;</span><br><span class="line">  to&#123;<span class="attr">transform</span>: rotate(360deg)&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .site-author-image:hover &#123;</span><br><span class="line">    <span class="comment">/*animation: rotate 0.15s linear infinite;*/</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/*@keyframes rotate&#123;from&#123;transform: rotate(0deg)&#125;</span></span><br><span class="line"><span class="comment">  to&#123;transform: rotate(360deg)&#125;</span></span><br><span class="line"><span class="comment">  &#125;*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<center>
-
 <p><img data-src="./avatar_rotate_normal.gif" alt="文艺风头像唱片式旋转" title="@ASSET"></p>
-</center>
-
 <hr>
-<h1 id="2-浏览器标签页动态标题"><a href="#2-浏览器标签页动态标题" class="headerlink" title="2. 浏览器标签页动态标题"></a>2. 浏览器标签页动态标题</h1><p>先看看效果：</p>
-<center>
-
+<h2 id="2-浏览器标签页动态标题"><a href="#2-浏览器标签页动态标题" class="headerlink" title="2. 浏览器标签页动态标题"></a>2. 浏览器标签页动态标题</h2><p>先看看效果：</p>
 <p><img data-src="./animate_browser_title.gif" alt="浏览器标签页动态标题" title="@ASSET"></p>
-</center>
-
 <p>首先在 <code>next/source/custom/</code> 下找一个地方新建一个 animator_title.js 文件（路径和文件名均可自定义），输入以下内容：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--动态浏览器标签--&gt;</span><br><span class="line"> <span class="keyword">var</span> OriginTitle = <span class="built_in">document</span>.title;</span><br><span class="line"> <span class="keyword">var</span> titleTime;</span><br><span class="line"> <span class="keyword">var</span> titleTime2;</span><br><span class="line"> <span class="keyword">var</span> titleTime3;</span><br><span class="line"> <span class="built_in">document</span>.addEventListener(<span class="string">&#x27;visibilitychange&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (<span class="built_in">document</span>.hidden) &#123;</span><br><span class="line">         $(<span class="string">&#x27;[rel=&quot;icon&quot;]&#x27;</span>).attr(<span class="string">&#x27;href&#x27;</span>, <span class="string">&quot;/images/favicon-32x32-next.png&quot;</span>);</span><br><span class="line">         <span class="built_in">document</span>.title = <span class="string">&quot;Waiting...&quot;</span>;</span><br><span class="line">         <span class="built_in">clearTimeout</span>(titleTime);</span><br><span class="line">         <span class="built_in">clearTimeout</span>(titleTime2);</span><br><span class="line">         <span class="built_in">clearTimeout</span>(titleTime3);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="built_in">document</span>.title = <span class="string">&quot;Welcome&quot;</span>;</span><br><span class="line">         titleTime = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">             <span class="built_in">document</span>.title = <span class="string">&quot;Back&quot;</span>;</span><br><span class="line">             titleTime2 = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                 <span class="built_in">document</span>.title = <span class="string">&quot;Welcome Back !&quot;</span>;</span><br><span class="line">                 titleTime3 = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                     <span class="built_in">document</span>.title = OriginTitle;</span><br><span class="line">                 &#125;, <span class="number">800</span>);</span><br><span class="line">             &#125;, <span class="number">500</span>);</span><br><span class="line">         &#125;, <span class="number">500</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
 
@@ -450,9 +438,9 @@
 <hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="@LINK">博客 DIY 系列</a></p>
 <hr>
-<h1 id="3-附录-参考指导"><a href="#3-附录-参考指导" class="headerlink" title="3. 附录[参考指导]"></a>3. 附录[参考指导]</h1><blockquote>
+<h2 id="3-附录-参考指导"><a href="#3-附录-参考指导" class="headerlink" title="3. 附录[参考指导]"></a>3. 附录[参考指导]</h2><blockquote>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://asdfv1929.github.io/2018/01/25/crash-cheat/" title="@LINK">【1】Hexo NexT主题中添加网页标题崩溃欺骗搞怪特效（作者：asdfv1929）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://asdfv1929.github.io/2018/01/25/crash-cheat/" title="@LINK">【1】Hexo NexT主题中添加网页标题崩溃欺骗搞怪特效（作者：asdfv1929）</a></li>
 </ul>
 </blockquote>
 
@@ -645,14 +633,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

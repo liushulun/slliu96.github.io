@@ -124,7 +124,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -205,7 +205,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E9%9A%90%E8%97%8F%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E4%BF%A1%E6%81%AF"><span class="nav-text">1. 隐藏修改时间信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E9%9A%90%E8%97%8F%E6%97%B6%E9%97%B4%E4%BF%A1%E6%81%AF%E4%B8%8B%E6%BB%91%E8%99%9A%E7%BA%BF"><span class="nav-text">2. 隐藏时间信息下滑虚线</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2DIY%EF%BC%8813%EF%BC%89%E9%9A%90%E8%97%8F%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E4%BF%A1%E6%81%AF%E5%92%8C%E6%97%B6%E9%97%B4%E4%B8%8B%E6%BB%91%E8%99%9A%E7%BA%BF"><span class="nav-text">Hexo博客DIY（13）隐藏修改时间信息和时间下滑虚线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%9A%90%E8%97%8F%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E4%BF%A1%E6%81%AF"><span class="nav-text">1. 隐藏修改时间信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%9A%90%E8%97%8F%E6%97%B6%E9%97%B4%E4%BF%A1%E6%81%AF%E4%B8%8B%E6%BB%91%E8%99%9A%E7%BA%BF"><span class="nav-text">2. 隐藏时间信息下滑虚线</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -415,18 +415,10 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-隐藏修改时间信息"><a href="#1-隐藏修改时间信息" class="headerlink" title="1. 隐藏修改时间信息"></a>1. 隐藏修改时间信息</h1><p>默认情况下，一篇文章会具有“创建时间”和“更新时间”两个信息：</p>
-<center>
-
+<h1 id="Hexo博客DIY（13）隐藏修改时间信息和时间下滑虚线"><a href="#Hexo博客DIY（13）隐藏修改时间信息和时间下滑虚线" class="headerlink" title="Hexo博客DIY（13）隐藏修改时间信息和时间下滑虚线"></a>Hexo博客DIY（13）隐藏修改时间信息和时间下滑虚线</h1><h2 id="1-隐藏修改时间信息"><a href="#1-隐藏修改时间信息" class="headerlink" title="1. 隐藏修改时间信息"></a>1. 隐藏修改时间信息</h2><p>默认情况下，一篇文章会具有“创建时间”和“更新时间”两个信息：</p>
 <p><img data-src="./update_time_show.png" alt="文章列表显示更新时间" title="@ASSET"></p>
-</center>
-
 <p>不过两个时间标签放在一起，如果是正文内显示，会觉得特别繁杂，很多信息都挤在一块：</p>
-<center>
-
 <p><img data-src="./update_time_show_in_post.png" alt="文章正文显示更新时间" title="@ASSET"></p>
-</center>
-
 <p>不论是出于简约美观、还是出于隐私性，可能有时会不希望显示这个信息，比如我只希望在明确会更新的文章或者经过讨论后认为有改进部分的文章内显示，从而给合作者、读者一个更明确地更新信号，在 Next 主题的主题配置文件中倒是有一个“更新时间”的开关：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post meta display settings</span></span><br><span class="line"><span class="attr">post_meta:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">created_at:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">updated_at:</span>  <span class="comment"># 这里可以开关“更新时间”</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">another_day:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
@@ -440,33 +432,17 @@
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hexo博客DIY（13）隐藏修改时间信息和时间下滑虚线</span></span><br><span class="line"><span class="attr">modify:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019-01-11 09:12:49</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
 
 <p>隐藏“修改时间”后看起来清爽的多：</p>
-<center>
-
 <p><img data-src="./update_time_hide.png" alt="文章列表隐藏更新时间" title="@ASSET"></p>
-</center>
-
 <p>文章正文内显示效果：</p>
-<center>
-
 <p><img data-src="./update_time_hide_in_post.png" alt="文章列表隐藏更新时间" title="@ASSET"></p>
-</center>
-
 <hr>
-<h1 id="2-隐藏时间信息下滑虚线"><a href="#2-隐藏时间信息下滑虚线" class="headerlink" title="2. 隐藏时间信息下滑虚线"></a>2. 隐藏时间信息下滑虚线</h1><p>默认情况下，时间信息（包括创建时间和修改时间）的底部还有一个下滑虚线：</p>
-<center>
-
+<h2 id="2-隐藏时间信息下滑虚线"><a href="#2-隐藏时间信息下滑虚线" class="headerlink" title="2. 隐藏时间信息下滑虚线"></a>2. 隐藏时间信息下滑虚线</h2><p>默认情况下，时间信息（包括创建时间和修改时间）的底部还有一个下滑虚线：</p>
 <p><img data-src="./time_underline_show.png" alt="显示时间信息下滑虚线" title="@ASSET"></p>
-</center>
-
 <p>不过后面的各个信息都没有下划线，看起来总觉得不太统一。去掉这个下滑虚线修改 <code>next/source/css/_common/components/post/post-meta.styl</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.posts-expand .post-meta</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">  time &#123;</span><br><span class="line">    <span class="comment">// 删除下面一行</span></span><br><span class="line">    <span class="comment">// border-bottom: 1px dashed $grey-dark;</span></span><br><span class="line">    cursor: help;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>按照注释，删掉 <code>border-bottom</code> 一行即可。修改完效果：</p>
-<center>
-
 <p><img data-src="./time_underline_hide.png" alt="隐藏时间信息下滑虚线" title="@ASSET"></p>
-</center>
-
 <p>当然，如果想保留，也可以按照自己的需求 DIY，这个文件内还有各个其他信息的样式，都可以自定义。</p>
 <hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="@LINK">博客 DIY 系列</a></p>
@@ -660,14 +636,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

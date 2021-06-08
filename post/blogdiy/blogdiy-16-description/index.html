@@ -128,7 +128,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -209,7 +209,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%96%87%E9%A6%96%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E6%8F%8F%E8%BF%B0"><span class="nav-text">1. 文首显示文章描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E2%80%9C%E7%AE%80%E4%BB%8B%E2%80%9D%E5%92%8C%E2%80%9C%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%E2%80%9D"><span class="nav-text">2. 自动切换“简介”和“未完待续”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%A2%9E%E5%8A%A0LaTeX%E5%85%AC%E5%BC%8F%E6%8F%90%E7%A4%BA"><span class="nav-text">3. 增加LaTeX公式提示</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2DIY%EF%BC%8816%EF%BC%89SEO%E6%8F%8F%E8%BF%B0%E4%BD%9C%E4%B8%BA%E7%AE%80%E4%BB%8B%E5%B9%B6%E6%B7%BB%E5%8A%A0LaTeX%E6%8F%90%E7%A4%BA"><span class="nav-text">Hexo博客DIY（16）SEO描述作为简介并添加LaTeX提示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%96%87%E9%A6%96%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E6%8F%8F%E8%BF%B0"><span class="nav-text">1. 文首显示文章描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2%E2%80%9C%E7%AE%80%E4%BB%8B%E2%80%9D%E5%92%8C%E2%80%9C%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%E2%80%9D"><span class="nav-text">2. 自动切换“简介”和“未完待续”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%A2%9E%E5%8A%A0LaTeX%E5%85%AC%E5%BC%8F%E6%8F%90%E7%A4%BA"><span class="nav-text">3. 增加LaTeX公式提示</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -419,12 +419,8 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-文首显示文章描述"><a href="#1-文首显示文章描述" class="headerlink" title="1. 文首显示文章描述"></a>1. 文首显示文章描述</h1><p>在给博客做 SEO 优化时，通常会给每一篇文章都加一个描述 description 属性，这样能更方便地使得文章被搜索引擎检索到。不过 description 会和正文的 <code>ReadMore</code> 冲突，也就是不论正文在哪里划分 <code>&lt;!-- more --&gt;</code> 标签，只要设置了 description 就会导致首页显示的文章缩略内容是 description，并且点击阅读全文后，这个 description 会作为一个文章信息的形式展示而非正文：</p>
-<center>
-
+<h1 id="Hexo博客DIY（16）SEO描述作为简介并添加LaTeX提示"><a href="#Hexo博客DIY（16）SEO描述作为简介并添加LaTeX提示" class="headerlink" title="Hexo博客DIY（16）SEO描述作为简介并添加LaTeX提示"></a>Hexo博客DIY（16）SEO描述作为简介并添加LaTeX提示</h1><h2 id="1-文首显示文章描述"><a href="#1-文首显示文章描述" class="headerlink" title="1. 文首显示文章描述"></a>1. 文首显示文章描述</h2><p>在给博客做 SEO 优化时，通常会给每一篇文章都加一个描述 description 属性，这样能更方便地使得文章被搜索引擎检索到。不过 description 会和正文的 <code>ReadMore</code> 冲突，也就是不论正文在哪里划分 <code>&lt;!-- more --&gt;</code> 标签，只要设置了 description 就会导致首页显示的文章缩略内容是 description，并且点击阅读全文后，这个 description 会作为一个文章信息的形式展示而非正文：</p>
 <p><img data-src="./description_in_post_meta.png" alt="文章信息中的描述" title="@ASSET"></p>
-</center>
-
 <p>这就使得本就信息栏更加复杂，而且如果文章确实需要一个简介，在正文处又要再写一次，不仅重复而且不美观。所以可以想办法把 description 从信息栏移到正文开头，恰好作为简介使用，而且还能优化 SEO，一举两得。调整 description 的位置需要修改 <code>next/layout/_macro/post.swig</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#123;#################&#125;</span><br><span class="line">&#123;## POST HEADER ##&#125;</span><br><span class="line">&#123;#################&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> not headlessPost %&#125;</span><br><span class="line">  &lt;header <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-header&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">  &#123;### 中间隔了很长一大段 ###&#125;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">  &#123;### 一直到 Post Header 的最下面 ###&#125;</span><br><span class="line"></span><br><span class="line">  &#123;#################&#125;</span><br><span class="line">  &#123;## Description ##&#125;</span><br><span class="line">  &#123;#################&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> post.description and (not theme.excerpt_description or not is_index) %&#125;</span><br><span class="line">    &lt;div class=&quot;post-description&quot;&gt;&#123;#</span><br><span class="line">      #&#125;&#123;&#123; post.description &#125;&#125;&#123;#</span><br><span class="line">    #&#125;&lt;/div&gt;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">  &lt;/header&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">&#123;#################&#125;</span><br><span class="line">&#123;### POST BODY ###&#125;</span><br><span class="line">&#123;#################&#125;</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -432,24 +428,12 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&#123;#################&#125;</span><br><span class="line">&#123;### POST BODY ###&#125;</span><br><span class="line">&#123;#################&#125;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;post-body&#123;% if theme.han %&#125; han-init-context&#123;% endif %&#125;&#123;% if post.direction &amp;&amp; post.direction.toLowerCase() === &#x27;rtl&#x27; %&#125; rtl&#123;% endif %&#125;&quot;</span> itemprop=<span class="string">&quot;articleBody&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">  &#123;% <span class="keyword">if</span> is_index %&#125;</span><br><span class="line">    &#123;% <span class="keyword">if</span> post.description and theme.excerpt_description %&#125;</span><br><span class="line"></span><br><span class="line">      &#123;### 这里是首页文章列表的描述 ###&#125;</span><br><span class="line">      &#123;### 在描述前面加一个高亮的“简介：”开头 ###&#125;</span><br><span class="line">      &lt;span style=<span class="string">&quot;color: #EB6D39&quot;</span>&gt;简介：&lt;/span&gt;&#123;&#123; post.description &#125;&#125;</span><br><span class="line"></span><br><span class="line">      ......</span><br><span class="line"></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">  &#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line"></span><br><span class="line">    &#123;### 这里是正文内的描述 ###&#125;</span><br><span class="line">    &#123;### 在描述前面加一个高亮的“简介：”开头 ###&#125;</span><br><span class="line"></span><br><span class="line">    &#123;#################&#125;</span><br><span class="line">    &#123;## Description ##&#125;</span><br><span class="line">    &#123;#################&#125;</span><br><span class="line">    &#123;### 把 Description 显示在正文内 ###&#125;</span><br><span class="line">    &#123;% <span class="keyword">if</span> post.description and (not theme.excerpt_description or not is_index) %&#125;</span><br><span class="line">      &lt;div class=&quot;post-description&quot;&gt;&#123;#</span><br><span class="line">        #&#125;&lt;span style=&quot;color: #EB6D39&quot;&gt;简介：&lt;/span&gt;&#123;&#123; post.description &#125;&#125;&#123;#</span><br><span class="line">      #&#125;&lt;/div&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">    &#123;### 下面就是正文内容 ###&#125;</span><br><span class="line">    &#123;&#123; post.content &#125;&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>这样，首页的描述前就会自动加上高亮的“简介：”开头了：</p>
-<center>
-
 <p><img data-src="./description_in_home_with_title.png" alt="首页文章列表的描述" title="@ASSET"></p>
-</center>
-
 <p>正文内的描述也会有同样效果：</p>
-<center>
-
 <p><img data-src="./description_in_post_with_title.png" alt="正文内的描述" title="@ASSET"></p>
-</center>
-
 <hr>
-<h1 id="2-自动切换“简介”和“未完待续”"><a href="#2-自动切换“简介”和“未完待续”" class="headerlink" title="2. 自动切换“简介”和“未完待续”"></a>2. 自动切换“简介”和“未完待续”</h1><p>如果一篇文章尚未完成，想要在文首提示一些信息，可能会这么做：</p>
-<center>
-
+<h2 id="2-自动切换“简介”和“未完待续”"><a href="#2-自动切换“简介”和“未完待续”" class="headerlink" title="2. 自动切换“简介”和“未完待续”"></a>2. 自动切换“简介”和“未完待续”</h2><p>如果一篇文章尚未完成，想要在文首提示一些信息，可能会这么做：</p>
 <p><img data-src="./description_and_unfinished.png" alt="简介后加入“未完待续”" title="@ASSET"></p>
-</center>
-
 <p>但是显得不够简洁，简介就应该是针对一篇已完成的文章。因此，可以利用自定义文章头部属性的方式进行适配。首先在未完成的文章头部属性中增加一个自定义属性 <code>unfinished: true</code>，当然也可以按自己的喜好来：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">例文</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">SLLiu</span></span><br><span class="line"><span class="attr">unfinished:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">简介</span> <span class="string">/</span> <span class="string">未完待续</span></span><br></pre></td></tr></table></figure>
 
@@ -458,37 +442,17 @@
 
 <p>这样，如果文章具有 <code>unfinished: true</code> 属性，则会显示“未完待续”，完成文章后删掉这个属性，即可正常显示“简介”了。</p>
 <p>未完成文章显示：</p>
-<center>
-
 <p><img data-src="./post_unfinished.png" alt="未完成的文章" title="@ASSET"></p>
-</center>
-
 <p>已完成文章显示：</p>
-<center>
-
 <p><img data-src="./post_finished.png" alt="已完成的文章" title="@ASSET"></p>
-</center>
-
 <hr>
-<h1 id="3-增加LaTeX公式提示"><a href="#3-增加LaTeX公式提示" class="headerlink" title="3. 增加LaTeX公式提示"></a>3. 增加LaTeX公式提示</h1><p>由于 Safari 浏览器对 LaTeX 的支持不是特别好，会导致某些情况下 LaTeX 的公式显示错位或异常，例如：</p>
-<center>
-
+<h2 id="3-增加LaTeX公式提示"><a href="#3-增加LaTeX公式提示" class="headerlink" title="3. 增加LaTeX公式提示"></a>3. 增加LaTeX公式提示</h2><p>由于 Safari 浏览器对 LaTeX 的支持不是特别好，会导致某些情况下 LaTeX 的公式显示错位或异常，例如：</p>
 <p><img data-src="./latex_error_in_safari.png" alt="Safari 显示 LaTeX 异常" title="@ASSET"></p>
-</center>
-
 <p>可以看到这个向量图标错了，正常情况下（基于 Chrome 和 FireFox 的浏览器）显示效果应该是这样的：</p>
-<center>
-
 <p><img data-src="./latex_right_in_chrome.png" alt="LaTeX 正常显示效果" title="@ASSET"></p>
-</center>
-
 <p>为此，可以在文首增加一条提示，用于提醒读者切换浏览器。如果每一篇添加了的文章都手动增加提示，效率太低，不符合程序猿的习惯，况且如果是后面增加公式的文章，还容易忘记添加提示，因此把这个提示也添加到自动生成中去！</p>
 <p>显示效果可以查看文章：<a href="/post/machinelearning/ml-introduction/ml-introduction/" title="@LINK">机器学习简介</a>，图片效果如下：</p>
-<center>
-
 <p><img data-src="./latex_tips_in_post.png" alt="文首自动添加 LaTeX 提示" title="@ASSET"></p>
-</center>
-
 <p>为了能在比较显眼的地方提示，就把它放在描述的上方好了！增加的方法是一样一样的，因为 Hexo 如果要使用 LaTeX 渲染，除了在配置文件中开启 MathJax 之外，还需要在每篇文章的头部属性中增加</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
@@ -496,11 +460,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;### 这里是正文内LaTeX提示 ###&#125;</span><br><span class="line">&#123;### 在正文描述的上方添加提示，并居中显示 ###&#125;</span><br><span class="line"></span><br><span class="line">&#123;#################&#125;</span><br><span class="line">&#123;## LaTeX Tips ###&#125;</span><br><span class="line">&#123;#################&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> post.mathjax %&#125;</span><br><span class="line">&lt;div style=<span class="string">&quot;color: #EB6D39; text-align: center&quot;</span>&gt;Tips : Safari 浏览器对 LaTeX 的支持不太好。&amp;emsp;LaTeX not supported well <span class="keyword">in</span> Safari.&lt;/div&gt;&#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">&#123;### 这里是正文内的描述 ###&#125;</span><br><span class="line">&#123;### 在描述前面加一个高亮的“简介：”开头 ###&#125;</span><br><span class="line"></span><br><span class="line">&#123;#################&#125;</span><br><span class="line">&#123;## Description ##&#125;</span><br><span class="line">&#123;#################&#125;</span><br><span class="line">&#123;### 把 Description 显示在正文内 ###&#125;</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>这里我只是在正文的描述上方添加提示语，在首页文章列表是不会显示的，以保持首页的简洁性。当然如果想要在首页也显示，复制下来粘贴到对应位置即可。并且没有开启 LaTeX 功能的文章是不会显示的，比如本文：</p>
-<center>
-
 <p><img data-src="./latex_no_tips_in_post.png" alt="无 LaTeX 功能文章不显示提示" title="@ASSET"></p>
-</center>
-
 <hr>
 <p>更多进一步的个性化欢迎参考：<a href="/categories/BlogDIY/" title="@LINK">博客 DIY 系列</a></p>
 
@@ -693,14 +653,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

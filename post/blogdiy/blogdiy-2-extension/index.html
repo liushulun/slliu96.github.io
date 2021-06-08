@@ -120,7 +120,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -201,7 +201,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%96%87%E7%AB%A0%E7%89%88%E6%9D%83"><span class="nav-text">1. 文章版权</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%A0%87%E7%AD%BE%E8%AF%8D%E4%BA%91"><span class="nav-text">2. 标签词云</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD"><span class="nav-text">3. 文件下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%9B%B4%E6%94%B9%E6%96%87%E7%AB%A0URL%E8%B7%AF%E5%BE%84"><span class="nav-text">4. 更改文章URL路径</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2DIY%EF%BC%882%EF%BC%89%E5%86%85%E7%BD%AE%E7%9A%84%E5%B0%8F%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95"><span class="nav-text">Hexo博客DIY（2）内置的小功能扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%96%87%E7%AB%A0%E7%89%88%E6%9D%83"><span class="nav-text">1. 文章版权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%A0%87%E7%AD%BE%E8%AF%8D%E4%BA%91"><span class="nav-text">2. 标签词云</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD"><span class="nav-text">3. 文件下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9B%B4%E6%94%B9%E6%96%87%E7%AB%A0URL%E8%B7%AF%E5%BE%84"><span class="nav-text">4. 更改文章URL路径</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -411,38 +411,34 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-文章版权"><a href="#1-文章版权" class="headerlink" title="1. 文章版权"></a>1. 文章版权</h1><p>作为一个码畜，版权意识还是要有的（虽然没什么用），文章的版权该加还是加上，在主题配置文件中找到：</p>
+<h1 id="Hexo博客DIY（2）内置的小功能扩展"><a href="#Hexo博客DIY（2）内置的小功能扩展" class="headerlink" title="Hexo博客DIY（2）内置的小功能扩展"></a>Hexo博客DIY（2）内置的小功能扩展</h1><h2 id="1-文章版权"><a href="#1-文章版权" class="headerlink" title="1. 文章版权"></a>1. 文章版权</h2><p>作为一个码畜，版权意识还是要有的（虽然没什么用），文章的版权该加还是加上，在主题配置文件中找到：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Creative Commons 4.0 International License.</span></span><br><span class="line"><span class="comment"># See: https://creativecommons.org/share-your-work/licensing-types-examples</span></span><br><span class="line"><span class="comment"># Available values of license: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero</span></span><br><span class="line"><span class="comment"># You can set a language value if you prefer a translated version of CC license.</span></span><br><span class="line"><span class="comment"># CC licenses are available in 39 languages, where you can find the specific and correct abbreviation you need.</span></span><br><span class="line"><span class="comment"># Valid values of language: deed.zh, deed.fr, deed.de, etc.</span></span><br><span class="line"><span class="attr">creative_commons:</span></span><br><span class="line">  <span class="attr">license:</span> <span class="string">by-nc-sa</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">language:</span> <span class="string">deed.zh</span></span><br></pre></td></tr></table></figure>
 
 <p>其中，如果开启 <code>sidebar</code>，则文章的侧栏目录处会显示版权信息，如果开启 <code>post</code>，则文章底部会显示版权信息。</p>
 <hr>
-<h1 id="2-标签词云"><a href="#2-标签词云" class="headerlink" title="2. 标签词云"></a>2. 标签词云</h1><p>具体标签词云的效果可以参考：<a href="/tags/" title="@LINK">我的标签页面</a>，简单来说就是：所有文章中，出现次数不同的标签会具有不同大小、颜色，这样就能更好地区分哪些内容会是博客的主要部分。自定义效果在主题配置文件内：</p>
+<h2 id="2-标签词云"><a href="#2-标签词云" class="headerlink" title="2. 标签词云"></a>2. 标签词云</h2><p>具体标签词云的效果可以参考：<a href="/tags/" title="@LINK">我的标签页面</a>，简单来说就是：所有文章中，出现次数不同的标签会具有不同大小、颜色，这样就能更好地区分哪些内容会是博客的主要部分。自定义效果在主题配置文件内：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TagCloud settings for tags page.</span></span><br><span class="line"><span class="attr">tagcloud:</span></span><br><span class="line">  <span class="comment"># If true, font size, font color and amount of tags can be customized</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># All values below are same as default, change them by yourself</span></span><br><span class="line">  <span class="attr">min:</span> <span class="number">13</span> <span class="comment"># min font size in px</span></span><br><span class="line">  <span class="attr">max:</span> <span class="number">30</span> <span class="comment"># max font size in px</span></span><br><span class="line">  <span class="attr">start:</span> <span class="string">&quot;#008577&quot;</span> <span class="comment"># start color (hex, rgba, hsla or color keywords)</span></span><br><span class="line">  <span class="attr">end:</span> <span class="string">&quot;#EB6D39&quot;</span> <span class="comment"># end color (hex, rgba, hsla or color keywords)</span></span><br><span class="line">  <span class="attr">amount:</span> <span class="number">200</span> <span class="comment"># amount of tags, change it if you have more than 200 tags</span></span><br></pre></td></tr></table></figure>
 
 <p>其中 <code>min</code> 和 <code>max</code> 分别代表最冷门和最热门标签的大小，<code>start</code> 和 <code>end</code> 分别代表最冷门和最热门标签的颜色，出现次数位于中间的标签会根据这个大小、颜色范围自动生成不同的大小和颜色。</p>
 <hr>
-<h1 id="3-文件下载"><a href="#3-文件下载" class="headerlink" title="3. 文件下载"></a>3. 文件下载</h1><p>很多时候我们想要给读者提供一个小的例程或者说明文档时，会把文件传到网盘上然后分享出来，不过这么做不仅麻烦，而且随时面临文件失效、被移动、修改后要重新上传等问题，所以如果能直接在博客内提供下载会更好。实际上这种静态博客的所有文件都是能下载的，因为其都对应了一个具体的地址，只不过一般我们在文章内放入的，点击链接会跳转到浏览器打开后的界面，我们希望这个链接可以是下载链接的形式，就能用以下方法实现：</p>
+<h2 id="3-文件下载"><a href="#3-文件下载" class="headerlink" title="3. 文件下载"></a>3. 文件下载</h2><p>很多时候我们想要给读者提供一个小的例程或者说明文档时，会把文件传到网盘上然后分享出来，不过这么做不仅麻烦，而且随时面临文件失效、被移动、修改后要重新上传等问题，所以如果能直接在博客内提供下载会更好。实际上这种静态博客的所有文件都是能下载的，因为其都对应了一个具体的地址，只不过一般我们在文章内放入的，点击链接会跳转到浏览器打开后的界面，我们希望这个链接可以是下载链接的形式，就能用以下方法实现：</p>
 <ol>
-<li><p>在站点配置文件内找到：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<li><p>在站点配置文件内找到并开启 <code>post_asset_folder</code>：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>将其改为 <code>true</code> 即可，然后在 <code>blog/source/</code> 下建立一个文件夹（也可以放在已有文件夹内），比如我新建一个 <strong>post_files</strong> 文件夹存放，然后文件放在：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blog&#x2F;source&#x2F;TestWord.docx</span><br></pre></td></tr></table></figure>
+<li><p>然后在 <code>blog/source/</code> 下建立一个文件夹（也可以放在已有文件夹内），比如我新建一个 <code>post_files</code> 文件夹存放，然后文件放在：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blog/<span class="built_in">source</span>/TestWord.docx</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在文章内需要提供下载的地方这么写即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[测试下载 Word](.&#x2F;TestWord.docx)</span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">测试下载 Word</span>](<span class="link">./TestWord.docx</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>测试一下：<a href="./TestWord.docx" title="@LINK">点击下载 Word</a>、<a href="./TestExcel.xlsx" title="@LINK">点击下载 Excel</a></p>
 </li>
 </ol>
 <p>不过，目前已知 TXT 文本、图片、RTF 富文本、MarkDown 文本等无法提供下载，点击后会直接跳转到浏览器打开文件的界面，建议多个小文件做成压缩包的形式再提供下载，大文件去掉扩展名或先改变扩展名，下载后再改回来。不过，如果去掉文件扩展名，下载下来之后会自动增加一个“dms”扩展名，需要手动改为正确扩展名才可用。</p>
 <hr>
-<h1 id="4-更改文章URL路径"><a href="#4-更改文章URL路径" class="headerlink" title="4. 更改文章URL路径"></a>4. 更改文章URL路径</h1><p>默认情况下，当我们发布了一篇文章后，会发现文章的 URL 路径通常都是类似于：</p>
-<center>
-
+<h2 id="4-更改文章URL路径"><a href="#4-更改文章URL路径" class="headerlink" title="4. 更改文章URL路径"></a>4. 更改文章URL路径</h2><p>默认情况下，当我们发布了一篇文章后，会发现文章的 URL 路径通常都是类似于：</p>
 <p><img data-src="./url_format_default.png" alt="默认 URL 格式" title="@ASSET"></p>
-</center>
-
 <p>这种路径格式其实非常不适合作为长期维护的博客页使用，第一，有时分享的时候能记得住标题，但记不住时间，为了分享还要专门再看一次文章地址。第二，如果接入后台、接入分析统计接口等等，一堆文章前面都是日期打头的链接，不仅不方便分类管理，自己也看的头疼。为此，Hexo 其实提供了可以修改默认格式的设置，在站点配置文件里面：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">slliu96.github.io</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br></pre></td></tr></table></figure>
 
@@ -450,13 +446,9 @@
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">基于Hexo的博客DIY（2）——</span> <span class="string">附加功能扩展</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">SLLiu</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019-01-09 11:26:17</span></span><br><span class="line"><span class="attr">postfrom:</span> <span class="string">aaa</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
 
 <p><code>postfrom</code> 和上面写的取值 <code>aaa</code> 只是示例，都可以自定义，只要站点配置文件内写的属性名和文章内写的属性名一致即可，这样就可以在写每篇文章的时候自定义一个 URL 格式了：</p>
-<center>
-
 <p><img data-src="./url_format_custom.png" alt="自定义 URL 格式" title="@ASSET"></p>
-</center>
-
 <p>当然，也可以直接把格式用固定字符串代替，这样就不用每篇文章都手动加格式了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permalink: postfrom&#x2F;:title&#x2F;</span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">postfrom/:title/</span></span><br></pre></td></tr></table></figure>
 
 <p>这样，每篇文章的 URL 都会是这种格式：<code>xxx.github.io/postfrom/XXXXXXXX</code>。</p>
 <hr>
@@ -651,14 +643,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

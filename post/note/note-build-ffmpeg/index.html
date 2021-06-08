@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -199,7 +199,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E5%92%8C%E6%89%80%E9%9C%80%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">1. 环境和所需的文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%BC%96%E8%AF%91SO%E6%96%87%E4%BB%B6"><span class="nav-text">2. 编译SO文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E9%85%8D%E7%BD%AENDK"><span class="nav-text">2.1 配置NDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E9%85%8D%E7%BD%AEFFmpeg"><span class="nav-text">2.2 配置FFmpeg</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mac%E7%BC%96%E8%AF%91FFmpeg%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95"><span class="nav-text">Mac编译FFmpeg踩坑记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E5%92%8C%E6%89%80%E9%9C%80%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">1. 环境和所需的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BC%96%E8%AF%91SO%E6%96%87%E4%BB%B6"><span class="nav-text">2. 编译SO文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E9%85%8D%E7%BD%AENDK"><span class="nav-text">2.1 配置NDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%85%8D%E7%BD%AEFFmpeg"><span class="nav-text">2.2 配置FFmpeg</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">3. 附录[参考指导]</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -389,14 +389,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>4.9k</span>
+      <span>5k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Read Time &asymp;</span>
-      <span>5 Min</span>
+      <span>6 Min</span>
     </span>
 </div>
 
@@ -410,9 +410,9 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>前言：实际上网上关于如何编译 FFmpeg 的文章已经相当多了，但是等到自己真的要用的时候才发现，能找到的大部分文章多少都有些不够完善，或是有遗漏的说明，或是版本、环境太久远，为此踩了不少的坑，最后发现还是读官方文档最省事。特地记录一篇文章，并尽可能详细地写出具体步骤。</p>
+<h1 id="Mac编译FFmpeg踩坑记录"><a href="#Mac编译FFmpeg踩坑记录" class="headerlink" title="Mac编译FFmpeg踩坑记录"></a>Mac编译FFmpeg踩坑记录</h1><p>前言：实际上网上关于如何编译 FFmpeg 的文章已经相当多了，但是等到自己真的要用的时候才发现，能找到的大部分文章多少都有些不够完善，或是有遗漏的说明，或是版本、环境太久远，为此踩了不少的坑，最后发现还是读官方文档最省事。特地记录一篇文章，并尽可能详细地写出具体步骤。</p>
 <hr>
-<h1 id="1-环境和所需的文件"><a href="#1-环境和所需的文件" class="headerlink" title="1. 环境和所需的文件"></a>1. 环境和所需的文件</h1><p>先是环境：</p>
+<h2 id="1-环境和所需的文件"><a href="#1-环境和所需的文件" class="headerlink" title="1. 环境和所需的文件"></a>1. 环境和所需的文件</h2><p>先是环境：</p>
 <ul>
 <li>FFmpeg：3.3.9</li>
 <li>NDK：android-ndk-r14b</li>
@@ -421,34 +421,28 @@
 </ul>
 <p>再给出几个下载链接：</p>
 <ul>
-<li><p>FFmpeg：<a target="_blank" rel="noopener" href="https://ffmpeg.org/download.html#releases" title="@LINK">点此下载</a></p>
-</li>
-<li><p>NDK：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/downloads/index.html" title="@LINK">点此下载</a></p>
-<blockquote>
-<p>@注：<font color=red>不建议使用 AndroidStudio 自带的 ndk-bundle 编译，不建议使用最新版 FFmpeg，不建议使用最新版 NDK，理由不明（笑）。</font></p>
-</blockquote>
-</li>
+<li>FFmpeg：<a target="_blank" rel="noopener" href="https://ffmpeg.org/download.html#releases" title="@LINK">点此下载</a></li>
+<li>NDK：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/downloads/index.html" title="@LINK">点此下载</a></li>
 </ul>
+<blockquote>
+<p>@注：<strong>不建议使用 AndroidStudio 自带的 ndk-bundle 编译，不建议使用最新版 FFmpeg，不建议使用最新版 NDK，理由不明（笑）。</strong></p>
+</blockquote>
 <p>使用最新的 FFmpeg 4.x，按照网上主流的做法，修改 <code>configure</code> 文件然后新建脚本 <code>build_android.sh</code> 的方法，会报如下错误：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line">Makefile:67: /common.mak: No such file or directory</span><br><span class="line">Makefile:114: /libavutil/Makefile: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">C compiler <span class="built_in">test</span> failed.</span><br><span class="line"></span><br><span class="line">If you think configure made a mistake, make sure you are using the latest</span><br><span class="line">version from Git.  If the latest version fails, report the problem to the</span><br><span class="line">ffmpeg-user@ffmpeg.org mailing list or IRC <span class="comment">#ffmpeg on irc.freenode.net.</span></span><br><span class="line">Include the <span class="built_in">log</span> file <span class="string">&quot;config.log&quot;</span> produced by configure as this will <span class="built_in">help</span></span><br><span class="line">solve the problem.</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line">sed: config.h: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">Makefile:2: config.mak: No such file or directory</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">make: *** No rule to make target `/tests/Makefile<span class="string">&#x27;.  Stop.</span></span><br></pre></td></tr></table></figure>
 
 <p>报了一堆 <code>No such file or directory</code> 错误，第一行的 <code>config.mak</code> 也可能是 <code>ffbuild/config.mak</code>，带着错误去搜也搜不到什么头绪，根据报错信息去 FFmpeg 的根目录下或者 <code>ffbuild/</code> 下也确实找不到所谓的 <code>config.mak</code>，一个解决方案是：</p>
-<ul>
-<li><ol>
-<li>先不要修改 <code>configure</code> 文件，直接执行：<code>./configure</code>，但是大概率会报这个错误：</li>
-</ol>
+<ol>
+<li><p>先不要修改 <code>configure</code> 文件，直接执行：<code>./configure</code>，但是大概率会报这个错误：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nasm/yasm not found or too old. Use --disable-x86asm <span class="keyword">for</span> a crippled build.</span><br></pre></td></tr></table></figure>
 
 <p>只要按照提示加上 <code>--disable-x86asm</code> 参数即可，重新执行完会自动生成缺失的文件。</p>
 </li>
-<li><ol start="2">
-<li>再重新执行脚本：<code>sudo ./build_android.sh</code>。</li>
-</ol>
+<li><p>再重新执行脚本：<code>sudo ./build_android.sh</code>。</p>
 </li>
-</ul>
+</ol>
 <p>但是这么做，如果是最新的 NDK 或者最新的 FFmpeg，执行完倒是不报错，但是并不会编译输出 SO 文件，所以还是老老实实用已有方案的版本吧！</p>
 <hr>
-<h1 id="2-编译SO文件"><a href="#2-编译SO文件" class="headerlink" title="2. 编译SO文件"></a>2. 编译SO文件</h1><h2 id="2-1-配置NDK"><a href="#2-1-配置NDK" class="headerlink" title="2.1 配置NDK"></a>2.1 配置NDK</h2><p>首先，NDK 下载好后，放到自定义目录中，需要添加到环境变量中去：</p>
+<h2 id="2-编译SO文件"><a href="#2-编译SO文件" class="headerlink" title="2. 编译SO文件"></a>2. 编译SO文件</h2><h3 id="2-1-配置NDK"><a href="#2-1-配置NDK" class="headerlink" title="2.1 配置NDK"></a>2.1 配置NDK</h3><p>首先，NDK 下载好后，放到自定义目录中，需要添加到环境变量中去：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果用的是 bash 终端：</span></span><br><span class="line">vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果用的是 zsh 终端：</span></span><br><span class="line">vim ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加环境变量（按照实际目录）：</span></span><br><span class="line"><span class="built_in">export</span> NDK_HOME=/Applications/AndroidStudio/android-ndk-r14b/build</span><br><span class="line">......</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;NDK_HOME&#125;</span>:<span class="variable">$&#123;PATH&#125;</span>:</span><br></pre></td></tr></table></figure>
 
 <p>保存退出，然后刷新并测试环境变量，执行：<code>ndk-build</code>，如果有类似以下输出则表明配置成功：</p>
@@ -457,8 +451,8 @@
 <p>还需要给所有文件加上权限，进入 NDK 的目录并执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 ./*</span><br></pre></td></tr></table></figure>
 
-<p><font color=red>温馨提示：可千万不要把 <code>./*</code> 给打错了，要是不小心把“.”漏了可就麻烦了（请务必不要尝试）。</font></p>
-<h2 id="2-2-配置FFmpeg"><a href="#2-2-配置FFmpeg" class="headerlink" title="2.2 配置FFmpeg"></a>2.2 配置FFmpeg</h2><p>把下载好的 FFmpeg 源码解压到任意目录，同样也按上述操作给所有文件加上权限，接下来再在 FFmpeg 根目录下创建一个脚本（命名随意）：<code>build_android.sh</code>，修改内容：</p>
+<p><strong>温馨提示：可千万不要把 <code>./*</code> 给打错了，要是不小心把“.”漏了可就麻烦了（请务必不要尝试）。</strong></p>
+<h3 id="2-2-配置FFmpeg"><a href="#2-2-配置FFmpeg" class="headerlink" title="2.2 配置FFmpeg"></a>2.2 配置FFmpeg</h3><p>把下载好的 FFmpeg 源码解压到任意目录，同样也按上述操作给所有文件加上权限，接下来再在 FFmpeg 根目录下创建一个脚本（命名随意）：<code>build_android.sh</code>，修改内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以实际自定义临时目录为准，必须指定否则报错：Unable to create temporary file in</span></span><br><span class="line"><span class="built_in">export</span> TMPDIR=/....../TEMP</span><br><span class="line"><span class="comment"># 以 NDK 实际路径为准</span></span><br><span class="line">NDK=/Applications/Androidstudio/android-ndk-r14b</span><br><span class="line"><span class="comment"># 编译目标平台，本例选择最低 API 22 的 ARM 平台，输出 SO 文件放在 Android 项目的 libs/armeabi/ 目录下</span></span><br><span class="line"><span class="comment"># x86 架构则选择 arch-x86</span></span><br><span class="line">PLATFORM=<span class="variable">$NDK</span>/platforms/android-22/arch-arm</span><br><span class="line"><span class="comment"># 编译所需工具链，arm-linux-androideabi 对应上面的 ARM 平台，4.9 为版本号，以 NDK 中的实际版本为准</span></span><br><span class="line">TOOLCHAIN=<span class="variable">$NDK</span>/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64</span><br><span class="line"><span class="keyword">function</span> build_one</span><br><span class="line">&#123;</span><br><span class="line">./configure \</span><br><span class="line">    --prefix=<span class="variable">$PREFIX</span> \</span><br><span class="line">    --target-os=linux \</span><br><span class="line">    --cross-prefix=<span class="variable">$TOOLCHAIN</span>/bin/arm-linux-androideabi- \</span><br><span class="line">    --arch=arm \</span><br><span class="line">    --sysroot=<span class="variable">$PLATFORM</span> \</span><br><span class="line">    --extra-cflags=<span class="string">&quot;-I<span class="variable">$PLATFORM</span>/usr/include&quot;</span> \</span><br><span class="line">    --cc=<span class="variable">$TOOLCHAIN</span>/bin/arm-linux-androideabi-gcc \</span><br><span class="line">    --nm=<span class="variable">$TOOLCHAIN</span>/bin/arm-linux-androideabi-nm \</span><br><span class="line">    --disable-shared \</span><br><span class="line">    --enable-runtime-cpudetect \</span><br><span class="line">    --enable-gpl \</span><br><span class="line">    --enable-small \</span><br><span class="line">    --enable-cross-compile \</span><br><span class="line">    --disable-debug \</span><br><span class="line">    --enable-static \</span><br><span class="line">    --disable-doc \</span><br><span class="line">    --disable-asm \</span><br><span class="line">    --disable-ffmpeg \</span><br><span class="line">    --disable-ffplay \</span><br><span class="line">    --disable-ffprobe \</span><br><span class="line">    --disable-ffserver \</span><br><span class="line">    --disable-postproc \</span><br><span class="line">    --disable-avdevice \</span><br><span class="line">    --disable-symver \</span><br><span class="line">    --disable-stripping \</span><br><span class="line"><span class="variable">$ADDITIONAL_CONFIGURE_FLAG</span></span><br><span class="line">sed -i <span class="string">&#x27;&#x27;</span> <span class="string">&#x27;s/HAVE_LRINT 0/HAVE_LRINT 1/g&#x27;</span> config.h</span><br><span class="line">sed -i <span class="string">&#x27;&#x27;</span> <span class="string">&#x27;s/HAVE_LRINTF 0/HAVE_LRINTF 1/g&#x27;</span> config.h</span><br><span class="line">sed -i <span class="string">&#x27;&#x27;</span> <span class="string">&#x27;s/HAVE_ROUND 0/HAVE_ROUND 1/g&#x27;</span> config.h</span><br><span class="line">sed -i <span class="string">&#x27;&#x27;</span> <span class="string">&#x27;s/HAVE_ROUNDF 0/HAVE_ROUNDF 1/g&#x27;</span> config.h</span><br><span class="line">sed -i <span class="string">&#x27;&#x27;</span> <span class="string">&#x27;s/HAVE_TRUNC 0/HAVE_TRUNC 1/g&#x27;</span> config.h</span><br><span class="line">sed -i <span class="string">&#x27;&#x27;</span> <span class="string">&#x27;s/HAVE_TRUNCF 0/HAVE_TRUNCF 1/g&#x27;</span> config.h</span><br><span class="line">sed -i <span class="string">&#x27;&#x27;</span> <span class="string">&#x27;s/HAVE_CBRT 0/HAVE_CBRT 1/g&#x27;</span> config.h</span><br><span class="line">sed -i <span class="string">&#x27;&#x27;</span> <span class="string">&#x27;s/HAVE_RINT 0/HAVE_RINT 1/g&#x27;</span> config.h</span><br><span class="line">make clean</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br><span class="line"><span class="variable">$TOOLCHAIN</span>/bin/arm-linux-androideabi-ld \</span><br><span class="line">-rpath-link=<span class="variable">$PLATFORM</span>/usr/lib \</span><br><span class="line">-L<span class="variable">$PLATFORM</span>/usr/lib \</span><br><span class="line">-L<span class="variable">$PREFIX</span>/lib \</span><br><span class="line">-soname libffmpeg.so -shared -nostdlib -Bsymbolic --whole-archive --no-undefined -o \</span><br><span class="line"><span class="variable">$PREFIX</span>/libffmpeg.so \</span><br><span class="line">    libavcodec/libavcodec.a \</span><br><span class="line">    libavfilter/libavfilter.a \</span><br><span class="line">    libswresample/libswresample.a \</span><br><span class="line">    libavformat/libavformat.a \</span><br><span class="line">    libavutil/libavutil.a \</span><br><span class="line">    libswscale/libswscale.a \</span><br><span class="line">    -lc -lm -lz -ldl -llog --dynamic-linker=/system/bin/linker \</span><br><span class="line">    <span class="variable">$TOOLCHAIN</span>/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 平台类型，可以是 arm 或 armv7-a 或 x86 等</span></span><br><span class="line">CPU=armv7-a</span><br><span class="line">OPTIMIZE_CFLAGS=<span class="string">&quot;-mfloat-abi=softfp -mfpu=vfp -marm -march=<span class="variable">$CPU</span> &quot;</span></span><br><span class="line"><span class="comment"># 输出 SO 的目录</span></span><br><span class="line">PREFIX=./android/<span class="variable">$CPU</span></span><br><span class="line">ADDITIONAL_CONFIGURE_FLAG=</span><br><span class="line">build_one</span><br></pre></td></tr></table></figure>
 
 <p>接下来在当前目录执行：</p>
@@ -473,12 +467,12 @@
 
 <p>安装完成后，在 FFmpeg 根目录下的 <code>android/armv7-a/</code> 下即可看到 <code>libffmpeg.so</code> 文件，复制到 Android 项目中再配置 NDK 即可。</p>
 <hr>
-<h1 id="3-附录-参考指导"><a href="#3-附录-参考指导" class="headerlink" title="3. 附录[参考指导]"></a>3. 附录[参考指导]</h1><blockquote>
+<h2 id="3-附录-参考指导"><a href="#3-附录-参考指导" class="headerlink" title="3. 附录[参考指导]"></a>3. 附录[参考指导]</h2><blockquote>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/dfe9404e001a" title="@LINK">【1】Android Studio下编译FFmpeg so文件（作者：Galaxy北爱）<sup>【注】</sup></a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/vichild/article/details/82686343" title="@LINK">【1】win10子系统编译ffmpeg for android遇到的问题记录（作者：wellchang）<sup>【注】</sup></a></li>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c8ad83dd5585" title="@LINK">【1】Android编译ffmpeg常见错误（作者：JXiaoNiu）<sup>【注】</sup></a></li>
-<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015631928" title="@LINK">【1】Mac中编译FFmpeg教程(Android版)（作者：码出世界）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/dfe9404e001a" title="@LINK">【1】Android Studio下编译FFmpeg so文件（作者：Galaxy北爱）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/vichild/article/details/82686343" title="@LINK">【1】win10子系统编译ffmpeg for android遇到的问题记录（作者：wellchang）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c8ad83dd5585" title="@LINK">【1】Android编译ffmpeg常见错误（作者：JXiaoNiu）</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015631928" title="@LINK">【1】Mac中编译FFmpeg教程(Android版)（作者：码出世界）</a></li>
 </ul>
 </blockquote>
 
@@ -672,14 +666,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

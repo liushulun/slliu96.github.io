@@ -3396,14 +3396,17 @@ body {
 .post-body h6 {
   border-bottom: none;
 }
-.post-body h1:before {
+.post-body h1 {
+  display: none;
+}
+.post-body h2:before {
   content: '§ ';
   color: #eb6d39;
 }
-.post-body h1 {
+.post-body h2 {
   margin-bottom: 50px;
 }
-.post-body h2 {
+.post-body h3 {
   margin-top: 50px;
 }
 .comments {

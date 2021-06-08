@@ -130,7 +130,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -211,7 +211,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%96%B0%E5%BB%BA%E9%9C%80%E8%A6%81%E6%89%93%E5%8C%85%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="nav-text">1. 新建需要打包的项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%9E%84%E5%BB%BALibrary"><span class="nav-text">2. 构建Library</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BA%E6%89%A7%E8%A1%8C%E4%BB%BB%E5%8A%A1"><span class="nav-text">3. 创建执行任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%89%93%E5%8C%85%E6%88%90%E5%8A%9F"><span class="nav-text">4. 打包成功</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AndroidStudio%E6%89%93%E5%8C%85JAR"><span class="nav-text">AndroidStudio打包JAR</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%96%B0%E5%BB%BA%E9%9C%80%E8%A6%81%E6%89%93%E5%8C%85%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="nav-text">1. 新建需要打包的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%9E%84%E5%BB%BALibrary"><span class="nav-text">2. 构建Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BA%E6%89%A7%E8%A1%8C%E4%BB%BB%E5%8A%A1"><span class="nav-text">3. 创建执行任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%89%93%E5%8C%85%E6%88%90%E5%8A%9F"><span class="nav-text">4. 打包成功</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -401,7 +401,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>2.7k</span>
+      <span>2.8k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
@@ -422,70 +422,38 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>前言：做 Android 项目应该经常会用到一些符合自己习惯的工具类，但如果每次都重新写一遍或者复制粘贴既麻烦也不便于保存，所以通常会把一些特别常用的工具类（Log，自定义 View、自定义框架等）打包成 jar 或 aar（aar 除了必须的 class 代码，还会包含所有 res 下的资源文件，jar 仅包含 class 和 Manifests），打包成 aar 比较简单，所以本文仅记载如何打包成 jar 文件。</p>
+<h1 id="AndroidStudio打包JAR"><a href="#AndroidStudio打包JAR" class="headerlink" title="AndroidStudio打包JAR"></a>AndroidStudio打包JAR</h1><p>前言：做 Android 项目应该经常会用到一些符合自己习惯的工具类，但如果每次都重新写一遍或者复制粘贴既麻烦也不便于保存，所以通常会把一些特别常用的工具类（Log，自定义 View、自定义框架等）打包成 jar 或 aar（aar 除了必须的 class 代码，还会包含所有 res 下的资源文件，jar 仅包含 class 和 Manifests），打包成 aar 比较简单，所以本文仅记载如何打包成 jar 文件。</p>
 <hr>
-<h1 id="1-新建需要打包的项目"><a href="#1-新建需要打包的项目" class="headerlink" title="1. 新建需要打包的项目"></a>1. 新建需要打包的项目</h1><p>为了避免奇奇怪怪的因素影响正式项目，把需要打包的东西新建一个项目。我的工具类以 AndroidLogger 为例：</p>
-<center>
-
+<h2 id="1-新建需要打包的项目"><a href="#1-新建需要打包的项目" class="headerlink" title="1. 新建需要打包的项目"></a>1. 新建需要打包的项目</h2><p>为了避免奇奇怪怪的因素影响正式项目，把需要打包的东西新建一个项目。我的工具类以 AndroidLogger 为例：</p>
 <p><img data-src="./new_project.png" alt="新建项目" title="@ASSET"></p>
-</center>
-
 <p>下一步，选择哪个平台都无所谓，但是在选择最低SDK版本这里，作为工具类，除非是高版本才有的特性（比如 ConstraintLayout），一般在应该设置的低一点以提高平时开发的通用性。本来我设置的是 <code>minimumSDK = 8</code> 结果出来个提示，大致意思是选择的版本太低了，然后一点点调高到 14 的时候消失，Api 14 对应的是 Android 4.0，对于市面上几乎全部的安卓手机而言应该都不止 4.0 了，索性就用 14 作为最低版本吧！</p>
 <p>再下一步，因为本例中所做的工具类是单纯的辅助 Debug，完全没有用到视图功能，所以我选择了 No Activity ，如果有用到的话还是按需要勾选对应的模板即可。</p>
-<center>
-
 <p><img data-src="./select_template.png" alt="选择模板" title="@ASSET"></p>
-</center>
-
 <p>直接 Finish，创建了一个什么都没有的项目。然后在常规的项目目录下新建一个类写工具类的代码，这里以 <code>Logger</code> 为例：</p>
-<center>
-
 <p><img data-src="./project_structure.png" alt="项目结构" title="@ASSET"></p>
-</center>
-
 <hr>
-<h1 id="2-构建Library"><a href="#2-构建Library" class="headerlink" title="2. 构建Library"></a>2. 构建Library</h1><p>此时这个项目虽然除了这个类以外什么都没有，但是其本质还是一个 Android 项目，打包成 jar 之前需要先把项目改成 Library，然后再进行打包。这里需要改动 <code>build.gradle (Module: app)</code> 的两个地方：</p>
+<h2 id="2-构建Library"><a href="#2-构建Library" class="headerlink" title="2. 构建Library"></a>2. 构建Library</h2><p>此时这个项目虽然除了这个类以外什么都没有，但是其本质还是一个 Android 项目，打包成 jar 之前需要先把项目改成 Library，然后再进行打包。这里需要改动 <code>build.gradle (Module: app)</code> 的两个地方：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首行把application改为library</span></span><br><span class="line">apply plugin: <span class="string">&#x27;com.android.application&#x27;</span></span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注释或删除defaultConfig中的applicationId字段</span></span><br><span class="line">defaultConfig &#123;</span><br><span class="line">    <span class="comment">// applicationId &quot;XXXXX&quot;</span></span><br><span class="line">    minSdkVersion <span class="number">14</span></span><br><span class="line">    targetSdkVersion <span class="number">28</span></span><br><span class="line">    versionCode <span class="number">1</span></span><br><span class="line">    versionName <span class="string">&quot;1.0&quot;</span></span><br><span class="line">    testInstrumentationRunner <span class="string">&quot;android.support.test.runner.AndroidJUnitRunner&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>改完之后如下：</p>
-<center>
-
 <p><img data-src="./edit_gradle.png" alt="修改 Gradle" title="@ASSET"></p>
-</center>
-
 <p>点击 <code>Sync Now</code> 同步 Gradle。完成之后再看一下项目文件夹的图标，已经变成了 Library！</p>
-<center>
-
 <p><img data-src="./library_icon.png" alt="Library 项目图标" title="@ASSET"></p>
-</center>
-
 <p>然后把项目切换成 <code>Project</code> 视图模式：</p>
-<center>
-
 <p><img data-src="./switch_view.png" alt="切换项目视图" title="@ASSET"></p>
-</center>
-
 <hr>
-<h1 id="3-创建执行任务"><a href="#3-创建执行任务" class="headerlink" title="3. 创建执行任务"></a>3. 创建执行任务</h1><p>接下来需要再在 <code>build.gradle (Module: app)</code> 里面加上一段代码，加的位置在 <code>android&#123;&#125;</code> 里面，与 <code>defaultConfig&#123;&#125;</code> 和 <code>buildTypes&#123;&#125;</code> 同级的位置：</p>
+<h2 id="3-创建执行任务"><a href="#3-创建执行任务" class="headerlink" title="3. 创建执行任务"></a>3. 创建执行任务</h2><p>接下来需要再在 <code>build.gradle (Module: app)</code> 里面加上一段代码，加的位置在 <code>android&#123;&#125;</code> 里面，与 <code>defaultConfig&#123;&#125;</code> 和 <code>buildTypes&#123;&#125;</code> 同级的位置：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">task <span class="title">makeJar</span><span class="params">(type: Copy)</span> </span>&#123;</span><br><span class="line">    delete <span class="string">&#x27;build/libs/logger.jar&#x27;</span></span><br><span class="line">    <span class="comment">// 需要打包的class文件的目录</span></span><br><span class="line">    from(<span class="string">&#x27;build/intermediates/intermediate-jars/debug/&#x27;</span>)</span><br><span class="line">    <span class="comment">// 打包完后输出jar文件的目录</span></span><br><span class="line">    into(<span class="string">&#x27;build/&#x27;</span>)</span><br><span class="line">    include(<span class="string">&#x27;classes.jar&#x27;</span>)</span><br><span class="line">    <span class="comment">// 后面的logger.jar自行命名</span></span><br><span class="line">    rename (<span class="string">&#x27;classes.jar&#x27;</span>, <span class="string">&#x27;logger.jar&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">makeJar.dependsOn(build)</span><br></pre></td></tr></table></figure>
 
 <p>如图所示：</p>
-<center>
-
 <p><img data-src="./gradle_add_script.png" alt="Gradle 增加打包脚本" title="@ASSET"></p>
-</center>
-
 <p>解释一下，基本上英文单词都已经表示了啥意思了，主要是说一下 <code>from</code> 里面的东西，老版本的打包脚本这个目录应该是：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是老版本的目录</span></span><br><span class="line">from(<span class="string">&#x27;build/intermediates/bundle/debug/&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 <p>但是升级了之后 <code>intermediates</code> 文件夹下没有 <code>Bundle</code> 文件夹了，但是意外的发现执行完后会有 <code>intermediate-jars</code> 文件夹，一看名字就知道里面放的是 jar 包，点进去后发现确实如此，所以就改成了这个文件夹。这时大家可能会发现连 <code>intermediate-jars</code> 文件夹也没有啊！放心不是我在耍你们，到这一步为止还没有这个目录，需要等我们执行完Task之后才有。</p>
-<p>另外，<code>into</code> 目录也是可以自定的，你想输出到哪就写哪，但是最好选择一个已存在的目录，印象中以前在 <code>app\build\</code> 下有一个 <code>libs</code> 文件夹，现在发现没了不知道是不是自己记错了，所以干脆输出到 <code>build</code> 文件夹的根目录下了。<code>into</code> 这一步的路径和第一步 <code>delete</code> 的路径配合使用，只是为了防止目标文件夹里已经有了 jar 包导致写入失败而已。<code>rename</code> 就更简单了，只是需要注意 <code>`classes.jar`</code>这个不要改动。</p>
+<p>另外，<code>into</code> 目录也是可以自定的，你想输出到哪就写哪，但是最好选择一个已存在的目录，印象中以前在 <code>app\build\</code> 下有一个 <code>libs</code> 文件夹，现在发现没了不知道是不是自己记错了，所以干脆输出到 <code>build</code> 文件夹的根目录下了。<code>into</code> 这一步的路径和第一步 <code>delete</code> 的路径配合使用，只是为了防止目标文件夹里已经有了 jar 包导致写入失败而已。<code>rename</code> 就更简单了，只是需要注意 <code>classes.jar</code>这个不要改动。</p>
 <p>再点击 <code>Sync Now</code> 同步一下，等待同步完后 <code>Rebuild Project</code> 一下，然后打开 AndroidStudio 下面的一排工具栏处找到 <code>Terminal</code> 工具：</p>
-<center>
-
 <p><img data-src="./open_inner_terminal.png" alt="打开 AS 自带 Terminal" title="@ASSET"></p>
-</center>
-
 <p>执行以下命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 第 1 个命令</span></span><br><span class="line">gradlew makeJar</span><br></pre></td></tr></table></figure>
 
@@ -494,24 +462,12 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 第 2 个命令</span></span><br><span class="line">task makeJar</span><br></pre></td></tr></table></figure>
 
 <p>名称相同（可以自定义），然后回车运行，等他读条执行完毕，如果显示绿色的 <font color=#00ff00>BUILD SUCCESSFUL</font> 就说明成功了。</p>
-<center>
-
 <p><img data-src="./terminal_successful.png" alt="命令执行成功" title="@ASSET"></p>
-</center>
-
 <p>再看一下 <code>build</code> 目录下，出现了 <code>Logger.jar</code>（没有的先折叠 <code>build</code> 目录再重新展开看看），成功打包！</p>
-<center>
-
 <p><img data-src="./create_jar_successful.png" alt="成功打包 jar" title="@ASSET"></p>
-</center>
-
 <hr>
-<h1 id="4-打包成功"><a href="#4-打包成功" class="headerlink" title="4. 打包成功"></a>4. 打包成功</h1><p>复制到硬盘上就能拿来用了，实测可以导入到其他工程中使用。说个题外话，如果好奇心比较重去看了一眼现在的 <code>intermediates</code> 目录下的文件，会发现依然没有 <code>intermediate-jars</code> 文件夹，也没有 <code>bundle</code> 文件夹，但是没所谓啦！反正已经获取到 jar 包了，如果强迫症非要看一眼 <code>intermediate-jars</code> 文件夹的话也不是没有办法，只需要在 <code>Terminal</code> 命令行中重新执行一次 <code>gradlew makeJar</code> 并成功构建后即可！完成以后再看 <code>build\intermediates\</code> 目录下就有啦！</p>
-<center>
-
+<h2 id="4-打包成功"><a href="#4-打包成功" class="headerlink" title="4. 打包成功"></a>4. 打包成功</h2><p>复制到硬盘上就能拿来用了，实测可以导入到其他工程中使用。说个题外话，如果好奇心比较重去看了一眼现在的 <code>intermediates</code> 目录下的文件，会发现依然没有 <code>intermediate-jars</code> 文件夹，也没有 <code>bundle</code> 文件夹，但是没所谓啦！反正已经获取到 jar 包了，如果强迫症非要看一眼 <code>intermediate-jars</code> 文件夹的话也不是没有办法，只需要在 <code>Terminal</code> 命令行中重新执行一次 <code>gradlew makeJar</code> 并成功构建后即可！完成以后再看 <code>build\intermediates\</code> 目录下就有啦！</p>
 <p><img data-src="./intermediate_jars_folder.png" alt="intermediate-jars 目录" title="@ASSET"></p>
-</center>
-
 <p>有这个强迫症的 <del>（比如我）</del>，得改！如果在第一次执行完之后没有输出 jar 的，也可以尝试再次执行。</p>
 
     </div>
@@ -647,8 +603,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/post/android/android-cmake/" rel="next" title="AndroidStudio中使用CMake进行NDK开发">
-                  AndroidStudio中使用CMake进行NDK开发 <i class="fa fa-chevron-right"></i>
+                <a href="/post/android/android-cmake/" rel="next" title="AndroidStudio基于CMake的NDK开发">
+                  AndroidStudio基于CMake的NDK开发 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -704,14 +660,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

@@ -28,11 +28,12 @@
   </script>
 <meta name="description" content="Activity的生命周期，开启及退出，Context 等。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android——Activity">
+<meta property="og:title" content="Android-Activity">
 <meta property="og:url" content="https://www.liushulun.cn/post/android/android-activity/index.html">
 <meta property="og:site_name" content="Luis&#39;s Blogs">
 <meta property="og:description" content="Activity的生命周期，开启及退出，Context 等。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.liushulun.cn/post/android/android-activity/failed_to_start_app.gif">
 <meta property="article:published_time" content="2018-12-28T13:42:31.000Z">
 <meta property="article:author" content="Luis">
 <meta property="article:tag" content="Android">
@@ -41,6 +42,7 @@
 <meta property="article:tag" content="启动模式">
 <meta property="article:tag" content="生命周期">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.liushulun.cn/post/android/android-activity/failed_to_start_app.gif">
 
 
 <link rel="canonical" href="https://www.liushulun.cn/post/android/android-activity/">
@@ -56,7 +58,7 @@
   };
 </script>
 
-<title>Android——Activity | Luis's Blogs</title>
+<title>Android-Activity | Luis's Blogs</title>
   
 
 
@@ -120,7 +122,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -201,7 +203,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Activity"><span class="nav-text">1. Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">1.1 Activity生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Context"><span class="nav-text">1.2 Context</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Activity%E7%9A%84%E5%90%AF%E5%8A%A8%E5%92%8C%E9%80%80%E5%87%BA"><span class="nav-text">2. Activity的启动和退出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%90%AF%E5%8A%A8Activity"><span class="nav-text">2.1 启动Activity</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-%E9%80%80%E5%87%BAActivity"><span class="nav-text">2.2 退出Activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="nav-text">3. Activity启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Standard%E6%A8%A1%E5%BC%8F"><span class="nav-text">3.1 Standard模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-SingleTop%E6%A8%A1%E5%BC%8F"><span class="nav-text">3.2 SingleTop模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-SingleTask%E6%A8%A1%E5%BC%8F"><span class="nav-text">3.3 SingleTask模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-SingleInstance%E6%A8%A1%E5%BC%8F"><span class="nav-text">3.4 SingleInstance模式</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Activity"><span class="nav-text">Android-Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Activity%E7%AE%80%E4%BB%8B"><span class="nav-text">1. Activity简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">1.1 Activity生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Context"><span class="nav-text">1.2 Context</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Activity%E7%9A%84%E5%90%AF%E5%8A%A8%E5%92%8C%E9%80%80%E5%87%BA"><span class="nav-text">2. Activity的启动和退出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%90%AF%E5%8A%A8Activity"><span class="nav-text">2.1 启动Activity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%80%80%E5%87%BAActivity"><span class="nav-text">2.2 退出Activity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="nav-text">3. Activity启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Standard%E6%A8%A1%E5%BC%8F"><span class="nav-text">3.1 Standard模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-SingleTop%E6%A8%A1%E5%BC%8F"><span class="nav-text">3.2 SingleTop模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-SingleTask%E6%A8%A1%E5%BC%8F"><span class="nav-text">3.3 SingleTask模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-SingleInstance%E6%A8%A1%E5%BC%8F"><span class="nav-text">3.4 SingleInstance模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-SingleInstance%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%9D%91"><span class="nav-text">4. SingleInstance模式的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%B0%9D%E8%AF%95%E4%BD%BF%E7%94%A8SingleInstance"><span class="nav-text">4.1 在项目中尝试使用SingleInstance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%BC%82%E5%B8%B8%E7%9A%84%E7%8E%B0%E8%B1%A1"><span class="nav-text">4.2 异常的现象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-text">4.3 问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E5%8E%9F%E5%9B%A0%E8%A7%A3%E6%9E%90"><span class="nav-text">4.4 原因解析</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -313,7 +315,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android——Activity
+          Android-Activity
         </h1>
 
         <div class="post-meta-container">
@@ -393,14 +395,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>5.2k</span>
+      <span>10k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Read Time &asymp;</span>
-      <span>6 Min</span>
+      <span>12 Min</span>
     </span>
 </div>
 
@@ -414,7 +416,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-Activity"><a href="#1-Activity" class="headerlink" title="1. Activity"></a>1. Activity</h1><h2 id="1-1-Activity生命周期"><a href="#1-1-Activity生命周期" class="headerlink" title="1.1 Activity生命周期"></a>1.1 Activity生命周期</h2><p>Activity 即一个用户界面，可以理解成一个视图容器，容器内可以包裹和展示各类控件。全部 Activity 都需要在 Manifest 内声明。</p>
+<h1 id="Android-Activity"><a href="#Android-Activity" class="headerlink" title="Android-Activity"></a>Android-Activity</h1><h2 id="1-Activity简介"><a href="#1-Activity简介" class="headerlink" title="1. Activity简介"></a>1. Activity简介</h2><h3 id="1-1-Activity生命周期"><a href="#1-1-Activity生命周期" class="headerlink" title="1.1 Activity生命周期"></a>1.1 Activity生命周期</h3><p>Activity 即一个用户界面，可以理解成一个视图容器，容器内可以包裹和展示各类控件。全部 Activity 都需要在 Manifest 内声明。</p>
 <p>Activity 的生命周期为：<code>onCreate()</code> - <code>onStart()</code> - <code>onResume()</code> - <code>onPause()</code> - <code>onStop()</code> - <code>onDestroy()</code>【或 <code>onRestart()</code> - <code>onStart()</code>…】。</p>
 <p>需要注意的是：<code>onStop()</code> 在 Activity 不可见时才调用，例如 AActivity 启动 BActivity，若 BActivity 是透明或弹窗形式（<code>android:theme=&quot;@android:style/Theme.Dialog&quot;</code>），则 AActiivty 不会调用 <code>onStop()</code>。</p>
 <p>Activity 的 <code>onSaveInstanceState()</code> 和 <code>onRestoreInstanceState()</code> 并不是生命周期方法，不同于生命周期方法，它们并不一定会被触发。当用户按 Home 键返回桌面、从多任务切换应用、锁屏、屏幕方向变化、启动新的 Activity时，或者当应用遇到意外情况（如内存不足）且 Activity 由系统销毁时，则 <code>onSaveInstanceState()</code> 会被调用。但是当用户主动销毁一个 Activity（例如在应用中按返回键）时，<code>onSaveInstanceState()</code> 就不会被调用。通常 <code>onSaveInstanceState()</code> 只适合用于保存一些临时性的状态，而 <code>onPause()</code> 适合用于数据的持久化保存。</p>
@@ -422,9 +424,9 @@
 <p>Activity 必须在 Manifest 中注册：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Manifest 中声明</span></span><br><span class="line">&lt;activity</span><br><span class="line">    android:name=<span class="string">&quot;lsl.demo.OtherModuleActivity&quot;</span>&gt;</span><br><span class="line">    &lt;intent-filter&gt;</span><br><span class="line">        &lt;action android:name=<span class="string">&quot;module.demo.OtherModuleActivity&quot;</span> /&gt;</span><br><span class="line">        &lt;category android:name=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;</span><br><span class="line">    &lt;/intent-filter&gt;</span><br><span class="line">&lt;/activity&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-2-Context"><a href="#1-2-Context" class="headerlink" title="1.2 Context"></a>1.2 Context</h2><p>Activity、Application 都是 Context 的子类，而 Context 是抽象类 ContextImpl 的实现。context 维护当前 Activity 的生命周期，而 Application 维护整个应用的生命周期，因此一些全局变量可以放在 Application 中。</p>
+<h3 id="1-2-Context"><a href="#1-2-Context" class="headerlink" title="1.2 Context"></a>1.2 Context</h3><p>Activity、Application 都是 Context 的子类，而 Context 是抽象类 ContextImpl 的实现。context 维护当前 Activity 的生命周期，而 Application 维护整个应用的生命周期，因此一些全局变量可以放在 Application 中。</p>
 <hr>
-<h1 id="2-Activity的启动和退出"><a href="#2-Activity的启动和退出" class="headerlink" title="2. Activity的启动和退出"></a>2. Activity的启动和退出</h1><h2 id="2-1-启动Activity"><a href="#2-1-启动Activity" class="headerlink" title="2.1 启动Activity"></a>2.1 启动Activity</h2><p>直接启动 Actiivty：</p>
+<h2 id="2-Activity的启动和退出"><a href="#2-Activity的启动和退出" class="headerlink" title="2. Activity的启动和退出"></a>2. Activity的启动和退出</h2><h3 id="2-1-启动Activity"><a href="#2-1-启动Activity" class="headerlink" title="2.1 启动Activity"></a>2.1 启动Activity</h3><p>直接启动 Actiivty：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(context, DemoActivity.class);</span><br><span class="line"><span class="comment">// 直接插入数据</span></span><br><span class="line">intent.putExtra(<span class="string">&quot;key1&quot;</span>, value)</span><br><span class="line">intent.putExtra(<span class="string">&quot;key2&quot;</span>, value)</span><br><span class="line"><span class="comment">// 通过 Bundle</span></span><br><span class="line">Bundle bundle = <span class="keyword">new</span> Bundle();</span><br><span class="line">bundle.putXXX(String key1, XXX value);</span><br><span class="line">bundle.putXXX(String key2, XXX value);</span><br><span class="line">intent.putExtra(bundle);</span><br><span class="line"></span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
 
 <p>启动跨 Module 的 Activity，需要先在目标 Activity 注册的 Manifest 文件中设置一个 Action：</p>
@@ -436,43 +438,27 @@
 <p>需要注意的是：默认情况下，假如这里设置的 <code>demo.customActionName</code> 和别的 App 某个 Activity 设置的一样，则通过 <code>setAction</code> 启动时只会启动本 App 中的 Activity。如果想要让 Activity 可以被别的 App 唤起，则需要添加一个 <code>export</code> 属性（不显式设置该属性时默认为 false）：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity</span><br><span class="line">    android:name=<span class="string">&quot;demo.DemoActivity&quot;</span></span><br><span class="line">    android:exported=<span class="string">&quot;true&quot;</span></span><br><span class="line">    &gt;</span><br><span class="line">    ......</span><br><span class="line">&lt;/activity&gt;</span><br></pre></td></tr></table></figure>
 
-<h1 id="2-2-退出Activity"><a href="#2-2-退出Activity" class="headerlink" title="2.2 退出Activity"></a>2.2 退出Activity</h1><ul>
-<li><p>当一个 Application 已开启了多个 Activity，则在安全退出时，可以发送预定义的广播，在所有被开启的 Activity 中注册广播监听，监听到广播后各自调用 <code>finish()</code> 即可。</p>
-</li>
-<li><p>当一个应用有层叠 Activity（即 AActivity 启动 BActivity，BActivity 启动 CActivity…）时，可在每个 Activity 启动新 Activity 时，使用 <code>startActivityForResult()</code> 替代 <code>startActivity()</code>，并在 <code>onActivityResult()</code> 中将自己 <code>finish()</code>。</p>
-</li>
-<li><p>用 List 等记录每个启动的 Activity，并在需要时分别关闭。需要注意的是，使用 List 存放 Activity 有内存泄露的风险，当 Activity 关闭后，要及时清掉对应 List 中的引用。</p>
-</li>
-<li><p>在启动 Activity 时，给 Intent 设置 Flag：<code>intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)</code>，则系统会在新 Activity 启动后将其上的所有 Activity 销毁，效果等效于给新 Activity 配置 SingleTop 启动模式。</p>
-</li>
+<h3 id="2-2-退出Activity"><a href="#2-2-退出Activity" class="headerlink" title="2.2 退出Activity"></a>2.2 退出Activity</h3><ul>
+<li>当一个 Application 已开启了多个 Activity，则在安全退出时，可以发送预定义的广播，在所有被开启的 Activity 中注册广播监听，监听到广播后各自调用 <code>finish()</code> 即可。</li>
+<li>当一个应用有层叠 Activity（即 AActivity 启动 BActivity，BActivity 启动 CActivity…）时，可在每个 Activity 启动新 Activity 时，使用 <code>startActivityForResult()</code> 替代 <code>startActivity()</code>，并在 <code>onActivityResult()</code> 中将自己 <code>finish()</code>。</li>
+<li>用 List 等记录每个启动的 Activity，并在需要时分别关闭。需要注意的是，使用 List 存放 Activity 有内存泄露的风险，当 Activity 关闭后，要及时清掉对应 List 中的引用。</li>
+<li>在启动 Activity 时，给 Intent 设置 Flag：<code>intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)</code>，则系统会在新 Activity 启动后将其上的所有 Activity 销毁，效果等效于给新 Activity 配置 SingleTop 启动模式。</li>
 </ul>
 <hr>
-<h1 id="3-Activity启动模式"><a href="#3-Activity启动模式" class="headerlink" title="3. Activity启动模式"></a>3. Activity启动模式</h1><p>Activity 有 4 种启动模式：</p>
+<h2 id="3-Activity启动模式"><a href="#3-Activity启动模式" class="headerlink" title="3. Activity启动模式"></a>3. Activity启动模式</h2><p>Activity 有 4 种启动模式：</p>
 <ul>
-<li><ol>
 <li><code>standard</code></li>
-</ol>
-</li>
-<li><ol start="2">
 <li><code>singleTop</code></li>
-</ol>
-</li>
-<li><ol start="3">
 <li><code>singleTask</code></li>
-</ol>
-</li>
-<li><ol start="4">
 <li><code>singleInstance</code></li>
-</ol>
-</li>
 </ul>
 <p>需要先了解到，Android 中 Activity 是存在堆栈（任务栈）中的，启动一个 Activity 时会将其压栈，销毁时弹出，当然不同启动模式会导致 Activity 任务栈产生不同的行为。同时一个 App 进程也可以拥有多个 Activity 任务栈，例如 <code>singleInstance</code> 模式。</p>
-<h2 id="3-1-Standard模式"><a href="#3-1-Standard模式" class="headerlink" title="3.1 Standard模式"></a>3.1 Standard模式</h2><p>Standard 就是标准默认模式，启动一个 Activity 时，不论 Activity 在任务栈中是否已经有实例，都新建一个实例并压入往当前任务栈。当前 Activity 在当前任务栈可以有多个实例，每个实例也可以在不同任务栈。</p>
+<h3 id="3-1-Standard模式"><a href="#3-1-Standard模式" class="headerlink" title="3.1 Standard模式"></a>3.1 Standard模式</h3><p>（1）Standard 就是标准默认模式，启动一个 Activity 时，不论 Activity 在任务栈中是否已经有实例，都新建一个实例并压入往当前任务栈。当前 Activity 在当前任务栈可以有多个实例，每个实例也可以在不同任务栈。</p>
 <p>简单来说，也就是每次启动一个 Activity 都当做一个新的 Actviity 创建实例并压进对应的任务栈。需要注意的是，Standard 模式并不会创建任务栈，这也是为什么使用 ApplicationContext 启动，或在 Service 中以 Standard 方式启动 Activity 时会报错：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android.util.AndroidRuntimeException: Calling startActivity from outside of an Activity context <span class="keyword">requires</span> the FLAG_ACTIVITY_NEW_TASK flag. Is <span class="keyword">this</span> really what you want?</span><br></pre></td></tr></table></figure>
 
 <p>因为 ApplicationContext 和 Service 并没有任务栈。</p>
-<p>Standard 启动方式任务栈的行为实例如下（其中 “/” 表示 <font color=red>栈底</font>，“&gt;” 表示 <font color=red>栈顶</font>）：</p>
+<p>Standard 启动方式任务栈的行为实例如下（其中 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>）：</p>
 <table>
 <thead>
 <tr>
@@ -502,8 +488,9 @@
 <td align="center">-</td>
 </tr>
 </tbody></table>
-<h2 id="3-2-SingleTop模式"><a href="#3-2-SingleTop模式" class="headerlink" title="3.2 SingleTop模式"></a>3.2 SingleTop模式</h2><p>SingleTop 即栈顶唯一模式，启动一个 Activity 时，如果该 Activity 已在栈顶则不会新建一个 Activity 实例而是复用它，否则其行为和 Standard 模式一致。</p>
-<p>SingleTop 启动方式任务栈的行为实例如下（其中 “/” 表示 <font color=red>栈底</font>，“&gt;” 表示 <font color=red>栈顶</font>）：</p>
+<p>（2）Standard 模式通常用于允许一个页面同时创建多个，或者从逻辑上可以保证不会触发多个的情况下。</p>
+<h3 id="3-2-SingleTop模式"><a href="#3-2-SingleTop模式" class="headerlink" title="3.2 SingleTop模式"></a>3.2 SingleTop模式</h3><p>（1）SingleTop 即栈顶唯一模式，启动一个 Activity 时，如果该 Activity 已在栈顶则不会新建一个 Activity 实例而是复用它，否则其行为和 Standard 模式一致。</p>
+<p>SingleTop 启动方式任务栈的行为实例如下（其中 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>）：</p>
 <table>
 <thead>
 <tr>
@@ -544,8 +531,9 @@
 <td align="center">-</td>
 </tr>
 </tbody></table>
-<h2 id="3-3-SingleTask模式"><a href="#3-3-SingleTask模式" class="headerlink" title="3.3 SingleTask模式"></a>3.3 SingleTask模式</h2><p>SingleTask 即任务栈唯一模式，启动一个 Activity 时，如果任务栈中存在该 Activity 实例，则复用它，否则才创建一个新的 Activity 实例。SingleTask 和 SingleTop 的区别在于，SingleTop 只在栈顶 Activity 和要启动的 Activity 相同时才复用，而 SingleTask 是每个 Activity 在当前整个任务栈中都只有一个实例。</p>
-<p>SingleTask 启动方式任务栈的行为实例如下（其中 “/” 表示 <font color=red>栈底</font>，“&gt;” 表示 <font color=red>栈顶</font>）：</p>
+<p>（2）SingleTop 模式通常用于可能多次弹出的页面。实际上，我认为除非某个 Activity 有明确的需求要打开多个实例，否则都应该使用 SingleTop。因为大多数页面跳转都有可能被误触发多次，但绝大多数情况下都是不希望同时存在多个实例的。</p>
+<h3 id="3-3-SingleTask模式"><a href="#3-3-SingleTask模式" class="headerlink" title="3.3 SingleTask模式"></a>3.3 SingleTask模式</h3><p>（1）SingleTask 即任务栈唯一模式，启动一个 Activity 时，如果任务栈中存在该 Activity 实例，则复用它，否则才创建一个新的 Activity 实例。SingleTask 和 SingleTop 的区别在于，SingleTop 只在栈顶 Activity 和要启动的 Activity 相同时才复用，而 SingleTask 是每个 Activity 在当前整个任务栈中都只有一个实例。</p>
+<p>SingleTask 启动方式任务栈的行为实例如下（其中 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>）：</p>
 <table>
 <thead>
 <tr>
@@ -586,9 +574,10 @@
 <td align="center">-</td>
 </tr>
 </tbody></table>
-<h2 id="3-4-SingleInstance模式"><a href="#3-4-SingleInstance模式" class="headerlink" title="3.4 SingleInstance模式"></a>3.4 SingleInstance模式</h2><p>SingleInstance 即唯一实例模式），启动一个 Activity 时，寻找所有的任务栈，如果某个任务栈中存在该 Activity 实例，则切换到该任务栈，否则新建一个任务栈并创建该 Activity 实例。</p>
-<p>重点在于：任务栈不是唯一的，一个 App 可以有多个任务栈，就像 Android 系统的后台应用列表一样，里面包括了多个应用，而每个应用又管理自己的多个任务栈（可以理解为<font color=#EB6D39>任务栈的总栈</font>），每个任务栈又分别管理包含的 Activity。</p>
-<p>SingleInstance 启动方式任务栈的行为实例如下（其中 “/” 表示 <font color=red>栈底</font>，“&gt;” 表示 <font color=red>栈顶</font>，任务栈之间用 “-” 连接，右侧的任务栈为最新任务栈，M 为最开始以 Standard 启动的 Activity）：</p>
+<p>（2）SingleTask 模式常用在 App 的 MainActivity 中，因为大多数情况下 App 在主页面上返回时都应该返回到桌面或退出，而不是返回到其他页面中。</p>
+<h3 id="3-4-SingleInstance模式"><a href="#3-4-SingleInstance模式" class="headerlink" title="3.4 SingleInstance模式"></a>3.4 SingleInstance模式</h3><p>（1）SingleInstance 即唯一实例模式，启动一个 Activity 时，寻找所有的任务栈，如果某个任务栈中存在该 Activity 实例，则切换到该任务栈，否则新建一个任务栈并创建该 Activity 实例。</p>
+<p>重点在于：任务栈不是唯一的，一个 App 可以有多个任务栈，就像 Android 系统的后台应用列表一样，里面包括了多个应用，而每个应用又管理自己的多个任务栈（可以理解为 <strong>任务栈的总栈</strong>），每个任务栈又分别管理包含的 Activity。</p>
+<p>SingleInstance 启动方式任务栈的行为实例如下（其中 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>，任务栈之间用 <code>-</code> 连接，右侧的任务栈为最新任务栈，M 为最开始以 Standard 启动的 Activity）：</p>
 <table>
 <thead>
 <tr>
@@ -648,6 +637,75 @@
 </tr>
 </tbody></table>
 <p>前 3 步都比较好理解，反正就是整个 App 所有任务栈都只允许有一个实例。重点在从第 4 步开始，由于最开始的 M 是 Standard 模式启动的，而第 4 步中 C 也是 Standard 模式，也就导致本来在最底下的任务栈 <code>/M&gt;</code> 被移到了 “任务栈的总栈” 的栈顶，并将 C 压入了 <code>/M&gt;</code> 所在的这个栈顶，因此从 C 返回的时候会先返回到 M，然后才是按顺序下来的 A → B。</p>
+<p>（2）SingleInstance 通常用于某些可被共享唤起的 App，但这些 App 仅有部分页面需要被共享唤起。</p>
+<p>例如：</p>
+<ul>
+<li>电话：其包括了拨号页和来电提醒页，而来电提醒页（通话页）则需要设置为 SingleInstance。</li>
+<li>闹铃：其包括了设置闹钟的页面和响铃提醒的页面，而响铃提醒页面则需要设置为 SingleInstance。</li>
+</ul>
+<p>以电话的来电提醒页为例：</p>
+<ul>
+<li>首先 standard 和 singleTop 是一定不能满足的，否则如果通话期间切到其他 App 后再切回来，就会再次创建一个新的「通话页」。</li>
+<li>而 singleTask 同样存在问题：假如用户通过「拨号页」拨打电话，进入「通话页」后，由于设置了 singleTask，「拨号页」就会被销毁，通话结束后用户就无法再次返回到「拨号页」了。收到来电提醒也是类似的场景。</li>
+<li>如果电话 App 的「拨号页」是启动的但被置到后台，假如用户正在某个 App「Demo」中，此时收到来电进入「通话页」，电话结束后用户当然是期望能返回到原先的「Demo」页面，因此「通话页」必须处于独立的栈中，否则「通话页」结束后返回时，就会回到「拨号页」了。</li>
+</ul>
+<hr>
+<h2 id="4-SingleInstance模式的坑"><a href="#4-SingleInstance模式的坑" class="headerlink" title="4. SingleInstance模式的坑"></a>4. SingleInstance模式的坑</h2><h3 id="4-1-在项目中尝试使用SingleInstance"><a href="#4-1-在项目中尝试使用SingleInstance" class="headerlink" title="4.1 在项目中尝试使用SingleInstance"></a>4.1 在项目中尝试使用SingleInstance</h3><p>实际上平时开发在绝大多数时候，都不会给 Activity 设置为 SingleInstance 模式。但如果考虑一个闪屏 SplashActivity 的技术方案需求：</p>
+<ul>
+<li>闪屏页是 App 唯一的</li>
+<li>由于闪屏是很重要的商业化手段，所以希望闪屏页可以在任意一个其他页面存在时被激活到前台</li>
+<li>闪屏启动结束后，还需要返回到原来的页面（这也明确了不能使用 singleTask）</li>
+</ul>
+<p>根据这三个需求，自然而然想到了 singleInstance，表面上看似乎完全满足以上条件。另外因为闪屏页会经常在触发某些条件时被唤起，但并不一定每一次都需要真实可见，例如闪屏资源未准备好时就需要直接 <code>finish()</code>，用伪代码表示如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SplashActivity 设置为 singleInstance</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SplashActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 这里用 isFirstTime 模拟第一次进入 App 后，会跳转到 MainActivity</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> isFirstTime = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isFirstTime) &#123;</span><br><span class="line">            isFirstTime = <span class="keyword">false</span>;</span><br><span class="line">            startActivity(<span class="keyword">new</span> Intent(<span class="keyword">this</span>, MainActivity.class));</span><br><span class="line">        &#125;</span><br><span class="line">        finish();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译运行 App，SplashActivity 启动后就跳到了 MainActivity，这部分逻辑一切正常。</p>
+<h3 id="4-2-异常的现象"><a href="#4-2-异常的现象" class="headerlink" title="4.2 异常的现象"></a>4.2 异常的现象</h3><p>接下来思考两个个问题：假如此时在 <code>MainActivity</code> 按 Home 键返回桌面</p>
+<ol>
+<li>如果通过点击最近任务，从最近任务中回到 App，看到的是哪个 Activity？</li>
+<li>如果通过再次点击 App 图标进入 App，看到的是哪个 Activity？</li>
+</ol>
+<p>答案：</p>
+<ol>
+<li>通过最近任务返回 App，显示的仍然是 MainActivity。</li>
+<li>通过点击 App 图标返回 App，不显示任何页面，并且 App 无法被唤起。</li>
+</ol>
+<p>第 1 个答案是符合预期的，但是第 2 个问题就很奇怪了，而且更奇怪的是：</p>
+<p><strong>如果在 MainActivity 点击 Home 键回到桌面，再点击 App 图标，不仅 App 无法唤起，而且再次查看最近任务，会发现最近任务中也没有 App 的记录了。</strong></p>
+<p>看看示意图：</p>
+<p><img data-src="./failed_to_start_app.gif" alt="返回桌面后，点击图标无法启动 Activity，且最近任务记录消失" title="@ASSET"></p>
+<h3 id="4-3-问题分析"><a href="#4-3-问题分析" class="headerlink" title="4.3 问题分析"></a>4.3 问题分析</h3><p>出现这个现象，我的第一反应就是：两个 Activity 都被杀了，于是分别给两个 Activity 都添加了生命周期的日志，发现打印出来的如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 首次启动 App 后：</span><br><span class="line">priv.luis.launchmodetest D/luis: SplashActivity - onCreate</span><br><span class="line">priv.luis.launchmodetest D/luis: MainActivity - onCreate</span><br><span class="line">priv.luis.launchmodetest D/luis: MainActivity - onResume</span><br><span class="line">priv.luis.launchmodetest D/luis: SplashActivity - onDestroy</span><br><span class="line">// 点击 Home 键：</span><br><span class="line">priv.luis.launchmodetest D/luis: MainActivity - onPause</span><br><span class="line">priv.luis.launchmodetest D/luis: MainActivity - onStop</span><br><span class="line">// 点击多任务键，从最近任务中返回 App：</span><br><span class="line">priv.luis.launchmodetest D/luis: MainActivity - onResume</span><br><span class="line">// 再次点击 Home 键：</span><br><span class="line">priv.luis.launchmodetest D/luis: MainActivity - onPause</span><br><span class="line">priv.luis.launchmodetest D/luis: MainActivity - onStop</span><br><span class="line">// 点击 App 图标：</span><br><span class="line">priv.luis.launchmodetest D/luis: SplashActivity - onCreate</span><br><span class="line">priv.luis.launchmodetest D/luis: SplashActivity - onDestroy</span><br></pre></td></tr></table></figure>
+
+<p>从日志上看，MainActivity 自始至终都没有被杀掉，但是为什么 App 无法启动呢？为什么第一次点 Home 键返回桌面，最近任务中有 App 的记录，但是从桌面点击了 App 图标之后，即使 MainActivity 仍然存活，但最近任务中就没有 App 记录了呢？</p>
+<p>首先，如果仔细看录屏的后半部分，有一次在点击桌面图标之后，App 在一瞬间被拉起来了，然后又自动关闭了，结合点击 App 图标之后的日志来看，很明显看出，点击 App 图标后，启动的是 <code>SplashActivity</code>，因为 <code>isFirstTime == false</code>，所以直接执行了 <code>finish()</code>。</p>
+<p>难道是因为给 <code>SplashActivity</code> 设置了 <code>singleInstance</code> 吗？但即使改为给 <code>MainActivity</code> 设置 <code>singleInstance</code>，依然是同样的现象。难道是 Application 被强制 Kill 掉了，以至于连 Log 的机会都没有吗？</p>
+<p>再次重复整个步骤，首次打开 App 后先通过 ADB 命令查看一下正在运行的 Activity 栈：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Running activities (most recent first):</span><br><span class="line">  TaskRecord&#123;392952a #745 A=.abc U=0 StackId=744 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;a4f60c2 u0 priv.lsl.launchmodetest/.MainActivity t745&#125;</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">  TaskRecord&#123;cf7cd87 #2 I=com.google.android.apps.nexuslauncher/.NexusLauncherActivity U=0 StackId=0 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5dab3ba u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t2&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>MainActivity</code> 处于前台运行，然后就是系统的 Launcher 了，没有问题。接下来点击 Home 键回到桌面，再输出一下正在运行的 Activity 栈：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Running activities (most recent first):</span><br><span class="line">  TaskRecord&#123;cf7cd87 #2 I=com.google.android.apps.nexuslauncher/.NexusLauncherActivity U=0 StackId=0 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5dab3ba u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t2&#125;</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">  TaskRecord&#123;392952a #745 A=.abc U=0 StackId=744 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;a4f60c2 u0 priv.lsl.launchmodetest/.MainActivity t745&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>MainActivity</code> 进入后台，系统 Launcher 成为前台，也符合预期。此时点击多任务，是可以在最近任务中看到 App 记录的，接着点击桌面的 App 图标，不出意外的 App 未被唤醒，并且最近任务中也没有 App 的记录了，再次输出 Activity 栈：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Running activities (most recent first):</span><br><span class="line">  TaskRecord&#123;cf7cd87 #2 I=com.google.android.apps.nexuslauncher/.NexusLauncherActivity U=0 StackId=0 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5dab3ba u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t2&#125;</span><br><span class="line">Running activities (most recent first):</span><br><span class="line">  TaskRecord&#123;96b6b62 #750 A=.abc U=0 StackId=749 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;e949a28 u0 priv.lsl.launchmodetest/.MainActivity t750&#125;</span><br></pre></td></tr></table></figure>
+
+<p>WTF？<code>MainActivity</code> 竟然还存活着，说明 App 并没有被杀死，然而最近任务并没有任何记录！</p>
+<h3 id="4-4-原因解析"><a href="#4-4-原因解析" class="headerlink" title="4.4 原因解析"></a>4.4 原因解析</h3><p>为了解释这个情况，先用一个简单的例子说明 SingleInstance 对 Activity 栈的影响：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A(Standard) --&gt; B(SingleInstance) --&gt; C(Standard)</span><br></pre></td></tr></table></figure>
+
+<p>假如有 A、B、C 三个 Activity，按照如上关系启动。</p>
+<ul>
+<li>因为 B 是 SingleInstance，所以会创建一个新的栈，并在新的栈中启动 B。</li>
+<li>而 B 启动 C 时，同样由于 B 设置了 SingleInstance 属性，因此会先判断 C 的启动模式，以及 Manifest 中 C 对应的 <code>taskAffinity</code>，如果没有指定，则会把 C 启动在默认栈中，也就是和 A 同一个栈。</li>
+<li>因此如果在 C 中按下返回键，由于 A 和 C 在同一个栈，所以会回到 A，而不是 B。</li>
+</ul>
+<p>对于 <code>taskAffinity</code> 一种很粗略地解释：</p>
+<blockquote>
+<p>这个属性代表了一种「倾向」，表示一个 Activity 「倾向于」放在哪个栈中。如果 Activity 没有指定，则默认等同于 Application 的 taskAffinity，如果 Application 也没有指定，则默认等同于包名。</p>
+<p>如果指定了值，则 Activity 启动时会先查找是否存在指定的栈，假如存在则会直接在对应栈中启动，否则才会新建一个栈并启动。</p>
+<p>由于大部分情况下 Activity 都没有指定 taskAffinity，因此默认情况下 Activity 都会启动到以对应 App 包名命名的栈中。</p>
+</blockquote>
+<p>另外，通过上面 ADB 查看的栈信息也可知，Android 的桌面（或者应用列表）本身也是一个 Activity，通常叫 Launcher，各大基于 Android 的 UI 厂商通常也是通过自定义 Launcher 来实现自定义样式的，因此从桌面点击 App 图标打开一个 Activity，本质上也是一个 Activity 通过 <code>startActivity()</code> 启动另一个 Activity 的过程，只不过此时会默认给 Intent 添加一个 <code>FLAG_ACTIVITY_NEW_TASK</code> 的 Flag，作用是先查找目标 Activity 指定的 <code>taskAffinity</code> 栈是否存在，如果存在就会直接唤起这个栈。</p>
 
     </div>
 
@@ -759,7 +817,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接:</strong>
-      <a href="https://www.liushulun.cn/post/android/android-activity/" title="Android——Activity">https://www.liushulun.cn/post/android/android-activity/</a>
+      <a href="https://www.liushulun.cn/post/android/android-activity/" title="Android-Activity">https://www.liushulun.cn/post/android/android-activity/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明: </strong>所有文章均由 Luis 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
@@ -841,14 +899,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

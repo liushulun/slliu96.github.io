@@ -122,7 +122,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -203,7 +203,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%90%AF%E7%94%A8%E5%8D%9A%E5%AE%A2%E6%90%9C%E7%B4%A2"><span class="nav-text">1. 启用博客搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%90%9C%E7%B4%A2%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8"><span class="nav-text">2. 搜索无法使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%90%9C%E7%B4%A2%E6%B2%A1%E6%9C%89%E7%BB%93%E6%9E%9C"><span class="nav-text">3. 搜索没有结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%90%9C%E7%B4%A2%E6%A1%86%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA"><span class="nav-text">4. 搜索框无法显示</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2DIY%EF%BC%885%EF%BC%89%E5%8D%9A%E5%AE%A2%E7%AB%99%E5%86%85%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2%E5%8F%8A%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="nav-text">Hexo博客DIY（5）博客站内本地搜索及相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%90%AF%E7%94%A8%E5%8D%9A%E5%AE%A2%E6%90%9C%E7%B4%A2"><span class="nav-text">1. 启用博客搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%90%9C%E7%B4%A2%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8"><span class="nav-text">2. 搜索无法使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%90%9C%E7%B4%A2%E6%B2%A1%E6%9C%89%E7%BB%93%E6%9E%9C"><span class="nav-text">3. 搜索没有结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%90%9C%E7%B4%A2%E6%A1%86%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA"><span class="nav-text">4. 搜索框无法显示</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -413,7 +413,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-启用博客搜索"><a href="#1-启用博客搜索" class="headerlink" title="1. 启用博客搜索"></a>1. 启用博客搜索</h1><p>搜索功能基本在 Next 主题内就有介绍，一个是在线搜索，一个是本地搜索。我个人选择了本地搜索功能，引入也很简单，执行命令：</p>
+<h1 id="Hexo博客DIY（5）博客站内本地搜索及相关问题"><a href="#Hexo博客DIY（5）博客站内本地搜索及相关问题" class="headerlink" title="Hexo博客DIY（5）博客站内本地搜索及相关问题"></a>Hexo博客DIY（5）博客站内本地搜索及相关问题</h1><h2 id="1-启用博客搜索"><a href="#1-启用博客搜索" class="headerlink" title="1. 启用博客搜索"></a>1. 启用博客搜索</h2><p>搜索功能基本在 Next 主题内就有介绍，一个是在线搜索，一个是本地搜索。我个人选择了本地搜索功能，引入也很简单，执行命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br></pre></td></tr></table></figure>
 
 <p>并在主题配置文件内找到：</p>
@@ -421,7 +421,7 @@
 
 <p>将 <code>enable</code> 设置为 true 即可。</p>
 <hr>
-<h1 id="2-搜索无法使用"><a href="#2-搜索无法使用" class="headerlink" title="2. 搜索无法使用"></a>2. 搜索无法使用</h1><p>在使用搜索功能时，有时可能会遇到：点击搜索后，一直处于加载中的状态，无法正确显示搜索框。其原因可能是以下几点之一导致的：</p>
+<h2 id="2-搜索无法使用"><a href="#2-搜索无法使用" class="headerlink" title="2. 搜索无法使用"></a>2. 搜索无法使用</h2><p>在使用搜索功能时，有时可能会遇到：点击搜索后，一直处于加载中的状态，无法正确显示搜索框。其原因可能是以下几点之一导致的：</p>
 <ol>
 <li><p>如果你是最近才开始建立的这个博客，但在网上查看别人介绍的关于如何开启搜索的文章时间又比较久远，那么可能你照着创建好了以后是搜不到结果的。如果按照之前版本的做法，即使完全照做，建立好本地搜索后，直接从网址进入博客搜索内容载体：<code>xxx.github.io/search.xml</code> 还是会出现 404 页面不存在的情况。</p>
 <p>按照当时的版本，网上的文章可能会告诉你这代表你的搜索模块没有装成功，让你完全去掉搜索后重新安装再试，不过这个现象很可能是因为以前版本的本地搜索，搜索内容存放载体是 <code>search.xml</code>，而现在的存放载体已经变成了 <code>search.json</code>，可以在站点配置文件内查看到：</p>
@@ -430,35 +430,19 @@
 <p>同样，你也可以在 Hexo 命令三连之后，在博客根目录下的 public 文件夹内找到这个文件：search.json</p>
 </li>
 <li><p>如果上面的没有做错，还是出现了无法搜索的情况，那就有可能是因为特殊字符的原因了，对于这个特殊字符：<code>\u8</code>，会导致本地搜索无法正确读取并编码，如何确定这种问题？就是直接在你的博客首页网址后面接上 <code>/search.json</code> 跳转到搜索载体，如果页面上显示的是很多文字，那就说明你的文章内没有特殊字符：</p>
-<center>
-
 <p><img data-src="./search_json_normal.png" alt="正常的 search.json 样式" title="@ASSET"></p>
-</center>
-
 <p>否则会出现报错，由于我无法重现，因此从 <a target="_blank" rel="noopener" href="https://www.sqlsec.com/2017/12/hexosearch.html" title="@LINK">这篇文章（作者：国光）</a>内找了一个图片：</p>
-<center>
-
 <p><img data-src="./search_json_error.png" alt="有特殊字符的 search.json 样式" title="@ASSET"></p>
-</center>
-
 <p>Sublime Text3 和 VS Code 都可以看到这个字符，因此可以使用这两个编辑器查看并删除字符。</p>
 </li>
 </ol>
 <hr>
-<h1 id="3-搜索没有结果"><a href="#3-搜索没有结果" class="headerlink" title="3. 搜索没有结果"></a>3. 搜索没有结果</h1><p>还有一种情况，就是已经开启搜索功能，直接进入搜索内容文件 <code>xxx.github.io/search.json</code> 也能打开并且没有异常，搜索框可以正确弹出，但是无论你搜索什么内容，下面的搜索结果栏都是空白的：</p>
-<center>
-
+<h2 id="3-搜索没有结果"><a href="#3-搜索没有结果" class="headerlink" title="3. 搜索没有结果"></a>3. 搜索没有结果</h2><p>还有一种情况，就是已经开启搜索功能，直接进入搜索内容文件 <code>xxx.github.io/search.json</code> 也能打开并且没有异常，搜索框可以正确弹出，但是无论你搜索什么内容，下面的搜索结果栏都是空白的：</p>
 <p><img data-src="./search_error_no_result.png" alt="搜索没有结果" title="@ASSET"></p>
-</center>
-
 <p>这种情况很可能是因为你有某一篇文章没有标题，比如我的博客置顶的公告栏，我设置的文章类型是“quote”，这就使得这篇文章不会显示标题，但在这篇文章的文件内，title 属性还是必须要写的，因为不会显示所以随便写即可，否则就会导致无法搜索。</p>
 <hr>
-<h1 id="4-搜索框无法显示"><a href="#4-搜索框无法显示" class="headerlink" title="4. 搜索框无法显示"></a>4. 搜索框无法显示</h1><p>有些个性化比较多的博客，应用了大量视觉效果，结果突然发现点击搜索后，博客页面有变暗的效果，但搜索框根本显示不出来（Safari 浏览器），也没有加载中的图标，即使能显示出来（Chrome 浏览器），也无法获取焦点、无法输入文字，就像这样：</p>
-<center>
-
+<h2 id="4-搜索框无法显示"><a href="#4-搜索框无法显示" class="headerlink" title="4. 搜索框无法显示"></a>4. 搜索框无法显示</h2><p>有些个性化比较多的博客，应用了大量视觉效果，结果突然发现点击搜索后，博客页面有变暗的效果，但搜索框根本显示不出来（Safari 浏览器），也没有加载中的图标，即使能显示出来（Chrome 浏览器），也无法获取焦点、无法输入文字，就像这样：</p>
 <p><img data-src="./search_error_not_show.png" alt="无法显示搜索框" title="@ASSET"></p>
-</center>
-
 <p>出现这个情况的，很可能博客个性化比较丰富，如果目前还没遇到可以跳过，在系列后面一篇关于背景 DIY 的文章会再讲到这个问题。</p>
 <p>先说原因：很大可能是因为自己调整了博客整体的透明度，也就是修改了这个文件：<code>next/source/css/_custom/custom.styl</code> 添加这一段：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修改主体透明度</span></span><br><span class="line">.main-inner &#123;</span><br><span class="line">  opacity: <span class="number">0.8</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改侧栏透明度</span></span><br><span class="line">.header-inner &#123;</span><br><span class="line">  opacity: <span class="number">0.8</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -659,14 +643,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

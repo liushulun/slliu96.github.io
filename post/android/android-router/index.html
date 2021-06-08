@@ -28,7 +28,7 @@
   </script>
 <meta name="description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android-浅析ARouter路由框架的原理和局限性">
+<meta property="og:title" content="Android-Router路由框架浅析">
 <meta property="og:url" content="https://www.liushulun.cn/post/android/android-router/index.html">
 <meta property="og:site_name" content="Luis&#39;s Blogs">
 <meta property="og:description" content="（1）ARouter 简介；（2）ARouter 基本原理浅析（ARouter 编译时的处理、运行时的分段懒加载）；（3）ARouter 的局限性。">
@@ -55,7 +55,7 @@
   };
 </script>
 
-<title>Android-浅析ARouter路由框架的原理和局限性 | Luis's Blogs</title>
+<title>Android-Router路由框架浅析 | Luis's Blogs</title>
   
 
 
@@ -119,7 +119,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -200,7 +200,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFARouter"><span class="nav-text">1. 什么是ARouter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-ARouter%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">2. ARouter的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E7%BC%96%E8%AF%91%E6%97%B6%E5%A4%84%E7%90%86"><span class="nav-text">2.1 编译时处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD"><span class="nav-text">2.2 运行时加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-ARouter%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-text">3. ARouter的局限性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">附录[参考指导]</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Router%E8%B7%AF%E7%94%B1%E6%A1%86%E6%9E%B6%E6%B5%85%E6%9E%90"><span class="nav-text">Android-Router路由框架浅析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFARouter"><span class="nav-text">1. 什么是ARouter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ARouter%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">2. ARouter的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%BC%96%E8%AF%91%E6%97%B6%E5%A4%84%E7%90%86"><span class="nav-text">2.1 编译时处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD"><span class="nav-text">2.2 运行时加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-ARouter%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-text">3. ARouter的局限性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95-%E5%8F%82%E8%80%83%E6%8C%87%E5%AF%BC"><span class="nav-text">附录[参考指导]</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -312,7 +312,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android-浅析ARouter路由框架的原理和局限性
+          Android-Router路由框架浅析
         </h1>
 
         <div class="post-meta-container">
@@ -391,7 +391,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>4.2k</span>
+      <span>4.3k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
@@ -412,13 +412,13 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>前言：最近在思考项目 Module 解耦问题的时候，粗略了解了一下路由框架，其中最著名的又属阿里开源的 ARouter 了。但在实操的时候发现路由框架并没有我一开始想象的「能完全实现 Module 间解耦」那么美好，有着其本身的局限性，所以在本文对 ARouter 的基本原理和局限性做一个很浅显的个人总结。</p>
+<h1 id="Android-Router路由框架浅析"><a href="#Android-Router路由框架浅析" class="headerlink" title="Android-Router路由框架浅析"></a>Android-Router路由框架浅析</h1><p>前言：最近在思考项目 Module 解耦问题的时候，粗略了解了一下路由框架，其中最著名的又属阿里开源的 ARouter 了。但在实操的时候发现路由框架并没有我一开始想象的「能完全实现 Module 间解耦」那么美好，有着其本身的局限性，所以在本文对 ARouter 的基本原理和局限性做一个很浅显的个人总结。</p>
 <hr>
-<h1 id="1-什么是ARouter"><a href="#1-什么是ARouter" class="headerlink" title="1. 什么是ARouter"></a>1. 什么是ARouter</h1><p>ARouter 主要用于针对 Activity 跳转之间的解耦，本质上它提供了一种通过 String 类型的「路径 Path」对应到 Activity 的路由表。其核心是通过 APT 在编译时自动检索添加了 <code>@Route(path=&quot;/XXX/XXX&quot;)</code> 注解的 Activity，并以对应的 Path 为 Key 自动生成了一个 Map，然后在运行时根据 Map 存储的路由信息跳转。</p>
+<h2 id="1-什么是ARouter"><a href="#1-什么是ARouter" class="headerlink" title="1. 什么是ARouter"></a>1. 什么是ARouter</h2><p>ARouter 主要用于针对 Activity 跳转之间的解耦，本质上它提供了一种通过 String 类型的「路径 Path」对应到 Activity 的路由表。其核心是通过 APT 在编译时自动检索添加了 <code>@Route(path=&quot;/XXX/XXX&quot;)</code> 注解的 Activity，并以对应的 Path 为 Key 自动生成了一个 Map，然后在运行时根据 Map 存储的路由信息跳转。</p>
 <hr>
-<h1 id="2-ARouter的基本原理"><a href="#2-ARouter的基本原理" class="headerlink" title="2. ARouter的基本原理"></a>2. ARouter的基本原理</h1><p>ARouter 要求一个 Activity 的路径 Path 必须包括至少两级，例如：<code>/main/sub</code>，将 <code>main</code> 称为主路径，表示某一组 Activity 路由信息统一的主路径，<code>sub</code> 称为子路径，表示具体到某一个 Activity 的精确路由。一个主路径可以包括多个子路径，例如：<code>/main/sub</code>, <code>/main/sub2</code>…</p>
+<h2 id="2-ARouter的基本原理"><a href="#2-ARouter的基本原理" class="headerlink" title="2. ARouter的基本原理"></a>2. ARouter的基本原理</h2><p>ARouter 要求一个 Activity 的路径 Path 必须包括至少两级，例如：<code>/main/sub</code>，将 <code>main</code> 称为主路径，表示某一组 Activity 路由信息统一的主路径，<code>sub</code> 称为子路径，表示具体到某一个 Activity 的精确路由。一个主路径可以包括多个子路径，例如：<code>/main/sub</code>, <code>/main/sub2</code>…</p>
 <p>当项目很庞大或 Activity 的数量很多时，各个需要路由的 Module 下就会产生很大的 Map，因此 ARouter 做了一个优化：分段懒加载，也即运行时不会立即将所有路由信息都加载进内存，而是在发起一个路由请求时，先读取缓存，如果缓存没有，再对目标的主路径下的路由信息做懒加载。</p>
-<h2 id="2-1-编译时处理"><a href="#2-1-编译时处理" class="headerlink" title="2.1 编译时处理"></a>2.1 编译时处理</h2><p>ARouter 在编译时会通过 APT 生成两个表：</p>
+<h3 id="2-1-编译时处理"><a href="#2-1-编译时处理" class="headerlink" title="2.1 编译时处理"></a>2.1 编译时处理</h3><p>ARouter 在编译时会通过 APT 生成两个表：</p>
 <p>（1）对每个添加了 ARouter 依赖的 Module，检索 Module 内所有添加了 <code>@Route</code> 注解的 Activity，并生成每个具体的 Path 对应 Activity 的表 <code>atlas</code>。</p>
 <ul>
 <li>假设 module_splash 下有一个 ADSActivity 添加了路由，则编译时会生成一个类似以下结构的表：</li>
@@ -434,14 +434,14 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EaseRouter_Root_app</span> <span class="keyword">implements</span> <span class="title">IRouteRoot</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadInto</span><span class="params">(Map&lt;String, Class&lt;? extends IRouteGroup&gt;&gt; routes)</span> </span>&#123;</span><br><span class="line">        routes.put(<span class="string">&quot;slpash&quot;</span>, EaseRouter_Group_splash.class);</span><br><span class="line">        routes.put(<span class="string">&quot;user&quot;</span>, EaseRouter_Group_user.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>实际上，所有和路由相关的表都，都是通过一个实现了 <code>IRouteRoot</code> 接口的类存储的。</p>
-<h2 id="2-2-运行时加载"><a href="#2-2-运行时加载" class="headerlink" title="2.2 运行时加载"></a>2.2 运行时加载</h2><p>ARouter 会在运行时收到路由请求后再做懒加载：</p>
+<h3 id="2-2-运行时加载"><a href="#2-2-运行时加载" class="headerlink" title="2.2 运行时加载"></a>2.2 运行时加载</h3><p>ARouter 会在运行时收到路由请求后再做懒加载：</p>
 <p>（1）初始化 <code>ARouter.init();</code> 时，ARouter 会开启一个子线程扫描 apk 中的所有 dex 文件，遍历当前包名下所有实现了 <code>IRouteRoot</code> 接口的类，并存进一个 className 集合中。</p>
 <p>（2）通过 <code>ARouter.getInstance().build(&quot;/XXX/XXX&quot;).navigation();</code> 请求路由到指定 Path 对应的 Activity。</p>
 <p>（3）尝试从缓存中读取对应的 Activity，如果命中缓存的路由信息，则直接定位并启动目标 Activity。</p>
 <p>（4）如果未命中缓存，说明该路由对应所在的整个路由表都没有加载。假设目标路由为：<code>/user/register</code>，则 <code>EaseRouter_Group_user</code> 加载 <code>atlas</code> 时，会同时把当前主路径，也即 <code>user</code> 下的所有路由信息都加载，所以如果找不到 <code>/user/register</code>，就说明整个 <code>user</code> 都没有加载，则根据目标路由的主路径 <code>user</code> 加载所有 <code>user</code> 下的路由信息。</p>
 <p>（5）将所有主路径为 <code>user</code> 的路由信息加载后，就能通过 <code>routes.get(&quot;user&quot;);</code> 获取到 <code>EaseRouter_Group_user</code>，然后再通过 <code>atlas.get(&quot;/user/register&quot;)</code> 获取到 <code>RegisterActivity</code>。</p>
 <hr>
-<h1 id="3-ARouter的局限性"><a href="#3-ARouter的局限性" class="headerlink" title="3. ARouter的局限性"></a>3. ARouter的局限性</h1><p>上文很简单的解释了一下 ARouter 的原理，作为一个路由框架，ARouter 最大的用途就是把多个 Module 间的 Activity 跳转解耦，发起跳转时不再需要关注实际的 Activity，只需要一个 String 类型的路由即可，从代码编写上确实看起来是解耦了，但实际上 ARouter 并没有解决依赖的问题。</p>
+<h2 id="3-ARouter的局限性"><a href="#3-ARouter的局限性" class="headerlink" title="3. ARouter的局限性"></a>3. ARouter的局限性</h2><p>上文很简单的解释了一下 ARouter 的原理，作为一个路由框架，ARouter 最大的用途就是把多个 Module 间的 Activity 跳转解耦，发起跳转时不再需要关注实际的 Activity，只需要一个 String 类型的路由即可，从代码编写上确实看起来是解耦了，但实际上 ARouter 并没有解决依赖的问题。</p>
 <p>对于 Android 来说，Gradle 在构建 app 时是有优化的，假如一个 AModule 没有被别的 Module 依赖，或者虽然 AModule 被 BModule 依赖了，但 BMdoule 又没有被依赖，类似于 JVM 中的「引用链是断开的」，那 Gradle 在编译时就会忽略掉这些 Module，以减小最后生成的 APK 包大小以及简化资源。</p>
 <p>Gradle 这个优化本是出于减小包大小考虑的，本质上是好的，但对于想要实现 Module 间解耦来说就是一个阻碍了，因为那些我们希望解耦而去掉依赖的 Module，根本没有被打包进最后的 APK 中，那无论是采用路由、还是别的方式都无法访问。例如：</p>
 <ul>
@@ -462,16 +462,14 @@
 </li>
 </ul>
 <p>也就是说，想要使用路由框架，首先也要确保 Module 能正确被打包进去，那方案只有两种：</p>
-<ul>
-<li><p>（1）app 主 Module 添加所有业务子 Module 的依赖。</p>
-</li>
-<li><p>（2）新建一个中介 Module，中介 Module 添加所有业务子 Module 的依赖，然后 app 主 Module 再添加这个中介 Module 的依赖，除了中介 Module 外，其他 Module 都互不依赖。这样 app 主 Module 并没有显式依赖各个业务子 Module，在开发时可以避免逻辑耦合的情况，而且实际上所有业务子 Module 是间接被 app 主 Module 依赖了，所以也能确保被打包进 APK 中，这也是常用的做法。</p>
-</li>
-</ul>
+<ol>
+<li>app 主 Module 添加所有业务子 Module 的依赖。</li>
+<li>新建一个中介 Module，中介 Module 添加所有业务子 Module 的依赖，然后 app 主 Module 再添加这个中介 Module 的依赖，除了中介 Module 外，其他 Module 都互不依赖。这样 app 主 Module 并没有显式依赖各个业务子 Module，在开发时可以避免逻辑耦合的情况，而且实际上所有业务子 Module 是间接被 app 主 Module 依赖了，所以也能确保被打包进 APK 中，这也是常用的做法。</li>
+</ol>
 <p>所以实际上路由框架并没有从根源上解决依赖的问题，从这个角度来看，ARouter 最大的好处或许其实在于其使用 APT 自动生成了路由信息的录入和查找相关代码，并且对查找路由做了分段懒加载等内存优化，在业务开发上可以节省一些编码时间，但 ARouter 最基本的使用也需要开发人员对相关 Gradle 配置、路由配置等稍有熟悉后才可上手（当然这个过程其实已经有傻瓜式文档了，使用门槛很低），对于整个 App 的路由信息，也需要专门管理，以避免路由信息混乱、重复、不规范等问题，当然这些确实都能通过良好的管理方式优化。但实际上我个人对使用 String 来管理路由的做法反倒是略有排斥的，至于是否真的使得代码变得更「内聚」、「解耦」、以及「高级」，和每个人的开发习惯有关，就见仁见智了。</p>
-<h1 id="附录-参考指导"><a href="#附录-参考指导" class="headerlink" title="附录[参考指导]"></a>附录[参考指导]</h1><blockquote>
+<h2 id="附录-参考指导"><a href="#附录-参考指导" class="headerlink" title="附录[参考指导]"></a>附录[参考指导]</h2><blockquote>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/857aea5b54a8" title="@LINK">【1】ARouter原理剖析及手动实现（作者：xiasem）<sup>【注】</sup></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/857aea5b54a8" title="@LINK">【1】ARouter原理剖析及手动实现（作者：xiasem）</a></li>
 </ul>
 </blockquote>
 
@@ -585,7 +583,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接:</strong>
-      <a href="https://www.liushulun.cn/post/android/android-router/" title="Android-浅析ARouter路由框架的原理和局限性">https://www.liushulun.cn/post/android/android-router/</a>
+      <a href="https://www.liushulun.cn/post/android/android-router/" title="Android-Router路由框架浅析">https://www.liushulun.cn/post/android/android-router/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明: </strong>所有文章均由 Luis 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
@@ -663,14 +661,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

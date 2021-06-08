@@ -26,12 +26,12 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.liushulun.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#EB6D39","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeInDown","post_header":null,"post_body":null,"coll_header":"none","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="。">
+<meta name="description" content="未完待续。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android-SharedPreference">
 <meta property="og:url" content="https://www.liushulun.cn/post/android/android-sharedpreference/index.html">
 <meta property="og:site_name" content="Luis&#39;s Blogs">
-<meta property="og:description" content="。">
+<meta property="og:description" content="未完待续。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-01-30T14:06:21.000Z">
 <meta property="article:author" content="Luis">
@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -199,7 +199,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%85%E6%95%B4%E7%90%86"><span class="nav-text">待整理</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-SharedPreference"><span class="nav-text">Android-SharedPreference</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%85%E6%95%B4%E7%90%86"><span class="nav-text">待整理</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -389,7 +389,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>952</span>
+      <span>976</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
@@ -400,7 +400,7 @@
     </span>
 </div>
 
-            <div class="post-description">。</div>
+            <div class="post-description">未完待续。</div>
         </div>
       </header>
 
@@ -410,7 +410,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>Android 中获取 SharedPreferences 的方式有 3 种：</p>
+<h1 id="Android-SharedPreference"><a href="#Android-SharedPreference" class="headerlink" title="Android-SharedPreference"></a>Android-SharedPreference</h1><p>Android 中获取 SharedPreferences 的方式有 3 种：</p>
 <p>（1）Context 中的 <code>getSharedPreferences(String name, int mode)</code></p>
 <p>name 用于指定 SharedPreference 的文件名，如果不存在则创建。mode 用于指定操作模式，有以下几种选择：</p>
 <ul>
@@ -422,7 +422,7 @@
 <p>（2）Activity 中的 <code>getPreferences(int mode)</code><br>与 <code>getSharedPreferences()</code> 类似，但自动将当前活动的类名作为 SharedPreferences 的文件名。</p>
 <p>（3）PreferenceManager 中的 <code>getDefaultSharedPreferences(Context context)</code><br> 这是一个静态方法，自动使用当前应用程序的包名作为前缀来命名 SharedPreferences 文件。</p>
 <hr>
-<h1 id="待整理"><a href="#待整理" class="headerlink" title="待整理"></a>待整理</h1><p>SP的本质是HashMap，存储的是键值对数据，在本地存储中以xml文件的形式保存。</p>
+<h2 id="待整理"><a href="#待整理" class="headerlink" title="待整理"></a>待整理</h2><p>SP的本质是HashMap，存储的是键值对数据，在本地存储中以xml文件的形式保存。</p>
 <p>SP本身是线程安全的，读写都用synchronized锁住了，但由于每次修改都会生成一个EditorImpl对象，因此最好是批量处理，最后统一提交。</p>
 <p>提交时有两种方案，commit在UI线程，apply在子线程，使用commit如果耗时太长超过5s，会导致ANR，使用commit，如果提交时关闭Activity，会检查一个工作任务队列sPendingWorkFinishers中的任务是否全部完成，如果有未完成的任务，就会一直等待，所以如果commit太大量的数据导致Activity结束时等待超过5s，一样会导致ANR。</p>
 <p>由于读取本地文件的性能开销很大，所以SP读取数据后，会一直保存在内存，因此如果存放了过大的数据，会导致频繁GC甚至OOM。</p>
@@ -556,13 +556,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/post/android/android-sqlite/" rel="prev" title="Android-SQLite">
-                  <i class="fa fa-chevron-left"></i> Android-SQLite
+                <a href="/post/android/android-cmake/" rel="prev" title="AndroidStudio基于CMake的NDK开发">
+                  <i class="fa fa-chevron-left"></i> AndroidStudio基于CMake的NDK开发
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/post/android/android-contentprovider/" rel="next" title="Android——ContentProvider">
-                  Android——ContentProvider <i class="fa fa-chevron-right"></i>
+                <a href="/post/android/android-sqlite/" rel="next" title="Android-SQLite">
+                  Android-SQLite <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -618,14 +618,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

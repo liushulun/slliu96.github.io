@@ -119,7 +119,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -200,7 +200,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Message%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-text">1. Message的种类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%90%8C%E6%AD%A5%E6%B6%88%E6%81%AF"><span class="nav-text">2. 同步消息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF"><span class="nav-text">3. 异步消息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E9%9A%9C%E6%A0%85%E6%B6%88%E6%81%AF"><span class="nav-text">4. 障栅消息</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Message"><span class="nav-text">Android-Message</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Message%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-text">1. Message的种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%90%8C%E6%AD%A5%E6%B6%88%E6%81%AF"><span class="nav-text">2. 同步消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF"><span class="nav-text">3. 异步消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%9A%9C%E6%A0%85%E6%B6%88%E6%81%AF"><span class="nav-text">4. 障栅消息</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -412,7 +412,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>前言：本文是针对 Message 内部的一些分析，但涉及到的知识还可能出现在以下文章中，建议都参考一遍：</p>
+<h1 id="Android-Message"><a href="#Android-Message" class="headerlink" title="Android-Message"></a>Android-Message</h1><p>前言：本文是针对 Message 内部的一些分析，但涉及到的知识还可能出现在以下文章中，建议都参考一遍：</p>
 <ul>
 <li><a href="/post/java/java-threadlocal/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
 <li><a href="/post/android/android-message/android-message/" title="@LINK">Android——Message</a></li>
@@ -421,25 +421,16 @@
 <li><a href="/post/android/android-handler/android-handler/" title="@LINK">Android——Handler</a></li>
 </ul>
 <hr>
-<h1 id="1-Message的种类"><a href="#1-Message的种类" class="headerlink" title="1. Message的种类"></a>1. Message的种类</h1><p>在 Android 中，Message 是使用 Handler 时不可避免的一个类，通常都会使用 Message 来发送一些“消息”，这个“消息”有自己的标识 <code>what</code>，有自己的两个通用参数 <code>arg1</code> 和 <code>arg2</code>，有自己的具体消息内容 <code>obj</code>，似乎消息就是一个通过标识传递数据的功能，但其实里面大有门道。</p>
+<h2 id="1-Message的种类"><a href="#1-Message的种类" class="headerlink" title="1. Message的种类"></a>1. Message的种类</h2><p>在 Android 中，Message 是使用 Handler 时不可避免的一个类，通常都会使用 Message 来发送一些“消息”，这个“消息”有自己的标识 <code>what</code>，有自己的两个通用参数 <code>arg1</code> 和 <code>arg2</code>，有自己的具体消息内容 <code>obj</code>，似乎消息就是一个通过标识传递数据的功能，但其实里面大有门道。</p>
 <p>在使用 Message 时，默认情况下越早发送的消息越早被处理，这是因为默认的消息即为同步消息，而实际上消息有三种：同步消息、异步消息、障栅消息：</p>
-<ul>
-<li><ol>
+<ol>
 <li>在默认情况下均为 <strong>同步消息</strong>，同步消息的意义即：除非指定 Message 的执行时间，否咋 Message 会以队列（FIFO，先进先出）的机制顺序处理消息。</li>
-</ol>
-</li>
-<li><ol start="2">
 <li>异步消息则不受顺序的限制，即使在同步消息阻塞的情况下，依然可以处理异步消息。</li>
-</ol>
-</li>
-<li><ol start="3">
 <li>障栅消息本身并不携带额外的数据，可以看成是一个阻塞器，它用于阻塞同步消息而对异步消息没有影响，可以看成是让异步消息优先执行的一个调节器。</li>
 </ol>
-</li>
-</ul>
 <p>而消息是否同步，并不是由 Message 本身决定的，而是由处理消息的 Handler 决定的（详细可参考：<a href="/post/android/android-handler/android-handler/" title="@LINK">Android——Handler</a>），下文将详细介绍这 3 种消息。</p>
 <hr>
-<h1 id="2-同步消息"><a href="#2-同步消息" class="headerlink" title="2. 同步消息"></a>2. 同步消息</h1><p>在默认初始化 Handler 时，不论是调用无参构造方法，还是传递 Looper 的构造方法，或者重写回调的构造方法，其实源码里都有这么一个内部调用：</p>
+<h2 id="2-同步消息"><a href="#2-同步消息" class="headerlink" title="2. 同步消息"></a>2. 同步消息</h2><p>在默认初始化 Handler 时，不论是调用无参构造方法，还是传递 Looper 的构造方法，或者重写回调的构造方法，其实源码里都有这么一个内部调用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(<span class="keyword">null</span>, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(<span class="meta">@NonNull</span> Looper looper)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(looper, <span class="keyword">null</span>, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(<span class="meta">@Nullable</span> Callback callback)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(callback, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>内部调用了有布尔值的构造方法：</p>
@@ -447,7 +438,7 @@
 
 <p>这些带布尔值的内部构造方法，其布尔值含义都是一样的：<code>async</code>，是否异步。可以看到，当我们实例化 Handler 没有显式传入一个 <code>true</code> 作为参数时，默认调用的内部构造方法均使用了 <code>false</code> 作为参数，也即：<strong>默认情况下不使用异步</strong>。</p>
 <hr>
-<h1 id="3-异步消息"><a href="#3-异步消息" class="headerlink" title="3. 异步消息"></a>3. 异步消息</h1><p>如果需要使用异步消息，则需要实例化 Handler 时手动指定 <code>async</code> 参数。从源码可以看到：</p>
+<h2 id="3-异步消息"><a href="#3-异步消息" class="headerlink" title="3. 异步消息"></a>3. 异步消息</h2><p>如果需要使用异步消息，则需要实例化 Handler 时手动指定 <code>async</code> 参数。从源码可以看到：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@hide</span></span><br><span class="line"><span class="meta">@UnsupportedAppUsage</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(<span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(<span class="keyword">null</span>, async);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@hide</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(<span class="meta">@Nullable</span> Callback callback, <span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@hide</span></span><br><span class="line"><span class="meta">@UnsupportedAppUsage</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(<span class="meta">@NonNull</span> Looper looper, <span class="meta">@Nullable</span> Callback callback, <span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>源码处，这 3 个可以指定 <code>async</code> 的构造方法，均添加了 <code>@hide</code> 注解，也即虽然其定义为 <code>public</code> 方法，但在外部无法直接调用，需要使用反射的方式，而除了两个参数的构造方法外，另外两个还有 <code>@UnsupportedAppUsage</code> 注解，该注解的含义是限制了最大可以调用该方法的 API 等级，不过我本人还没有试过其限制的最大 API 到底是多少。</p>
@@ -456,7 +447,7 @@
 
 <p>注释里面很清楚地写到，该方法使用当前线程的 Looper 来实例化 Handler。手动指定该方法的参数 <code>async = true</code>，即可使得该 Handler 所发送的消息均为 <strong>异步消息</strong>。</p>
 <hr>
-<h1 id="4-障栅消息"><a href="#4-障栅消息" class="headerlink" title="4. 障栅消息"></a>4. 障栅消息</h1><p>障栅消息的本质也只是一个 Message，但是其 <code>target</code> 为 <code>null</code>（其他消息不能设置为 <code>null</code>，否则会报异常），且 <code>arg1</code> 设置为一个从 0 开始每次自增 1 的 token，用于标识不同的障栅消息。前面已经介绍到，障栅消息的作用是阻塞添加到消息队列的时间比它晚的同步消息，因此障栅消息添加到队列时，会根据添加的时间 <code>when</code> 来插入到对应的消息位置。为了便于理解，这里把 <code>when</code> 比障栅消息小的最后一个消息（即障栅消息前一个）称为 LAST，把这个消息的下一个（即障栅消息后一个）称为 ONEMORE。</p>
+<h2 id="4-障栅消息"><a href="#4-障栅消息" class="headerlink" title="4. 障栅消息"></a>4. 障栅消息</h2><p>障栅消息的本质也只是一个 Message，但是其 <code>target</code> 为 <code>null</code>（其他消息不能设置为 <code>null</code>，否则会报异常），且 <code>arg1</code> 设置为一个从 0 开始每次自增 1 的 token，用于标识不同的障栅消息。前面已经介绍到，障栅消息的作用是阻塞添加到消息队列的时间比它晚的同步消息，因此障栅消息添加到队列时，会根据添加的时间 <code>when</code> 来插入到对应的消息位置。为了便于理解，这里把 <code>when</code> 比障栅消息小的最后一个消息（即障栅消息前一个）称为 LAST，把这个消息的下一个（即障栅消息后一个）称为 ONEMORE。</p>
 <p>（1）在 MessageQueue 中发送障栅消息的源码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">postSyncBarrier</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> postSyncBarrier(SystemClock.uptimeMillis());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -661,14 +652,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

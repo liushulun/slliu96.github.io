@@ -119,7 +119,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -200,7 +200,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%AD%97%E6%95%B0%E4%B8%8E%E9%98%85%E8%AF%BB%E6%97%B6%E9%97%B4%E7%BB%9F%E8%AE%A1"><span class="nav-text">1. 字数与阅读时间统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%AE%BF%E5%AE%A2%E4%B8%8E%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1"><span class="nav-text">2. 访客与阅读量统计</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2DIY%EF%BC%883%EF%BC%89%E5%AD%97%E6%95%B0%E3%80%81%E8%AE%BF%E5%AE%A2%E3%80%81%E9%98%85%E8%AF%BB%E7%BB%9F%E8%AE%A1"><span class="nav-text">Hexo博客DIY（3）字数、访客、阅读统计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AD%97%E6%95%B0%E4%B8%8E%E9%98%85%E8%AF%BB%E6%97%B6%E9%97%B4%E7%BB%9F%E8%AE%A1"><span class="nav-text">1. 字数与阅读时间统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%AE%BF%E5%AE%A2%E4%B8%8E%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1"><span class="nav-text">2. 访客与阅读量统计</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -410,7 +410,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="1-字数与阅读时间统计"><a href="#1-字数与阅读时间统计" class="headerlink" title="1. 字数与阅读时间统计"></a>1. 字数与阅读时间统计</h1><p>字数统计的效果可以参见我的文章标题下方的本文统计以及整个博客最底部的全站统计。</p>
+<h1 id="Hexo博客DIY（3）字数、访客、阅读统计"><a href="#Hexo博客DIY（3）字数、访客、阅读统计" class="headerlink" title="Hexo博客DIY（3）字数、访客、阅读统计"></a>Hexo博客DIY（3）字数、访客、阅读统计</h1><h2 id="1-字数与阅读时间统计"><a href="#1-字数与阅读时间统计" class="headerlink" title="1. 字数与阅读时间统计"></a>1. 字数与阅读时间统计</h2><p>字数统计的效果可以参见我的文章标题下方的本文统计以及整个博客最底部的全站统计。</p>
 <p>安装插件：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-symbols-count-time --save</span><br></pre></td></tr></table></figure>
 
@@ -426,7 +426,7 @@
 <li><code>wpm</code> 为每分钟阅读的单词数，默认为275，更慢则设置为200，更快则设置为350，由于我的文章多与代码有关，因此阅读时间应当属于偏慢的，所以我的设置是 225</li>
 </ul>
 <hr>
-<h1 id="2-访客与阅读量统计"><a href="#2-访客与阅读量统计" class="headerlink" title="2. 访客与阅读量统计"></a>2. 访客与阅读量统计</h1><p>阅读量有两种统计方案，一个是<a target="_blank" rel="noopener" href="http://busuanzi.ibruce.info" title="@LINK">不蒜子</a>，一个是 <a target="_blank" rel="noopener" href="https://leancloud.cn" title="@LINK">LeanCloud</a>，不蒜子可以同时提供每篇文章的访客计数以及整个站点的访客计数，而 LeanCloud 仅支持单个文章的访客计数，因此如果需要全站统计的话，则至少需要使用一个不蒜子。不过，不蒜子目前还没有开放后台，有时不太方便更复杂的数据统计等功能，因此我的选择是每篇文章使用 LeanCloud 统计，全站使用不蒜子统计。</p>
+<h2 id="2-访客与阅读量统计"><a href="#2-访客与阅读量统计" class="headerlink" title="2. 访客与阅读量统计"></a>2. 访客与阅读量统计</h2><p>阅读量有两种统计方案，一个是<a target="_blank" rel="noopener" href="http://busuanzi.ibruce.info" title="@LINK">不蒜子</a>，一个是 <a target="_blank" rel="noopener" href="https://leancloud.cn" title="@LINK">LeanCloud</a>，不蒜子可以同时提供每篇文章的访客计数以及整个站点的访客计数，而 LeanCloud 仅支持单个文章的访客计数，因此如果需要全站统计的话，则至少需要使用一个不蒜子。不过，不蒜子目前还没有开放后台，有时不太方便更复杂的数据统计等功能，因此我的选择是每篇文章使用 LeanCloud 统计，全站使用不蒜子统计。</p>
 <p>不蒜子的引入非常简单，直接在主题配置文件内搜索 <code>busuanzi</code>，并修改以下部分即可：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Show Views / Visitors of the website / page with busuanzi.</span></span><br><span class="line"><span class="comment"># Get more information on http://ibruce.info/2015/04/04/busuanzi</span></span><br><span class="line"><span class="attr">busuanzi_count:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 开启访客总量统计</span></span><br><span class="line">  <span class="attr">total_visitors:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_visitors_icon:</span> <span class="string">user</span></span><br><span class="line">  <span class="comment"># 开启查看文章总数统计</span></span><br><span class="line">  <span class="attr">total_views:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_views_icon:</span> <span class="string">eye</span></span><br><span class="line">  <span class="comment"># 文章阅读量单独使用 LeanCloud</span></span><br><span class="line">  <span class="attr">post_views:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">post_views_icon:</span> <span class="string">eye</span></span><br></pre></td></tr></table></figure>
 
@@ -434,11 +434,7 @@
 <p>引入 LeanCloud 则需要先注册，然后在控制台点击创建一个新应用，名字可以随便输入，对于单日流量并不太高的个人博客页而言，不需要使用商用版，开发版的每日 30,000 次请求已经足足够够了。</p>
 <p>新建完应用后点击进入，然后在左侧选择 <strong>存储</strong>，然后点击“创建 Class”，新建一个新的表 <code>Counter</code>，注意，由于 Next 主题的规定，表名必须是这个，下方的权限选择 <strong>无限制</strong>，安全性可以在成功建立后台后再修改。</p>
 <p>创建完毕后，再点击左侧栏最下方的 <strong>设置</strong>，然后在子目录中选择 <strong>安全中心</strong>，由于只用到了计数功能，因此只需要打开“存储”开关即可，并在下方“Web 安全域名”处输入自己的博客地址，如果博客有绑定自定义域名，则应该同时输入自定义域名，如图：</p>
-<center>
-
 <p><img data-src="./leancloud_security_setting.png" alt="LeanCloud 安全设置" title="@ASSET"></p>
-</center>
-
 <p>设置完毕后，再在左侧子栏找到 <strong>应用 Key</strong>，复制其中的 App ID 和 APP Key，并分别粘贴到主题配置文件中以下部分即可：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Show number of visitors to each article.</span></span><br><span class="line"><span class="comment"># You can visit https://leancloud.cn to get AppID and AppKey.</span></span><br><span class="line"><span class="attr">leancloud_visitors:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">app_id:</span></span><br><span class="line">  <span class="attr">app_key:</span></span><br></pre></td></tr></table></figure>
 
@@ -638,14 +634,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

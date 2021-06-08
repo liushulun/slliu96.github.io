@@ -123,7 +123,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -204,7 +204,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A6%82%E7%8E%87%E8%A7%A3%E9%87%8A"><span class="nav-text">1. 损失函数的概率解释</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-L2%E6%8D%9F%E5%A4%B1%E4%B8%8E%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1"><span class="nav-text">1.1 L2损失与极大似然估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-L1-%E6%8D%9F%E5%A4%B1%E4%B8%8E%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1"><span class="nav-text">1.2 L1 损失与极大似然估计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%AD%A3%E5%88%99%E9%A1%B9%E7%9A%84%E6%A6%82%E7%8E%87%E8%A7%A3%E9%87%8A"><span class="nav-text">2. 正则项的概率解释</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-L2%E6%AD%A3%E5%88%99%E4%B8%8E%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E5%85%88%E9%AA%8C"><span class="nav-text">2.1 L2正则与正态分布先验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-L1%E6%AD%A3%E5%88%99%E4%B8%8ELaplace%E5%88%86%E5%B8%83%E5%85%88%E9%AA%8C"><span class="nav-text">2.2 L1正则与Laplace分布先验</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ML%E5%85%A5%E9%97%A8-%E6%8D%9F%E5%A4%B1%E5%92%8C%E6%AD%A3%E5%88%99%E7%9A%84%E6%A6%82%E7%8E%87%E8%A7%A3%E9%87%8A"><span class="nav-text">ML入门-损失和正则的概率解释</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A6%82%E7%8E%87%E8%A7%A3%E9%87%8A"><span class="nav-text">1. 损失函数的概率解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-L2%E6%8D%9F%E5%A4%B1%E4%B8%8E%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1"><span class="nav-text">1.1 L2损失与极大似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-L1-%E6%8D%9F%E5%A4%B1%E4%B8%8E%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1"><span class="nav-text">1.2 L1 损失与极大似然估计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%AD%A3%E5%88%99%E9%A1%B9%E7%9A%84%E6%A6%82%E7%8E%87%E8%A7%A3%E9%87%8A"><span class="nav-text">2. 正则项的概率解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-L2%E6%AD%A3%E5%88%99%E4%B8%8E%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E5%85%88%E9%AA%8C"><span class="nav-text">2.1 L2正则与正态分布先验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-L1%E6%AD%A3%E5%88%99%E4%B8%8ELaplace%E5%88%86%E5%B8%83%E5%85%88%E9%AA%8C"><span class="nav-text">2.2 L1正则与Laplace分布先验</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -421,9 +421,9 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>结论：最小 L2、L1 损失均等价于极大似然估计；带正则的回归等价于贝叶斯估计。</p>
+<h1 id="ML入门-损失和正则的概率解释"><a href="#ML入门-损失和正则的概率解释" class="headerlink" title="ML入门-损失和正则的概率解释"></a>ML入门-损失和正则的概率解释</h1><p>结论：最小 L2、L1 损失均等价于极大似然估计；带正则的回归等价于贝叶斯估计。</p>
 <hr>
-<h1 id="1-损失函数的概率解释"><a href="#1-损失函数的概率解释" class="headerlink" title="1. 损失函数的概率解释"></a>1. 损失函数的概率解释</h1><h2 id="1-1-L2损失与极大似然估计"><a href="#1-1-L2损失与极大似然估计" class="headerlink" title="1.1 L2损失与极大似然估计"></a>1.1 L2损失与极大似然估计</h2><p>对采用 L2 损失的模型，目标函数为：</p>
+<h2 id="1-损失函数的概率解释"><a href="#1-损失函数的概率解释" class="headerlink" title="1. 损失函数的概率解释"></a>1. 损失函数的概率解释</h2><h3 id="1-1-L2损失与极大似然估计"><a href="#1-1-L2损失与极大似然估计" class="headerlink" title="1.1 L2损失与极大似然估计"></a>1.1 L2损失与极大似然估计</h3><p>对采用 L2 损失的模型，目标函数为：</p>
 <p>$$<br>J(W) = RSS(W) = \sum^N_{i = 1} L(y_i, \hat{y_i}) = \sum^N_{i = 1} L(y_i, f(x_i)) = \sum^N_{i = 1} (y_i - f(x_i))^2<br>$$</p>
 <p>在回归任务重，令模型中的真实值 $y_i$ 和预测值 $\hat{y_i}$ 之间的差异为白噪声 $\varepsilon$，假设噪声（随机变量）$\varepsilon$ 符合 0 均值的正态分布：$\varepsilon \sim N(0, \sigma^2)$。</p>
 <p>用 $y | X$ 表示给定输入 $X$ 的情况下的输出 $y$，当输入$X$ 给定时，$f(X) = W^T X$ 是一个常数，因此 $y = f(X) + \varepsilon$ 也是一个随机变量：$y | X \sim N(f(X), \sigma^2)$</p>
@@ -439,24 +439,16 @@
 <p>$$<br>p(D) = \prod^N_{i = 1} p(y_i | x_i)<br>$$</p>
 <p>对似然函数取 $\log$ 运算（$\log$ 是单调函数，不改变极值点位置，与似然函数等价）得到 $\log$ 似然函数（积取 log 等于 log 再取和，）即为：</p>
 <p>$$<br>\begin{aligned}<br>l(f) &amp;= \log p(D) = \sum^N_{i = 1} \log p(y_i | x_i)<br>\\<br>&amp;= \sum^N_{i = 1} \log \left[ \dfrac {1} {\sqrt {2 \pi} \sigma} \exp \left( - \dfrac {(y_i - f(x))^2} {2 \sigma^2} \right) \right]<br>\\<br>&amp;= \sum^N_{i = 1} \log \left[ (2 \pi)^{- \dfrac {1} {2}} \cdot \sigma^{-1} \cdot \exp \left( - \dfrac {(y_i - f(x))^2} {2 \sigma^2} \right) \right]<br>\\<br>&amp;= \sum^N_{i = 1} \left[ - \dfrac {1} {2} \log (2 \pi) - \log \sigma - \dfrac {(y_i - f(x))^2} {2 \sigma^2} \right]<br>\\<br>&amp;= - \dfrac {N} {2} \log (2 \pi) - N \log \sigma - \sum^N_{i = 1} \dfrac {(y_i - f(x))^2} {2 \sigma^2}<br>\end{aligned}<br>$$</p>
-<p>去掉 $l(f)$ 中常数项（不影响极值点位置），当 $l(f)$ 取最大值时可得 <strong><font color=EB6D39>极大似然估计</font></strong>：</p>
+<p>去掉 $l(f)$ 中常数项（不影响极值点位置），当 $l(f)$ 取最大值时可得 <strong>极大似然估计</strong>：</p>
 <p>$$<br>\begin{aligned}<br>&amp; \max l(f)<br>\\<br>= &amp; \max \left( - \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\\<br>= &amp; \min \left( \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\\<br>= &amp; \dfrac {1} {2 \sigma^2} \min \sum^N_{i = 1} (y_i - f(x_i))^2<br>\end{aligned}<br>$$</p>
 <p>同样，去掉系数 $\dfrac {1} {2 \sigma^2}$ 不影响极值点位置，而其中的似然项</p>
 <p>$<br>\sum^N_{i = 1} (y_i - f(x_i))^2 = RSS(f)<br>$</p>
 <p>恰好 是残差平方和 / 训练集上的 L2 损失和，因此：</p>
 <p>$$<br>\begin{aligned}<br>\max l(f) &amp;<br>\\<br>极大似然估计 &amp;<br>\end{aligned}<br>\begin{aligned}<br>\Longleftrightarrow \min \sum^N_{i = 1} (y_i - f(x_i))^2 \Longleftrightarrow<br>\\<br>\quad<br>\end{aligned}<br>\begin{aligned}<br>&amp; \min RSS(f)<br>\\<br>&amp; 最小二乘<br>\end{aligned}<br>$$</p>
-<center>
-
-<p><strong><font color=red>极大似然估计等价于最小二乘。</font></strong></p>
-</center>
-
+<p><strong>极大似然估计等价于最小二乘。</strong></p>
 <p>又由于 log 似然即：$l(f)$，与极大似然有：</p>
 <p>$$<br>\begin{aligned}<br>&amp; \max l(f)：极大似然估计<br>\\<br>= &amp; \max \left( - \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\\<br>= &amp; \min \left( \sum^N_{i = 1} \dfrac {(y_i - f(x_i))^2} {2 \sigma^2} \right)<br>\\<br>= &amp; \min - l(f)：负 log 似然最小<br>\end{aligned}<br>$$</p>
-<center>
-
-<p><strong><font color=red>极大似然估计等价于负 log 似然最小。</font></strong></p>
-</center>
-
+<p><strong>极大似然估计等价于负 log 似然最小。</strong></p>
 <p>因此负 log 似然也被成为一种损失函数：负 log 似然损失。</p>
 <ul>
 <li>L2 损失是负 log 似然损失。</li>
@@ -465,28 +457,24 @@
 <p>将上述极大似然估计推广为一般形式：</p>
 <p>$$<br>l(\theta) = \log (D | \theta) = \sum^N_{i = 1}\log p(X_i | \theta)<br>$$</p>
 <p>其中 $\theta$ 为需要求解的分布的参数，$X$ 为每条样本。</p>
-<p>统计中需要根据观测数据 $D= \{ X_i \}^N_{i = 1}$ 估计分布的参数 $\theta$，一种常用的参数估计即为 <strong><font color=EB6D39>极大似然估计</font></strong>，即，使得 log 似然函数 $l(f)$ 最大时的 $\theta$ 作为估计值：</p>
+<p>统计中需要根据观测数据 $D= \{ X_i \}^N_{i = 1}$ 估计分布的参数 $\theta$，一种常用的参数估计即为 <strong>极大似然估计</strong>，即，使得 log 似然函数 $l(f)$ 最大时的 $\theta$ 作为估计值：</p>
 <p>$$<br>\hat{\theta} = \arg_{\theta} \max l(\theta)<br>$$</p>
-<h2 id="1-2-L1-损失与极大似然估计"><a href="#1-2-L1-损失与极大似然估计" class="headerlink" title="1.2 L1 损失与极大似然估计"></a>1.2 L1 损失与极大似然估计</h2><p>L1 损失最小也等价于极大似然估计，此时噪声模型为 Laplace 分布：</p>
+<h3 id="1-2-L1-损失与极大似然估计"><a href="#1-2-L1-损失与极大似然估计" class="headerlink" title="1.2 L1 损失与极大似然估计"></a>1.2 L1 损失与极大似然估计</h3><p>L1 损失最小也等价于极大似然估计，此时噪声模型为 Laplace 分布：</p>
 <p>$$<br>\varepsilon \sim Laplace(\mu, b) = \dfrac {1} {2 b} \exp \left( - \dfrac {|x - \mu|} {b} \right)<br>$$</p>
 <hr>
-<h1 id="2-正则项的概率解释"><a href="#2-正则项的概率解释" class="headerlink" title="2. 正则项的概率解释"></a>2. 正则项的概率解释</h1><h2 id="2-1-L2正则与正态分布先验"><a href="#2-1-L2正则与正态分布先验" class="headerlink" title="2.1 L2正则与正态分布先验"></a>2.1 L2正则与正态分布先验</h2><p>在损失函数的概率解释中已经推出：假设数据产生模型为</p>
+<h2 id="2-正则项的概率解释"><a href="#2-正则项的概率解释" class="headerlink" title="2. 正则项的概率解释"></a>2. 正则项的概率解释</h2><h3 id="2-1-L2正则与正态分布先验"><a href="#2-1-L2正则与正态分布先验" class="headerlink" title="2.1 L2正则与正态分布先验"></a>2.1 L2正则与正态分布先验</h3><p>在损失函数的概率解释中已经推出：假设数据产生模型为</p>
 <p>$<br>y = f(X) + \varepsilon, \quad \varepsilon \sim N(0, \sigma^2)<br>$</p>
 <p>则 $y | X \sim N(f(X; W), \sigma^2)$，即</p>
 <p>$<br>p(y | X) = \dfrac {1} {\sqrt {2 \pi} \sigma} \exp \left( - \dfrac {(y - f(X; W))^2} {2 \sigma^2} \right)<br>$</p>
-<p><strong><font color=EB6D39>似然函数为：</font></strong></p>
+<p><strong>似然函数为：</strong></p>
 <p>$$<br>似然 \quad likelihood(f) = p(D | W) = \prod^N_{i = 1} p(y_i | x_i) = \prod^N_{i = 1} \dfrac {1} {\sqrt {2 \pi} \sigma} \exp \left( - \dfrac {(y_i - f(x_i; W))^2} {2 \sigma^2} \right)<br>$$</p>
 <p>为了模型不太复杂，增加一个参数的先验：$w_j$ 的值不能太大，也即 $w_j$ 取 0 附近的值概率更高，假设 $W$ 为独立同分布，此时可用正态分布来表示 $w_j$ 的取值分布：$w_j \sim N(0, \tau^2)$</p>
-<center>
-
 <p><img data-src="./w_distribution.png" alt="W 取值分布" title="@ASSET"></p>
-</center>
-
 <p>则对每一个 $w_j$，其概率密度函数为：</p>
 <p>$<br>p(w_j) = \dfrac {1} {\sqrt {2 \pi} \tau} \exp \left( - \dfrac {w_j^2} {2 \tau^2} \right)<br>$</p>
-<p>因此对 $W$，其联合概率密度函数即为 <strong><font color=EB6D39>先验</font></strong>：</p>
+<p>因此对 $W$，其联合概率密度函数即为 <strong>先验</strong>：</p>
 <p>$$<br>先验 \quad p(W) = \prod^D_{j = 1} p(w_j) = \prod^D_{j = 1} \dfrac {1} {\sqrt {2 \pi} \tau} \exp \left( - \dfrac {w_j^2} {2 \tau^2} \right)<br>$$</p>
-<p>根据 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/贝叶斯公式" title="@LINK">贝叶斯公式</a>，参数的 <strong><font color=EB6D39>后验分布</font></strong> 正比于 <strong><font color=EB6D39>先验 x 似然</font></strong>：</p>
+<p>根据 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/贝叶斯公式" title="@LINK">贝叶斯公式</a>，参数的 <strong>后验分布</strong> 正比于 <strong>先验 x 似然</strong>：</p>
 <p>$$<br>后验 \quad p(W | D) \propto p(W) p(D | W)<br>$$</p>
 <p>去掉正比系数（不影响极值点位置）并两边同取 log 运算可得：</p>
 <p>$<br>\begin{aligned}<br>&amp; \log p(W | D) = \log p(W) + \log p(D | W)<br>\\<br>&amp;= - \dfrac {D} {2} \log (2 \pi) - D \log \tau - \sum^D_{j = 1} \dfrac {w^2_j} {2 \tau^2} - \dfrac {N} {2} \log (2 \pi) - N \log \sigma - \sum^N_{i = 1} \dfrac {(y_i - f(x_i; w))^2} {2 \sigma^2}<br>\end{aligned}<br>$</p>
@@ -497,18 +485,12 @@
 <p>上式令 $\lambda = \dfrac {\sigma^2} {\tau^2}$ 得：</p>
 <p>$$<br>\hat{W} = \arg_W \min \left( \sum^N_{i = 1} (y_i - f(x_i; w))^2 + \lambda \sum^D_{j = 1} w^2_j \right)<br>$$</p>
 <p><strong>等价于岭回归的目标参数</strong>，因此有结论：</p>
-<center>
-
-<p><strong><font color=red>L2 正则等价于正态分布先验 $N(0, \tau^2)$。</font></strong></p>
-</center>
-
+<p><strong>L2 正则等价于正态分布先验 $N(0, \tau^2)$。</strong></p>
 <p>由于 $\sigma^2$ 控制了噪声分布，而 $\tau^2$ 控制了先验，因此 $\lambda = \dfrac {\sigma^2} {\tau^2}$ 实际上控制了先验的强度（$w_j$ 靠近 0 的程度）。</p>
 <h2 id="2-2-L1正则与Laplace分布先验"><a href="#2-2-L1正则与Laplace分布先验" class="headerlink" title="2.2 L1正则与Laplace分布先验"></a>2.2 L1正则与Laplace分布先验</h2><p>L1 正则等价于 Laplace 先验，此时先验分布为 Laplace 分布：</p>
 <p>$$<br>p(w_j) = \dfrac {1} {2 b} \exp \left( - \dfrac {|w_j|} {b} \right)<br>$$</p>
-<center>
-
 <p><img data-src="./laplace_distribution.png" alt="Laplace 分布" title="@ASSET"></p>
-</center>
+
     </div>
 
     
@@ -701,14 +683,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

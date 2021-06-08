@@ -120,7 +120,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -201,7 +201,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">1. 回归模型性能评价指标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-1-%E5%B8%B8%E8%A7%81%E7%9A%84-6-%E7%A7%8D%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">1.1 常见的 6 种评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Scikit-Learn%E4%B8%AD%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">1.2 Scikit-Learn中的评价指标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">2. 分类模型性能评价指标</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ML%E5%85%A5%E9%97%A8-%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">ML入门-模型性能评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">1. 回归模型性能评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%B8%B8%E8%A7%81%E7%9A%84-6-%E7%A7%8D%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">1.1 常见的 6 种评价指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Scikit-Learn%E4%B8%AD%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">1.2 Scikit-Learn中的评价指标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">2. 分类模型性能评价指标</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -418,9 +418,9 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>前言：一个机器学习模型训练好后，需要采用一些度量准则评价模型预测的效果。根据任务的种类可以分为回归模型评价指标和分类模型评价指标。</p>
+<h1 id="ML入门-模型性能评价指标"><a href="#ML入门-模型性能评价指标" class="headerlink" title="ML入门-模型性能评价指标"></a>ML入门-模型性能评价指标</h1><p>前言：一个机器学习模型训练好后，需要采用一些度量准则评价模型预测的效果。根据任务的种类可以分为回归模型评价指标和分类模型评价指标。</p>
 <hr>
-<h1 id="1-回归模型性能评价指标"><a href="#1-回归模型性能评价指标" class="headerlink" title="1. 回归模型性能评价指标"></a>1. 回归模型性能评价指标</h1><h1 id="1-1-常见的-6-种评价指标"><a href="#1-1-常见的-6-种评价指标" class="headerlink" title="1.1 常见的 6 种评价指标"></a>1.1 常见的 6 种评价指标</h1><p>（1）开放均方误差（Rooted Mean Squared Error, RMSE）：</p>
+<h2 id="1-回归模型性能评价指标"><a href="#1-回归模型性能评价指标" class="headerlink" title="1. 回归模型性能评价指标"></a>1. 回归模型性能评价指标</h2><h3 id="1-1-常见的-6-种评价指标"><a href="#1-1-常见的-6-种评价指标" class="headerlink" title="1.1 常见的 6 种评价指标"></a>1.1 常见的 6 种评价指标</h3><p>（1）开放均方误差（Rooted Mean Squared Error, RMSE）：</p>
 <p>$<br>RMSE(y, \hat{y}) = \sqrt {\dfrac {1} {N} \sum^N_{i = 1} (y_i, \hat{y_i})^2}<br>$</p>
 <p>开放的目的在于使得 RMSE 的返回值与 $y$ 的单位一致。</p>
 <p>（2）平均绝对值误差（Mean Absolute Error, MAE）：</p>
@@ -436,7 +436,7 @@
 <p>$R^2$ 分数既考虑了预测值与真实值之间的差异，又考虑了问题本身针织之间的差异，是 Scikit-Learn 线性回归模型的默认评价准则。当 $SS_{res} = 0$ 时，$R^2 = 1$ 为最佳分数，分数越低则模型性能越差，可能为负值。</p>
 <p>（6）已解释的访查分数（Explained variance socre）：</p>
 <p>$<br>explained_variance(y, \hat{y}) = 1 - \dfrac {Var(y - \hat{y})} {Var \{ y \} }<br>$</p>
-<h2 id="1-2-Scikit-Learn中的评价指标"><a href="#1-2-Scikit-Learn中的评价指标" class="headerlink" title="1.2 Scikit-Learn中的评价指标"></a>1.2 Scikit-Learn中的评价指标</h2><p>Scikit-Learn 中有三种评价模型性能的方式，但基本都是通过上述 6 种计算方式实现的。</p>
+<h3 id="1-2-Scikit-Learn中的评价指标"><a href="#1-2-Scikit-Learn中的评价指标" class="headerlink" title="1.2 Scikit-Learn中的评价指标"></a>1.2 Scikit-Learn中的评价指标</h3><p>Scikit-Learn 中有三种评价模型性能的方式，但基本都是通过上述 6 种计算方式实现的。</p>
 <p>（1）每个学习器 Estimator 自己的 <code>score</code> 方法，提供一个默认的评估方法（回归为 $R^2$ 分数）。</p>
 <p>（2）Metric：<code>sklearn.metrics</code> 模块实现了一些函数，用来评估预测误差。</p>
 <p><code>sklearn.metrics</code> 中的回归评价指标：</p>
@@ -445,7 +445,7 @@
 <p>① <code>explained_variance</code>；metrics.explained_variance_score<br>② <code>neg_mean_absolute_error</code>：metrics.mean_absolute_error<br>③ <code>neg_mean_squared_error</code>：metrics.mean_squared_error<br>④ <code>neg_mean_squared_log_error</code>：metrics.mean_squared_log_error<br>⑤ <code>neg_median_absolute_error</code>：metrics.median_absolute_error<br>⑥ <code>r2</code>：metrics.r2_score</p>
 <p>Scoring 越高代表模型性能越好，其中 explained_variance 和 $R^2$ 本来即越高越好，因此 Scoring 可直接使用。第 ②、③、④、⑤ 个参数取“error”对应 误差 / 损失，因此对 error 取负数“neg_”。</p>
 <hr>
-<h1 id="2-分类模型性能评价指标"><a href="#2-分类模型性能评价指标" class="headerlink" title="2. 分类模型性能评价指标"></a>2. 分类模型性能评价指标</h1>
+<h2 id="2-分类模型性能评价指标"><a href="#2-分类模型性能评价指标" class="headerlink" title="2. 分类模型性能评价指标"></a>2. 分类模型性能评价指标</h2>
     </div>
 
     
@@ -638,14 +638,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 

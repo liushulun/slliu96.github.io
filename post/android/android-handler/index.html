@@ -118,7 +118,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1130</p>
+      <p class="site-subtitle" itemprop="description">V 1132</p>
   </div>
 
   <div class="site-nav-right">
@@ -199,7 +199,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Handler%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">1. Handler的实例化和初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AFHandler"><span class="nav-text">1.1 什么是Handler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Handler%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-text">1.2 Handler构造方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Handler%E5%8F%91%E9%80%81Message"><span class="nav-text">2. Handler发送Message</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-text">2.1 源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="nav-text">2.2 流程总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Handler%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93"><span class="nav-text">3. Handler机制总结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Handler"><span class="nav-text">Android-Handler</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Handler%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">1. Handler的实例化和初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AFHandler"><span class="nav-text">1.1 什么是Handler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Handler%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-text">1.2 Handler构造方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Handler%E5%8F%91%E9%80%81Message"><span class="nav-text">2. Handler发送Message</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-text">2.1 源码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="nav-text">2.2 流程总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Handler%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93"><span class="nav-text">3. Handler机制总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -410,7 +410,7 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<p>前言：本文是针对 Handler 内部的一些分析，但涉及到的知识还可能出现在以下文章中，建议都参考一遍：</p>
+<h1 id="Android-Handler"><a href="#Android-Handler" class="headerlink" title="Android-Handler"></a>Android-Handler</h1><p>前言：本文是针对 Handler 内部的一些分析，但涉及到的知识还可能出现在以下文章中，建议都参考一遍：</p>
 <ul>
 <li><a href="/post/java/java-threadlocal/java-threadlocal/" title="@LINK">Java——ThreadLocal</a></li>
 <li><a href="/post/android/android-message/android-message/" title="@LINK">Android——Message</a></li>
@@ -419,8 +419,8 @@
 <li><a href="/post/android/android-handler/android-handler/" title="@LINK">Android——Handler</a></li>
 </ul>
 <hr>
-<h1 id="1-Handler的实例化和初始化"><a href="#1-Handler的实例化和初始化" class="headerlink" title="1. Handler的实例化和初始化"></a>1. Handler的实例化和初始化</h1><p>Handler 在 Android 开发中还是相当相当常见的，其涉及到了很多 Android 和 Java 的数据结构。Handler 的源码并不复杂，原理也很有意思，常用的方法里实例化和初始化就占了很大一部分，消息 Message 的传递也占了很大一部分，本文主要也是分析这两点，剩下的用的不是太多，直接阅读源码也很快，在本文就不分析了。通过阅读 Handler 以及相关类的源码，可以深刻体会到 Android 的一些通用设计理念。</p>
-<h2 id="1-1-什么是Handler"><a href="#1-1-什么是Handler" class="headerlink" title="1.1 什么是Handler"></a>1.1 什么是Handler</h2><p>在 Handler 的源码中，有一段很长的注释：</p>
+<h2 id="1-Handler的实例化和初始化"><a href="#1-Handler的实例化和初始化" class="headerlink" title="1. Handler的实例化和初始化"></a>1. Handler的实例化和初始化</h2><p>Handler 在 Android 开发中还是相当相当常见的，其涉及到了很多 Android 和 Java 的数据结构。Handler 的源码并不复杂，原理也很有意思，常用的方法里实例化和初始化就占了很大一部分，消息 Message 的传递也占了很大一部分，本文主要也是分析这两点，剩下的用的不是太多，直接阅读源码也很快，在本文就不分析了。通过阅读 Handler 以及相关类的源码，可以深刻体会到 Android 的一些通用设计理念。</p>
+<h3 id="1-1-什么是Handler"><a href="#1-1-什么是Handler" class="headerlink" title="1.1 什么是Handler"></a>1.1 什么是Handler</h3><p>在 Handler 的源码中，有一段很长的注释：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A Handler allows you to send and process &#123;<span class="doctag">@link</span> Message&#125; and Runnable</span></span><br><span class="line"><span class="comment"> * objects associated with a thread&#x27;s &#123;<span class="doctag">@link</span> MessageQueue&#125;.  Each Handler</span></span><br><span class="line"><span class="comment"> * instance is associated with a single thread and that thread&#x27;s message</span></span><br><span class="line"><span class="comment"> * queue.  When you create a new Handler, it is bound to the thread /</span></span><br><span class="line"><span class="comment"> * message queue of the thread that is creating it -- from that point on,</span></span><br><span class="line"><span class="comment"> * it will deliver messages and runnables to that message queue and execute</span></span><br><span class="line"><span class="comment"> * them as they come out of the message queue.</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * &lt;p&gt;There are two main uses for a Handler: (1) to schedule messages and</span></span><br><span class="line"><span class="comment"> * runnables to be executed at some point in the future; and (2) to enqueue</span></span><br><span class="line"><span class="comment"> * an action to be performed on a different thread than your own.</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Scheduling messages is accomplished with the</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> #post&#125;, &#123;<span class="doctag">@link</span> #postAtTime(Runnable, long)&#125;,</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> #postDelayed&#125;, &#123;<span class="doctag">@link</span> #sendEmptyMessage&#125;,</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> #sendMessage&#125;, &#123;<span class="doctag">@link</span> #sendMessageAtTime&#125;, and</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> #sendMessageDelayed&#125; methods.  The &lt;em&gt;post&lt;/em&gt; versions allow</span></span><br><span class="line"><span class="comment"> * you to enqueue Runnable objects to be called by the message queue when</span></span><br><span class="line"><span class="comment"> * they are received; the &lt;em&gt;sendMessage&lt;/em&gt; versions allow you to enqueue</span></span><br><span class="line"><span class="comment"> * a &#123;<span class="doctag">@link</span> Message&#125; object containing a bundle of data that will be</span></span><br><span class="line"><span class="comment"> * processed by the Handler&#x27;s &#123;<span class="doctag">@link</span> #handleMessage&#125; method (requiring that</span></span><br><span class="line"><span class="comment"> * you implement a subclass of Handler).</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * &lt;p&gt;When posting or sending to a Handler, you can either</span></span><br><span class="line"><span class="comment"> * allow the item to be processed as soon as the message queue is ready</span></span><br><span class="line"><span class="comment"> * to do so, or specify a delay before it gets processed or absolute time for</span></span><br><span class="line"><span class="comment"> * it to be processed.  The latter two allow you to implement timeouts,</span></span><br><span class="line"><span class="comment"> * ticks, and other timing-based behavior.</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * &lt;p&gt;When a</span></span><br><span class="line"><span class="comment"> * process is created for your application, its main thread is dedicated to</span></span><br><span class="line"><span class="comment"> * running a message queue that takes care of managing the top-level</span></span><br><span class="line"><span class="comment"> * application objects (activities, broadcast receivers, etc) and any windows</span></span><br><span class="line"><span class="comment"> * they create.  You can create your own threads, and communicate back with</span></span><br><span class="line"><span class="comment"> * the main application thread through a Handler.  This is done by calling</span></span><br><span class="line"><span class="comment"> * the same &lt;em&gt;post&lt;/em&gt; or &lt;em&gt;sendMessage&lt;/em&gt; methods as before, but from</span></span><br><span class="line"><span class="comment"> * your new thread.  The given Runnable or Message will then be scheduled</span></span><br><span class="line"><span class="comment"> * in the Handler&#x27;s message queue and processed when appropriate.</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
 <p>大概翻译一下，这段注释基本也介绍清楚了 Handler 的工作流程：</p>
@@ -432,7 +432,7 @@
 <li>（5）当 App 的进程被创建时，它的主线程则专门用来运行一个管理顶层应用对象的 MessageQueue，这些顶层应用对象可以是例如：Activity，BroadcastReceiver 等等，或是他们创建的其他 Windows。你可以创建自己的子线程，并通过 Handler 与主线程通信，只需要在子线程中调用上述的 <code>send</code> 类型或 <code>post</code> 类型的方法即可，发送的 Message 或 Runnable 将在 Handler 的 MessageQueue 合适的时候被调度和处理。</li>
 </ul>
 <p>需要注意的几个重点：① Handler 可以用来发送消息也可以用来处理消息；② 发送消息有两种类型的方式，处理消息可以跨进程；③ Handler 的实例是和当前线程以及当前线程的 MessageQueue 绑定的；④ MessageQueue 中维护的单链表只支持 Message 对象，因此 Runnable 是通过封装进 Message 来实现的。</p>
-<h2 id="1-2-Handler构造方法"><a href="#1-2-Handler构造方法" class="headerlink" title="1.2 Handler构造方法"></a>1.2 Handler构造方法</h2><p>Handler 内部有多个不同参数的构造方法，依次看看：</p>
+<h3 id="1-2-Handler构造方法"><a href="#1-2-Handler构造方法" class="headerlink" title="1.2 Handler构造方法"></a>1.2 Handler构造方法</h3><p>Handler 内部有多个不同参数的构造方法，依次看看：</p>
 <ul>
 <li>① 无参默认构造方法</li>
 </ul>
@@ -480,46 +480,22 @@
 <p>这个构造方法则是最详细的，可以同时指定 Looper，Callback，以及是否异步 async。</p>
 <p>通过查看以上 7 种构造方法，可以总结出 Handler 的实例化过程：如果没有显式传入任何参数，则默认绑定当前线程的 Looper，使用默认 Callback，发送同步消息，否则按照对应显式传入的参数手动指定。</p>
 <hr>
-<h1 id="2-Handler发送Message"><a href="#2-Handler发送Message" class="headerlink" title="2. Handler发送Message"></a>2. Handler发送Message</h1><h2 id="2-1-源码分析"><a href="#2-1-源码分析" class="headerlink" title="2.1 源码分析"></a>2.1 源码分析</h2><p>在平时开发中 Handler 最主要的用途就是在子线程中更新 UI，两种方式：</p>
+<h2 id="2-Handler发送Message"><a href="#2-Handler发送Message" class="headerlink" title="2. Handler发送Message"></a>2. Handler发送Message</h2><h3 id="2-1-源码分析"><a href="#2-1-源码分析" class="headerlink" title="2.1 源码分析"></a>2.1 源码分析</h3><p>在平时开发中 Handler 最主要的用途就是在子线程中更新 UI，两种方式：</p>
 <ul>
 <li><p><code>send</code> 方式，包括：</p>
 <ul>
-<li><ol>
 <li><code>sendMessage</code> 或 <code>sendEmptyMessage</code></li>
-</ol>
-</li>
-<li><ol start="2">
 <li><code>sendMessageDelayed</code> 或 <code>sendEmptyMessageDelayed</code></li>
-</ol>
-</li>
-<li><ol start="3">
 <li><code>sendMessageAtTime</code> 或 <code>sendEmptyMessageAtTime</code></li>
-</ol>
-</li>
-<li><ol start="4">
 <li><code>sendMessageAtFrontOfQueue</code>（比较特殊，会在后面详细讲解）</li>
-</ol>
-</li>
 </ul>
 </li>
 <li><p><code>post</code> 方式，包括：</p>
 <ul>
-<li><ol>
 <li><code>post</code></li>
-</ol>
-</li>
-<li><ol start="2">
 <li><code>postDelayed</code></li>
-</ol>
-</li>
-<li><ol start="3">
 <li><code>postAtTime</code></li>
-</ol>
-</li>
-<li><ol start="4">
 <li><code>postAtFrontOfQueue</code></li>
-</ol>
-</li>
 </ul>
 </li>
 </ul>
@@ -539,29 +515,25 @@
 <li><code>msg.setAsynchronous(true);</code> 这句是设置为异步，<code>if</code> 也表示默认情况下的 Message 是同步的。</li>
 </ul>
 <p>最后调用了 <code>MessageQueue.enqueueMessage</code> 方法把 Message 插入到消息队列中。</p>
-<h2 id="2-2-流程总结"><a href="#2-2-流程总结" class="headerlink" title="2.2 流程总结"></a>2.2 流程总结</h2><p>通过以上源码分析，Handler 在发送一个消息后的流程也就清楚了：</p>
-<font color=#EB6D39>
-
-<ul>
-<li>① 接收一个 Message，并根据设置的延时，设置 Message 的 <code>when</code></li>
-<li>② 根据情况设置 Message 的类型，默认情况下为同步消息</li>
-<li>③ 将 Message 的 <code>target</code> 设置为自己</li>
-<li>④ 调用 MessageQueue 的 <code>enqueueMessage</code> 方法</li>
-<li>⑤ <code>MessageQueue.enqueueMessage</code> 方法中，根据 <code>when</code> 从小到大的顺序将 Message 插入到单链表对应位置</li>
-<li>⑥ 根据条件唤醒 Native 层的消息队列</li>
-</ul>
-</font>
-
+<h3 id="2-2-流程总结"><a href="#2-2-流程总结" class="headerlink" title="2.2 流程总结"></a>2.2 流程总结</h3><p>通过以上源码分析，Handler 在发送一个消息后的流程也就清楚了：</p>
+<ol>
+<li>接收一个 Message，并根据设置的延时，设置 Message 的 <code>when</code></li>
+<li>根据情况设置 Message 的类型，默认情况下为同步消息</li>
+<li>将 Message 的 <code>target</code> 设置为自己</li>
+<li>调用 MessageQueue 的 <code>enqueueMessage</code> 方法</li>
+<li><code>MessageQueue.enqueueMessage</code> 方法中，根据 <code>when</code> 从小到大的顺序将 Message 插入到单链表对应位置</li>
+<li>根据条件唤醒 Native 层的消息队列</li>
+</ol>
 <hr>
-<h1 id="3-Handler机制总结"><a href="#3-Handler机制总结" class="headerlink" title="3. Handler机制总结"></a>3. Handler机制总结</h1><p>通过分析 Handler 的实例化和初始化，以及 Handler 发送消息的流程，可以总结出 Handler 的工作机制：</p>
-<ul>
-<li>① Handler 默认和当前线程以及当前线程的 MessageQueue 绑定，默认发送同步消息。</li>
-<li>② 可以手动指定 Handler 的线程、重写接收消息后的回调方法 <code>Callback.handleMessage()</code>。</li>
-<li>③ 可以手动指定发送的消息类型，但一个 Handler 只能发送一种消息，不能交替发送。</li>
-<li>④ Handler 所在线程由实例化时的 Looper 有关，且只能接收到与之绑定的线程中的消息，如果线程不具备处理消息的功能，则 Handler 无法接收消息且会抛出异常。</li>
-<li>⑤ Handler 有两种发送消息的方式，但本质上都是 <code>send</code> 方式。</li>
-<li>⑥ Handler 可以发送 Message，也可以发送 Runnable，但由于 MessageQueue 维护的单链表元素是 Message，因此 Runnable 实际上是封装在 message 中的。</li>
-</ul>
+<h2 id="3-Handler机制总结"><a href="#3-Handler机制总结" class="headerlink" title="3. Handler机制总结"></a>3. Handler机制总结</h2><p>通过分析 Handler 的实例化和初始化，以及 Handler 发送消息的流程，可以总结出 Handler 的工作机制：</p>
+<ol>
+<li>Handler 默认和当前线程以及当前线程的 MessageQueue 绑定，默认发送同步消息。</li>
+<li>可以手动指定 Handler 的线程、重写接收消息后的回调方法 <code>Callback.handleMessage()</code>。</li>
+<li>可以手动指定发送的消息类型，但一个 Handler 只能发送一种消息，不能交替发送。</li>
+<li>Handler 所在线程由实例化时的 Looper 有关，且只能接收到与之绑定的线程中的消息，如果线程不具备处理消息的功能，则 Handler 无法接收消息且会抛出异常。</li>
+<li>Handler 有两种发送消息的方式，但本质上都是 <code>send</code> 方式。</li>
+<li>Handler 可以发送 Message，也可以发送 Runnable，但由于 MessageQueue 维护的单链表元素是 Message，因此 Runnable 实际上是封装在 message 中的。</li>
+</ol>
 
     </div>
 
@@ -753,14 +725,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">347k</span>
+    <span title="Site Symbols">353k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:26</span>
+    <span title="Site Read Time">6:32</span>
   </span>
 </div>
 
