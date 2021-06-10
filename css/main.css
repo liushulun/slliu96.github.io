@@ -3353,7 +3353,7 @@ body {
   font-size: 0.8125em;
 }
 .post-toc ol {
-  padding: 0px 2px 5px 5px;
+  padding: 0px 2px 0px 5px;
 }
 .post-toc .nav .nav-child {
   padding-left: 15px;
@@ -3362,10 +3362,12 @@ body {
   color: var(--link-color);
   border-bottom: 0px;
   pointer-events: none;
-  font-size: 1em;
   font-weight: bold;
   display: block;
   margin-bottom: 10px;
+  word-break: normal;
+  white-space: normal;
+  text-align: center;
 }
 .post-toc .nav .nav-level-2 {
   margin-left: -15px;
