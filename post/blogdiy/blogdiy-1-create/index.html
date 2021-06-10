@@ -126,7 +126,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.1.0</p>
+      <p class="site-subtitle" itemprop="description">V 1.1.2</p>
   </div>
 
   <div class="site-nav-right">
@@ -576,7 +576,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br><span class="line"></span><br><span class="line">added 1 package from 1 contributor, removed 1 package and audited 6879 packages <span class="keyword">in</span> 3.168s</span><br><span class="line">found 0 vulnerabilities</span><br><span class="line"></span><br><span class="line">$</span><br></pre></td></tr></table></figure>
 
 <p>看到这个结果说明已经没有报“低严重性漏洞”了，再查看一下版本号：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ npm ls marked</span><br><span class="line"></span><br><span class="line">hexo-site@0.0.0 /Users/slliu/Downloads/Temp</span><br><span class="line">└─┬ hexo-renderer-marked@1.0.1</span><br><span class="line">  └── marked@0.7.0</span><br><span class="line"></span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ npm ls marked</span><br><span class="line"></span><br><span class="line">hexo-site@0.0.0 /Users/luis/Downloads/Temp</span><br><span class="line">└─┬ hexo-renderer-marked@1.0.1</span><br><span class="line">  └── marked@0.7.0</span><br><span class="line"></span><br><span class="line">$</span><br></pre></td></tr></table></figure>
 
 <p>OK！成功更新到 0.7.0 版本！</p>
 <p><strong>假如执行这两步的时候依然报之前的信息，如果可以确保之前的步骤都是对的，可以暂时不管，通常是缓存信息还没有更新的缘故，把这两步执行完之后，退出并重新打开终端再查看 <code>npm ls marked</code> 即可看到已经更新。假如出现错误信息显示被删除，再执行一次 <code>npm install</code> 即可。</strong></p>

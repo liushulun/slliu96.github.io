@@ -3353,10 +3353,22 @@ body {
   font-size: 0.8125em;
 }
 .post-toc ol {
-  padding: 0px 2px 5px 10px;
+  padding: 0px 2px 5px 5px;
 }
 .post-toc .nav .nav-child {
   padding-left: 15px;
+}
+.post-toc .nav li.nav-level-1 > a {
+  color: var(--link-color);
+  border-bottom: 0px;
+  pointer-events: none;
+  font-size: 1em;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+.post-toc .nav .nav-level-2 {
+  margin-left: -15px;
 }
 .post-tags {
   margin-top: 0px;

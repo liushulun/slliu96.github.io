@@ -120,7 +120,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.1.0</p>
+      <p class="site-subtitle" itemprop="description">V 1.1.2</p>
   </div>
 
   <div class="site-nav-right">
@@ -390,7 +390,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>2.6k</span>
+      <span>2.5k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
@@ -440,10 +440,10 @@
 <h2 id="4-更改文章URL路径"><a href="#4-更改文章URL路径" class="headerlink" title="4. 更改文章URL路径"></a>4. 更改文章URL路径</h2><p>默认情况下，当我们发布了一篇文章后，会发现文章的 URL 路径通常都是类似于：</p>
 <p><img data-src="./url_format_default.png" alt="默认 URL 格式" title="@ASSET"></p>
 <p>这种路径格式其实非常不适合作为长期维护的博客页使用，第一，有时分享的时候能记得住标题，但记不住时间，为了分享还要专门再看一次文章地址。第二，如果接入后台、接入分析统计接口等等，一堆文章前面都是日期打头的链接，不仅不方便分类管理，自己也看的头疼。为此，Hexo 其实提供了可以修改默认格式的设置，在站点配置文件里面：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">slliu96.github.io</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">XXX.github.io</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br></pre></td></tr></table></figure>
 
 <p>把 <code>permalink</code> 修改为：<code>permalink: :postfrom/:title/</code>，然后在文章内顶部的信息区添加一个 <code>postfrom</code> 属性：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">基于Hexo的博客DIY（2）——</span> <span class="string">附加功能扩展</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">SLLiu</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019-01-09 11:26:17</span></span><br><span class="line"><span class="attr">postfrom:</span> <span class="string">aaa</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">基于Hexo的博客DIY（2）——</span> <span class="string">附加功能扩展</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019-01-09 11:26:17</span></span><br><span class="line"><span class="attr">postfrom:</span> <span class="string">aaa</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
 
 <p><code>postfrom</code> 和上面写的取值 <code>aaa</code> 只是示例，都可以自定义，只要站点配置文件内写的属性名和文章内写的属性名一致即可，这样就可以在写每篇文章的时候自定义一个 URL 格式了：</p>
 <p><img data-src="./url_format_custom.png" alt="自定义 URL 格式" title="@ASSET"></p>
