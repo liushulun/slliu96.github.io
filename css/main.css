@@ -3423,6 +3423,17 @@ body {
 .post-body h3 {
   margin-top: 50px;
 }
+.highlight {
+  background: #292c33 !important;
+}
+td.code > pre {
+  color: #acb2be;
+  background: #292c33;
+}
+code {
+  color: #555 !important;
+  background: #f0f0f0 !important;
+}
 .comments {
   background: rgba(255,255,255,0.8);
 }
