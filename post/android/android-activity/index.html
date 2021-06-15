@@ -34,6 +34,7 @@
 <meta property="og:description" content="（1）Activity 的生命周期">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.liushulun.cn/post/android/android-activity/failed_to_start_app.gif">
+<meta property="og:image" content="https://www.liushulun.cn/post/android/android-activity/show_in_recent_task.gif">
 <meta property="article:published_time" content="2018-12-28T13:42:31.000Z">
 <meta property="article:author" content="Luis">
 <meta property="article:tag" content="Android">
@@ -123,7 +124,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.1.4</p>
+      <p class="site-subtitle" itemprop="description">V 1.1.5</p>
   </div>
 
   <div class="site-nav-right">
@@ -397,14 +398,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>10k</span>
+      <span>13k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Read Time &asymp;</span>
-      <span>11 Min</span>
+      <span>14 Min</span>
     </span>
 </div>
 
@@ -432,7 +433,7 @@
 <p>此时需要给 Intent 添加一个 Flag <code>FLAG_ACTIVITY_NEW_TASK</code>。</p>
 <hr>
 <h2 id="2-Activity的启动和退出"><a href="#2-Activity的启动和退出" class="headerlink" title="2. Activity的启动和退出"></a>2. Activity的启动和退出</h2><h3 id="2-1-启动Activity"><a href="#2-1-启动Activity" class="headerlink" title="2.1 启动Activity"></a>2.1 启动Activity</h3><p>假设有一个 DemoActivity 注册信息如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity</span><br><span class="line">    android:name=&quot;demo.DemoActivity&quot;</span><br><span class="line">    android:exported=&quot;false&quot;</span><br><span class="line">    &gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;demo.customActionName&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity</span><br><span class="line">    android:name=&quot;demo.DemoActivity&quot;</span><br><span class="line">    android:exported=&quot;false&quot;</span><br><span class="line">    android:excludeFromRecents=&quot;false&quot;</span><br><span class="line">    &gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;demo.customActionName&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>（1）显式启动 Actiivty：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(context, DemoActivity.class);</span><br><span class="line"><span class="comment">// 直接插入数据</span></span><br><span class="line">intent.putExtra(<span class="string">&quot;key1&quot;</span>, value)</span><br><span class="line">intent.putExtra(<span class="string">&quot;key2&quot;</span>, value)</span><br><span class="line"><span class="comment">// 通过 Bundle</span></span><br><span class="line">Bundle bundle = <span class="keyword">new</span> Bundle();</span><br><span class="line">bundle.putXXX(String key1, XXX value);</span><br><span class="line">bundle.putXXX(String key2, XXX value);</span><br><span class="line">intent.putExtra(bundle);</span><br><span class="line"></span><br><span class="line">context.startActivity(intent);</span><br></pre></td></tr></table></figure>
@@ -442,6 +443,7 @@
 
 <blockquote>
 <p>@注：默认情况下，隐式启动 Activity 时搜索 ActionName 的范围是当前 App 内，如果需要被其他 App 启动，则需要添加 <code>exported = true</code> 属性，该属性默认为 false。</p>
+<p>@注：如果添加了 <code>excludeFromRecents = true</code> 属性，则该 Activity 一旦进入后台，就会从「最近任务」中删除其记录，不论该 Activity 是否是最后一个或唯一一个活跃的 Activity。</p>
 </blockquote>
 <h3 id="2-2-退出Activity"><a href="#2-2-退出Activity" class="headerlink" title="2.2 退出Activity"></a>2.2 退出Activity</h3><p>Activity 可以通过调用 <code>finish()</code> 退出。当 App 正在退出时，<code>isFinishing() == true</code>，可用于在 <code>onPause()</code> 或 <code>onStop()</code> 中判断该 Activity 是正在退出或只是进入后台。</p>
 <p>同时退出多个 Activity 的方法：</p>
@@ -584,6 +586,14 @@
 </tbody></table>
 <p>（2）SingleTask 模式常用在 App 的 MainActivity 中，因为大多数情况下 App 在主页面上返回时都应该返回到桌面或退出，而不是返回到其他页面中。</p>
 <h3 id="3-4-SingleInstance模式"><a href="#3-4-SingleInstance模式" class="headerlink" title="3.4 SingleInstance模式"></a>3.4 SingleInstance模式</h3><p>（1）SingleInstance 即唯一实例模式，启动一个 Activity 时，寻找所有的任务栈，如果某个任务栈中存在该 Activity 实例，则切换到该任务栈，否则新建一个任务栈并创建该 Activity 实例。</p>
+<p>假如有三个 Activity 按照以下关系启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A(Standard) -&gt; B(SingleInstance) -&gt; C(Standard)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>因为 B 是 SingleInstance，所以会创建一个新的栈，并在新的栈中启动 B。</li>
+<li>而 B 启动 C 时，同样由于 B 设置了 SingleInstance 属性，因此会先判断 C 的启动模式，以及 Manifest 中 C 对应的 <code>taskAffinity</code>，如果没有指定，则会把 C 启动在默认栈中，也就是和 A 同一个栈。</li>
+<li>因此如果在 C 中按下返回键，由于 A 和 C 在同一个栈，所以会回到 A，而不是 B。</li>
+</ul>
 <p>重点在于：任务栈不是唯一的，一个 App 可以有多个任务栈，就像 Android 系统的后台应用列表一样，里面包括了多个应用，而每个应用又管理自己的多个任务栈（可以理解为 <strong>任务栈的总栈</strong>），每个任务栈又分别管理包含的 Activity。</p>
 <p>SingleInstance 启动方式任务栈的行为实例如下（其中 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>，任务栈之间用 <code>-</code> 连接，右侧的任务栈为最新任务栈，M 为最开始以 Standard 启动的 Activity）：</p>
 <table>
@@ -682,27 +692,45 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// （1）首次打开 APP，MainActivity 处于前台，Launcher 处于后台。</span></span><br><span class="line"><span class="function">Running <span class="title">activities</span> <span class="params">(most recent first)</span>:</span></span><br><span class="line">  TaskRecord&#123;392952a #745 A=.abc U=0 StackId=744 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;a4f60c2 u0 priv.luis.launchmodetest/.MainActivity t745&#125;</span><br><span class="line"><span class="function">Running <span class="title">activities</span> <span class="params">(most recent first)</span>:</span></span><br><span class="line">  TaskRecord&#123;cf7cd87 #2 I=com.google.android.apps.nexuslauncher/.NexusLauncherActivity U=0 StackId=0 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5dab3ba u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t2&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// （2）点击 Home 键回到 Launcher，MainActivity 处于后台。</span></span><br><span class="line"><span class="comment">// 此时多任务中 App 记录正常显示，停留在 MainActivity 界面。</span></span><br><span class="line"><span class="function">Running <span class="title">activities</span> <span class="params">(most recent first)</span>:</span></span><br><span class="line">  TaskRecord&#123;cf7cd87 #2 I=com.google.android.apps.nexuslauncher/.NexusLauncherActivity U=0 StackId=0 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5dab3ba u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t2&#125;</span><br><span class="line"><span class="function">Running <span class="title">activities</span> <span class="params">(most recent first)</span>:</span></span><br><span class="line">  TaskRecord&#123;392952a #745 A=.abc U=0 StackId=744 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;a4f60c2 u0 priv.luis.launchmodetest/.MainActivity t745&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// （3）点击 App 图标，App 未被唤起，仍然停留在桌面。</span></span><br><span class="line"><span class="comment">// 此时 多任务中 App 记录已经消失。</span></span><br><span class="line"><span class="function">Running <span class="title">activities</span> <span class="params">(most recent first)</span>:</span></span><br><span class="line">  TaskRecord&#123;cf7cd87 #2 I=com.google.android.apps.nexuslauncher/.NexusLauncherActivity U=0 StackId=0 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;5dab3ba u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t2&#125;</span><br><span class="line"><span class="function">Running <span class="title">activities</span> <span class="params">(most recent first)</span>:</span></span><br><span class="line">  TaskRecord&#123;96b6b62 #750 A=.abc U=0 StackId=749 sz=1&#125;</span><br><span class="line">    Run #0: ActivityRecord&#123;e949a28 u0 priv.luis.launchmodetest/.MainActivity t750&#125;</span><br></pre></td></tr></table></figure>
 
 <p>WTF？<code>MainActivity</code> 竟然还存活着，说明 App 并没有被杀死，然而最近任务并没有任何记录！</p>
-<h3 id="4-2-原因分析"><a href="#4-2-原因分析" class="headerlink" title="4.2 原因分析"></a>4.2 原因分析</h3><p>思考两个个问题：假如此时在 <code>MainActivity</code> 按 Home 键返回桌面：</p>
-<ol>
-<li>如果通过点击最近任务，从最近任务中回到 App，唤醒哪个 Activity？</li>
-<li>如果通过点击 App 图标进入 App，唤醒哪个 Activity？</li>
-</ol>
-<p>答案：</p>
-<ol>
-<li>通过最近任务返回 App 唤醒的是 MainActivity。</li>
-<li>通过点击 App 图标返回 App 唤醒的是 SplashActivity。</li>
-</ol>
-<p>假如有三个 Activity 按照以下关系启动：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A(Standard) -&gt; B(SingleInstance) -&gt; C(Standard)</span><br></pre></td></tr></table></figure>
-
+<h3 id="4-2-原因分析"><a href="#4-2-原因分析" class="headerlink" title="4.2 原因分析"></a>4.2 原因分析</h3><p>思考一个问题，从一个 App 返回到桌面（App 在后台）后，「点击 App 图标打开」和「从最近任务列表打开」有什么不同？</p>
 <ul>
-<li>因为 B 是 SingleInstance，所以会创建一个新的栈，并在新的栈中启动 B。</li>
-<li>而 B 启动 C 时，同样由于 B 设置了 SingleInstance 属性，因此会先判断 C 的启动模式，以及 Manifest 中 C 对应的 <code>taskAffinity</code>，如果没有指定，则会把 C 启动在默认栈中，也就是和 A 同一个栈。</li>
-<li>因此如果在 C 中按下返回键，由于 A 和 C 在同一个栈，所以会回到 A，而不是 B。</li>
+<li>Android 的桌面（或者应用列表）本身也是一个 Activity（Launcher），因此从桌面点击 App 图标打开一个 Activity，本质上也是一个 Activity 通过 <code>startActivity()</code> 启动另一个 Activity 的过程，只不过此时会默认给 Intent 添加一个 <code>FLAG_ACTIVITY_NEW_TASK</code> 的 Flag，作用是先查找目标 Activity 指定的 <code>taskAffinity</code> 栈是否存在，如果存在就会直接唤起这个栈。</li>
+<li>Android 在通过点击 App 图标启动时，启动的是 Manifest 中指定了 <code>android.intent.category.LAUNCHER</code> 属性的 Activity，而最近任务列表中显示的则是 App 最后活跃的栈中的栈顶 Activity。</li>
 </ul>
-<p>（1）Android 的桌面（或者应用列表）本身也是一个 Activity（Launcher），因此从桌面点击 App 图标打开一个 Activity，本质上也是一个 Activity 通过 <code>startActivity()</code> 启动另一个 Activity 的过程，只不过此时会默认给 Intent 添加一个 <code>FLAG_ACTIVITY_NEW_TASK</code> 的 Flag，作用是先查找目标 Activity 指定的 <code>taskAffinity</code> 栈是否存在，如果存在就会直接唤起这个栈。</p>
-<p>（2）Android 在通过点击 App 图标启动时，启动的是 Manifest 中指定了 <code>android.intent.category.LAUNCHER</code> 属性的 Activity，而最近任务列表中显示的则是 App 最后活跃的栈。</p>
-<p>结合以上 2 条看</p>
+<p>（1）因此，对上文 4.1 节的异常现象完整回放整个 App 的 Activity 栈状态。其中，用 <code>/</code> 表示一个栈的栈底，用 <code>&gt;</code> 表示一个栈的栈顶，用 <code>***</code> 表示会被显示在最近任务记录中的栈，且最后活跃的栈位于最上方：</p>
+<ol>
+<li><p>首次点击 App 图标打开 App，打开的是作为 <code>android.intent.category.LAUNCHER</code> 的 SplashActivity：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/ SplashActivity &gt; ***</span><br><span class="line">/ Launcher &gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SplashActivity 启动 MainActivity，由于 SplashActivity 是 singleInstance 模式而独享一个栈，因此 MainActivity 被启动到新建的栈中：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/ MainActivity &gt; ***</span><br><span class="line">/ SplashActivity &gt;</span><br><span class="line">/ Launcher &gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SplashActivity 调用 <code>finish()</code>，由于退出后其栈内所有 Activity 均已退出，所以该栈也被清理销毁：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/ MainActivity &gt; ***</span><br><span class="line">/ Launcher &gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 MainActivity 中点击 Home 键返回桌面，MainActivity 及其栈进入后台：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/ Laucher &gt;</span><br><span class="line">/ MainActivity &gt; ***</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据栈状态可知，此时最近任务中记录的是 MainActivity 及其栈，因此从最近任务中点击进入，也自然会激活 MainActivity：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/ MainActivity &gt; ***</span><br><span class="line">/ Launcher &gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再次点击 Home 键回到桌面，MainActivity 再次进入后台：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/ Laucher &gt;</span><br><span class="line">/ MainActivity &gt; ***</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>点击 App 图标打开 App，Launcher 通过 Manifest 定义的 <code>android.intent.category.LAUNCHER</code> 打开 SplashActivity，由于设置了 <code>singleInstance</code>，所以新建一个栈并在其中打开 SplashActivity：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/ SplashActivity &gt; ***</span><br><span class="line">/ Launcher &gt;</span><br><span class="line">/ MainActivity &gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SplashActivity 执行了 <code>finish()</code>，并且由于栈内所有 Activity 均已销毁，该栈也被清理销毁：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/ Launcher &gt;</span><br><span class="line">/ MainActivity &gt;</span><br></pre></td></tr></table></figure>
+
+<p> <strong>正是这一步将最近任务中的 App 记录清理了。因为默认情况下，一个 App 只在最近任务中记录一个栈，也就是最后活跃的栈，这个栈一旦被销毁，又没有其他栈被激活，则 App 记录就会从最近任务中删除。</strong></p>
+</li>
+</ol>
+<p>（2）为了反向验证，在 SplashActivity 启动 MainActivity 的 Intent 中添加两个 Flag，并且去掉 SplashActivity 中 <code>finish()</code> 的逻辑：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Manifest</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">&lt;manifest&gt;</span><br><span class="line">    &lt;activity</span><br><span class="line">        android:name=<span class="string">&quot;demo.SplashActivity&quot;</span></span><br><span class="line">        android:launchMode=<span class="string">&quot;singleInstance&quot;</span>&gt;</span><br><span class="line">        &lt;intent-filter&gt;</span><br><span class="line">            &lt;action android:name=<span class="string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span><br><span class="line">            &lt;category android:name=<span class="string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span><br><span class="line">        &lt;/intent-filter&gt;</span><br><span class="line">    &lt;/activity&gt;</span><br><span class="line">&lt;/manifest&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * SplashActivity</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SplashActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 这里用 isFirstTime 模拟第一次进入 App 后，会跳转到 MainActivity，</span></span><br><span class="line">    <span class="comment">// 然后退到后台再切回来后，即第二次打开时，视为不满足闪屏条件，直接关闭闪屏。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> isFirstTime = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle intent)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 这里延迟 2 秒，只是为了让 SplashActivity 的界面加载出来，</span></span><br><span class="line">        <span class="comment">// 这样在最近任务中能看的更清晰，否则可能无法生成 Activity 的缩略图。</span></span><br><span class="line">        mainHandler.postDelayed(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (isFirstTime) &#123;</span><br><span class="line">                    isFirstTime = <span class="keyword">false</span>;</span><br><span class="line">                    Intent intent = <span class="keyword">new</span> Intent(SplashActivity.<span class="keyword">this</span>, MainActivity.class);</span><br><span class="line">                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);</span><br><span class="line">                    intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);</span><br><span class="line">                    startActivity(intent);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">2000</span>);</span><br><span class="line">        <span class="comment">// 不再退出 SplashActivity</span></span><br><span class="line">        <span class="comment">// finish();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再次尝试，即可在最近任务中看到 MainActivity 从启动后就一直存在未被销毁，只不过因为 App 进入后台后，点击图标启动时每次启动的都是 SplashActivity，且直接走了 <code>finishi()</code> 的逻辑（如果删除 <code>finish()</code> 的逻辑，就会停留在 SplashActivity 界面中），所以一直没有机会被唤醒而已：</p>
+<p><img data-src="./show_in_recent_task.gif" alt="在最近任务中显示 MainActivity 的记录" title="@ASSET"></p>
 
     </div>
 
@@ -897,14 +925,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">353k</span>
+    <span title="Site Symbols">355k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:32</span>
+    <span title="Site Read Time">6:35</span>
   </span>
 </div>
 
