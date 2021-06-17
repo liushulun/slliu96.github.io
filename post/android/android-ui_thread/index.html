@@ -437,9 +437,9 @@
 <p>一个线程初始化了 ViewRootImpl 后，其 UI 不能被其他线程更新！而这两个线程，和是不是主线程并没有关系！</p>
 <hr>
 <h2 id="2-Activity视图加载流程"><a href="#2-Activity视图加载流程" class="headerlink" title="2. Activity视图加载流程"></a>2. Activity视图加载流程</h2><p>现在知道了线程能否更新 UI 主要看这个 UI 所处的最上层 ViewRootImpl 是否由同一个线程初始化，那么 ViewRootImpl 是怎么初始化的呢？又是在什么时候初始化的呢？</p>
-<p>既然 ViewRootImpl 是最上层布局，那不妨从 Activity 启动加载开始：<a href="/post/android/android-activity" title="@LINK">Android-Activity详解</a>。</p>
+<p>既然 ViewRootImpl 是最上层布局，那不妨从 Activity 启动加载开始：<a href="/post/android/android-activity" title="@LINK">Android-Activity深入理解</a>。</p>
 <hr>
-<h2 id="3-ViewRootImpl线程的定义"><a href="#3-ViewRootImpl线程的定义" class="headerlink" title="3. ViewRootImpl线程的定义"></a>3. ViewRootImpl线程的定义</h2><p>通过 <a href="/post/android/android-activity" title="@LINK">Android-Activity详解</a>，可以知道：</p>
+<h2 id="3-ViewRootImpl线程的定义"><a href="#3-ViewRootImpl线程的定义" class="headerlink" title="3. ViewRootImpl线程的定义"></a>3. ViewRootImpl线程的定义</h2><p>通过 <a href="/post/android/android-activity" title="@LINK">Android-Activity深入理解</a>，可以知道：</p>
 <ul>
 <li>ViewRootImpl 判断线程时依据的 <code>mThread</code> 就是创建并初始化 ViewRootImpl 时的所在线程。</li>
 <li><code>setContentView(...)</code> 之后 Activity 视图的加载流程，主要包括对 DecorView、subDecor、以及 mContentParent 的加载和持有逻辑。</li>
