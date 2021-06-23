@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.liushulun.cn&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#EB6D39&quot;,&quot;save&quot;:&quot;manual&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:true,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeInDown&quot;,&quot;post_header&quot;:null,&quot;post_body&quot;:null,&quot;coll_header&quot;:&quot;none&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="（1）建立并连接网站仓库；（2）安装必要环境；（3）渲染并发布网站。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo自定义-初始化静态网站">
+<meta property="og:url" content="https://www.liushulun.cn/post/hexodiy/hexodiy-init/index.html">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
+<meta property="og:description" content="（1）建立并连接网站仓库；（2）安装必要环境；（3）渲染并发布网站。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-07-21T20:44:51.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="自定义">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.liushulun.cn/post/hexodiy/hexodiy-init/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;www.liushulun.cn&#x2F;post&#x2F;hexodiy&#x2F;hexodiy-init&#x2F;&quot;,&quot;path&quot;:&quot;post&#x2F;hexodiy&#x2F;hexodiy-init&#x2F;&quot;,&quot;title&quot;:&quot;Hexo自定义-初始化静态网站&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Hexo自定义-初始化静态网站 | Luis's Blogs</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle Navigation" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">V 1.2.4</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">48</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">91</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Catalogue
+        </li>
+        <li class="sidebar-nav-overview">
+          SiteInfo
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E8%87%AA%E5%AE%9A%E4%B9%89-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99"><span class="nav-text">Hexo自定义-初始化静态网站</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%BB%BA%E7%AB%8B%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E4%BB%93%E5%BA%93"><span class="nav-text">1. 建立静态网站仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%BF%9E%E6%8E%A5SSH"><span class="nav-text">2. 连接SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E7%8E%AF%E5%A2%83"><span class="nav-text">3. 安装必要环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%9C%AC%E5%9C%B0%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E9%A1%B5"><span class="nav-text">4. 初始化本地静态博客页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%B8%B8%E7%94%A8Hexo%E5%91%BD%E4%BB%A4"><span class="nav-text">5. 常用Hexo命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="nav-text">6. 部署博客基本功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E4%BF%AE%E6%94%B9%E6%96%87%E7%AB%A0URL%E6%A0%BC%E5%BC%8F"><span class="nav-text">7. 修改文章URL格式</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">Posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">Categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">Tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:luis96@foxmail.com" title="E-Mail → mailto:luis96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://www.liushulun.cn/post/hexodiy/hexodiy-init/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Luis">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luis's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo自定义-初始化静态网站
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted:</span>
+
+      <time title="Created::2018-07-22 04:44:51" itemprop="dateCreated datePublished" datetime="2018-07-22T04:44:51+08:00">2018-07-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">Categories:</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/HexoDIY/" itemprop="url" rel="index"><span itemprop="name">HexoDIY</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+<!-- 注释开始 #############################################
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+  </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
+
+############################################# 注释结束 -->
+
+
+
+<!-- 注释开始 #############################################
+  
+  <div style="position: fixed; width: 100%;">
+    
+      
+      <div class="post-tags">
+          <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+          <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag"><i class="fa fa-tag"></i> 自定义</a>
+      </div>
+  </div>
+############################################# 注释结束 -->
+
+    <span class="post-meta-item" title="Post Symbols">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Post Symbols:</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="Read Time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>4 Min</span>
+    </span>
+</div>
+
+            <div class="post-description">（1）建立并连接网站仓库；（2）安装必要环境；（3）渲染并发布网站。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <span id="more"></span>
+
+<h1 id="Hexo自定义-初始化静态网站"><a href="#Hexo自定义-初始化静态网站" class="headerlink" title="Hexo自定义-初始化静态网站"></a>Hexo自定义-初始化静态网站</h1><blockquote>
+<p>（@注）本文基于GitHub 托管、Hexo 生成静态页的形式。</p>
+<p>Google 的 MarkDown 语法规范参考链接：<a target="_blank" rel="noopener" href="https://github.com/google/styleguide/blob/gh-pages/docguide/style.md" title="@LINK">Markdown style guide</a></p>
+</blockquote>
+<h2 id="1-建立静态网站仓库"><a href="#1-建立静态网站仓库" class="headerlink" title="1. 建立静态网站仓库"></a>1. 建立静态网站仓库</h2><p>首先，在 GitHub 上新建一个仓库，名称为 <code>xxx.github.io</code>，其中 <code>xxx</code> 为自己的 GitHub 用户名，要注意是用户名而不是名字，用户名是可以用来登录的那个。创建好了之后就已经可以通过 <code>xxx.github.io</code> 访问。需要注意的是，这个仓库仅用来存储最终部署后的文件，而非平时写的文章。</p>
+<blockquote>
+<p>（@注）假设在 <code>本地仓库</code> 存储博客配置和文章，Hexo 在部署时会生成 HTML 静态网页并 Push 到 <code>Page 仓库</code>，开启了 Page 服务的仓库会在每次收到 Push 后自动把 HTML 部署并发布成公网网页。</p>
+</blockquote>
+<hr>
+<h2 id="2-连接SSH"><a href="#2-连接SSH" class="headerlink" title="2. 连接SSH"></a>2. 连接SSH</h2><p>由于每次本地更新完网站后，都需要 Push 到 <code>Page 仓库</code>，所以需要获取 <code>Page 仓库</code> 的部署权限，推荐使用 SSH 鉴权：</p>
+<ol>
+<li>查看本地是否存在目录 <code>~/.ssh</code>，若存在，且密钥绑定的邮箱和 GitHub 账号绑定的邮箱一致，则可跳过该步骤。<ul>
+<li>若不存在或不知道怎么检查，可以重新生成。</li>
+<li>执行命令生成绑定 GitHub 邮箱的密钥：<code>ssh-keygen -t rsa -C &quot;xxx@yyy.com&quot;</code></li>
+<li>回车执行后根据提示输入 GitHub 的账号密码，若提示 id 文件已保存，则创建成功</li>
+<li>目录下将生成两个文件：<code>id_rsa.pub</code> 和 <code>id_rsa</code>。</li>
+</ul>
+</li>
+<li>在 <code>Page 仓库 -&gt; Settings -&gt; Deploy Keys</code> 中点击 <code>Add deploy key</code> 新建一个部署密钥，把生成的公钥 <code>id_rsa.pub</code> 的内容复制到 Key栏并保存，Title 可随意输入。</li>
+<li>本地终端验证密钥，执行命令：<code>shh -T git@github.com</code>，若显示 <code>Hi XXX! You&#39;ve successfully authenticated...</code> 则连接成功。</li>
+</ol>
+<hr>
+<h2 id="3-安装必要环境"><a href="#3-安装必要环境" class="headerlink" title="3. 安装必要环境"></a>3. 安装必要环境</h2><p>通常，基于 Hexo 驱动的静态博客，只需要这三个环境就够了：<code>Git</code>、<code>Hexo</code>、<code>Node.JS</code>，其中 Node.JS 主要是使用其内含的包管理器 <code>npm</code>，通过这个管理器可以为博客部署很多有意思的插件。另外有个小提示，如果在国内使用感觉网速太慢的话，可以用 <code>cnpm</code> 命令替换。</p>
+<ol>
+<li><p>Git 下载地址：<a target="_blank" rel="noopener" href="https://git-scm.com/downloads" title="@LINK">Git 下载</a></p>
+</li>
+<li><p>Node.JS下载地址：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/" title="@LINK">Node.JS 下载</a></p>
+</li>
+<li><p>终端安装 Hexo 命令（在安装完 Node.JS 之后）：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p> 如果安装结果出现红字报错无权限的情况，可以尝试以下两个命令其中一个：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 尝试1：</span></span><br><span class="line">sudo npm install -g hexo-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># 尝试2：</span></span><br><span class="line">sudo npm install --unsafe-perm --verbose -g hexo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查环境安装情况：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Git 环境检查：</span></span><br><span class="line">git --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># Node.JS 环境检查：</span></span><br><span class="line">node -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># Hexo 环境检查：</span></span><br><span class="line">hexo --Version</span><br></pre></td></tr></table></figure>
+
+<p> 如果均能输出对应版本号即表示环境配置成功。</p>
+</li>
+</ol>
+<hr>
+<h2 id="4-初始化本地静态博客页"><a href="#4-初始化本地静态博客页" class="headerlink" title="4. 初始化本地静态博客页"></a>4. 初始化本地静态博客页</h2><p>Hexo 环境安装完以后，就可以在本地建立管理目录了。在终端进入想要作为博客维护目录的路径，并执行以下命令初始化：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>执行完之后，目录下应该会出现几个文件及文件夹：</p>
+<ul>
+<li>node_modules: 模块目录，包含了博客基础和自定义功能所需的组件。</li>
+<li>public: 生成的最终部署到网页上所需的 HTML 文件。</li>
+<li>scaffolds: 网站页面模板，用于在新建不同类型文件时，自动应用模板。</li>
+<li>source: 网站内所有页面读取的根目录，包括文章、分类、标签、资源等等。</li>
+<li>themes: 网站的主题，目录内可以包括各种不同的主题，并且可以在网站配置文件内随时更换。</li>
+</ul>
+<p>Hexo 目录初始化完毕后，通过命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>可以一键式安装所有必须的组件，为了能通过 Hexo 部署到 GitHub 上去，还要再额外安装 Git Deploy 组件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-常用Hexo命令"><a href="#5-常用Hexo命令" class="headerlink" title="5. 常用Hexo命令"></a>5. 常用Hexo命令</h2><p>常用的 Hexo 命令大致有如下数条：</p>
+<ul>
+<li><code>hexo init [folder]</code>: 初始化本地项目，可指定路径 folder，或默认为当前目录。</li>
+<li><code>hexo generate</code> / <code>hexo g</code>: 生成本地静态文件。</li>
+<li><code>hexo server</code> / <code>hexo s</code>: 启动本地服务器，启动后可在 <code>localhost:4000</code> 查看页面效果（如果 4000 端口被占用，可以通过修改 Hexo 的 Server 端口更换）。</li>
+<li><code>hexo deploy</code> / <code>hexo d</code>: 部署到 Github（或其他代码托管网站），由根目录下的 <code>_config.yml</code> 文件设定。</li>
+<li><code>hexo clean</code>: 清理缓存文件。</li>
+<li><code>hexo new [layout] &lt;title&gt;</code>: 新建文件（夹），可指定文件类型 layout，或默认由 <code>_config.yml</code> 中的 default_layout 决定。必填项 title 用于指定文章标题，若参数值中含有空格，需使用英文双引号包括。</li>
+<li><code>hexo --safe</code>: 安全模式，禁用加载插件和脚本，可在安装新插件遇到问题时启用。</li>
+<li><code>hexo --debug</code>: 调试模式，用于将消息详细记录到终端和 debug.log 文件。</li>
+<li><code>hexo --silent</code>: 静默模式，用于静默输出到终端。</li>
+<li><code>hexo g -d</code> / <code>hexo d -g</code>: 表示自动按顺序执行 <code>hexo g</code> 和 <code>hexo d</code>。</li>
+</ul>
+<hr>
+<h2 id="6-部署博客基本功能"><a href="#6-部署博客基本功能" class="headerlink" title="6. 部署博客基本功能"></a>6. 部署博客基本功能</h2><p>到上一步为止，博客是已经建立完基础功能了，但此时本地博客和 GitHub 上的静态托管还没有建立联系，想要在本地维护的博客能同步到 GitHub 仓库上，使得外网能通过 <code>xxx.github.io</code> 网页形式访问，还需要配置一下站点配置文件 <code>_config.yml</code>：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>在其中的 <code>repository</code> 后面填写自己的 <code>Page 仓库</code> 地址，修改完保存并三连部署，即可部署到 <code>Page 仓库</code> 上并通过公网访问。</p>
+<p>另外还可以预先安装站点地图和百度站点地图生成插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save hexo-generator-sitemap</span><br><span class="line"></span><br><span class="line">$ npm install --save hexo-generator-baidu-sitemap</span><br></pre></td></tr></table></figure>
+
+<p>并在站点配置文件中进行如下配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自动生成sitemap</span></span><br><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br><span class="line"><span class="attr">baidusitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">baidusitemap.xml</span></span><br></pre></td></tr></table></figure>
+
+<p>这样在部署后就会自动在网站根目录下生成对应的文件，可通过 <code>网站地址/sitemap.xml</code> 或 <code>网站地址/baidusitemap.xml</code> 访问。</p>
+<hr>
+<h2 id="7-修改文章URL格式"><a href="#7-修改文章URL格式" class="headerlink" title="7. 修改文章URL格式"></a>7. 修改文章URL格式</h2><p>默认情况下，文章的 URL 路径通常都是类似于：<code>XXX/2018/07/22/aaa/bbb</code>，不利于维护。Hexo 允许自定义 URL 格式配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="comment"># 实际域名，如果有自定义域名则修改为自定义域名</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">XXXXX</span></span><br><span class="line"><span class="comment"># 文章的根目录，相对于 source 目录的地址</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br><span class="line"><span class="comment"># 文章的链接格式，&quot;:xxx&quot; 带有冒号表示从文章的 Front-Matter 中获取的值，&quot;xxx&quot; 没有冒号表示硬编的字符串</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br></pre></td></tr></table></figure>
+
+<p>假如一篇文章的文件名为 <code>demo.md</code>，文章内的 Front-Matter 为：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">文章标题（文件名为demo.md）</span></span><br><span class="line"><span class="attr">from:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果设置 <code>permalink: post/:title/</code>，则生成的文章链接为：<code>url/post/demo</code>。</li>
+<li>如果设置 <code>permalink: :from/:title/</code>，则生成的文章链接为：<code>url/test/demo</code>。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+
+
+
+
+
+    
+    
+    <style type="text/css">
+        .postEndContainer {
+            border-radius: 10px;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+        .toAbout {
+            font-size: 18px;
+            text-align: center;
+            color: #EB6D39;
+            cursor: pointer;
+            border-bottom: none;
+        }
+        .toAbout:hover {
+            background: #EB6D39;
+            color: #FFFFFF;
+            cursor: pointer;
+            border-bottom: none;
+        }
+
+        .postEndText {
+            animation: slideHorizontal 4.0s ease infinite;
+        }
+        
+        @keyframes slideHorizontal {
+            0% {
+                transform: rotateX(0deg);
+            }
+            25% {
+                transform: rotateX(360deg);
+            }
+            50% {
+                transform: rotateX(720deg);
+            }
+            100% {
+                transform: rotateX(720deg);
+            }
+        }
+    </style>
+    
+        
+        <div class="pagination postEndContainer toAbout" onClick="window.open('/about/','_self')">
+            <div class="postEndText">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</div>
+        </div>
+    
+
+    
+    <img src="/images/reward.png" style="width: 300px; max-width: 100%;">
+
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者: </strong>Luis
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接:</strong>
+      <a href="https://www.liushulun.cn/post/hexodiy/hexodiy-init/" title="Hexo自定义-初始化静态网站">https://www.liushulun.cn/post/hexodiy/hexodiy-init/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明: </strong>所有文章均由 Luis 原创于 liushulun.cn，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="tag"><i class="fa fa-tag"></i> 自定义</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/hexodiy/hexodiy-solutions/" rel="prev" title="Hexo自定义-问题及方案">
+                  <i class="fa fa-chevron-left"></i> Hexo自定义-问题及方案
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/billboard/" rel="next" title="Billboard">
+                  Billboard <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>Site Symbols:</span>
+    <span title="Site Symbols">316k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>Site Read Time &asymp;</span>
+    <span title="Site Read Time">5:51</span>
+  </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script class="next-config" data-name="nprogress" type="application/json">{&quot;enable&quot;:true,&quot;spinner&quot;:true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+<style type="text/css">
+    .toBottom {
+        color: #EEEEEE;
+        border-bottom: none;
+    }
+    .toBottom:hover {
+        color: #EB6D39;
+        border-bottom: none;
+    }
+</style>
+<div class="scrollToBottom back-to-top back-to-top-on" role="button" style="bottom: 30px;" onClick="window.open('#postBottom','_self')">
+    <span class="fa fa-arrow-down"> Down</span>
+</div>
+
+<script>
+    $(function() {
+        $('.scrollToBottom').click(function(){
+            
+            $('html,body').animate({scrollTop:$('.bottom').offset().top}, 800);
+        });
+    })
+</script>
+
+<a id='postBottom'></a>
+</body>
+</html>
