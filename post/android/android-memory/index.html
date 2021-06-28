@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;blog.luis.ltd&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#EB6D39&quot;,&quot;save&quot;:&quot;manual&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:true,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeInDown&quot;,&quot;post_header&quot;:null,&quot;post_body&quot;:null,&quot;coll_header&quot;:&quot;none&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="未完待续">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-内存优化">
+<meta property="og:url" content="https://blog.luis.ltd/post/android/android-memory/index.html">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
+<meta property="og:description" content="未完待续">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-11-04T03:40:52.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="Androi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.luis.ltd/post/android/android-memory/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;blog.luis.ltd&#x2F;post&#x2F;android&#x2F;android-memory&#x2F;&quot;,&quot;path&quot;:&quot;post&#x2F;android&#x2F;android-memory&#x2F;&quot;,&quot;title&quot;:&quot;Android-内存优化&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Android-内存优化 | Luis's Blogs</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle Navigation" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">V 1.3.4</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">64</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">114</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Catalogue
+        </li>
+        <li class="sidebar-nav-overview">
+          SiteInfo
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96"><span class="nav-text">Android-内存优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8C%E5%86%85%E5%AD%98%E6%8A%96%E5%8A%A8"><span class="nav-text">内存泄漏和内存抖动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="nav-text">内存泄漏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%8A%96%E5%8A%A8"><span class="nav-text">内存抖动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ListView%E5%92%8CRecyclerView%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94%E5%92%8C%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">ListView和RecyclerView性能对比和性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bitmap%E5%8A%A0%E8%BD%BD%E5%A4%A7%E5%9B%BE%EF%BC%88%E5%8A%A0%E8%BD%BD%E5%B1%80%E9%83%A8%EF%BC%89"><span class="nav-text">Bitmap加载大图（加载局部）</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">Posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">Categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">114</span>
+        <span class="site-state-item-name">Tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:luis96@foxmail.com" title="E-Mail → mailto:luis96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.luis.ltd/post/android/android-memory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Luis">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luis's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android-内存优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted:</span>
+
+      <time title="Created::2019-11-04 11:40:52" itemprop="dateCreated datePublished" datetime="2019-11-04T11:40:52+08:00">2019-11-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">Categories:</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+<!-- 注释开始 #############################################
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+  </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
+
+############################################# 注释结束 -->
+
+
+
+<!-- 注释开始 #############################################
+  
+  <div style="position: fixed; width: 100%;">
+    
+      
+      <div class="post-tags">
+          <a href="/tags/Androi/" rel="tag"><i class="fa fa-tag"></i> Androi</a>
+      </div>
+  </div>
+############################################# 注释结束 -->
+
+    <span class="post-meta-item" title="Post Symbols">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Post Symbols:</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="Read Time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>5 Min</span>
+    </span>
+</div>
+
+            <div class="post-description">未完待续</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <span id="more"></span>
+
+<h1 id="Android-内存优化"><a href="#Android-内存优化" class="headerlink" title="Android-内存优化"></a>Android-内存优化</h1><h1 id="内存泄漏和内存抖动"><a href="#内存泄漏和内存抖动" class="headerlink" title="内存泄漏和内存抖动"></a>内存泄漏和内存抖动</h1><h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>（1）内存泄漏的原因：</p>
+<ul>
+<li><p>Handler 发送的消息未被处理则会导致 MessageQueue 一直持有 Handler 和 Message 的引用，解决办法：创建静态内部 Handler 类继承自 Handler，并实例化该内部的 Handler，并且在 <code>onDestroy()</code> 方法中手动移除所有未处理的消息、或者使用进程唯一的 MainLooper 来实例化 Handler。</p>
+</li>
+<li><p>单例模式的生命周期通常和 App 一致，若其中传入了 Context，则会导致对应的 Context 无法被回收，此时可以改用 Application 的 Context。</p>
+</li>
+<li><p>使用 View、Context 等作为参数传递到外部对象中，由于 Context 和 View 对象很容易被回收，如果被外部对象持有，很可能会导致内存泄漏。可以使用弱引用 WeakReference。</p>
+</li>
+<li><p>非静态匿名内部类，例如一个非静态的 Runnable 对象，被用来实例化一个匿名 Thread 对象：<code>new Thread(runnable).start();</code>，由于该 Runnable 对象非静态，会自动持有其外部类的引用，则导致外部类无法被回收。可以通过把 Runnable 对象声明为 <code>static</code> 解决。</p>
+</li>
+<li><p>注册/反注册未成对使用，例如广播接收器，可以在 <code>onCreate()</code> 或 <code>onResume()</code> 中注册，在 <code>onDestroy()</code> 或 <code>onPause()</code> 中释放。</p>
+</li>
+<li><p>资源为关闭，例如 Cursor、File、Bitmap、视频等，通常内部实现了一些缓冲技术，并且可能还涉及到 Native 层，都需要手动关闭资源，否则会引起内存泄漏。</p>
+</li>
+<li><p>集合未及时清理，例如将一些 View、Context 等存入集合中导致无法回收，或是将集合声明为 <code>static</code>，都会导致内存泄漏。</p>
+</li>
+</ul>
+<p>（2）内存泄漏的检测：</p>
+<p>主要是引入 LeakCanary，然后在 Application 中初始化和安装，之后在设备上运行 App 即可在 LeakCanary 中自动检测。还有MAT、Lint等。</p>
+<ul>
+<li><p>LeakCanary原理</p>
+</li>
+<li><p>利用logging监听方法耗时，会不会让app增大延迟</p>
+</li>
+</ul>
+<p>通过Looper.setMessageLogging(Printer)来设置自己的Printer，Printer会在Looper处理一个事件的开始和结束输出Msg的相关信息。</p>
+<h2 id="内存抖动"><a href="#内存抖动" class="headerlink" title="内存抖动"></a>内存抖动</h2><p>内存抖动主要是短时间内有大量对象产生和销毁，伴随着频繁的 GC，占用大量 CPU 和 UI 线程资源，导致 App 卡顿。</p>
+<p>（1）内存抖动的原因：</p>
+<ul>
+<li><p>在循环中声明和创建对象，可以改为在外部创建对象，然后在循环内实例化。</p>
+</li>
+<li><p>频繁改变 <code>String</code> 对象，可以改为使用 <code>StringBuilder</code> 最后再转为 <code>String</code>。</p>
+</li>
+<li><p><code>View</code> 中的 <code>onDraw()</code> 方法会被频繁调用，应当尽量避免创建对象。</p>
+</li>
+<li><p>频繁使用的图片资源，或者复用几率较大的对象，可以建立缓存。</p>
+</li>
+</ul>
+<p>（2）内存抖动的检测和定位：</p>
+<p>使用 AndroidStudio 自带的工具 Android Profile，选择 Memory 栏，当出现 GC 时，会显示一个垃圾桶图标，如果 GC 出现的频繁，则很可能是内存抖动。</p>
+<p>使用 AndroidStudio 自带的工具：Tools - Android - Android Device Monitor，打开 App，在 Monitor 工具中选择 App 对应的进程，然后运行对应的功能后，选择 DDMS 工具，查看一个 .trace 文件，在“main”栏会显示具体的抖动，找到发生抖动（柱状图起伏很大的一段）放大后，对应的找到相关的方法（方法被调用时，调用者的方法序号小于其调用的方法的序号），根据实际情况追溯到对应的方法中去查看有没有可能导致内存抖动的代码并修改。</p>
+<hr>
+<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><p>（1）逻辑层</p>
+<p>尽可能消除或减少内存泄漏、内存抖动。</p>
+<p>（2）UI 层</p>
+<ul>
+<li><p>减少布局层级，可通过手机的“过渡绘制”和 AndroidStudio - Tools - Layout Inspector 查看。</p>
+</li>
+<li><p>使用 ViewStub 占位不常用资源。</p>
+</li>
+<li><p>使用简单的布局，例如在层级相同的前提下，使用 FrameLayout 或 LinearLayout 替代 RelativeLayout。</p>
+</li>
+<li><p>优化自定义 View 中的 <code>onDraw()</code>，避免复杂语句。</p>
+</li>
+</ul>
+<p>（3）应用层</p>
+<ul>
+<li><p>耗时操作异步处理。</p>
+</li>
+<li><p>复用资源本地缓存。</p>
+</li>
+<li><p>Bitmap 优化，例如读取信息时，设置 <code>BitmapFactory.Options.inJustDecodeBounds = true;</code>，则仅读取宽高而不将具体数据读入内存，当图片过大时，对图片进行压缩，缓存一份压缩后的图片，对需要显示大图的地方，使用 <code>BitmapRegionDecoder</code>，指定 Bitmap 的区域进行解码。</p>
+</li>
+</ul>
+<p>（4）代码层</p>
+<ul>
+<li><p>ListView、RecyclerView，使用 ViewHolder 复用布局。</p>
+</li>
+<li><p>减少枚举类。由于 JVM 使用 int 作为默认整型变量，因此在数据量大和非必要场景下，使用 int 替代 short、byte 反而性能更好。</p>
+</li>
+<li><p>使用 SparseArray 或 ArrayMap 代替简单的 HashMap 结构。</p>
+</li>
+</ul>
+<p>稀疏数组是针对替换 <code>HashMap&lt;Integer, Object&gt;</code> 的，其意义在于：如果一个 HashMap 里面存的数据很少，会浪费很多空闲的内存空间，因此可以使用一个压缩后的矩阵来表示。SparseArray 矩阵，分为上下两个部分，共三列。上部分只有第一行，从左到右三列分别是：原 HashMap 的行数、原 HashMap 的列数、原 HashMap 共使用了几个元素。下部分则分别记录了原 HashMap 中使用了的元素分别在原 HashMap 中的行下标、列下标、取值。</p>
+<p>ArrayMap使用两个数组来存放键值对，一个数组存放Key，另一个存放Value。</p>
+<p>如果Key确定是Int，可使用SparseArray，Long可使用LongSparseArray，其他使用ArrayMap，但数据量大时，还是使用HashMap，因为SparseArray和ArrayMap使用二分法，将计算后的Hash值按从小到大的顺序排列插入和读取。</p>
+<p>（5）启动优化</p>
+<p>利用window background快速展示一个界面给用户快速的心理预期，启动的过程，如第一个Activity的onCreate中避免繁重的初始化任务，IO、网络等耗时操作懒加载，减少布局嵌套等。</p>
+<p>（6）APK体积优化</p>
+<p>资源文件方面：使用webp代替传统jpg和png格式，单色背景或简单几何图形使用drawable或者Vector代替图片，大型媒体文件使用动态联网加载代替打进APK包，多Module之间复用的资源避免冗余。</p>
+<p>代码层，去除无用的第三方依赖，减少枚举类，代码混淆，</p>
+<hr>
+<h1 id="ListView和RecyclerView性能对比和性能优化"><a href="#ListView和RecyclerView性能对比和性能优化" class="headerlink" title="ListView和RecyclerView性能对比和性能优化"></a>ListView和RecyclerView性能对比和性能优化</h1><p>ListView 开发成本低，性能和功能上 RecyclerView 更优。</p>
+<p>RecyclerView在很多方面能取代ListView，Google为什么还不弃用ListView？</p>
+<p>在某些轻量级场景下，例如纯文字的列表时，RecyclerView强制使用Holder的形式芳儿增加了开销，而且开发成本也更高一些。</p>
+<p>（1）ListView：</p>
+<p>Adapter.getView中，ConvertView==null时，说明当前的Item的View还没创建，LayoutInflate一个View，否则说明View可复用，直接让View=convertView。</p>
+<p>根据每个Item都有的布局创建一个ViewHolder，这个ViewHolder保存了每一个Item通用的布局的View的对象，如果ConvertView==null，说明当前Item的View还没创建，则新建一个ViewHolder并将该Holder存入View.tag里，否则说明可复用，直接getTag取出holder，然后重新给里面的View对象赋值。</p>
+<p>（2）RecyclerView：</p>
+<p>onBindViewHolder运行在UI线程中，尽量避免耗时操作</p>
+<p>数据量较大时，用DiffUtil代替notifyDataSetChanged，只刷新局部数据：<br>DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallBack(oldDatas, newDatas), true);<br>diffResult.dispatchUpdatesTo(mAdapter);<br>其本质是计算出新旧数据具体在哪些地方和哪一段发生了变化，然后根据实际情况调用：<br>mAdapter.notifyItemRangeInserted(position, count);<br>mAdapter.notifyItemRangeRemoved(position, count);<br>mAdapter.notifyItemMoved(fromPosition, toPosition);<br>mAdapter.notifyItemRangeChanged(position, count, payload);<br>来实现的。</p>
+<p>布局优化，减少Item的过度绘制、减少Item的层级</p>
+<p>RecyclerView的Item很灵活，因此每一次加载，都会调用requestLayout来刷新父布局，如果所有Item的高度固定，可以调用RecyclerView.setHasFixedSize(true);避免</p>
+<p>如果RecyclerView嵌套了RecyclerView，且可以使用相同的Adapter，则可以设置RecyclerView.setRecycledViewPool(pool)来共用一个RecycledViewPool，如果LayoutManager是LinearLayoutManager或其子类，需要手动开启：layout.setRecycleChildrenOnDetach(true)</p>
+<hr>
+<h1 id="Bitmap加载大图（加载局部）"><a href="#Bitmap加载大图（加载局部）" class="headerlink" title="Bitmap加载大图（加载局部）"></a>Bitmap加载大图（加载局部）</h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/73aecb2b85e6">https://www.jianshu.com/p/73aecb2b85e6</a></p>
+<p>（1）设置 <code>inJustDecodeBounds</code> 来预检测图片大小。</p>
+<p>（2）大图尝试先压缩显示预览图。</p>
+<p>（3）当放大显示时，测量当前 ImageView 实际可显示的范围，按照实际可显示范围加载局部图（<code>BitmapRegionDecoder</code>）。</p>
+<p>（4）<code>BitmapRegionDecoder.newInstance(InputStream, boolean)</code>，传入图片输入流实例化一个 <code>bitmapRegionDecoder</code>。</p>
+<p>（5）编码局部：<code>bitmapRegionDecoder.decodeRegion(Rect, BitmapFactory.Options);</code></p>
+<p>（6）绘制：<code>canvas.drawBitmap()</code></p>
+<p>（7）通过手势监听类 GestureDetector 的实例对象在 <code>onTouch(View v, MotionEvent event)</code> 中调用 <code>gestureDetector.onTouchEvent(event)</code>，并继承重写 <code>GestureDetector.onScroll(motionEvent e1, MotionEvent e2, float distanceX, float distanceY)</code> 来监听手势变化，并重新计算需要显示的矩形范围，然后在 <code>onDraw()</code> 中重新绘制对应区域的 Bitmap。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+
+
+
+
+
+    
+    
+    <style type="text/css">
+        .postEndContainer {
+            border-radius: 10px;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+        .toAbout {
+            font-size: 18px;
+            text-align: center;
+            color: #EB6D39;
+            cursor: pointer;
+            border-bottom: none;
+        }
+        .toAbout:hover {
+            background: #EB6D39;
+            color: #FFFFFF;
+            cursor: pointer;
+            border-bottom: none;
+        }
+
+        .postEndText {
+            animation: slideHorizontal 4.0s ease infinite;
+        }
+        
+        @keyframes slideHorizontal {
+            0% {
+                transform: rotateX(0deg);
+            }
+            25% {
+                transform: rotateX(360deg);
+            }
+            50% {
+                transform: rotateX(720deg);
+            }
+            100% {
+                transform: rotateX(720deg);
+            }
+        }
+    </style>
+    
+        
+        <div class="pagination postEndContainer toAbout" onClick="window.open('/about/','_self')">
+            <div class="postEndText">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</div>
+        </div>
+    
+
+    
+    <img src="/images/reward.png" style="width: 300px; max-width: 100%;">
+
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者: </strong>Luis
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接:</strong>
+      <a href="https://blog.luis.ltd/post/android/android-memory/" title="Android-内存优化">https://blog.luis.ltd/post/android/android-memory/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明: </strong>所有文章均由 Luis 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Androi/" rel="tag"><i class="fa fa-tag"></i> Androi</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/java/java-class/" rel="prev" title="Java类加载机制">
+                  <i class="fa fa-chevron-left"></i> Java类加载机制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/android/android-oom/" rel="next" title="Android-OOM">
+                  Android-OOM <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>Site Symbols:</span>
+    <span title="Site Symbols">329k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>Site Read Time &asymp;</span>
+    <span title="Site Read Time">6:06</span>
+  </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script class="next-config" data-name="nprogress" type="application/json">{&quot;enable&quot;:true,&quot;spinner&quot;:true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+<style type="text/css">
+    .toBottom {
+        color: #EEEEEE;
+        border-bottom: none;
+    }
+    .toBottom:hover {
+        color: #EB6D39;
+        border-bottom: none;
+    }
+</style>
+<div class="scrollToBottom back-to-top back-to-top-on" role="button" style="bottom: 30px;" onClick="window.open('#postBottom','_self')">
+    <span class="fa fa-arrow-down"> Down</span>
+</div>
+
+<script>
+    $(function() {
+        $('.scrollToBottom').click(function(){
+            
+            $('html,body').animate({scrollTop:$('.bottom').offset().top}, 800);
+        });
+    })
+</script>
+
+<a id='postBottom'></a>
+</body>
+</html>

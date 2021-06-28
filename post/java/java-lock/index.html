@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;blog.luis.ltd&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#EB6D39&quot;,&quot;save&quot;:&quot;manual&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:true,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeInDown&quot;,&quot;post_header&quot;:null,&quot;post_body&quot;:null,&quot;coll_header&quot;:&quot;none&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="未完待续">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java同步锁">
+<meta property="og:url" content="https://blog.luis.ltd/post/java/java-lock/index.html">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
+<meta property="og:description" content="未完待续">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-10T08:13:38.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="同步锁">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.luis.ltd/post/java/java-lock/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;blog.luis.ltd&#x2F;post&#x2F;java&#x2F;java-lock&#x2F;&quot;,&quot;path&quot;:&quot;post&#x2F;java&#x2F;java-lock&#x2F;&quot;,&quot;title&quot;:&quot;Java同步锁&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Java同步锁 | Luis's Blogs</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle Navigation" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">V 1.3.4</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">64</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">114</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Catalogue
+        </li>
+        <li class="sidebar-nav-overview">
+          SiteInfo
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E5%90%8C%E6%AD%A5%E9%94%81"><span class="nav-text">Java同步锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%94%81%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-text">1. 锁的种类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E4%B9%90%E8%A7%82%E9%94%81%E5%92%8C%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-text">1.1 乐观锁和悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-text">1.2 公平锁和非公平锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E7%8B%AC%E4%BA%AB%E9%94%81%E5%92%8C%E5%85%B1%E4%BA%AB%E9%94%81"><span class="nav-text">1.3 独享锁和共享锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E4%BA%92%E6%96%A5%E9%94%81%E5%92%8C%E8%AF%BB%E5%86%99%E9%94%81"><span class="nav-text">1.4 互斥锁和读写锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81%E5%92%8C%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81"><span class="nav-text">1.5 可重入锁和不可重入锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-%E8%87%AA%E6%97%8B%E9%94%81"><span class="nav-text">1.6 自旋锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-%E9%94%81%E7%B2%97%E5%8C%96%E5%92%8C%E9%94%81%E6%B6%88%E9%99%A4"><span class="nav-text">1.7 锁粗化和锁消除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-%E5%81%8F%E5%90%91%E9%94%81%E3%80%81%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81%E3%80%81%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-text">1.8 偏向锁、轻量级锁、重量级锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-%E5%88%86%E6%AE%B5%E9%94%81"><span class="nav-text">1.9 分段锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-%E5%90%8C%E6%AD%A5%E9%94%81"><span class="nav-text">1.10 同步锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Synchronized%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">2. Synchronized关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Synchronized%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-text">2.1 Synchronized如何保证原子性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Lock"><span class="nav-text">3. Lock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Lock%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-text">3.1 Lock的基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Lock%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">3.2 Lock的实现原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%9F%BA%E4%BA%8E%E5%8E%9F%E7%94%9F%E6%96%B9%E6%B3%95%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-text">4. 基于原生方法手动实现公平锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%AD%BB%E9%94%81"><span class="nav-text">5. 死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-wait%E5%92%8Csleep"><span class="nav-text">6. wait和sleep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Volatile%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">7. Volatile关键字</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">Posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">Categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">114</span>
+        <span class="site-state-item-name">Tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:luis96@foxmail.com" title="E-Mail → mailto:luis96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.luis.ltd/post/java/java-lock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Luis">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luis's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java同步锁
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted:</span>
+
+      <time title="Created::2020-08-10 16:13:38" itemprop="dateCreated datePublished" datetime="2020-08-10T16:13:38+08:00">2020-08-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">Categories:</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+<!-- 注释开始 #############################################
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+  </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
+
+############################################# 注释结束 -->
+
+
+
+<!-- 注释开始 #############################################
+  
+  <div style="position: fixed; width: 100%;">
+    
+      
+      <div class="post-tags">
+          <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          <a href="/tags/%E5%90%8C%E6%AD%A5%E9%94%81/" rel="tag"><i class="fa fa-tag"></i> 同步锁</a>
+      </div>
+  </div>
+############################################# 注释结束 -->
+
+    <span class="post-meta-item" title="Post Symbols">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Post Symbols:</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="Read Time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>5 Min</span>
+    </span>
+</div>
+
+            <div class="post-description">未完待续</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <span id="more"></span>
+
+<h1 id="Java同步锁"><a href="#Java同步锁" class="headerlink" title="Java同步锁"></a>Java同步锁</h1><h2 id="1-锁的种类"><a href="#1-锁的种类" class="headerlink" title="1. 锁的种类"></a>1. 锁的种类</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41931837/article/details/82314478">https://blog.csdn.net/qq_41931837/article/details/82314478</a></p>
+<h3 id="1-1-乐观锁和悲观锁"><a href="#1-1-乐观锁和悲观锁" class="headerlink" title="1.1 乐观锁和悲观锁"></a>1.1 乐观锁和悲观锁</h3><p>悲观锁认为一定会有别的线程抢占数据，因此操作数据前都要先获取数据的锁，<code>synchronized</code> 和 <code>lock</code> 都是悲观锁，适用于写操作较多的场景。</p>
+<p>乐观锁认为不会有别的线程抢占数据，因此只在写操作前判断是否有其他线程更新了数据，CAS（Compare And Swap）就是乐观锁的一种实现方式，适用于读操作较多的场景。</p>
+<h3 id="1-2-公平锁和非公平锁"><a href="#1-2-公平锁和非公平锁" class="headerlink" title="1.2 公平锁和非公平锁"></a>1.2 公平锁和非公平锁</h3><p>公平锁是多个线程按照申请锁的顺序来获取锁，非公平锁则不规定线程顺序。synchronized是非公平锁，ReentrantLock可以通过指定构造方法的参数来创建公平或非公平锁。</p>
+<h3 id="1-3-独享锁和共享锁"><a href="#1-3-独享锁和共享锁" class="headerlink" title="1.3 独享锁和共享锁"></a>1.3 独享锁和共享锁</h3><p>独享锁即一次只能被一个线程持有，共享锁一次可以被多个线程池有，synchronized和ReentrantLock都是独享锁，ReentrantReadWriteLock的读锁是共享锁，写锁是独享锁。</p>
+<h3 id="1-4-互斥锁和读写锁"><a href="#1-4-互斥锁和读写锁" class="headerlink" title="1.4 互斥锁和读写锁"></a>1.4 互斥锁和读写锁</h3><p>和独享、共享是一个意思。</p>
+<h3 id="1-5-可重入锁和不可重入锁"><a href="#1-5-可重入锁和不可重入锁" class="headerlink" title="1.5 可重入锁和不可重入锁"></a>1.5 可重入锁和不可重入锁</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> sychrnozied <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    xxxxxx;</span><br><span class="line">    test2();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> sychronized <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    yyyyy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Reentrant就是可重入的意思，所以Reentrant和synchronized都是可重入锁，也即上面的代码可以顺利执行，test方法获取了对象锁后，再调用test2时，可以直接用已持有的对象锁直接进入test2。</p>
+<p>如果是不可重入锁则会发生死锁。</p>
+<h3 id="1-6-自旋锁"><a href="#1-6-自旋锁" class="headerlink" title="1.6 自旋锁"></a>1.6 自旋锁</h3><p>自旋锁就是使用循环尝试获取来替代线程阻塞等待，好处是减少线程切换的消耗，但会增加CPU资源消耗。</p>
+<h3 id="1-7-锁粗化和锁消除"><a href="#1-7-锁粗化和锁消除" class="headerlink" title="1.7 锁粗化和锁消除"></a>1.7 锁粗化和锁消除</h3><p>锁粗化和锁消除的本意都是尽量减少锁的获取和释放，节约资源。</p>
+<p>锁消除是虚拟机在编译阶段做逃逸分析时，判断到某段代码，虽然加了锁，但不可能会被其他线程访问到，因此加锁是没必要的，则在编译阶段就去除加锁部分。</p>
+<p>锁粗化可以理解为扩展锁的域，例如在一个循环内部对一个操作加锁，由于重复获取和释放锁会带来很大的开销，因此虚拟机在编译阶段，将锁粗化，加载循环体外部。</p>
+<h3 id="1-8-偏向锁、轻量级锁、重量级锁"><a href="#1-8-偏向锁、轻量级锁、重量级锁" class="headerlink" title="1.8 偏向锁、轻量级锁、重量级锁"></a>1.8 偏向锁、轻量级锁、重量级锁</h3><p>这是三种锁的状态，是针对synchronized字段优化的，通过对象监视器在内存中的头部字段来标明。</p>
+<p>偏向锁是指，如果一段同步代码一直被一个线程访问，则该线程会自动获取锁而不需要申请，以降低获取锁的资源消耗。</p>
+<p>轻量锁是指如果锁是偏向锁时，有另一个线程访问了同步代码块，则将偏向锁改为轻量锁。此时另外的线程不会阻塞等待，而是通过自旋来尝试获取锁。</p>
+<p>重量级锁则是，如果锁是轻量锁，另一个线程虽然是自旋，但不会一直持续下去，当自旋超过一定次数还没有获取到锁，就会进入阻塞状态，该锁膨胀为重量级锁。</p>
+<h3 id="1-9-分段锁"><a href="#1-9-分段锁" class="headerlink" title="1.9 分段锁"></a>1.9 分段锁</h3><p>分段锁不是一种具体的锁，也不是锁的形式，只是一种设计方案，在ConcurrentHashMap内部使用，通过将数据分段并分别加锁，来提升并发情况下的写入性能。</p>
+<h3 id="1-10-同步锁"><a href="#1-10-同步锁" class="headerlink" title="1.10 同步锁"></a>1.10 同步锁</h3><p>（1）对象锁（方法锁）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(Object object) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当多个线程使用同一个对象锁则可以达到同步的效果，否则无效。</p>
+<p>当 <code>synchronized</code> 修饰方法时，实际上等同于获取该方法所在的外部类对象的对象锁。</p>
+<p>（2）类锁（静态锁）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(DemoClass.class) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>同一个类只有一个类锁，但每个类的实例对象都有自己的对象锁，因此当使用类锁时，所有该类的实例对象拿到的都是同一把锁，而使用对象锁时，不同实例对象之间是无关的。</p>
+<p><code>synchronized</code> 修饰静态方法时，即为静态锁。由于非静态方法会自动持有其所在外部类对象的引用，因此非静态方法加锁等同于其所在外部类实例对象的对象锁，而静态方法不会持有其外部类对象的引用，因此是使用其外部类的字节码对象作为锁。</p>
+<hr>
+<h2 id="2-Synchronized关键字"><a href="#2-Synchronized关键字" class="headerlink" title="2. Synchronized关键字"></a>2. Synchronized关键字</h2><p><code>synchronized</code> 只会同步尝试获取同一个 <code>monitor</code> 对象的线程，如果一个线程已经持有该 <code>monitor</code>，则后续所有尝试持有该 <code>monitor</code> 的线程都需要依次等待前面的线程释放 <code>monitor</code> 才能继续执行。</p>
+<ul>
+<li>对非静态方法加 <code>synchronized</code> 相当于对象锁。</li>
+<li>对静态方法加 <code>synchronized</code> 相等于类锁。</li>
+<li>用常量池和自动装箱的基本变量作为监视器，一旦改变了值就相当于改变了监视器。</li>
+</ul>
+<h3 id="2-1-Synchronized如何保证原子性"><a href="#2-1-Synchronized如何保证原子性" class="headerlink" title="2.1 Synchronized如何保证原子性"></a>2.1 Synchronized如何保证原子性</h3><p>所谓原子性指的是不会被线程调度机制打断的操作。java中对基本数据类型的读和写是原子性操作，但自增自减不是。例如 <code>i++</code> 在 JVM 中实际上是三步：</p>
+<ul>
+<li>取出 <code>i</code> 的值</li>
+<li>对值做 <code>+1</code> 操作</li>
+<li>重新赋值给 <code>i</code></li>
+</ul>
+<p>虽然其中的每一步都是原子性操作，但这个过程并不是原子性的。所以如果需要保证原子性，可以通过 <code>synchronized</code> 关键字实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;i++;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者使用原子类 <code>AtomicInteger</code>、<code>AtomicLong</code>、<code>AtomicReference</code> 等，其中 <code>AtomicInteger#getAndIncrement()</code> 效果相当于 <code>i++</code>，<code>AtomicInteger#getAndDecrement()</code> 效果相当于 <code>i--</code>，<code>AtomicInteger#incrementAndGet()</code> 效果相当于 <code>++i</code>，其内部原理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = get();</span><br><span class="line">        <span class="keyword">int</span> next = current + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, next))</span><br><span class="line">            <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-Lock"><a href="#3-Lock" class="headerlink" title="3. Lock"></a>3. Lock</h2><h3 id="3-1-Lock的基本用法"><a href="#3-1-Lock的基本用法" class="headerlink" title="3.1 Lock的基本用法"></a>3.1 Lock的基本用法</h3><p><code>Lock</code> 的基本用法为：<code>Lock lock = new ReentrantLock();</code>，可以通过 <code>lock.lock()</code> 手动加锁，通过 <code>lock.unlock()</code> 手动释放锁。但 <code>Lock</code> 的性能很差，需要注意在 <code>finally</code> 中释放锁。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"><span class="keyword">int</span> value = <span class="number">1</span>;</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    value++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">    lock.unlock;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-Lock的实现原理"><a href="#3-2-Lock的实现原理" class="headerlink" title="3.2 Lock的实现原理"></a>3.2 Lock的实现原理</h3><p><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/640868">https://yq.aliyun.com/articles/640868</a></p>
+<p><code>Lock</code> 本质还是通过 <strong>CAS 乐观锁</strong> 实现的。一个线程尝试去获取锁，如果获取到，则更新一个 <code>state</code> 字段，表示当前是正在等待锁还是持有锁还是释放锁的状态，然后去执行操作。否则如果没获取到，则将该线程放到记录等待线程的双向链表中，然后线程做自旋，直到获取到锁。<code>Lock</code> 建议在低锁冲突的情况下用，否则非必要（例如需要公平锁）的情况下，还是使用 <code>synchronized</code> 更好。</p>
+<hr>
+<h2 id="4-基于原生方法手动实现公平锁"><a href="#4-基于原生方法手动实现公平锁" class="headerlink" title="4. 基于原生方法手动实现公平锁"></a>4. 基于原生方法手动实现公平锁</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sddh1988/article/details/68068971">https://blog.csdn.net/sddh1988/article/details/68068971</a></p>
+<p>使用队列，在 <code>lock()</code> 内按顺序添加等待的线程名 <code>currentThread()#getName()</code>，然后 <code>peek</code> 出最前的线程名，自旋对比当前线程是否是 <code>peek</code> 出来的线程，如果不是则一直循环。</p>
+<hr>
+<h2 id="5-死锁"><a href="#5-死锁" class="headerlink" title="5. 死锁"></a>5. 死锁</h2><p>死锁产生有四个必要条件：</p>
+<ul>
+<li>互斥（线程要求的资源仅能被一个线程所独占）</li>
+<li>保持（线程因请求被其他线程独占的资源而阻塞时，保持已获得的资源不释放）</li>
+<li>不剥夺（线程独占的资源未使用完之前，不可剥夺该线程对资源的独占）</li>
+<li>环路等待（发生死锁时，必然存在线程-资源的环形请求链）。</li>
+</ul>
+<p>预防死锁的方式有：</p>
+<ul>
+<li>避免运行中请求资源，县城所需的资源一次性分配</li>
+<li>一个线程如果请求独占某个资源失败，则其他的资源也拒绝被该线程独占</li>
+<li>如果一个线程请求独占某个资源失败，则释放该线程原有的独占资源</li>
+<li>给资源进行编号，线程按顺序请求资源，逆序释放资源</li>
+<li>超时放弃，尝试获取锁一段时间不成功，则放弃自身独占的资源（如 <code>Lock#tryLock(long time, TimeUnit unit)</code>）</li>
+</ul>
+<hr>
+<h2 id="6-wait和sleep"><a href="#6-wait和sleep" class="headerlink" title="6. wait和sleep"></a>6. wait和sleep</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/loren-Yang/p/7538482.html">https://www.cnblogs.com/loren-Yang/p/7538482.html</a></p>
+<ul>
+<li><code>sleep()</code> 是 <code>Thread</code> 类中的方法，<code>wait()</code> 是 <code>Object</code> 类中的方法，因此所有的对象都能调用 <code>wait()</code>。</li>
+<li><code>wait()</code> 会释放该对象持有的锁资源，所以一旦一个对象调用了 <code>wait()</code>，其他线程可以通过 <code>notify()</code> 或 <code>notyfyAll()</code> 来唤醒，而 <code>sleep()</code> 不释放锁资源，因此其他线程无法使用同步控制块。</li>
+</ul>
+<h2 id="7-Volatile关键字"><a href="#7-Volatile关键字" class="headerlink" title="7. Volatile关键字"></a>7. Volatile关键字</h2><p><code>volatile</code> 一般用在多个线程访问同一个变量时，对该变量进行唯一性约束，<code>volatile</code> 保证了变量的可见性，但不能保证原子性。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Thread write = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">        flag = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Thread read = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(flag) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">write.start();</span><br><span class="line">read.start();</span><br></pre></td></tr></table></figure>
+
+<p>上述代码，在某些极端情况下，可能会输出 1，也就是：</p>
+<ul>
+<li>write 线程先执行了 <code>flag = true</code></li>
+<li>然后 read 线程执行了 <code>if</code> 判断并通过，输出 1</li>
+<li>然后 write 线程才执行 <code>i = 2</code></li>
+</ul>
+<p>为了避免这个情况，可以如下改写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">Thread write = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">        flag = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Thread read = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(flag) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">write.start();</span><br><span class="line">read.start();</span><br></pre></td></tr></table></figure>
+
+<p><code>volatile</code> 用于告诉 JVM 变量不允许线程缓存以及代码重排序，会使得其所在域的写操作一定发生在读操作之前，且每次有写操作后，都将所在域中的写入值同步到主内存中，从而避免其他线程从缓存中拿到旧数据。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+
+
+
+
+
+    
+    
+    <style type="text/css">
+        .postEndContainer {
+            border-radius: 10px;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+        .toAbout {
+            font-size: 18px;
+            text-align: center;
+            color: #EB6D39;
+            cursor: pointer;
+            border-bottom: none;
+        }
+        .toAbout:hover {
+            background: #EB6D39;
+            color: #FFFFFF;
+            cursor: pointer;
+            border-bottom: none;
+        }
+
+        .postEndText {
+            animation: slideHorizontal 4.0s ease infinite;
+        }
+        
+        @keyframes slideHorizontal {
+            0% {
+                transform: rotateX(0deg);
+            }
+            25% {
+                transform: rotateX(360deg);
+            }
+            50% {
+                transform: rotateX(720deg);
+            }
+            100% {
+                transform: rotateX(720deg);
+            }
+        }
+    </style>
+    
+        
+        <div class="pagination postEndContainer toAbout" onClick="window.open('/about/','_self')">
+            <div class="postEndText">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</div>
+        </div>
+    
+
+    
+    <img src="/images/reward.png" style="width: 300px; max-width: 100%;">
+
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者: </strong>Luis
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接:</strong>
+      <a href="https://blog.luis.ltd/post/java/java-lock/" title="Java同步锁">https://blog.luis.ltd/post/java/java-lock/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明: </strong>所有文章均由 Luis 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              <a href="/tags/%E5%90%8C%E6%AD%A5%E9%94%81/" rel="tag"><i class="fa fa-tag"></i> 同步锁</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/java/java-string/" rel="prev" title="Java-String">
+                  <i class="fa fa-chevron-left"></i> Java-String
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/java/java-reflect/" rel="next" title="Java-反射">
+                  Java-反射 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>Site Symbols:</span>
+    <span title="Site Symbols">329k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>Site Read Time &asymp;</span>
+    <span title="Site Read Time">6:06</span>
+  </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script class="next-config" data-name="nprogress" type="application/json">{&quot;enable&quot;:true,&quot;spinner&quot;:true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+<style type="text/css">
+    .toBottom {
+        color: #EEEEEE;
+        border-bottom: none;
+    }
+    .toBottom:hover {
+        color: #EB6D39;
+        border-bottom: none;
+    }
+</style>
+<div class="scrollToBottom back-to-top back-to-top-on" role="button" style="bottom: 30px;" onClick="window.open('#postBottom','_self')">
+    <span class="fa fa-arrow-down"> Down</span>
+</div>
+
+<script>
+    $(function() {
+        $('.scrollToBottom').click(function(){
+            
+            $('html,body').animate({scrollTop:$('.bottom').offset().top}, 800);
+        });
+    })
+</script>
+
+<a id='postBottom'></a>
+</body>
+</html>

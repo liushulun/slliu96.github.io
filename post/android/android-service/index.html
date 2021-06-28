@@ -30,7 +30,7 @@
 <meta property="og:site_name" content="Luis&#39;s Blogs">
 <meta property="og:description" content="未完待续。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-01-06T04:08:21.000Z">
+<meta property="article:published_time" content="2020-01-06T04:08:21.000Z">
 <meta property="article:author" content="Luis">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="四大组件">
@@ -80,7 +80,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.3</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.4</p>
   </div>
 
   <div class="site-nav-right">
@@ -95,9 +95,9 @@
 <nav class="site-nav">
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">48</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">64</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">91</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">114</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -177,7 +177,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">Posts</span>
         </a>
       </div>
@@ -190,7 +190,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-count">114</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -284,7 +284,7 @@
       </span>
       <span class="post-meta-item-text">Posted:</span>
 
-      <time title="Created::2019-01-06 12:08:21" itemprop="dateCreated datePublished" datetime="2019-01-06T12:08:21+08:00">2019-01-06</time>
+      <time title="Created::2020-01-06 12:08:21" itemprop="dateCreated datePublished" datetime="2020-01-06T12:08:21+08:00">2020-01-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -353,14 +353,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>2.6k</span>
+      <span>4k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Read Time &asymp;</span>
-      <span>3 Min</span>
+      <span>4 Min</span>
     </span>
 </div>
 
@@ -395,6 +395,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 绑定 Service 的 Actiivty</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> DemoService demoService = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ServiceConnection serviceConnection = <span class="keyword">new</span> ServiceConnection() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName name, IBinder binder)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 获取 Binder 实例对象</span></span><br><span class="line">            DemoService.BinderInstance binderInstance = (DemoService.BinderInstance) binder;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 获取 Service 实例对象</span></span><br><span class="line">            DemoService.BinderInstance = binderInstance.getServiceInstance();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName name)</span> </span>&#123; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 直接指定 Service</span></span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, DemoService.class);</span><br><span class="line">        <span class="comment">// 或使用 action 过滤</span></span><br><span class="line">        intent.setAction(<span class="string">&quot;service.DemoService&quot;</span>);</span><br><span class="line">        bindService(intent, serviceConnection, BIND_AUTO_CREATE);</span><br><span class="line">        unbindService(serviceConnection);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>除了使用 Binder 方式以外，Activity 与 Service 之间的通信还能通过 BroadCastReceiver 以及 EventBus 的方式实现。</p>
+<p>从 Android 8 开始，Google 针对资源控制限制了后台服务，不允许后台应用启动后台服务（<code>startService</code>），只能通过 <code>startForgroundService</code> 启动前台服务。启动 Service 后，会在内部调用 <code>ActivityServices.setServiceForegroundInnerLocked()</code> 创建一个 5s 的定时任务，必须在 5s 内调用 <code>startForeground()</code>，其内部设置了 <code>fgRequired = false;</code>，<code>setServiceForegroundInnerLocked()</code> 内部判断 <code>fgRequired == false</code> 说明已经安全处理，否则会抛出 ANR。通常在 <code>onStartCommand()</code> 中调用 <code>startForeground()</code>。并且，如果 <code>foreground</code> 的 <code>notification == null</code> 或 <code>id == 0</code> 都会抛出 <code>null notification</code> 异常，因此启动前台服务一定会创建一个通知提醒用户。</p>
+<p>而想要Service保活，可以由某个前台 Activity 启动 Service，且 <code>onStartCommand()</code> 返回值为 <code>return START_STICKY;</code>，当 Activity 转至后台，则 Service 在 1 分钟左右就会被系统杀死，并回调 <code>onDestroy()</code> 方法，可以在该方法中，启动一个新的 Activity，并在新的 <code>Activity.onCreate()</code> 中将当前 Activity 设置为只有一个像素大小的透明的背景（<code>getWindow</code>，<code>window.setGravity</code>，<code>params = window.getAttributes</code>，<code>params.x</code>，<code>params.y</code>，p<code>arams.width</code>，<code>params.height</code>，<code>window.setAttributes(params)</code>），并且设置（<code>getwindow().addFlags()</code>）不可点击（<code>WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE</code>）以及不关心外部触摸事件（<code>WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH</code>），然后再在该 Activity 中启动 Service 并 finish 掉自己。</p>
+<p>另外还有一种常见的做法，是同族、同系列的应用，可以相互唤醒。</p>
+<p>Android5.0之前才能隐式启动Service，也即可以只定义ActionName，不定义包名：setPackage()和不定义Component：setComponent()。在Service端创建一个服务类继承自Service，然后在manifest中声明，定义好actionname，如果actionName就是Service的全路径，则默认exported:true，然后在客户端，实例化一个Intent，设置Action即为Service的ActionName，如果Service不属于当前App进程，则还需要指定Service的包名setPackage()。<br>5.0之后如果采用隐式，会抛出一个异常，提示“Service Intent must be explicit”，官方解释是：“To ensure your app is secure”，主要应该是避免App恶意启动<br>Service不论前台后台，都运行在主线程中。如果需要执行耗时操作，需要在Service中手动启动一个子线程。</p>
 
     </div>
 
@@ -585,14 +589,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">316k</span>
+    <span title="Site Symbols">329k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">5:51</span>
+    <span title="Site Read Time">6:06</span>
   </span>
 </div>
 
