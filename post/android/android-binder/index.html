@@ -23,29 +23,33 @@
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;blog.luis.ltd&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#EB6D39&quot;,&quot;save&quot;:&quot;manual&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:true,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeInDown&quot;,&quot;post_header&quot;:null,&quot;post_body&quot;:null,&quot;coll_header&quot;:&quot;none&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="。">
+<meta name="description" content="（1）Linux 如何实现跨进程通信；（2）Binder 驱动；（3）ServiceManager 注册和查找服务。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android-BroadcastReceiver">
-<meta property="og:url" content="https://blog.luis.ltd/post/android/android-broadcastreceiver/index.html">
+<meta property="og:title" content="Android-Binder">
+<meta property="og:url" content="https://blog.luis.ltd/post/android/android-binder/index.html">
 <meta property="og:site_name" content="Luis&#39;s Blogs">
-<meta property="og:description" content="。">
+<meta property="og:description" content="（1）Linux 如何实现跨进程通信；（2）Binder 驱动；（3）ServiceManager 注册和查找服务。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-01-13T11:26:51.000Z">
+<meta property="og:image" content="https://blog.luis.ltd/post/android/android-binder/linux_android_startup.png">
+<meta property="og:image" content="https://blog.luis.ltd/post/android/android-binder/service_manager_startup.jpeg">
+<meta property="og:image" content="https://blog.luis.ltd/post/android/android-binder/service_manager_work.jpeg">
+<meta property="og:image" content="https://blog.luis.ltd/post/android/android-binder/binder_process_thread.jpeg">
+<meta property="article:published_time" content="2020-05-17T13:38:16.000Z">
 <meta property="article:author" content="Luis">
 <meta property="article:tag" content="Android">
-<meta property="article:tag" content="四大组件">
-<meta property="article:tag" content="BroadcastReceiver">
+<meta property="article:tag" content="Binder">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.luis.ltd/post/android/android-binder/linux_android_startup.png">
 
 
-<link rel="canonical" href="https://blog.luis.ltd/post/android/android-broadcastreceiver/">
+<link rel="canonical" href="https://blog.luis.ltd/post/android/android-binder/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;blog.luis.ltd&#x2F;post&#x2F;android&#x2F;android-broadcastreceiver&#x2F;&quot;,&quot;path&quot;:&quot;post&#x2F;android&#x2F;android-broadcastreceiver&#x2F;&quot;,&quot;title&quot;:&quot;Android-BroadcastReceiver&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;blog.luis.ltd&#x2F;post&#x2F;android&#x2F;android-binder&#x2F;&quot;,&quot;path&quot;:&quot;post&#x2F;android&#x2F;android-binder&#x2F;&quot;,&quot;title&quot;:&quot;Android-Binder&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>Android-BroadcastReceiver | Luis's Blogs</title>
+<title>Android-Binder | Luis's Blogs</title>
   
 
 
@@ -78,7 +82,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.4</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.16</p>
   </div>
 
   <div class="site-nav-right">
@@ -93,9 +97,9 @@
 <nav class="site-nav">
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">64</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">65</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">114</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">116</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -159,7 +163,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-BroadcastReceiver"><span class="nav-text">Android-BroadcastReceiver</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E5%85%A8%E5%B1%80%E5%B9%BF%E6%92%AD%E5%92%8C%E5%85%A8%E5%B1%80%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E5%99%A8"><span class="nav-text">4.1 全局广播和全局广播接收器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%9C%AC%E5%9C%B0%E5%B9%BF%E6%92%AD%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%B9%BF%E6%92%AD%E6%8E%A5%E6%94%B6%E5%99%A8"><span class="nav-text">4.2 本地广播和本地广播接收器</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Binder"><span class="nav-text">Android-Binder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Linux%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">1. Linux跨进程通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%86%85%E6%A0%B8%E6%80%81%E4%B8%8E%E7%94%A8%E6%88%B7%E6%80%81"><span class="nav-text">1.1 内核态与用户态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Linux%E4%B8%AD%E7%9A%84%E9%A9%B1%E5%8A%A8"><span class="nav-text">1.2 Linux中的驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Binder%E9%A9%B1%E5%8A%A8"><span class="nav-text">1.3 Binder驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ServiceManager"><span class="nav-text">2. ServiceManager</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-ServiceManager%E5%90%AF%E5%8A%A8"><span class="nav-text">2.1 ServiceManager启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-ServiceManager%E6%B3%A8%E5%86%8C%E5%92%8C%E6%9F%A5%E6%89%BE%E6%9C%8D%E5%8A%A1"><span class="nav-text">2.2 ServiceManager注册和查找服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -175,7 +179,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">Posts</span>
         </a>
       </div>
@@ -188,7 +192,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">114</span>
+        <span class="site-state-item-count">116</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -258,7 +262,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://blog.luis.ltd/post/android/android-broadcastreceiver/">
+    <link itemprop="mainEntityOfPage" href="https://blog.luis.ltd/post/android/android-binder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -271,7 +275,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android-BroadcastReceiver
+          Android-Binder
         </h1>
 
         <div class="post-meta-container">
@@ -282,7 +286,7 @@
       </span>
       <span class="post-meta-item-text">Posted:</span>
 
-      <time title="Created::2020-01-13 19:26:51" itemprop="dateCreated datePublished" datetime="2020-01-13T19:26:51+08:00">2020-01-13</time>
+      <time title="Created::2020-05-17 21:38:16" itemprop="dateCreated datePublished" datetime="2020-05-17T21:38:16+08:00">2020-05-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -338,8 +342,7 @@
       
       <div class="post-tags">
           <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
-          <a href="/tags/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 四大组件</a>
-          <a href="/tags/BroadcastReceiver/" rel="tag"><i class="fa fa-tag"></i> BroadcastReceiver</a>
+          <a href="/tags/Binder/" rel="tag"><i class="fa fa-tag"></i> Binder</a>
       </div>
   </div>
 ############################################# 注释结束 -->
@@ -349,7 +352,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>3.7k</span>
+      <span>3.3k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
@@ -360,7 +363,7 @@
     </span>
 </div>
 
-            <div class="post-description">。</div>
+            <div class="post-description">（1）Linux 如何实现跨进程通信；（2）Binder 驱动；（3）ServiceManager 注册和查找服务。</div>
         </div>
       </header>
 
@@ -370,77 +373,85 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="Android-BroadcastReceiver"><a href="#Android-BroadcastReceiver" class="headerlink" title="Android-BroadcastReceiver"></a>Android-BroadcastReceiver</h1><p>BroadcastReceiver 本质上通过设置过滤来有选择地响应某些事件，例如网络状态的变化、锁屏的变化等等，其本身没有用户界面，但可以启动 Activity 或 Service，或使用 NotificationManager 通知用户。</p>
-<p>BroadcastReceiver 有两种注册方式：在 Manifest 中静态注册、在代码中通过 <code>registerReceiver()</code> 动态注册。在 Manifest 中静态注册的广播接收会随系统的启动而保持活跃，即便 App 未运行，只要接收到指定广播均会触发响应。</p>
-<p>广播按照类型分为两种：全局广播和本地广播</p>
+<h1 id="Android-Binder"><a href="#Android-Binder" class="headerlink" title="Android-Binder"></a>Android-Binder</h1><h2 id="1-Linux跨进程通信"><a href="#1-Linux跨进程通信" class="headerlink" title="1. Linux跨进程通信"></a>1. Linux跨进程通信</h2><h3 id="1-1-内核态与用户态"><a href="#1-1-内核态与用户态" class="headerlink" title="1.1 内核态与用户态"></a>1.1 内核态与用户态</h3><p>为了保障操作系统最基本的运行不受其他应用的影响，Linux 将内存分为内核空间和用户空间：</p>
 <ul>
-<li>全局广播：发出的广播可以被其他任意的应用程序接收，或者可以接收来自其他任意应用程序的广播。</li>
-<li>本地广播：只能在应用程序的内部进行传递的广播，广播接收器也只能接收内部的广播，不能接受其他应用程序的广播。</li>
+<li>内核空间可以调用所有系统资源、执行任何指令，执行内核代码时，CPU 特权等级处于最高的 0，此时 CPU 处于内核态。</li>
+<li>用户空间只支持简单运算，不能直接调用系统资源，执行用户代码时，CPU 特权等级处于最低的 3，此时 CPU 处于用户态。</li>
 </ul>
-<p>按照广播机制也可以分为两种：标准广播和有序广播</p>
+<p>用户空间想要调用部分系统资源则必须通过 <code>SysCall</code> 向内核空间发送指令由内核空间完成。<code>SysCall</code> 可以理解为，内核空间向外暴露的接口，<code>SysCall</code> 预先定义了一套允许用户空间发送的指令，并根据这些指令执行具体的系统命令。</p>
+<p>用户空间可以借助 <code>SysCall</code> 向内核空间发送命令，如果多个用户空间之间需要通信，则需要借助内核空间完成交互。传统的 Linux 通信机制，例如 Socket 和管道，都是内核原生支持的，而 Binder 并不是 Linux 内核的一部分，而是通过 Linux 的动态可加载内核模块（Loadable Kernel Module, LKM）链接到 Linux 的内核中。LKM 允许独立编译但不允许独立运行，其运行时会被链接到内核作为内核的一部分运行于内核空间，因此用户空间不同进程之间就可以通过 Binder 通信。</p>
+<blockquote>
+<p>（@注）在与 ServiceManager 和 Binder 通信的过程中，Client 和 Service 会发送多条命令，其中 Client 发起的请求命令称为 BC（Binder Client）命令；Service 响应的命令称为 BR（Binder Reply）命令。</p>
+</blockquote>
+<h3 id="1-2-Linux中的驱动"><a href="#1-2-Linux中的驱动" class="headerlink" title="1.2 Linux中的驱动"></a>1.2 Linux中的驱动</h3><p>Linux 把硬件的读写抽象为文件 IO，而驱动就是对这个抽象的封装和实现。Linux 中有三种类型的驱动设备：字符设备、块设备、网络设备。</p>
 <ul>
-<li>标准广播：所有的接收者都会接收事件，不可以被拦截，不可以被修改。</li>
-<li>有序广播：按照优先级，逐级向下传递，接收者可以修改广播数据，也可以终止广播事件。</li>
+<li>字符设备是指能像字节流文件一样被访问的设备，对字符设备 IO 时，硬件也同时进行 IO。例如显示屏、键盘、串口、LCD、LED 等。<ul>
+<li>字符设备中有一个比较特殊的 misc 杂项设备，设备号为 10，可以自动生成设备节点。Binder 就属于 misc 杂项设备。</li>
 </ul>
-<p>自定义广播接收需要重写 <code>onReceive()</code> 方法以在接收到广播后响应。由于广播接收不允许开启多线程，因此不应在此处做耗时操作，耗时较长会导致 Crash。广播接收通常作为一个通知者，在接收到特定的消息后通知 Activity 或 Service 进行处理，或是显示地直接通知用户。</p>
-<p>创建一个自定义的广播接收器：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoBroadcastReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 接收广播后的响应</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-1-全局广播和全局广播接收器"><a href="#4-1-全局广播和全局广播接收器" class="headerlink" title="4.1 全局广播和全局广播接收器"></a>4.1 全局广播和全局广播接收器</h2><p>全局广播发送的广播可以被所有全局广播接收器接收，即使注册接收器的 App 并未启动。同样，全局广播接收器能接收到所有全局广播，即使这些广播接收器的 App 并未启动。</p>
-<p>若使用动态注册，则需要监听广播的地方设置过滤，且广播接收器跟随组件的生命周期，在组件结束前必须手动销毁广播接收器：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DemoBroadcastReceiver demoBroadcaseReceiver = <span class="keyword">new</span> DemoBroadcaseReceiver();</span><br><span class="line">IntentFilter intentFilter = <span class="keyword">new</span> IntentFilter();</span><br><span class="line"><span class="comment">// 监听网络变化</span></span><br><span class="line">intentFilter.addAction(<span class="string">&quot;android.net.conn.CONNECTIVITY_CHANGE&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 动态注册</span></span><br><span class="line">registerReceiver(demoBroadcaseReceiver, intentFilter);</span><br><span class="line"><span class="comment">// 销毁广播接收器，通常可以放进 onDestroy() 中处理</span></span><br><span class="line">unregisterReceiver(demoBroadcaseReceiver);</span><br></pre></td></tr></table></figure>
-
-<p>若使用 Manifest 静态注册则如下声明：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;receiver</span><br><span class="line">    android:name=<span class="string">&quot;.DemoBroadcastReceiver&quot;</span></span><br><span class="line">    android:exported=<span class="string">&quot;true&quot;</span></span><br><span class="line">    android:enabled=<span class="string">&quot;true&quot;</span>&gt;</span><br><span class="line">    &lt;intent-filter&gt;</span><br><span class="line">        &lt;action android:name=<span class="string">&quot;broadcast.action.DEMO_NOTIFY&quot;</span>&gt;</span><br><span class="line">    &lt;/intent-filter&gt;</span><br><span class="line">&lt;/receiver&gt;</span><br></pre></td></tr></table></figure>
-
-<p>当然，也可以监听自定义的广播，只需要将广播过滤内容存进 Intent 内并发送即可：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 直接构造</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">&quot;broadcast.action.DEMO_NOTIFY&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置 action</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">intent.setAction(<span class="string">&quot;broadcast.action.DEMO_NOTIFY&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送标准广播</span></span><br><span class="line">sendBroadcast(intent);</span><br></pre></td></tr></table></figure>
-
-<p>当需要发送有序广播时，则需要设置广播的优先级。广播会优先发送给优先级更高的接收器，然后逐级发送给更低优先级的接收器，优先级的范围为：-1000 ~ 1000。</p>
+</li>
+<li>块设备是指通过传输数据块（一般为 512b 或 1k）来访问的设备，例如硬盘、SD 卡、U 盘、光盘等。</li>
+<li>网络设备是指能和其他主机交换数据的设备，例如网卡、蓝牙等。</li>
+</ul>
+<h3 id="1-3-Binder驱动"><a href="#1-3-Binder驱动" class="headerlink" title="1.3 Binder驱动"></a>1.3 Binder驱动</h3><p>Binder 驱动并没有真正建立硬件 IO，而是借助驱动的方式，通过内存映射 <code>mmap()</code> 实现进程间通信。</p>
+<p>跨进程无法直接通信的原因是，不同进程之间的内存不可见，因此两个进程无法直接操作另一个进程的内存。通常 Client 进程向 Service 进程请求通信时，需要先将 Client 的请求数据拷贝到内核区，然后再从内核区拷贝到 Service，造成两次数据拷贝，效率较低，因此 Binder 采用了内存映射 MemoryMap 的方式，仅用一次拷贝实现进程间通信：</p>
 <ul>
-<li>静态注册全局广播的优先级只需给全局接收器的 intent-filter 添加优先级属性：</li>
+<li>使用 Binder 进行进程间通信时，Binder 驱动在内核创建一个数据接收缓冲区，然后在内核开辟一块内核缓冲区，并建立两个缓冲区之间的映射关系、以及 Service 用户空间中一块内存地址与数据接收缓冲区的映射关系；相当于此时 Service 的一块用户内存直接映射到了内核中的数据接收缓冲区。</li>
+<li>将 Client 的数据拷贝到内核中的内核缓冲区，由于内核缓冲区与数据接收缓冲区存在映射关系，而数据接收缓冲区又与 Service 的一块用户内存存在映射关系，所以 Service 就能通过映射，直接操作内核缓冲区中来自 Client 拷贝的数据。</li>
+<li>当 Service 处理完毕，对 Client 响应时，就会重复上述过程，只不过这时反过来，请求时的 Client 变为了响应时的 Service，请求时的 Service 变为了响应时的 Client。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;intent-filter android:priority=<span class="string">&quot;100&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
+<hr>
+<h2 id="2-ServiceManager"><a href="#2-ServiceManager" class="headerlink" title="2. ServiceManager"></a>2. ServiceManager</h2><p>Android 基于 Linux 的系统，因此 Android 的系统运行也需要遵循 Linux 运行的基本原则。Linux 系统在启动时，第一启动的进程就是 <code>init.c</code>：</p>
+<p><img data-src="./linux_android_startup.png" alt="Android 系统启动加载流程" title="@ASSET"></p>
 <ul>
-<li>或使用动态注册设置全局接收器优先级：</li>
+<li>启动 <code>init</code> 进程，进入 Linux 系统的第一步。</li>
+<li>启动各类基础服务，包括 Zygote 和 ServiceManager 等。<ul>
+<li>Zygote 启动 SystemService，SystemService 又会分裂出不同的系统服务，包括 ActviityManageService、PackageManageService 等</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">intentFilter.setPriority(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 动态注册</span></span><br><span class="line">registerReceiver(demoBroadcaseReceiver, intentFilter);</span><br><span class="line"><span class="comment">// 销毁广播接收器</span></span><br><span class="line">unregisterReceiver(demoBroadcaseReceiver);</span><br></pre></td></tr></table></figure>
-
+</li>
+</ul>
+<h3 id="2-1-ServiceManager启动"><a href="#2-1-ServiceManager启动" class="headerlink" title="2.1 ServiceManager启动"></a>2.1 ServiceManager启动</h3><p><img data-src="./service_manager_startup.jpeg" alt="ServiceManager 启动流程" title="@ASSET"></p>
+<p>ServiceManager 启动后，在 main 函数中对 Binder 和 Binder 驱动做了初始化：</p>
 <ul>
-<li>在发送有序全局广播的地方：</li>
+<li>调用 <code>binder_open()</code> 打开 Binder 驱动；<ul>
+<li>这一步还会在 Binder 内创建一个全局链表 <code>binder_procs</code>，并且将 ServiceManager 自己存入到第一个 <code>binder_proc</code> 节点，也即序号为 0。</li>
+<li>由于 ServiceManager 也是一个独立进程，所以其他 Service 和 ServiceManager 通信本身又涉及到进程间通信；</li>
+<li>因此 ServiceManager 存放在 <code>binder_procs</code> 的 0 号节点，Binder 自动为其创建一个 Binder 实体，这样任何 Service 都可以通过 0 号引用从 Binder 中获取到 ServiceManager。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sendOrderedBroadcast(intent, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-
-<p>如果想要发送的广播只被特定的接收器接收，可以设置权限，则只有具有对应权限的接收器才能接收到广播。</p>
+</li>
+<li>调用 <code>binder_become_context_manager()</code> 设为 Binder 进程的守护进程；</li>
+<li>调用 <code>binder_loop</code> 开启 Binder 循环，Binder 循环会不断执行 <code>binder_parse()</code> 轮询 BR_XXX 命令。</li>
+</ul>
+<h3 id="2-2-ServiceManager注册和查找服务"><a href="#2-2-ServiceManager注册和查找服务" class="headerlink" title="2.2 ServiceManager注册和查找服务"></a>2.2 ServiceManager注册和查找服务</h3><p>ServiceManager 有两大主要功能：注册服务和查找服务。</p>
+<p><img data-src="./service_manager_work.jpeg" alt="ServiceManager 工作流程" title="@ASSET"></p>
+<p>（1）Service 启动后通过 ServiceManager 注册服务 <code>do_add_service()</code>：</p>
 <ul>
-<li>静态注册全局广播设置权限：</li>
+<li><p>ServiceManager 向 Binder 发送 BC_TRANSACTION 命令，携带 ADD_SERVICE_TRANSACTION 命令，同时注册服务的线程进入阻塞等待状态。</p>
+</li>
+<li><p>Binder 驱动收到命令后，向 ServiceManager 的 todo 队列中添加一条事务，事务的内容就是创建服务端进程 binder_node，并插入到 binder_procs 链表中。</p>
+</li>
+<li><p>Binder 处理完后，向 ServiceManager 发送 BR_TRANSACTION 命令，ServiceManager 收到后向已注册服务列表 svclist 中写入对应的信息 ServiceInfo，并发送 BR_REPLY 命令唤醒阻塞等待的线程。</p>
+</li>
+<li><p>每个 Service 启动时会创建一个 Binder 线程池，并向其中注册一个线程。Binder 线程池默认上线为 16 个，当 Client 调用 BinderService 处理事务时，都是通过添加到 Service 的线程池处理的：</p>
+<p><img data-src="./binder_process_thread.jpeg" alt="Binder 进程中的线程池" title="@ASSET"></p>
+</li>
 </ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义权限需要先在 Manifest 顶层声明</span></span><br><span class="line">&lt;permission android:name = <span class="string">&quot;broadcast.permission.DEMO_PERMISSION&quot;</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;receiver</span><br><span class="line">    android:name=<span class="string">&quot;.DemoBroadcastReceiver&quot;</span></span><br><span class="line">    android:permission=<span class="string">&quot;broadcast.permission.DEMO_PERMISSION&quot;</span>&gt;</span><br><span class="line">&lt;/receiver&gt;</span><br></pre></td></tr></table></figure>
-
+<p>（2）其他进程通过 ServiceManager 查找服务 <code>do_find_service()</code>：</p>
 <ul>
-<li>动态注册全局接收器设置权限：</li>
+<li>ServiceManager 在 Java 层有一个 HashMap 的缓存，缓存了所有被获取过的 Service，如果命中了缓存就会直接返回。</li>
+<li>否则 ServiceManager 向 Binder 发送 BC_TRANSACTION 命令，携带 CHECK_SERVICE_TRANSACTION 命令，同时获取服务的线程进入阻塞等待状态。</li>
+<li>Binder 驱动收到命令后，向 ServiceManager 发送 BC_TRANSACTION 命令，优先从已注册服务列表 svclist 中查找；<ul>
+<li>如果 serviceInfo 中存在则直接响应 BR_REPLY 并唤醒阻塞等待的线程。</li>
+<li>如果不存在，则向 binder_procs 链表中插入一条事务进行通信，事务执行后再返回响应。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registerReceiver(demoBroadcaseReceiver, intentFilter, <span class="string">&quot;broadcast.permission.DEMO_PERMISSION&quot;</span>, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>发送全局广播时加上权限即可：</li>
+</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送带权限的标准广播</span></span><br><span class="line">sendBroadcast(intent, <span class="string">&quot;broadcast.permission.DEMO_PERMISSION&quot;</span>);</span><br><span class="line"><span class="comment">// 发送带权限的有序广播</span></span><br><span class="line">sendOrderedBroadcast(intent, <span class="string">&quot;broadcast.permission.DEMO_PERMISSION&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-2-本地广播和本地广播接收器"><a href="#4-2-本地广播和本地广播接收器" class="headerlink" title="4.2 本地广播和本地广播接收器"></a>4.2 本地广播和本地广播接收器</h2><p>本地广播发送的广播只能被当前 App 中注册的本地广播接收器接收，同样，本地广播接收器也只能接收当前 App<br> 发送的本地广播。</p>
-<p>发送本地广播和接收本地广播与全局的非常类似，只有使用的类和方法有些许区别。需要注意的是，由于静态注册主要是为了能在 App 不启动时也能响应广播，而本地广播接收器仅能接收本地广播，因此只能通过动态注册。</p>
-<ul>
-<li>动态注册本地广播接收器：</li>
+<hr>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/freekiteyu/article/details/70082302" title="@LINK">一篇文章了解相见恨晚的 Android Binder 进程间通讯机制（作者：jeanboydev）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/AndroidStudyDay/article/details/93749470" title="@LINK">腾讯面试题——谈一谈Binder的原理和实现一次拷贝的流程（作者：动脑学院[David]）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27672101/article/details/108186072" title="@LINK">Binder死磕到底（一）：Linux进程通信和service manager进程（作者：诸神黄昏EX）</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/152237289" title="@LINK">说说你对 binder 驱动的了解？（作者：Sam Wang）</a></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DemoBroadcastReceiver demoBroadcaseReceiver = <span class="keyword">new</span> DemoBroadcaseReceiver();</span><br><span class="line">IntentFilter intentFilter = <span class="keyword">new</span> IntentFilter();</span><br><span class="line"><span class="comment">// 监听网络变化</span></span><br><span class="line">intentFilter.addAction(<span class="string">&quot;broadcast.action.DEMO_NOTIFY&quot;</span>);</span><br><span class="line"></span><br><span class="line">LocalBroadcastManager localBroadcastManager = <span class="keyword">new</span> LocalBroadcastManager.getInstance(context);</span><br><span class="line"></span><br><span class="line">localBroadcastManager.registerReceiver(demoBroadcaseReceiver, intentFilter);</span><br><span class="line"><span class="comment">// 销毁广播接收器，通常可以放进 onDestroy() 中处理</span></span><br><span class="line">localBroadcastManager.unregisterReceiver(demoBroadcaseReceiver);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>发送本地广播：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">&quot;broadcast.action.DEMO_NOTIFY&quot;</span>)</span><br><span class="line"><span class="comment">// 发送本地标准广播</span></span><br><span class="line">localBroadcastManager.sendBroadcast(intent);</span><br><span class="line"><span class="comment">// 发送本地有序广播</span></span><br><span class="line">localBroadcastManager.sendBroadcastSync(intent);</span><br></pre></td></tr></table></figure>
-
-<p>本地广播不支持权限过滤，因此无法设置 Permission。</p>
 
     </div>
 
@@ -571,7 +582,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接:</strong>
-      <a href="https://blog.luis.ltd/post/android/android-broadcastreceiver/" title="Android-BroadcastReceiver">https://blog.luis.ltd/post/android/android-broadcastreceiver/</a>
+      <a href="https://blog.luis.ltd/post/android/android-binder/" title="Android-Binder">https://blog.luis.ltd/post/android/android-binder/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明: </strong>所有文章均由 Luis 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
@@ -581,21 +592,20 @@
 
           <div class="post-tags">
               <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
-              <a href="/tags/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 四大组件</a>
-              <a href="/tags/BroadcastReceiver/" rel="tag"><i class="fa fa-tag"></i> BroadcastReceiver</a>
+              <a href="/tags/Binder/" rel="tag"><i class="fa fa-tag"></i> Binder</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/post/android/android-contentprovider/" rel="prev" title="Android-ContentProvider">
-                  <i class="fa fa-chevron-left"></i> Android-ContentProvider
+                <a href="/post/network/network-socket/" rel="prev" title="Network-Socket">
+                  <i class="fa fa-chevron-left"></i> Network-Socket
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/post/android/android-service/" rel="next" title="Android-Service">
-                  Android-Service <i class="fa fa-chevron-right"></i>
+                <a href="/post/android/android-messenger/" rel="next" title="Android-Messenger">
+                  Android-Messenger <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -629,14 +639,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">329k</span>
+    <span title="Site Symbols">344k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:06</span>
+    <span title="Site Read Time">6:23</span>
   </span>
 </div>
 

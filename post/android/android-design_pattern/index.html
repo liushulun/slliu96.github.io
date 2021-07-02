@@ -23,12 +23,12 @@
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;blog.luis.ltd&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#EB6D39&quot;,&quot;save&quot;:&quot;manual&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:true,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeInDown&quot;,&quot;post_header&quot;:null,&quot;post_body&quot;:null,&quot;coll_header&quot;:&quot;none&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="未完待续">
+<meta name="description" content="单例模式、工厂模式、建造者模式、观察者模式、中介者模式。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android-设计模式">
 <meta property="og:url" content="https://blog.luis.ltd/post/android/android-design_pattern/index.html">
 <meta property="og:site_name" content="Luis&#39;s Blogs">
-<meta property="og:description" content="未完待续">
+<meta property="og:description" content="单例模式、工厂模式、建造者模式、观察者模式、中介者模式。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-09T09:43:19.000Z">
 <meta property="article:author" content="Luis">
@@ -77,7 +77,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.4</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.16</p>
   </div>
 
   <div class="site-nav-right">
@@ -92,9 +92,9 @@
 <nav class="site-nav">
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">64</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">65</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">114</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">116</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -158,7 +158,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-text">Android-设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-text">1. 单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%A5%BF%E6%B1%89%E5%BC%8F"><span class="nav-text">1.1 饿汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%87%92%E6%B1%89%E5%BC%8F"><span class="nav-text">1.2 懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E6%87%92%E6%B1%89%E5%BC%8F"><span class="nav-text">1.3 线程安全的懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E5%8F%8C%E9%94%81%E6%A3%80%E6%B5%8BDCL"><span class="nav-text">1.4 双锁检测DCL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-text">1.5 静态内部类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">2. 工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">2.1 简单工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">2.2 抽象工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-text">2.3 工厂方法模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-text">3. 建造者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-text">中介者模式</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-text">Android-设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-text">1. 单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%A5%BF%E6%B1%89%E5%BC%8F"><span class="nav-text">1.1 饿汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%87%92%E6%B1%89%E5%BC%8F"><span class="nav-text">1.2 懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E6%87%92%E6%B1%89%E5%BC%8F"><span class="nav-text">1.3 线程安全的懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E5%8F%8C%E9%94%81%E6%A3%80%E6%B5%8BDCL"><span class="nav-text">1.4 双锁检测DCL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-text">1.5 静态内部类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">2. 工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">2.1 简单工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-text">2.2 抽象工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-text">2.3 工厂方法模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-text">3. 建造者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-text">4. 观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-text">5. 中介者模式</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -174,7 +174,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">Posts</span>
         </a>
       </div>
@@ -187,7 +187,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">114</span>
+        <span class="site-state-item-count">116</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -347,7 +347,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>6.5k</span>
+      <span>6.6k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
@@ -358,7 +358,7 @@
     </span>
 </div>
 
-            <div class="post-description">未完待续</div>
+            <div class="post-description">单例模式、工厂模式、建造者模式、观察者模式、中介者模式。</div>
         </div>
       </header>
 
@@ -433,7 +433,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Director</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Builder mBuild = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Director</span><span class="params">(Builder build)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mBuild = build;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//指挥装机人员组装电脑</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Construct</span><span class="params">(String cpu, String memory, String hd)</span> </span>&#123;</span><br><span class="line">        mBuild.buildCPU(cpu);</span><br><span class="line">        mBuild.buildMemory(memory);</span><br><span class="line">        mBuild.buildHD(hd);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p><code>java.util.Observable</code>：抽象被观察者。</p>
+<h2 id="4-观察者模式"><a href="#4-观察者模式" class="headerlink" title="4. 观察者模式"></a>4. 观察者模式</h2><p><code>java.util.Observable</code>：抽象被观察者。</p>
 <ul>
 <li>需要继承并根据不同功能重写 <code>Observable</code>，表示被观察者。使用单例模式，由静态内部类管理一个实例，将构造方法私有化。</li>
 <li><code>Observable</code> 的实例（单例）对象也就是被观察者，在内部根据需要添加方法，方法内部调用 <code>setChanged()</code> 和 <code>notifyObservers(Object data)</code>。</li>
@@ -445,7 +445,7 @@
 <p>（2）一个观察者可以观察多个被观察者，也就是多个被观察者调用 <code>Observable.addObserver()</code> 的时候，可以添加同一个观察者，因此当观察者的 <code>update(Observable observable, Object arg)</code> 方法被调用时，还要先用 <code>instanceof</code> 来判断参数 <code>observable</code> 到底是来自哪个被观察者，然后再用 <code>instanceof</code> 判断数据 <code>arg</code> 是由被观察者中哪个业务方法调用传递过来的，这样才能唯一确定一个业务逻辑。</p>
 <p>（3）接口回调与观察者模式的选择：回调是一对一的关系，只监听一个事件；观察者模式则是可以一对多也可以多对一，因此观察者模式的数据流图是网状结构，如果业务逻辑比较简单的时候，用回调反而能提升代码可读性以及降低开发复杂度。</p>
 <hr>
-<h2 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h2><p>当程序存在大量的类时，多个对象之间存在着依赖的关系，呈现出网状结构，那么程序的可读性和可维护性就变差了，并且修改一个类需要牵涉到其他类，不符合开闭原则。</p>
+<h2 id="5-中介者模式"><a href="#5-中介者模式" class="headerlink" title="5. 中介者模式"></a>5. 中介者模式</h2><p>当程序存在大量的类时，多个对象之间存在着依赖的关系，呈现出网状结构，那么程序的可读性和可维护性就变差了，并且修改一个类需要牵涉到其他类，不符合开闭原则。</p>
 <p>当多个类之间有复杂交互时，通过创建一个中介者类，用于处理其他类之间的交互问题，提高耦合但也提高了代码逻辑清晰度和可读性，在类和类交互时，也不需要针对不同的类定制专用的接口，只需要通过中介者提供的公用接口调用即可。</p>
 
     </div>
@@ -594,8 +594,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/post/java/java-hashcode/" rel="prev" title="Java-HashCode">
-                  <i class="fa fa-chevron-left"></i> Java-HashCode
+                <a href="/post/java/java-hashmap/" rel="prev" title="Java-HashMap">
+                  <i class="fa fa-chevron-left"></i> Java-HashMap
                 </a>
             </div>
             <div class="post-nav-item">
@@ -634,14 +634,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">329k</span>
+    <span title="Site Symbols">344k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:06</span>
+    <span title="Site Read Time">6:23</span>
   </span>
 </div>
 
