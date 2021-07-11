@@ -81,7 +81,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.18</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
   </div>
 
   <div class="site-nav-right">
@@ -98,7 +98,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">118</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -191,7 +191,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -379,7 +379,7 @@
 <h2 id="1-堆、栈和队列"><a href="#1-堆、栈和队列" class="headerlink" title="1. 堆、栈和队列"></a>1. 堆、栈和队列</h2><p>首先需要明确的是，堆、栈、队列是数据结构，堆是一种优先队列，可以采用二叉树实现；栈是一种线性表，其特点是：后进先出（Last In First Out，LIFO）；队列也是一种线性表，其特点是：先进先出（First In First Out，FIFO）。</p>
 <h3 id="1-1-堆（Heap）"><a href="#1-1-堆（Heap）" class="headerlink" title="1.1 堆（Heap）"></a>1.1 堆（Heap）</h3><p>堆（Heap）总是一颗完全二叉树，且某个节点的值总是不大于或不小于父节点的值。若某节点总是不大于父节点的值（即父节点大于等于子节点），称为最大堆或大根堆（Max Heap）；反之称为最小堆或小根堆（Min Heap）。常见的堆有：二叉堆、斐波那契堆等。</p>
 <blockquote>
-<p>@注：完全二叉树可以这么理解：如果有一棵二叉树，只有最末端的节点可以有 0、1、2 个子节点，倒数第二层的节点要么没有子节点，要么必须有 2 个子节点，并且末端的节点都集中在左侧若干位置上，则该树称为完全二叉树。完全二叉树如下图所示：</p>
+<p>完全二叉树可以这么理解：如果有一棵二叉树，只有最末端的节点可以有 0、1、2 个子节点，倒数第二层的节点要么没有子节点，要么必须有 2 个子节点，并且末端的节点都集中在左侧若干位置上，则该树称为完全二叉树。完全二叉树如下图所示：</p>
 </blockquote>
 <p><img data-src="./complete_binary_tree.jpg" alt="完全二叉树图示" title="@ASSET"></p>
 <p>完全二叉树的详细解释可参考：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/完全二叉树/7773232?fr=aladdin" title="@LINK">《百度百科——完全二叉树》</a> 或 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22642239/article/details/80774013" title="@LINK">《完美二叉树, 完全二叉树和完满二叉树》</a>。</p>
@@ -413,7 +413,7 @@
 </ul>
 <p>堆区的内存是不连续且无序的，分配和释放内存的成本都比较高。例如在分配堆内存时，可能需要在堆区搜索多个空间，如果内存碎片（多次分配和释放后，会造成占用内存和可用内存互相掺杂）太多，则会消耗较长时间来搜索可用内存区，甚至需要向 OS 申请分配新的堆区空间，因此堆区的效率较低，但是内存分配更加自由，内存的分配和释放可以手动控制。</p>
 <blockquote>
-<p>@注：实际上，如果 JVM 开启了 <strong>逃逸分析（Escape Analysis）</strong>，会在满足一定条件时，将本应存在堆区中的变量存在栈区，便于内存的释放。例如：</p>
+<p>实际上，如果 JVM 开启了 <strong>逃逸分析（Escape Analysis）</strong>，会在满足一定条件时，将本应存在堆区中的变量存在栈区，便于内存的释放。例如：</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">demoFun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    DemoClass demoClass = <span class="keyword">new</span> DemoClass();</span><br><span class="line">    demoClass.demoData = <span class="number">5</span>;  <span class="comment">// int 型</span></span><br><span class="line">    System.out.println(<span class="string">&quot;Demo data is : &quot;</span> + demoClass.demoData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -442,7 +442,7 @@
 <p>栈区存放的是多个栈帧，每个栈帧对应了可以被线程调用的一个方法，栈帧中包括：局部变量表（Local Variables）、操作数栈（Operand Stack）、指向当前方法所属类的运行时常量池的引用（Reference to Runtime Constant Pool，当方法内有 String 类型变量时，用于查询常量池中是否已经存在常量）、方法返回地址（Return Address）、以及一些额外的附加信息。当线程执行一个方法时，就会创建对应的栈帧，并将其压栈。方法执行完毕后即弹出。因此，线程当前执行的方法一定在栈区的顶部，而递归方法时，也相对更容易出现栈区内存溢出的情况。</p>
 <p>由于栈区中存储的都是内存占用较小，且固定长度的变量，例如基本数据类型、对象的引用（仅仅只是一个地址，通常为 4 位，指向堆区或常量池中实际存放的对象），因此栈区的内存是连续、且在创建栈帧时就提前分配好的，所以栈区的内存不需要也无法手动管理，当调用所需变量时，仅需将指针按预定义的长度移动即可，因此分配和释放内存的效率都比堆区快得多。</p>
 <blockquote>
-<p>@注：Java 中，对于 byte、short、char 这些基本数据类型，本来比 int 占用的内存更少，对一些标志位、临时变量等，使用这些代替 int 似乎应该效率更高，实际上 JVM 中，在处理这些数据的加法操作时，会先隐式转换成 int 类型再操作。例如以下代码会编译报错：</p>
+<p>Java 中，对于 byte、short、char 这些基本数据类型，本来比 int 占用的内存更少，对一些标志位、临时变量等，使用这些代替 int 似乎应该效率更高，实际上 JVM 中，在处理这些数据的加法操作时，会先隐式转换成 int 类型再操作。例如以下代码会编译报错：</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">byte</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">byte</span> c = a + b;  <span class="comment">// 编译报错：Type mismatch: cannot convert from int to byte</span></span><br></pre></td></tr></table></figure>
 
@@ -667,14 +667,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">359k</span>
+    <span title="Site Symbols">354k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:39</span>
+    <span title="Site Read Time">6:33</span>
   </span>
 </div>
 

@@ -93,7 +93,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.18</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
   </div>
 
   <div class="site-nav-right">
@@ -110,7 +110,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">118</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -203,7 +203,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -434,7 +434,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ npm ls marked</span><br><span class="line"></span><br><span class="line">hexo-site@0.0.0 /Users/luis/Downloads/Temp</span><br><span class="line">└─┬ hexo-renderer-marked@1.0.1</span><br><span class="line">  └── marked@0.7.0</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>（@注）假如执行这两步的时候依然报之前的信息，如果可以确保之前的步骤都是对的，可以暂时不管，通常是缓存信息还没有更新的缘故，把这两步执行完之后，退出并重新打开终端再查看 <code>npm ls marked</code> 即可看到已经更新。假如出现错误信息显示被删除，再执行一次 <code>npm install</code> 即可。</p>
+<p>假如执行这两步的时候依然报之前的信息，如果可以确保之前的步骤都是对的，可以暂时不管，通常是缓存信息还没有更新的缘故，把这两步执行完之后，退出并重新打开终端再查看 <code>npm ls marked</code> 即可看到已经更新。假如出现错误信息显示被删除，再执行一次 <code>npm install</code> 即可。</p>
 <p>由于已经卸载了之前手动安装的 marked，因此这个依赖包的位置又回到了：<code>Site/node_modules/marked</code> 下。</p>
 </blockquote>
 <hr>
@@ -482,7 +482,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Valine 隐藏系统信息</span></span><br><span class="line">.vsys&#123;</span><br><span class="line">  display:none !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>(@注)<code>custom.styl</code> 这个文件会在 <code>next/source/css/main.styl</code> 中被引入：</p>
+<p><code>custom.styl</code> 这个文件会在 <code>next/source/css/main.styl</code> 中被引入：</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Custom Layer</span></span><br><span class="line"><span class="comment">// --------------------------------------------------</span></span><br><span class="line">@<span class="keyword">import</span> <span class="string">&quot;_custom/&quot;</span> + $custom_styles;</span><br></pre></td></tr></table></figure>
 
@@ -500,7 +500,7 @@
 <p>（2）否则会出现报错，由于我无法重现，因此从 <a target="_blank" rel="noopener" href="https://www.sqlsec.com/2017/12/hexosearch.html" title="@LINK">这篇文章（作者：国光）</a>内找了一个图片：</p>
 <p><img data-src="./search_json_error.png" alt="有特殊字符的 search.json 样式" title="@ASSET"></p>
 <blockquote>
-<p>（@注）Sublime Text3 和 VS Code 都可以看到这个字符，因此可以使用这两个编辑器查看并删除字符。</p>
+<p>Sublime Text3 和 VS Code 都可以看到这个字符，因此可以使用这两个编辑器查看并删除字符。</p>
 </blockquote>
 <hr>
 <h3 id="4-3-不显示搜索结果"><a href="#4-3-不显示搜索结果" class="headerlink" title="4.3 不显示搜索结果"></a>4.3 不显示搜索结果</h3><p>如果已经开启搜索功能，直接进入搜索内容文件 <code>xxx.github.io/search.json</code> 也能打开并且没有异常，搜索框可以正确弹出，但是无论你搜索什么内容，下面的搜索结果栏都是空白的：</p>
@@ -523,7 +523,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> inline = &#123;</span><br><span class="line">  <span class="comment">// 删掉下面这行</span></span><br><span class="line">  <span class="comment">//escape: /^\\([!&quot;#$%&amp;&#x27;()*+,\-./:;&lt;=&gt;?@\[\]\\^_`&#123;|&#125;~])/,</span></span><br><span class="line">  <span class="comment">// ↓↓↓替换成下面这行↓↓↓</span></span><br><span class="line">  <span class="built_in">escape</span>: <span class="regexp">/^\\([`*\[\]()#$+\-.!_&gt;])/</span>,</span><br><span class="line">  <span class="comment">// ↑↑↑替换成上面这行↑↑↑</span></span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 删掉下面这行</span></span><br><span class="line">  <span class="comment">//em: /^_([^\s_])_(?!_)|^\*([^\s*&lt;\[])\*(?!\*)|^_([^\s&lt;][\s\S]*?[^\s_])_(?!_|[^\spunctuation])|^_([^\s_&lt;][\s\S]*?[^\s])_(?!_|[^\spunctuation])|^\*([^\s&lt;&quot;][\s\S]*?[^\s\*])\*(?!\*|[^\spunctuation])|^\*([^\s*&quot;&lt;\[][\s\S]*?[^\s])\*(?!\*)/,</span></span><br><span class="line">  <span class="comment">// ↓↓↓替换成下面这行↓↓↓</span></span><br><span class="line">  em: <span class="regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</span><br><span class="line">  <span class="comment">// ↑↑↑替换成上面这行↑↑↑</span></span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>（@注）最新版本的 <a href="mailto:hexo-renderer-marked@2.0.0">hexo-renderer-marked@2.0.0</a>^ 语法配置文件有修改，上述方法已不再适用，暂未找到修改方案，因此将 Marked 降级到了 0.7.0 版本。</p>
+<p>最新版本的 <a href="mailto:hexo-renderer-marked@2.0.0">hexo-renderer-marked@2.0.0</a>^ 语法配置文件有修改，上述方法已不再适用，暂未找到修改方案，因此将 Marked 降级到了 0.7.0 版本。</p>
 </blockquote>
 
     </div>
@@ -715,14 +715,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">359k</span>
+    <span title="Site Symbols">354k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:39</span>
+    <span title="Site Read Time">6:33</span>
   </span>
 </div>
 

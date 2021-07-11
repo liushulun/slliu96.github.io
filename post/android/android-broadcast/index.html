@@ -79,7 +79,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.18</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
   </div>
 
   <div class="site-nav-right">
@@ -96,7 +96,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">118</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -189,7 +189,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -390,7 +390,7 @@
 </ul>
 <p>注册和反注册一定要确保成对调用，如果 Activity 注册 Receiver 后未主动销毁，会导致 Activity 退出后无法回收导致内存泄漏。</p>
 <blockquote>
-<p>（@注）动态注册的 Receiver <strong>只能接收「隐式」广播</strong>。</p>
+<p>动态注册的 Receiver <strong>只能接收「隐式」广播</strong>。</p>
 </blockquote>
 <h3 id="1-2-全局和本地"><a href="#1-2-全局和本地" class="headerlink" title="1.2 全局和本地"></a>1.2 全局和本地</h3><p>全局和本地同时针对 Broadcast 和 BroadcastReceiver，由 Broadcast 发送方式和 Receiver 的注册方式决定。</p>
 <h4 id="1-2-1-全局广播"><a href="#1-2-1-全局广播" class="headerlink" title="1.2.1 全局广播"></a>1.2.1 全局广播</h4><p>全局 Broadcast 可以被任意全局 Receiver 接收，即使 App 并未启动。</p>
@@ -406,7 +406,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 Context 获取 LocalBroadcastManager 实例对象</span></span><br><span class="line">LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);</span><br><span class="line"><span class="comment">// 注册本地 Receiver</span></span><br><span class="line">localBroadcastManager.registerReceiver(<span class="keyword">new</span> DemoReceiver(), <span class="keyword">new</span> IntentFilter(<span class="string">&quot;ACTION_DEMO&quot;</span>));</span><br><span class="line"><span class="comment">// 发送本地 Broadcast</span></span><br><span class="line">localBroadcastManager.sendBroadcast(<span class="keyword">new</span> Intent(<span class="string">&quot;ACTION_DEMO&quot;</span>));</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>（@注）本地 Broadcast 无法指定 <code>permission</code> 属性，本地注册的 Receiver 也无法过滤 <code>permission</code> 属性。</p>
+<p>本地 Broadcast 无法指定 <code>permission</code> 属性，本地注册的 Receiver 也无法过滤 <code>permission</code> 属性。</p>
 </blockquote>
 <h3 id="1-3-标准和有序"><a href="#1-3-标准和有序" class="headerlink" title="1.3 标准和有序"></a>1.3 标准和有序</h3><p>标准广播和有序广播仅针对 Broadcast，由发送方式决定。</p>
 <h4 id="1-3-1-标准Broadcast"><a href="#1-3-1-标准Broadcast" class="headerlink" title="1.3.1 标准Broadcast"></a>1.3.1 标准Broadcast</h4><p>标准 Broadcast 可以被所有类型符合的 Receiver 接收，且不能被拦截和修改。</p>
@@ -418,7 +418,7 @@
 
 <h4 id="1-3-2-有序Broadcast"><a href="#1-3-2-有序Broadcast" class="headerlink" title="1.3.2 有序Broadcast"></a>1.3.2 有序Broadcast</h4><p>只有全局 Broadcast 可以有序发送，按照 Receiver 的优先级（范围：-1000 ~ 1000）从高到低逐级传播，Receiver 可以修改广播数据、也可以终止广播事件。</p>
 <blockquote>
-<p>（@注）当 Priority 属性相等时，动态 Receiver 比静态 Receiver 优先。</p>
+<p>当 Priority 属性相等时，动态 Receiver 比静态 Receiver 优先。</p>
 </blockquote>
 <p>（1）设置静态 Receiver 的优先级：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;receiver</span><br><span class="line">    android:name=<span class="string">&quot;.DemoReceiver&quot;</span>&gt;</span><br><span class="line">    &lt;intent-filter</span><br><span class="line">        android:priority=<span class="string">&quot;100&quot;</span>&gt;</span><br><span class="line">        &lt;action android:name=<span class="string">&quot;ACTION_DEMO&quot;</span>&gt;</span><br><span class="line">    &lt;/intent-filter&gt;</span><br><span class="line">&lt;/receiver&gt;</span><br></pre></td></tr></table></figure>
@@ -430,7 +430,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context.sendOrderedBroadcast(<span class="keyword">new</span> Intent(<span class="string">&quot;ACTION_DEMO&quot;</span>), <span class="string">&quot;PERMISSION_STR&quot;</span>);</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>（@注）本地 Broadcast 无法设置有序。</p>
+<p>本地 Broadcast 无法设置有序。</p>
 </blockquote>
 <p>如果 Receiver 需要消费掉有序 Broadcast，阻止其继续向更低优先级的 Receiver 传递，可以通过 <code>BroadcastReceiver#abortBroadcast()</code> 方法中断后续传递：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">    Log.d(<span class="string">&quot;DemoReceiver&quot;</span>, <span class="string">&quot;--- onReceive ---&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 该方法调用仅在收到的是有序 Broadcast 时有效。</span></span><br><span class="line">    abortBroadcast();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -649,14 +649,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">359k</span>
+    <span title="Site Symbols">354k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:39</span>
+    <span title="Site Read Time">6:33</span>
   </span>
 </div>
 

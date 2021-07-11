@@ -85,7 +85,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.18</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
   </div>
 
   <div class="site-nav-right">
@@ -102,7 +102,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">118</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -195,7 +195,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -414,13 +414,13 @@
 </li>
 </ul>
 <blockquote>
-<p>@注：<code>train_test_split</code> 还能在数据集较大时，用来分隔出小部分数据进行 EDA。</p>
+<p><code>train_test_split</code> 还能在数据集较大时，用来分隔出小部分数据进行 EDA。</p>
 </blockquote>
 <h3 id="1-2-交叉验证"><a href="#1-2-交叉验证" class="headerlink" title="1.2 交叉验证"></a>1.2 交叉验证</h3><p>当训练数据比较少，或模型训练需要更多数据时（训练样本越多越好），直接分离校验集就不太好了，这时可使用 K 折交叉验证。</p>
 <p>K 折交叉验证即：将全体训练样本等分为 K 份（若无法完全等分，多出来的部分都放进最后一份中），每次用 1 份数据作为校验集，余下 (K - 1) 份作为训练数据，重复 K 次：</p>
 <p><img data-src="./k_fold.png" alt="K 折交叉验证" title="@ASSET"></p>
 <blockquote>
-<p>@注：该方法计算代价很高，但不会浪费太多数据，当样本数据集较少时有优势，K 常取 [3, 5, 10]。</p>
+<p>该方法计算代价很高，但不会浪费太多数据，当样本数据集较少时有优势，K 常取 [3, 5, 10]。</p>
 </blockquote>
 <p>Scikit-Learn 中实现了 K 折交叉验证 <code>KFold</code>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class sklearn.model_selection.KFold</span></span><br><span class="line"></span><br><span class="line">KFold(n_splits=<span class="number">3</span>,</span><br><span class="line">      shuffle=<span class="literal">False</span>,</span><br><span class="line">      random_state=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
@@ -734,14 +734,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">359k</span>
+    <span title="Site Symbols">354k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:39</span>
+    <span title="Site Read Time">6:33</span>
   </span>
 </div>
 

@@ -78,7 +78,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.18</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
   </div>
 
   <div class="site-nav-right">
@@ -95,7 +95,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">118</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -188,7 +188,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -397,8 +397,8 @@
 <li><code>transient volatile int modCount;</code>：HashMao 被改变的次数，用于快速失败。</li>
 </ul>
 <blockquote>
-<p>@注：<code>volatile</code> 关键字修饰的成员变量，可以阻禁止代码重排序，保证所有的写操作都在读操作之前，使得变量在内存中的变化可以被多线程所知。由于 HashMap 线程不安全，<code>modCount</code> 用于快速失败机制，所以写线程执行时带来的变化需要及时被读线程所知。</p>
-<p>@注：put 操作时，若 key 已存在替换 value 时，<code>modCount</code> 不会增加，不存在新增时才会增加。也即，只有 HashMap 中元素的数量增多或减少时，才认为 HashMap 的结构发生了变化。</p>
+<p><code>volatile</code> 关键字修饰的成员变量，可以阻禁止代码重排序，保证所有的写操作都在读操作之前，使得变量在内存中的变化可以被多线程所知。由于 HashMap 线程不安全，<code>modCount</code> 用于快速失败机制，所以写线程执行时带来的变化需要及时被读线程所知。</p>
+<p>put 操作时，若 key 已存在替换 value 时，<code>modCount</code> 不会增加，不存在新增时才会增加。也即，只有 HashMap 中元素的数量增多或减少时，才认为 HashMap 的结构发生了变化。</p>
 </blockquote>
 <h3 id="2-3-HashMap长度必须为2的幂"><a href="#2-3-HashMap长度必须为2的幂" class="headerlink" title="2.3 HashMap长度必须为2的幂"></a>2.3 HashMap长度必须为2的幂</h3><p>HashMap 在将一个 key 经过 hash 后映射进数组节点中时，经过了如下运算：</p>
 <ol>
@@ -632,14 +632,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">359k</span>
+    <span title="Site Symbols">354k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:39</span>
+    <span title="Site Read Time">6:33</span>
   </span>
 </div>
 

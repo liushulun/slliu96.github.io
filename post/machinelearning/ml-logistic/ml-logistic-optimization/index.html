@@ -83,7 +83,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.18</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
   </div>
 
   <div class="site-nav-right">
@@ -100,7 +100,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">118</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -193,7 +193,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -407,7 +407,7 @@
 <p>这样，牛顿法的迭代公式就变换为：</p>
 <p>$$<br>x^{(t + 1)} = x^{(t)} - H^{-1} (X^{(t)}) \ \nabla f(X^{(t)})<br>$$</p>
 <blockquote>
-<p>@注：二阶导转换为 Hessian 矩阵 $H(X^{(t)})$ 后作为分母，使用逆运算 $H^{-1} (X^{(t)})$ 来表示。</p>
+<p>二阶导转换为 Hessian 矩阵 $H(X^{(t)})$ 后作为分母，使用逆运算 $H^{-1} (X^{(t)})$ 来表示。</p>
 </blockquote>
 <p>总结牛顿法求解目标函数极值的迭代步骤如下：</p>
 <ol>
@@ -452,7 +452,7 @@
 <p>为保证矩阵 $B$ 的正定性，令 $\Delta B^{(t)} = \alpha u u^T + \beta v v^T$，代入上述拟牛顿法条件可得：</p>
 <p>$<br>\begin{aligned}<br>y^{(t)} &amp;= B^{(t + 1)} s^{(t)} = (B^{(t)} + \Delta B^{(t)}) s^{(t)} = B^{(t)} s^{(t)} + \Delta B^{(t)} s^{(t)}<br>\\<br>&amp;= B^{(t)} s^{(t)} + \alpha u u^T s^{(t)} + \beta v v^T s^{(t)}<br>\\<br>&amp;= B^{(t)} s^{(t)} + u (\alpha u^T s^{(t)}) + v (\beta v^T s^{(t)})<br>\end{aligned}<br>$</p>
 <blockquote>
-<p>@注：当 $u^T$ 或 $v^T$ 的维数与 $s^{(t)}$ 的维数一致（由于 $\Delta B^{(t)}$ 是构造的，因此可以构造为相同维数）时，$u^T s^{(t)}$ 以及 $v^T s^{(t)}$ 均为一个标量数值（向量的转置 x 向量 = 数值）。</p>
+<p>当 $u^T$ 或 $v^T$ 的维数与 $s^{(t)}$ 的维数一致（由于 $\Delta B^{(t)}$ 是构造的，因此可以构造为相同维数）时，$u^T s^{(t)}$ 以及 $v^T s^{(t)}$ 均为一个标量数值（向量的转置 x 向量 = 数值）。</p>
 </blockquote>
 <p>令 $\alpha u^T s^{(t)} = 1$，$\beta v^T s^{(t)} = -1$，即 $\alpha = \dfrac {1} {u^T s^{(t)}}$，$\beta = - \dfrac {1} {v^T s^{(t)}}$，得到：</p>
 <p>$<br>u - v = y^{(t)} - B^{(t)} s^{(t)}<br>$</p>
@@ -462,7 +462,7 @@
 <p><strong>代入 $\Delta B^{(t)}$ 的表达式得：</strong></p>
 <p>$$<br>\begin{aligned}<br>\Delta B^{(t)} &amp;= \alpha u u^T + \beta v v^T<br>\\<br>&amp;= \dfrac {y^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}} - \dfrac {B^{(t)} s^{(t)} (B^{(t)} s^{(t)})^T} {(s^{(t)})^T (B^{(t)})^T s^{(t)}}<br>\end{aligned}<br>$$</p>
 <blockquote>
-<p>@注：Sherman-Morrison 公式：若 $A$ 为非奇异方阵，$1 + v^T A^{-1} u \ne 0$，则有：</p>
+<p>Sherman-Morrison 公式：若 $A$ 为非奇异方阵，$1 + v^T A^{-1} u \ne 0$，则有：</p>
 </blockquote>
 <p>$<br>(A + uv^T)^{-1} = A^{-1} - \dfrac {A^{-1} u v^T A^{-1}} {1 + v^T A^{-1}}<br>$</p>
 <p><strong>由于牛顿法迭代过程需要计算 Hessian 矩阵的逆矩阵，因此根据 Sherman-Morrison 公式可得：</strong></p>
@@ -474,7 +474,7 @@
 </li>
 <li><p>计算移动方向：$d^{(t)} = D^{(t)} g^{(t)}$</p>
 <blockquote>
-<p>@注：先用 $B^{(t)} = B^{(t - 1)} + \Delta B^{(t - 1)}$ 迭代解出 $B^{(t)}$，再用 Sherman-Morrison 公式解出 $D^{(t)}$。</p>
+<p>先用 $B^{(t)} = B^{(t - 1)} + \Delta B^{(t - 1)}$ 迭代解出 $B^{(t)}$，再用 Sherman-Morrison 公式解出 $D^{(t)}$。</p>
 </blockquote>
 </li>
 <li><p>更新 $X$ 的值：$X^{(t + 1)} = X^{(t)} - d^{(t)}$</p>
@@ -494,7 +494,7 @@
 <p>$<br>(B^{(t + 1)})^{-1} = D^{(t + 1)} = \left( I - \dfrac {s^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}} \right) D^{(t)} \left( I - \dfrac {y^{(t)} (s^{(t)})^T} {(y^{(t)})^T s^{(t)}} \right) + \dfrac {s^{(t)} (s^{(t)})^T} {(y^{(t)})^T s^{(t)}}<br>$</p>
 <p>令 $\rho^{(t)} = \dfrac {1} {(y^{(t)})^T s^{(t)}}$，$V^{(t)} = \left( I - \dfrac {y^{(t)} (s^{(t)})^T} {(y^{(t)})^T s^{(t)}} \right) = I - \rho^{(t)} y^{(t)} (s^{(t)})^T$</p>
 <blockquote>
-<p>@注：由于向量 $s^{(t)}$（X的变化量）和向量 $y^{(t)}$（梯度变化量）的维数相同（都与 $X$ 维度相等），因此 $s^{(t)} (y^{(t)})^T$ 和 $s^{(t)} (s^{(t)})^T$ 是矩阵，而 $(y^{(t)})^T s^{(t)}$ 是一个数值，因此 $\rho^{(t)}$ 是一个常数。</p>
+<p>由于向量 $s^{(t)}$（X的变化量）和向量 $y^{(t)}$（梯度变化量）的维数相同（都与 $X$ 维度相等），因此 $s^{(t)} (y^{(t)})^T$ 和 $s^{(t)} (s^{(t)})^T$ 是矩阵，而 $(y^{(t)})^T s^{(t)}$ 是一个数值，因此 $\rho^{(t)}$ 是一个常数。</p>
 </blockquote>
 <p>则有：</p>
 <p>$<br>\begin{aligned}<br>(V^{(t)})^T &amp;= \left( I - \rho^{(t)} y^{(t)} (s^{(t)})^T \right)^T<br>\\<br>&amp;= I - \rho^{(t)} \left( y^{(t)} (s^{(t)})^T \right)^T<br>\\<br>&amp;= I - \rho^{(t)} s^{(t)} (y^{(t)})^T<br>\\<br>&amp;= I - \dfrac {s^{(t)} (y^{(t)})^T} {(y^{(t)})^T s^{(t)}}<br>\end{aligned}<br>$</p>
@@ -524,7 +524,7 @@
 <p>与其他机器学习一样，Logistic 回归的目标函数也包括两项：训练集上的损失和 + 正则项。</p>
 <p>$<br>J(W; \lambda) = \sum^N_{i = 1} L(y_i, \mu (X_i; W)) + \lambda R(W)<br>$</p>
 <blockquote>
-<p>@注：由于 L1 正则在零点不可导，因此当正则项中含有 L1 正则时，不能直接使用基于梯度、Hessian 矩阵的优化求解算法，而通常使用坐标轴下降法求解，或也可使用次梯度法。</p>
+<p>由于 L1 正则在零点不可导，因此当正则项中含有 L1 正则时，不能直接使用基于梯度、Hessian 矩阵的优化求解算法，而通常使用坐标轴下降法求解，或也可使用次梯度法。</p>
 </blockquote>
 <p>在给定正则参数 $\lambda$ 的情况下，目标函数的最优解为：$\hat{W} = \arg_W \min J(W, \lambda)$，取得最优解的必要条件即一阶导数为零：$\dfrac {\partial J(W, \lambda)} {\partial W} = 0$。</p>
 <p>与线性回归模型不同的是，Logistic 回归模型的参数无法用解析法求解，因此可使用迭代法逼近求解。</p>
@@ -558,7 +558,7 @@
 <p><strong>整理可得 Logistic 回归损失和部分的梯度表达式：</strong></p>
 <p>$$<br>g_1 (W) = X^T (\mu - y)<br>$$</p>
 <blockquote>
-<p>@注：这里直接解出来的结果是 $(\mu - y) X$，但表达式使用的是 $X^T (\mu - y)$，对此我有些自己的理解方式如下。</p>
+<p>这里直接解出来的结果是 $(\mu - y) X$，但表达式使用的是 $X^T (\mu - y)$，对此我有些自己的理解方式如下。</p>
 </blockquote>
 <p>首先要提一下矩阵的形式。在机器学习中有一个很重要的工具包 <code>numpy</code>，这个工具包里其中两个很重要的类：<code>numpy.matrix</code> 和 <code>numpy.array</code>也即矩阵和向量，通常手动创建一个矩阵的时候可以用如下方式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>A = np.matrix([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(A)</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
@@ -572,7 +572,7 @@
 <h3 id="3-2-Hessian矩阵"><a href="#3-2-Hessian矩阵" class="headerlink" title="3.2 Hessian矩阵"></a>3.2 Hessian矩阵</h3><p>Logistic 损失和部分的梯度为 $g_1 (W) = X^T (\mu - y)$，由此求解 Hessian 矩阵：</p>
 <p>$<br>\begin{aligned}<br>H_1 (W) &amp;= \dfrac {\partial g_1 (W)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} (\mu_i - y_i) X_i \right)} {\partial W} = \dfrac {\partial \left( \sum^N_{i = 1} X^T_i (\mu_i - y_i) \right)} {\partial W}<br>\\<br>&amp;= \sum^N_{i = 1} X^T_i \dfrac {\partial (\mu_i)} {\partial W}<br>\\<br>&amp;= \sum^N_{i = 1} X^T_i \mu_i (1 - \mu_i) X_i<br>\end{aligned}<br>$</p>
 <blockquote>
-<p>@注：说明：$\dfrac {\partial (a^T y)} {\partial y} = a^T$</p>
+<p>说明：$\dfrac {\partial (a^T y)} {\partial y} = a^T$</p>
 </blockquote>
 <p><strong>令矩阵 $S \triangleq \mu_i (1 - \mu_i)$，即 $S$ 为对角阵，对角元素为 $\mu_i (1 - \mu_i)$。可得 Hessian 矩阵表达式：</strong></p>
 <p>$$<br>H_1 (W) = X^T S X<br>$$</p>
@@ -594,7 +594,7 @@
 <p>其中，’sag’ 和 ‘saga’ 只有在特征尺度大致相等时才能保证收敛，因此需要对数据做缩放（<code>class sklearn.preprocessing</code> 可以实现如：标准化、MinMaxScaler、MaxAbsScaler 等）。在实际任务中，大部分情况下数据预处理时都最好做标准化。实际上，加正则项本身也要求对每维特征做缩放。</p>
 <p>另外，对于大数据集的训练任务，可以使用 <code>SGDClassifier</code>，并使用 LogLoss 作为损失函数。</p>
 <blockquote>
-<p>@注：若 <code>SGDClassifier</code> 使用 HingeLoss 作为损失函数，则为实现随机梯度下降的 SVM。在回归任务中还有 <code>SDGRegressor</code>。</p>
+<p>若 <code>SGDClassifier</code> 使用 HingeLoss 作为损失函数，则为实现随机梯度下降的 SVM。在回归任务中还有 <code>SDGRegressor</code>。</p>
 </blockquote>
 
     </div>
@@ -786,14 +786,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">359k</span>
+    <span title="Site Symbols">354k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:39</span>
+    <span title="Site Read Time">6:33</span>
   </span>
 </div>
 

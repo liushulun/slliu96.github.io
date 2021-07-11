@@ -88,7 +88,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.18</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
   </div>
 
   <div class="site-nav-right">
@@ -105,7 +105,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">118</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -198,7 +198,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -401,7 +401,7 @@
 <p><img data-src="./sigmoid.png" alt="Sigmoid 函数" title="@ASSET"></p>
 <p><strong>Sigmoid 函数亦被称为 Logistic 函数或 Logit 函数，Logistic 回归亦被称为 Logit 回归。</strong></p>
 <blockquote>
-<p>@注：LogisticRegression 虽然名字上用了“回归”，但实际上是分类算法。</p>
+<p>LogisticRegression 虽然名字上用了“回归”，但实际上是分类算法。</p>
 </blockquote>
 <p>使用 Sigmoid 函数对 $W^T X$ 缩放后得到：</p>
 <p>$<br>p(y = 1 | X) = \mu (X) = \sigma (W^T X)<br>$</p>
@@ -462,7 +462,7 @@
 <p>交叉熵损失与 $p_t$ 的关系曲线如下：</p>
 <p><img data-src="./cross_entropy_and_pt.png" alt="交叉熵损失曲线" title="@ASSET"></p>
 <blockquote>
-<p>@注：<strong>对 $p_t$ 的理解：根据 $p_t$ 的表达式，当真实值 $y = 1$ 时，$p_t = \mu (X)$。由于 $\mu (X)$ 表示的是预测值 $\hat{y} = 1$ 的概率，因此 $p_t$ 即表示预测分布接近真实分布的概率。因此 $p_t$ 越大，表示预测越准确，同时对应的交叉熵损失 $Loss = - \log (p_t)$ 也就越小，与图中曲线含义相同。</strong></p>
+<p><strong>对 $p_t$ 的理解：根据 $p_t$ 的表达式，当真实值 $y = 1$ 时，$p_t = \mu (X)$。由于 $\mu (X)$ 表示的是预测值 $\hat{y} = 1$ 的概率，因此 $p_t$ 即表示预测分布接近真实分布的概率。因此 $p_t$ 越大，表示预测越准确，同时对应的交叉熵损失 $Loss = - \log (p_t)$ 也就越小，与图中曲线含义相同。</strong></p>
 </blockquote>
 <hr>
 <h2 id="3-Logistic正则项"><a href="#3-Logistic正则项" class="headerlink" title="3. Logistic正则项"></a>3. Logistic正则项</h2><p>Logistic 回归采用 Logistic 损失 / 交叉熵损失，由于预测值 $\hat{y} = 1$ 的概率为 $\mu (X)$，因此可使用 $\mu (X)$ 表示 $\hat{y}$：</p>
@@ -478,7 +478,7 @@
 <p><strong>当 $\mu (X)$ 取 $\pm 1$ 时，$W^T X$ 取 $\pm \infty$，也即 $|W_j| = \infty$，这样的模型是无意义的。</strong></p>
 <p><strong>因此 Logistic 回归必须加正则！</strong></p>
 <blockquote>
-<p>@注：Scikit-Learn 中实现的 Logistic 回归 <code>LogisticRegression</code> 默认为 L2 正则。</p>
+<p>Scikit-Learn 中实现的 Logistic 回归 <code>LogisticRegression</code> 默认为 L2 正则。</p>
 </blockquote>
 <p>与 SVM 类似的是，Logistic 回归的超参数 $C$ 加在损失函数上：</p>
 <p>$$<br>J(W; \lambda) = C \sum^N_{i = 1} L(y_i, \mu (x_i; W)) + R(W)<br>$$</p>
@@ -533,7 +533,7 @@
 </li>
 </ul>
 <blockquote>
-<p>@注：OVO：One-Versus-One，一对一。</p>
+<p>OVO：One-Versus-One，一对一。</p>
 </blockquote>
 <p>OVR 相对简单但分类效果相对略差。MVM 分类相对精确，但分类速度比 OVR 慢。</p>
 <ul>
@@ -839,14 +839,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">359k</span>
+    <span title="Site Symbols">354k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:39</span>
+    <span title="Site Read Time">6:33</span>
   </span>
 </div>
 

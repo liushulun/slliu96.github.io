@@ -95,7 +95,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.18</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
   </div>
 
   <div class="site-nav-right">
@@ -112,7 +112,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">118</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -205,7 +205,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -396,7 +396,7 @@
 <h1 id="ML入门-线性回归简介"><a href="#ML入门-线性回归简介" class="headerlink" title="ML入门-线性回归简介"></a>ML入门-线性回归简介</h1><h2 id="1-什么是回归"><a href="#1-什么是回归" class="headerlink" title="1. 什么是回归"></a>1. 什么是回归</h2><p>假设有一数据集 $D = \{ X_i, y_i \}^N_{i = 1}$，其中 N 为训练样本数目，i 为样本索引，$X_i$ 为第 i 个样本的输入特征，$y_i$ 为第 i 个样本的输出/响应，那么：</p>
 <p><strong>根据训练样本 D，学习一个从输入 $X$ 到输出 $y$ 的映射 $f$，使得 $y_i = f(X_i)$，且 $y_i \in R$，这就是回归任务。</strong></p>
 <blockquote>
-<p>@注：没有特殊说明的情况下，$W$、$X$、$y$ 等均为矩阵（一维矩阵有时作为向量使用）形式，在强调向量性质时使用 $\vec{X}$、$\vec{W}$、$\vec{y}$ 表示。</p>
+<p>没有特殊说明的情况下，$W$、$X$、$y$ 等均为矩阵（一维矩阵有时作为向量使用）形式，在强调向量性质时使用 $\vec{X}$、$\vec{W}$、$\vec{y}$ 表示。</p>
 </blockquote>
 <p>回归任务的一个重要特征即为 $y_i \in R$，当 $y_i$ 取类别型数值时，就变成了分类任务。</p>
 <p>当学习到回归任务的映射 f 后，即可对新的输入数据 $X$ 预测其输出 $\hat{y} = f(X)$。</p>
@@ -496,24 +496,24 @@
 <p><code>predict(X)</code>：<br>使用已训练完成的模型进行预测。<br>输出即为预测值 $\hat{y}$</p>
 <p><code>score(X, y[, sample_weight])</code>：<br>评估模型性能，返回模型预测的 $R^2$ 分数（y 与 $\hat{y}$ 的差异）。<br>根据输入 X 利用模型计算出预测值 $\hat{y}$ 并和真实值 y 比较。详见回归模型评价指标部分。</p>
 <blockquote>
-<p>@注：关于归一化、标准化、中心化的参考理解：</p>
+<p>关于归一化、标准化、中心化的参考理解：</p>
+<ul>
+<li>归一化：（1）把数据映射到区间 (0, 1) 或 (-1, 1)，主要为了数据处理方便。（2）把有量纲表达式转换为无量纲表达式，便于不同量级或单位的指标能进行比较和加权。</li>
+<li>标准化：将数据转换为均值为 0（每个特征都减掉原始数据中该特征的均值），且标准差为 1。</li>
+<li>中心化：将样本数据的输出 y 转换为均值为 0。</li>
+</ul>
 </blockquote>
-<p>（1）归一化：①把数据映射到区间 (0, 1) 或 (-1, 1)，主要为了数据处理方便。②把有量纲表达式转换为无量纲表达式，便于不同量级或单位的指标能进行比较和加权。</p>
-<p>（2）标准化：将数据转换为均值为 0（每个特征都减掉原始数据中该特征的均值），且标准差为 1。</p>
-<p>（3）中心化：将样本数据的输出 y 转换为均值为 0。</p>
 <hr>
 <h2 id="5-欠拟合与过拟合"><a href="#5-欠拟合与过拟合" class="headerlink" title="5. 欠拟合与过拟合"></a>5. 欠拟合与过拟合</h2><p>OLS 中，目标函数只考虑了模型对 <strong>训练样本</strong> 的拟合程度：</p>
 <p>$$<br>J(f) = RSS(f) = \sum^N_{i = 1} L(y_i, \hat{y_i}) = \sum^N_{i = 1} L(y_i, f(x_i)) = \sum^N_{i = 1} (y_i - f(x_i))^2<br>$$</p>
 <p>因此在训练样本集上残差和可以接近甚至等于零。原则上，任意复杂的模型，若能完全拟合训练数据，则称为过拟合。反之若模型连训练样本都无法较好的拟合，则称为欠拟合：</p>
 <ul>
-<li><p>过拟合（Overfitting）：过于复杂的模型与训练数据拟合的太好，导致推广性和扩展性较差，因此和测试数据拟合的较差。</p>
-</li>
-<li><p>欠拟合（Underfitting）：过于简单的模型与训练数据尚且拟合的较差，更加不足以拟合测试数据。</p>
-<blockquote>
-<p>@注：线性回归采用的线性模型比较简单，因此当特征维数不太高时，线性回归的过拟合现象通常不太严重。</p>
-</blockquote>
-</li>
+<li>过拟合（Overfitting）：过于复杂的模型与训练数据拟合的太好，导致推广性和扩展性较差，因此和测试数据拟合的较差。</li>
+<li>欠拟合（Underfitting）：过于简单的模型与训练数据尚且拟合的较差，更加不足以拟合测试数据。</li>
 </ul>
+<blockquote>
+<p>线性回归采用的线性模型比较简单，因此当特征维数不太高时，线性回归的过拟合现象通常不太严重。</p>
+</blockquote>
 <h3 id="5-1-sin-函数曲线实例"><a href="#5-1-sin-函数曲线实例" class="headerlink" title="5.1 $\sin$函数曲线实例"></a>5.1 $\sin$函数曲线实例</h3><p>假设数据产生模型为：$y = \sin (2 \pi x) + \varepsilon$，其中 $\sin$ 函数如下：</p>
 <p><img data-src="./sin_function.png" alt="sin 函数部分" title="@ASSET"></p>
 <p>$\varepsilon$ 为白噪声（随机噪声），假设方差为 0.03：</p>
@@ -554,7 +554,7 @@
 <p>（3）减少噪声</p>
 <p>另一种抑制过拟合的方法是减少噪声，但在实际面对的任务中，大部分情况下训练数据是给定的，因此增加或调整正则项是抑制过拟合最常用的手段。</p>
 <blockquote>
-<p>@注：<strong>正则项发挥作用的理解：对于目标函数 $J(W, \lambda) = Loss + \lambda R(W)$，若模型过拟合，由于模型的训练目标是目标函数最小，过拟合时虽然 $Loss$ 可能较小，但模型过于复杂，回归系数的 绝对值 / 平方值 过大，导致目标函数整体较大，则增大 $\lambda$，为了使得目标函数最小，模型会趋于减小 $W$，从而减小模型复杂度（$W$ 元素的值减小或非零元素减少都是减小模型复杂度）。当处于欠拟合状态，则 $Loss$ 较大，模型复杂度尚且不够拟合训练数据，此时减小 $\lambda$，以增加模型复杂度。通常，训练的过程分为系数 $W$ 的训练和超参数 $\lambda$ 的训练，使用某个超参数训练出系数后，模型复杂度即确定下来，再去搜索最优的超参数即可。</strong></p>
+<p><strong>正则项发挥作用的理解：对于目标函数 $J(W, \lambda) = Loss + \lambda R(W)$，若模型过拟合，由于模型的训练目标是目标函数最小，过拟合时虽然 $Loss$ 可能较小，但模型过于复杂，回归系数的 绝对值 / 平方值 过大，导致目标函数整体较大，则增大 $\lambda$，为了使得目标函数最小，模型会趋于减小 $W$，从而减小模型复杂度（$W$ 元素的值减小或非零元素减少都是减小模型复杂度）。当处于欠拟合状态，则 $Loss$ 较大，模型复杂度尚且不够拟合训练数据，此时减小 $\lambda$，以增加模型复杂度。通常，训练的过程分为系数 $W$ 的训练和超参数 $\lambda$ 的训练，使用某个超参数训练出系数后，模型复杂度即确定下来，再去搜索最优的超参数即可。</strong></p>
 </blockquote>
 <hr>
 <h2 id="6-带正则的线性回归"><a href="#6-带正则的线性回归" class="headerlink" title="6. 带正则的线性回归"></a>6. 带正则的线性回归</h2><p>最小二乘（OLS）线性回归中，目标函数 $J(W)$ 只包括训练集上的损失和（经验风险），也即仅考虑了模型对训练样本的拟合程度，因此可能会导致模型太过于复杂，甚至训练误差为0，产生过拟合。为此可在原目标函数中加入正则项，使得模型不会太复杂。则目标函数变为损失和 + 正则项：</p>
@@ -616,7 +616,7 @@
 <p>当输入特征比较多，优先特征和目标便梁志坚相关性很弱时，L1 正则可能只选择强相关的特征，模型解释性较好。若 $\lambda_{max}$ 为某临界值，当取 $\lambda \ge \lambda_{max}$ 时，$W = 0$。</p>
 <p><strong>注意</strong>：由于正则项中对不同维度的 $W_j$ 同等对待，对输入特征 $X$ 最好做去量纲（Scaling）处理，使得不同维度的特征取值范围大致相同（如标准化：<code>sklearn.preprocessiong.StandardScaler</code>）。</p>
 <blockquote>
-<p>@注：去量纲的常用方法：</p>
+<p>去量纲的常用方法：</p>
 <ul>
 <li>归一化（Normalization）：例如 Min-Max Scaler</li>
 <li>标准化（Standardization）：例如 Z-Score</li>
@@ -812,14 +812,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">359k</span>
+    <span title="Site Symbols">354k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:39</span>
+    <span title="Site Read Time">6:33</span>
   </span>
 </div>
 

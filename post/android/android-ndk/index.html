@@ -86,7 +86,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.18</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
   </div>
 
   <div class="site-nav-right">
@@ -103,7 +103,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">118</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -196,7 +196,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -382,8 +382,12 @@
 
 <h1 id="Android-NDK开发"><a href="#Android-NDK开发" class="headerlink" title="Android-NDK开发"></a>Android-NDK开发</h1><p>粗略的说：JNI 就是在 Java 中调用 C/C++ 代码。早期 Android 版本通常使用 NDK-Build 方式构建，但由于不便于管理等原因，Android Studio 在 3.2 版本后弃用了 <code>NDK-Build</code> 方式，改为推荐使用 <code>CMake</code>。</p>
 <blockquote>
-<p>（@注）</p>
-<p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/guides" title="@LINK">什么是NDK</a><br><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/JNI/9412164?fr=aladdin" title="@LINK">什么是JNI</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ithink213/article/details/88580558" title="@LINK">为什么Java可以调用C/C++</a>（编译的时候，会把JNI层的代码编译为SO库，然后在运行到JNI层的方法时，其实是链接到了编译出来的SO库中运行。）<br><a target="_blank" rel="noopener" href="https://www.oschina.net/question/2241352_213433" title="@LINK">定位Native Crash</a>（利用 NDK/ndk-stack 工具。发生 NativeCrash 时，可在 Log 信息中心，看到报错的地方显示的是某个 SO 文件，并且会标出 JNI 方法名，然后根据发生 Crash 时运行的手机平台，比如 <code>x86</code> 或者 <code>armeabi</code>，执行 <code>adb shell logcat | ndk-stack -sym 项目/obj/local/armeabi（平台）</code>，然后就能看到日志中标注了具体哪个 JNI 方法中的第几行发生 Crash。）</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/guides" title="@LINK">什么是NDK</a></li>
+<li><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/JNI/9412164?fr=aladdin" title="@LINK">什么是JNI</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ithink213/article/details/88580558" title="@LINK">为什么Java可以调用C/C++</a>（编译的时候，会把JNI层的代码编译为SO库，然后在运行到JNI层的方法时，其实是链接到了编译出来的SO库中运行。）</li>
+<li><a target="_blank" rel="noopener" href="https://www.oschina.net/question/2241352_213433" title="@LINK">定位Native Crash</a>（利用 NDK/ndk-stack 工具。发生 NativeCrash 时，可在 Log 信息中心，看到报错的地方显示的是某个 SO 文件，并且会标出 JNI 方法名，然后根据发生 Crash 时运行的手机平台，比如 <code>x86</code> 或者 <code>armeabi</code>，执行 <code>adb shell logcat | ndk-stack -sym 项目/obj/local/armeabi（平台）</code>，然后就能看到日志中标注了具体哪个 JNI 方法中的第几行发生 Crash。）</li>
+</ul>
 </blockquote>
 <hr>
 <h2 id="1-官方Demo"><a href="#1-官方Demo" class="headerlink" title="1. 官方Demo"></a>1. 官方Demo</h2><p>先新建一个原生支持NDK的Android项目，即在新建项目的时候勾选 <code>Include C++ support</code> ，观察一下谷歌建议我们使用的CMake方式的样子。在官方的Demo中，调用和以前的方式并无区别：</p>
@@ -416,7 +420,7 @@
 
 <p>这里要说明一点，代码中 <code>Java_com_demo_ndktest_MainActivity_helloFromC</code> 可以看成是一个方法名，但是这个方法名有严格的命名限制：首先命名必须以 <code>Java_</code> 开头，后面紧跟着的 <code>com_demo</code> 是项目的包名， <code>ndktest</code> 是项目名，<code>MainActivity</code> 是调用这个JNI方法的类名，最后 <code>helloFromC</code> 才是这个JNI方法的方法名。如果把 <code>com_demo_ndktest_MainActivity</code> 连在一起看，其实就是调用这个 JNI 的方法的类的绝对路径，也即 <code>MainActivity</code> 的绝对路径，只不过把包的层级表示从点 <code>.</code> 换成了下划线 <code>_</code>。</p>
 <blockquote>
-<p>（@注）如果怕出错，可以在我们想要调用这个JNI方法的类的最上方找到绝对路径，再把点都替换成下划线即可：</p>
+<p>如果怕出错，可以在我们想要调用这个JNI方法的类的最上方找到绝对路径，再把点都替换成下划线即可：</p>
 <p><img data-src="./set_package_name.png" alt="设置包名" title="@ASSET"></p>
 </blockquote>
 <p>另外，<code>extern &quot;C&quot;</code> 关键字通常在 C/C++ 混合编程中用于 <strong>指定使用 C 编译方式编译的代码块</strong> ，但是这里本来就是在 C 文件中写 C 语言代码，所以没有必要也不允许使用这个关键字了。</p>
@@ -651,8 +655,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/post/algorithm/algorithm-transport_and_consume/" rel="prev" title="逻辑题-运输和消耗最优解问题">
-                  <i class="fa fa-chevron-left"></i> 逻辑题-运输和消耗最优解问题
+                <a href="/post/algorithm/algorithm-transport_and_consume/" rel="prev" title="算法-运输和消耗最优解问题">
+                  <i class="fa fa-chevron-left"></i> 算法-运输和消耗最优解问题
                 </a>
             </div>
             <div class="post-nav-item">
@@ -691,14 +695,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">359k</span>
+    <span title="Site Symbols">354k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:39</span>
+    <span title="Site Read Time">6:33</span>
   </span>
 </div>
 
