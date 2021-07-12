@@ -81,7 +81,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">V 1.3.28</p>
+      <p class="site-subtitle" itemprop="description">V 1.3.29</p>
   </div>
 
   <div class="site-nav-right">
@@ -162,7 +162,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-IO%E7%9A%84%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E"><span class="nav-text">Linux-IO的阻塞和非阻塞</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-IO%E7%9A%84%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E"><span class="nav-text">Linux-IO的阻塞和非阻塞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%8F%8A%E9%98%BB%E5%A1%9E%E9%9D%9E%E9%98%BB%E5%A1%9E"><span class="nav-text">1. 同步异步及阻塞非阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2"><span class="nav-text">2. 进程切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="nav-text">3. 进程间通信的模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%90%8C%E6%AD%A5%E9%98%BB%E5%A1%9EBIO"><span class="nav-text">3.1 同步阻塞BIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%90%8C%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9ENIO"><span class="nav-text">3.2 同步非阻塞NIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%90%8C%E6%AD%A5%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8"><span class="nav-text">3.3 同步信号驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E5%90%8C%E6%AD%A5IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-text">3.4 同步IO多路复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E5%BC%82%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9EAIO"><span class="nav-text">3.5 异步非阻塞AIO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Java%E4%B8%AD%E7%9A%84IO"><span class="nav-text">4. Java中的IO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-BIO"><span class="nav-text">4.1 BIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-NIO"><span class="nav-text">4.2 NIO</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -355,14 +355,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>15</span>
+      <span>8k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Read Time &asymp;</span>
-      <span>1 Min</span>
+      <span>9 Min</span>
     </span>
 </div>
 
@@ -376,7 +376,94 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="Linux-IO的阻塞和非阻塞"><a href="#Linux-IO的阻塞和非阻塞" class="headerlink" title="Linux-IO的阻塞和非阻塞"></a>Linux-IO的阻塞和非阻塞</h1>
+<h1 id="Linux-IO的阻塞和非阻塞"><a href="#Linux-IO的阻塞和非阻塞" class="headerlink" title="Linux-IO的阻塞和非阻塞"></a>Linux-IO的阻塞和非阻塞</h1><p>通常，对于进程间的通信有两对常见的概念：同步和异步、阻塞和非阻塞，但实际上对于通信过程中的发送进程和接收进程而言，这两对概念是同义词，只有站在一个完整的进程间通信流程的角度，才会具有不同性质。</p>
+<h2 id="1-同步异步及阻塞非阻塞"><a href="#1-同步异步及阻塞非阻塞" class="headerlink" title="1. 同步异步及阻塞非阻塞"></a>1. 同步异步及阻塞非阻塞</h2><p>从《操作系统概念》中节选出有关进程通信的部分：</p>
+<blockquote>
+<p>3.4.2.2 Synchronization</p>
+<p>Communication between processes takes place through calls to send() and receive() primitives. There are different design options for implementing each primitive. Message passing may be either <strong>blocking</strong> or <strong>nonblocking</strong> – also known as <strong>synchronous</strong> and <strong>asynchronous</strong>. (Throughout this text, you will encounter the concepts of synchronous and asynchronous behavior in relation to various operating-system algorithms.)</p>
+<ul>
+<li>Blocking send. The sending process is blocked until the message is received by the receiving process or by the mailbox.</li>
+<li>Nonblocking send. The sending process sends the message and resumes operation.</li>
+<li>Blocking receive. The receiver blocks until a message is available.</li>
+<li>Nonblocking receive. The receiver retrieves either a valid message or a null.</li>
+</ul>
+<p>Different combinations of send() and receive() are possible. When both send() and receive() are blocking, we have a rendezvous between the sender and the receiver. The solution to the producer-consumer problem becomes trivial when we use blocking send() and receive() statements. The producer merely invokes the blocking send() call and waits until the message is delivered to either the receiver or the mailbox. Likewise, when the consumer invokes receive(), it blocks until a message is available. This is illustrated in Figures 3.15 and 3.16.</p>
+</blockquote>
+<p>大致含义为：</p>
+<p>进程间通信通过 <code>send()</code> 发送和 <code>receive()</code> 接收两种操作完成，这两种操作可能存在多种实现方案。消息在进程间传递时有可能是 <strong>阻塞</strong> 或 <strong>非阻塞</strong> 的，也被称为 <strong>同步</strong> 和 <strong>异步</strong>。</p>
+<ul>
+<li>Blocking Send 阻塞发送：发送方发送消息后将一直阻塞，直到接收方收到消息。</li>
+<li>Nonblocking Send 非阻塞发送：发送方将消息发出后就处理其他任务，不论消息是否被接收方收到。</li>
+<li>Blocking Receive 阻塞接收：接收方调用 <code>receive()</code> 后将一直阻塞，直到收到一条可用消息。</li>
+<li>Nonblocking Receive 非阻塞接收：接收方调用 <code>receive()</code> 后将立即获得一条可用消息，或是一个空值，而不会阻塞。</li>
+</ul>
+<p>因此进程间通信时，站在进程的角度是对「发送方 / 接收方」与「阻塞 / 非阻塞」的自由组合，而「阻塞 / 非阻塞」与「同步 / 异步」是同义词。</p>
+<hr>
+<h2 id="2-进程切换"><a href="#2-进程切换" class="headerlink" title="2. 进程切换"></a>2. 进程切换</h2><p>当 Linux 从一个进程切换到另一个进程时通常包含一下几个步骤：</p>
+<ul>
+<li>对于运行中的进程，<strong>中断（Interrupt）</strong> 或 <strong>系统调用（System Call）</strong> 都可以将 CPU 的控制转移到内核。<ul>
+<li>中断（Interrupt）：CPU 有一个中断信号位，CPU 在每个时钟周期的末尾都会检测中断信号位是否有中断信号到达，如果有则会根据中断的优先级决定是否要暂停当前执行的指令，转而去执行处理中断的指令。</li>
+<li>时钟中断（Clock Interrupt）：一个硬件时钟每隔一段时间就会向 CPU 发送一个中断信号，CPU 在响应这个中断时就会去执行操作系统内核的指令，继而将 CPU 的控制转移给了内核，由内核决定下一个要被执行的指令。</li>
+<li>系统调用（System Call）：操作系统提供给应用程序的接口。用户态通过 System Call 来完成那些需要内核才能执行的操作，例如硬盘、网络接口设备的 IO 等。</li>
+</ul>
+</li>
+<li>内核会将原进程在 CPU 中的上下文（程序计数器、寄存器等）信息保存在分配给该进程的内存区域 PCB 中。</li>
+<li>内核从另一个进程的 PCB 中取出其上下文信息，将 CPU 的控制转移给新进程，开始执行新进程的指令。</li>
+</ul>
+<p>当 CPU 在进程间切换时，由于需要在用户态和内核态之间切换，并且需要对进程的 PCB 做读写，所以会带来一定的开销，对于运行着 Unix 系统的现代 PC 而言，进程切换通常至少需要花费 300 us。</p>
+<p>因此，当进程间需要通信时，CPU 需要一定的时间做数据的 IO 和进程切换，并且由于进程间内存默认不可共享，所以往往还伴随着数据的拷贝，这就导致发送进程和接收进程在这段等待时间内可以有不同的策略，也即是否阻塞。</p>
+<hr>
+<h2 id="3-进程间通信的模型"><a href="#3-进程间通信的模型" class="headerlink" title="3. 进程间通信的模型"></a>3. 进程间通信的模型</h2><p>在实际的进程间通信案例中，阻塞通信会使得进程的执行是顺序的，开发人员可以预知进程的执行情况。而非阻塞通信则可以提高 CPU 的利用率，换言之也就是提高性能。但在实际的进程间通信过程中，通常会考虑一个完整的进程间通信流程，此时「阻塞 / 非阻塞」更多是指通信过程中数据的流动，才会与「同步 / 异步」搭配定义。</p>
+<p>但是需要明确，「同步」一定意味着「阻塞」，反之「阻塞」也一定意味着「同步」，「异步」一定意味着「非阻塞」，但「非阻塞」不一定「异步」，根据进程的执行策略而有所区别。</p>
+<h3 id="3-1-同步阻塞BIO"><a href="#3-1-同步阻塞BIO" class="headerlink" title="3.1 同步阻塞BIO"></a>3.1 同步阻塞BIO</h3><p>发送进程 A 向接收进程 B 发送消息，随后 A 挂起，等待内核将消息发送给 B，处理完后内核重新唤醒 A，A 再将返回的数据从内核拷贝到进程内。</p>
+<ul>
+<li>A 在发送数据后挂起等待 B 接收数据，这个过程是阻塞的。</li>
+<li>B 成功接收数据后，A 继续挂起等待 B 处理数据完成，这个过程也是阻塞的。</li>
+<li>B 处理完成返回数据后，内核唤醒 A，A 仍然需要等待从内核将数据拷贝回用户进程，这个过程也是阻塞的。</li>
+</ul>
+<p>由于整个过程中，A 都处于阻塞状态，直到被唤醒后执行吓一条指令，所以从整个通信过程来看也是同步的。</p>
+<h3 id="3-2-同步非阻塞NIO"><a href="#3-2-同步非阻塞NIO" class="headerlink" title="3.2 同步非阻塞NIO"></a>3.2 同步非阻塞NIO</h3><p>发送进程 A 向接收进程 B 发送消息，随后 A 立即执行其他指令，但每个一段时间就会主动发起请求，查询 B 是否成功接收数据，以及是否处理完毕返回数据，如果有返回数据，则继续执行原来的指令，并将数据从内核拷贝到进程内。</p>
+<ul>
+<li>A 发送数据后立即执行其他指令，不论 B 是否成功接收数据，这个过程是非阻塞的。</li>
+<li>A 周期性请求内核，查询 B 是否成功接收数据，以及是否在执行完毕后返回了数据，这个过程是非阻塞的。</li>
+<li>B 成功接收数据后，将状态同步给内核。B 处理完成返回后，将数据拷贝到内核空间，A 查询到后，再将返回的数据从内核拷贝到 A 进程中，这个过程是阻塞的。</li>
+</ul>
+<p>由于 B 返回数据后，A 需要从内核拷贝数据，这个过程仍然是阻塞的，所以从整个通信过程来看仍然是同步的。</p>
+<h3 id="3-3-同步信号驱动"><a href="#3-3-同步信号驱动" class="headerlink" title="3.3 同步信号驱动"></a>3.3 同步信号驱动</h3><p>发送进程 A 向接收进程 B 发送消息，随后 A 立即执行其他指令，直到 B 处理完毕并返回数据后，由内核通知进程 A，然后 A 再从内核将数据拷贝到进程内。</p>
+<ul>
+<li>A 发送数据后立即执行其他指令，不论 B 是否成功接收，这个过程是非阻塞的。</li>
+<li>B 处理完并返回数据后，内核通知 A，这个过程是非阻塞的。</li>
+<li>A 从内核中拷贝数据到进程内，这个过程是阻塞的。</li>
+</ul>
+<p>虽然信号驱动模型不再需要 A 频繁主动查询 B 的数据返回状态，但由于最终仍然需要将数据从内核拷贝到 A 进程，这个过程依然是阻塞的，所以从整个通信过程来看仍然是同步的。</p>
+<h3 id="3-4-同步IO多路复用"><a href="#3-4-同步IO多路复用" class="headerlink" title="3.4 同步IO多路复用"></a>3.4 同步IO多路复用</h3><p>多个发送进程向同一个管道注册，由管道完成和内核的交互。当一个进程通过 <code>select</code> 函数从管道获取数据时，如果所有被监听的 IO 的数据都没有准备好，则调用 <code>select</code> 的当前进程会进入阻塞状态，直到「任意一个」被监听的 IO 数据已准备好并返回，然后通知对应的监听进程，监听进程再从内核中将数据拷贝到进程内。</p>
+<p>由于 IO 多路复用在调用 <code>select</code> 时会进入阻塞状态，并且监听进程在收到数据已准备好的通知后，仍需从内核拷贝数据到进程内，因此从整个通信过程来看仍然是同步的。</p>
+<h3 id="3-5-异步非阻塞AIO"><a href="#3-5-异步非阻塞AIO" class="headerlink" title="3.5 异步非阻塞AIO"></a>3.5 异步非阻塞AIO</h3><p>进程 A 发起一个 <code>aio_read</code> 指令，将自己的「描述符」、「缓冲区指针」、「缓冲区大小」、「回调函数 / 回调信号」信息发送给内核，内核 <code>aio_read</code> 指令会立即返回，进程 A 即可执行其他指令。当 A 指令所需的数据准备好后，再由内核负责把数据拷贝到 A 的用户内存，然后再通过回调信号或基于线程的回调的方式，通知进程 A，此时 A 已经可以直接操作所需数据而不需要拷贝，是真正的异步 IO。</p>
+<hr>
+<h2 id="4-Java中的IO"><a href="#4-Java中的IO" class="headerlink" title="4. Java中的IO"></a>4. Java中的IO</h2><h3 id="4-1-BIO"><a href="#4-1-BIO" class="headerlink" title="4.1 BIO"></a>4.1 BIO</h3><p>BIO 面向「流」<code>Stream</code>，<code>Stream</code> 只能单项传输，Java 中对应的就是输入流 <code>InputStream</code> 和输出流 <code>OutputStream</code>。最普通的 Socket 和 ServerSocket 就基于 BIO，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SocketBIO</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 启动 Server</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    startService();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException ignored) &#123;&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 启动 Client</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    startClient();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException ignored) &#123;&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">startService</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 绑定 8888 端口，最大同时连接数为 5，超出的请求会被拒绝。</span></span><br><span class="line">        ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">8888</span>, <span class="number">5</span>);</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 接受一个连接，accept 是阻塞的</span></span><br><span class="line">            <span class="keyword">try</span> (Socket client = serverSocket.accept()) &#123;</span><br><span class="line">                <span class="comment">// 从客户端读取数据</span></span><br><span class="line">                BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(client.getInputStream()));</span><br><span class="line">                <span class="keyword">int</span> readLength = bufferedReader.read();</span><br><span class="line">                bufferedReader.close();</span><br><span class="line">                <span class="comment">// 向客户端发送数据</span></span><br><span class="line">                BufferedWriter bufferedWriter = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(client.getOutputStream()));</span><br><span class="line">                bufferedWriter.write(<span class="string">&quot;Output Content&quot;</span>);</span><br><span class="line">                bufferedWriter.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">startClient</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 连接本地 8888 端口。</span></span><br><span class="line">            <span class="keyword">try</span> (Socket client = <span class="keyword">new</span> Socket(<span class="string">&quot;localhost&quot;</span>, <span class="number">8888</span>)) &#123;</span><br><span class="line">                <span class="comment">// 从服务端读取数据</span></span><br><span class="line">                BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(client.getInputStream()));</span><br><span class="line">                <span class="keyword">int</span> readLength = bufferedReader.read();</span><br><span class="line">                bufferedReader.close();</span><br><span class="line">                <span class="comment">// 向服务端写入数据</span></span><br><span class="line">                BufferedWriter bufferedWriter = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(client.getOutputStream()));</span><br><span class="line">                bufferedWriter.write(<span class="string">&quot;Output Content&quot;</span>);</span><br><span class="line">                bufferedWriter.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然上例中 Socket 和 ServerSocket 都用了 <code>BufferedWriter</code> 和 <code>BufferedReader</code>，但 Socket 本身提供的是输入流和输出流 <code>client#getXXXStream</code>，只是业务上再封装了一层 Buffer，所以 BIO 本质上是「流式传输」。</p>
+<h3 id="4-2-NIO"><a href="#4-2-NIO" class="headerlink" title="4.2 NIO"></a>4.2 NIO</h3><p>NIO 面向「通道」<code>Channel</code>，<code>Channel</code> 支持双向传输，Java 中常见的 Channel 有：</p>
+<ul>
+<li><code>FileChannel</code></li>
+<li><code>DatagramChannel</code></li>
+<li><code>SocketChannel</code></li>
+<li><code>ServerSocketChannel</code></li>
+</ul>
+<p><code>Channel</code> 只是一种双向通信模型，因此通常搭配 <code>Buffer</code> 一起使用，由 <code>Buffer</code> 充当实际数据的载体，Java 中常见的 Buffer 有：</p>
+<ul>
+<li><code>ByteBuffer</code></li>
+<li><code>CharBuffer</code></li>
+<li><code>ShortBuffer</code></li>
+<li><code>IntBuffer</code></li>
+<li><code>FloatBuffer</code></li>
+<li><code>LongBuffer</code></li>
+<li><code>DoubleBuffer</code></li>
+</ul>
+<p>SocketChannel 和 ServerSocketChannel 就基于 NIO：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SocketNIO</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 开启 Server</span></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                startService();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ignored) &#123;&#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 开启 Client</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            startClient();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException ignored) &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">startService</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 开启通道</span></span><br><span class="line">        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br><span class="line">        <span class="comment">// 绑定本地 8888 端口，最大同时连接数 5，超出后连接将被拒绝。</span></span><br><span class="line">        serverSocketChannel.socket().bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">8888</span>), <span class="number">5</span>);</span><br><span class="line">        <span class="comment">// 设置 accept 时为非阻塞</span></span><br><span class="line">        serverSocketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 接受一个客户端连接</span></span><br><span class="line">            SocketChannel clientChannel = serverSocketChannel.accept();</span><br><span class="line">            <span class="keyword">if</span> (clientChannel == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// 由于 serverSocketChannel.configureBlocking(false) 使得 accept 变为非阻塞，</span></span><br><span class="line">                <span class="comment">// 因此需要对 accept 返回的 SocketChannel 判空，为空说明没有客户端连接，可以执行其他指令。</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 用 ByteBuffer 缓冲读取字节数据，缓冲区大小设置为 48 字节，</span></span><br><span class="line">            <span class="comment">// Buffer 默认的起始指针 start 和当前指针 current 指向 0 下标，终止指针 limit 指向末位，</span></span><br><span class="line">            <span class="comment">// 表示接下来的操作从 start 开始，当 current 指向 limit 时说明 Buffer 存满了。</span></span><br><span class="line">            ByteBuffer byteBuffer = ByteBuffer.allocate(<span class="number">48</span>);</span><br><span class="line">            <span class="comment">// 从通道中读取字节数据并写入缓冲区，此时对 Buffer 的操作是「写入」，</span></span><br><span class="line">            <span class="comment">// 每次都向 Buffer 的 current 指向的位写入一个字节，并把 current 指向下一位。</span></span><br><span class="line">            <span class="keyword">int</span> readLength = clientChannel.read(byteBuffer);</span><br><span class="line">            <span class="keyword">while</span> (readLength &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 如果原本 Buffer 用于「写入」，则需要「读取」之前需要先将 Buffer 翻转，</span></span><br><span class="line">                <span class="comment">// 使得新 start 指向原 current，新 limit 指向原 start，</span></span><br><span class="line">                <span class="comment">// 表示接下来的操作从 Buffer 原先的 current 位置开始反向进行。</span></span><br><span class="line">                byteBuffer.flip();</span><br><span class="line">                <span class="keyword">while</span> (byteBuffer.hasRemaining()) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;Read: &quot;</span> + byteBuffer.get());</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 重置 Buffer 的 start 和 current 到 0 下标，limit 到末位，</span></span><br><span class="line">                <span class="comment">// 相当于标记这个 Buffer 又可以从头重新操作。</span></span><br><span class="line">                byteBuffer.clear();</span><br><span class="line">                <span class="comment">// 继续从通道中读取数据，直到通道中没有数据为止。</span></span><br><span class="line">                readLength = clientChannel.read(byteBuffer);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">startClient</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 开启通道</span></span><br><span class="line">        SocketChannel clientChannel = SocketChannel.open();</span><br><span class="line">        <span class="comment">// 连接到本地 8888 端口。</span></span><br><span class="line">        clientChannel.connect(<span class="keyword">new</span> InetSocketAddress(<span class="string">&quot;localhost&quot;</span>, <span class="number">8888</span>));</span><br><span class="line">        <span class="comment">// 设置缓冲区大小 48 字节。</span></span><br><span class="line">        ByteBuffer byteBuffer = ByteBuffer.allocate(<span class="number">48</span>);</span><br><span class="line">        <span class="comment">// 向 Buffer 写入数据</span></span><br><span class="line">        byteBuffer.put(<span class="string">&quot;Output Content&quot;</span>.getBytes());</span><br><span class="line">        <span class="comment">// 为了读取 Buffer 中的数据并通过 Socket 发送，需要先翻转 Buffer</span></span><br><span class="line">        byteBuffer.flip();</span><br><span class="line">        <span class="keyword">while</span> (byteBuffer.hasRemaining()) &#123;</span><br><span class="line">            clientChannel.write(byteBuffer);</span><br><span class="line">        &#125;</span><br><span class="line">        clientChannel.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -567,14 +654,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">354k</span>
+    <span title="Site Symbols">362k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:33</span>
+    <span title="Site Read Time">6:42</span>
   </span>
 </div>
 
