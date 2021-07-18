@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;blog.luis.ltd&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#EB6D39&quot;,&quot;save&quot;:&quot;manual&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:true,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeInDown&quot;,&quot;post_header&quot;:null,&quot;post_body&quot;:null,&quot;coll_header&quot;:&quot;none&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="未完待续">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-Window机制">
+<meta property="og:url" content="https://blog.luis.ltd/post/android/android-window/index.html">
+<meta property="og:site_name" content="Luis&#39;s Blogs">
+<meta property="og:description" content="未完待续">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-27T04:05:22.000Z">
+<meta property="article:author" content="Luis">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Window">
+<meta property="article:tag" content="PhoneWindow">
+<meta property="article:tag" content="WindowManager">
+<meta property="article:tag" content="ViewRootImpl">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.luis.ltd/post/android/android-window/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;blog.luis.ltd&#x2F;post&#x2F;android&#x2F;android-window&#x2F;&quot;,&quot;path&quot;:&quot;post&#x2F;android&#x2F;android-window&#x2F;&quot;,&quot;title&quot;:&quot;Android-Window机制&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Android-Window机制 | Luis's Blogs</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle Navigation" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luis's Blogs</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">2021/07/18 - 12:44:09</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">69</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">124</span></a></li>
+        
+            
+  <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
+
+
+      
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Catalogue
+        </li>
+        <li class="sidebar-nav-overview">
+          SiteInfo
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Window%E6%9C%BA%E5%88%B6"><span class="nav-text">Android-Window机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Window%E7%9A%84%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F"><span class="nav-text">1. Window的表现形式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AFWindow"><span class="nav-text">1.1 什么是Window</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Android%E4%B8%AD%E7%9A%84Window"><span class="nav-text">1.2 Android中的Window</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Window%E5%B1%9E%E6%80%A7"><span class="nav-text">2. Window属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Type"><span class="nav-text">2.1 Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Flags"><span class="nav-text">2.2 Flags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-SoftInputMode"><span class="nav-text">2.3 SoftInputMode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BAWindow"><span class="nav-text">3. 创建Window</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%8C%87%E5%AE%9A%E7%94%A8%E4%BA%8E%E5%88%9B%E5%BB%BAWindow%E7%9A%84View"><span class="nav-text">3.1 指定用于创建Window的View</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-ViewRootImpl%E5%88%9B%E5%BB%BAWindow"><span class="nav-text">3.2 ViewRootImpl创建Window</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-PhoneWindow"><span class="nav-text">4. PhoneWindow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-PhoneWindow%E4%B8%8D%E6%98%AFWindow"><span class="nav-text">4.1 PhoneWindow不是Window</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-PhoneWindow%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-text">4.2 PhoneWindow的意义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Window%E5%8A%A0%E8%BD%BD%E6%97%B6%E6%9C%BA"><span class="nav-text">5. Window加载时机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Activity%E7%9A%84Window"><span class="nav-text">5.1 Activity的Window</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E5%88%9B%E5%BB%BA%E6%96%B0Window"><span class="nav-text">5.2 创建新Window</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-1-%E4%BD%9C%E4%B8%BASubWindow%E6%97%B6"><span class="nav-text">5.2.1 作为SubWindow时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-2-%E4%BD%9C%E4%B8%BASystemWindow%E6%97%B6"><span class="nav-text">5.2.2 作为SystemWindow时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-3-%E4%BD%9C%E4%B8%BAApplicationWindow%E6%97%B6"><span class="nav-text">5.2.3 作为ApplicationWindow时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-4-%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-text">5.2.4 问题分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Luis"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Luis</p>
+  <div class="site-description" itemprop="description">Keep Learning</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-name">Posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">Categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-name">Tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liushulun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liushulun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:luis96@foxmail.com" title="E-Mail → mailto:luis96@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/" title="Chats → &#x2F;about&#x2F;"><i class="fa fa-comments fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/" title="Home → &#x2F;"><i class="fa fa-home fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-users fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://renxingkai.github.io/" title="https:&#x2F;&#x2F;renxingkai.github.io" rel="noopener" target="_blank">CinKate</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.juanertu.com/" title="https:&#x2F;&#x2F;blog.juanertu.com" rel="noopener" target="_blank">ConstOwn</a>
+        </li>
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/liushulun" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.luis.ltd/post/android/android-window/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Luis">
+      <meta itemprop="description" content="Keep Learning">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luis's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android-Window机制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted:</span>
+
+      <time title="Created::2020-09-27 12:05:22" itemprop="dateCreated datePublished" datetime="2020-09-27T12:05:22+08:00">2020-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">Categories:</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+
+
+
+<!-- 注释开始 #############################################
+
+  <script>
+    function post_nav(post) {
+      const theme = hexo.theme.config;
+      if (theme.post_navigation === false || (!post.prev && !post.next)) return '';
+      const prev = theme.post_navigation === 'right' ? post.prev : post.next;
+      const next = theme.post_navigation === 'right' ? post.next : post.prev;
+      const left = prev ? `
+        <a href="${this.url_for(prev.path)}" rel="prev" title="${prev.title}">
+          <i class="fa fa-chevron-left"></i> ${prev.title}
+        </a>` : '';
+      const right = next ? `
+        <a href="${this.url_for(next.path)}" rel="next" title="${next.title}">
+          ${next.title} <i class="fa fa-chevron-right"></i>
+        </a>` : '';
+      return `
+        <div class="post-nav">
+          <div class="post-nav-item">${left}</div>
+          <div class="post-nav-item">${right}</div>
+        </div>`;
+    }
+  </script>
+  
+  <div style="position: absolute; top: -20px;">post_nav(post)</div>
+
+############################################# 注释结束 -->
+
+
+
+<!-- 注释开始 #############################################
+  
+  <div style="position: fixed; width: 100%;">
+    
+      
+      <div class="post-tags">
+          <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          <a href="/tags/Window/" rel="tag"><i class="fa fa-tag"></i> Window</a>
+          <a href="/tags/PhoneWindow/" rel="tag"><i class="fa fa-tag"></i> PhoneWindow</a>
+          <a href="/tags/WindowManager/" rel="tag"><i class="fa fa-tag"></i> WindowManager</a>
+          <a href="/tags/ViewRootImpl/" rel="tag"><i class="fa fa-tag"></i> ViewRootImpl</a>
+      </div>
+  </div>
+############################################# 注释结束 -->
+
+    <span class="post-meta-item" title="Post Symbols">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Post Symbols:</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="Read Time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Read Time &asymp;</span>
+      <span>20 Min</span>
+    </span>
+</div>
+
+            <div class="post-description">未完待续</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <span id="more"></span>
+
+<h1 id="Android-Window机制"><a href="#Android-Window机制" class="headerlink" title="Android-Window机制"></a>Android-Window机制</h1><h2 id="1-Window的表现形式"><a href="#1-Window的表现形式" class="headerlink" title="1. Window的表现形式"></a>1. Window的表现形式</h2><h3 id="1-1-什么是Window"><a href="#1-1-什么是Window" class="headerlink" title="1.1 什么是Window"></a>1.1 什么是Window</h3><p>在大部分 PC 操作系统中，Window 指的是一个可视化的窗口区域。例如在 MacOS、Linux、Windows 系统中，可视化内容的 Window 通常包含（并非必须）「关闭按钮」、「最小化」、「最大化」，这个 Window 是由操作系统分配的且具有 UI（例如边框、按钮、标题等），限定了内容显示的区域，可视化的内容在渲染时只需要相对给定的 Window 渲染和绘制，因此提供给了用户自由操作的空间。</p>
+<h3 id="1-2-Android中的Window"><a href="#1-2-Android中的Window" class="headerlink" title="1.2 Android中的Window"></a>1.2 Android中的Window</h3><p>在 Android 中，Window 更多只是一种抽象的概念：<strong>一组 View 的集合</strong>，因为 Android 中的 Window 并没有实际的 UI。在源码中有 <code>Window</code>, <code>PhoneWindow</code>, <code>ViewManager</code>, <code>WindowManager</code>, <code>WindowManagerImpl</code>, <code>WindowManagerGlobal</code> 等与 Window 相关的类，但这些都不是 Window 实体。</p>
+<p>Android 中 Window 和 View 的关系就像「组织」和「个体」的关系，一群相似的个体可以组成一个集体并对外具有一定属性、功能，但「组织」只是一个概念上的集合，并不是一个实际存在的东西。</p>
+<hr>
+<h2 id="2-Window属性"><a href="#2-Window属性" class="headerlink" title="2. Window属性"></a>2. Window属性</h2><p>Window 有 3 个重要属性：</p>
+<ul>
+<li>type</li>
+<li>flags</li>
+<li>solfInputMode</li>
+</ul>
+<h3 id="2-1-Type"><a href="#2-1-Type" class="headerlink" title="2.1 Type"></a>2.1 Type</h3><p>由于 Android 中 Window 是对一组 View 集合的描述，不同应用有不同的 Window，同一个应用也可能有多个 Window，所以需要用一种优先级表示 Window 的显示层级，在 Android 中使用 <code>type</code> 表示 Window 的类型，实际上是通过 <code>type</code> 的大小表示 Window 的优先级，值越大则在屏幕上显示位置越上层，会覆盖低层级的 Window：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WindowManager</span> <span class="keyword">extends</span> <span class="title">ViewManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LayoutParams</span> <span class="keyword">extends</span> <span class="title">ViewGroup</span>.<span class="title">LayoutParams</span> <span class="keyword">implements</span> <span class="title">Parcelable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> type;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 应用的主窗口层级范围 1 ~ 99</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FIRST_APPLICATION_WINDOW = <span class="number">1</span>;</span><br><span class="line">        ......</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LAST_APPLICATION_WINDOW = <span class="number">99</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 应用子窗口（例如 Dialog）层级范围 1000 ~ 1999</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FIRST_SUB_WINDOW = <span class="number">1000</span>;</span><br><span class="line">        ......</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LAST_SUB_WINDOW = <span class="number">1999</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 系统窗口层级范围 2000 ~ 2999</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FIRST_SYSTEM_WINDOW     = <span class="number">2000</span>;</span><br><span class="line">        ......</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LAST_SYSTEM_WINDOW      = <span class="number">2999</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-Flags"><a href="#2-2-Flags" class="headerlink" title="2.2 Flags"></a>2.2 Flags</h3><p>Flags 用于指定 Window 在不同场景下的处理方式，包括样式（全屏、背景等）、显示模式（是否允许锁屏、是否允许超出屏幕等）、触摸事件处理逻辑（是否接受触摸响应、是否将外部触摸事件传递到下层窗口等）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WindowManager</span> <span class="keyword">extends</span> <span class="title">ViewManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LayoutParams</span> <span class="keyword">extends</span> <span class="title">ViewGroup</span>.<span class="title">LayoutParams</span> <span class="keyword">implements</span> <span class="title">Parcelable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> flags;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 所有 Flag 枚举</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FLAG_XXX = xxxxx;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-SoftInputMode"><a href="#2-3-SoftInputMode" class="headerlink" title="2.3 SoftInputMode"></a>2.3 SoftInputMode</h3><p>SoftInputMode 决定了 Window 在弹出软键盘时的逻辑，实际上软键盘也是一种 Window，但因为比较特殊所以专门用了一个属性来控制：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WindowManager</span> <span class="keyword">extends</span> <span class="title">ViewManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LayoutParams</span> <span class="keyword">extends</span> <span class="title">ViewGroup</span>.<span class="title">LayoutParams</span> <span class="keyword">implements</span> <span class="title">Parcelable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> softInputMode;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 所有 SoftInputMode 枚举</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SOFT_INPUT_XXX = xxxxx;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-创建Window"><a href="#3-创建Window" class="headerlink" title="3. 创建Window"></a>3. 创建Window</h2><h3 id="3-1-指定用于创建Window的View"><a href="#3-1-指定用于创建Window的View" class="headerlink" title="3.1 指定用于创建Window的View"></a>3.1 指定用于创建Window的View</h3><p>在创建一个 Window 时，例如在 Activity 手动调用 <code>getWindowManager().addView(...)</code>，或是 <code>Dialog#show</code>，本质上都是调用了 WindowManager 实现类的 <code>WindowManagerImpl#addView</code> 方法，实际上 <code>WindowManagerImpl</code> 内的方法都只是对入参做了一些校验和预处理，最终都是通过桥接模式调用单例的 <code>WindowManagerGlobal</code> 实现的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerImpl</span> <span class="keyword">implements</span> <span class="title">WindowManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WindowManagerGlobal mGlobal = WindowManagerGlobal.getInstance();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(<span class="meta">@NonNull</span> View view, <span class="meta">@NonNull</span> ViewGroup.LayoutParams params)</span> </span>&#123;</span><br><span class="line">        applyDefaultToken(params);</span><br><span class="line">        mGlobal.addView(view, params, mContext.getDisplay(), mParentWindow);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerGlobal</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 单例</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> WindowManagerGlobal <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (WindowManagerGlobal.class) &#123;</span><br><span class="line">            <span class="keyword">if</span> (sDefaultWindowManager == <span class="keyword">null</span>) &#123;</span><br><span class="line">                sDefaultWindowManager = <span class="keyword">new</span> WindowManagerGlobal();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sDefaultWindowManager;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实际创建 Window</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(View view, ViewGroup.LayoutParams params,</span></span></span><br><span class="line"><span class="function"><span class="params">            Display display, Window parentWindow)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> WindowManager.LayoutParams wparams = (WindowManager.LayoutParams) params;</span><br><span class="line">        <span class="keyword">if</span> (parentWindow != <span class="keyword">null</span>) &#123;</span><br><span class="line">            parentWindow.adjustLayoutParamsForSubWindow(wparams);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (...) &#123;</span><br><span class="line">                wparams.flags |= WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ViewRootImpl root;</span><br><span class="line">        View panelParentView = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">synchronized</span> (mLock) &#123;</span><br><span class="line">            root = <span class="keyword">new</span> ViewRootImpl(view.getContext(), display);</span><br><span class="line">            view.setLayoutParams(wparams);</span><br><span class="line"></span><br><span class="line">            mViews.add(view);</span><br><span class="line">            mRoots.add(root);</span><br><span class="line">            mParams.add(wparams);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// do this last because it fires off messages to start doing things</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                root.setView(view, wparams, panelParentView);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>WindowManagerGlobal#addView(...)</code> 主要做了五件事：</p>
+<ul>
+<li>校验入参；</li>
+<li>如果 <code>parentWindow != null</code> 说明需要创建 SubWindow，则 SubWindow 需要继承部分 parentWindow 的属性；</li>
+<li>创建 ViewRootImpl；</li>
+<li>把用于创建 Window 的 View、ViewRootImpl、应用到 Window 的 LayoutParams 分别存入三个列表，这三个列表总是等长的，三列表中同一下标对应的三个对象均指向了同一个 Window；</li>
+<li>将用于创建 Window 的 View 以及 LayoutParams 传入 ViewRootImpl，由 ViewRootImpl 实际创建 Window。</li>
+</ul>
+<p>这里也能看出，每次创建 Window 时都会先创建一个 ViewRootImpl，而真正创建 Window 的步骤其实就在 ViewRootImpl 内，并不是 WindowManager 也不是 PhoneWindow，ViewRootImpl 与创建的 Window 是一一对应的。</p>
+<h3 id="3-2-ViewRootImpl创建Window"><a href="#3-2-ViewRootImpl创建Window" class="headerlink" title="3.2 ViewRootImpl创建Window"></a>3.2 ViewRootImpl创建Window</h3><p>ViewRootImpl 在构造方法中通过单例的 WindowManagerGlobal 获取了一个单例的 IWindowSession 对象，用于在 <code>ViewRootImpl#setView(...)</code> 中真正创建 Window：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewRootImpl</span> <span class="keyword">implements</span> <span class="title">ViewParent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> IWindowSession mWindowSession;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewRootImpl</span><span class="params">(Context context, Display display)</span> </span>&#123;</span><br><span class="line">        mWindowSession = WindowManagerGlobal.getWindowSession();</span><br><span class="line">        <span class="comment">// 绑定了初始化时的线程</span></span><br><span class="line">        mThread = Thread.currentThread();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setView</span><span class="params">(View view, WindowManager.LayoutParams attrs, View panelParentView)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 传入的 view 就是 DecorView。</span></span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mView == <span class="keyword">null</span>) &#123;</span><br><span class="line">                mView = view;</span><br><span class="line">                ......</span><br><span class="line">                <span class="comment">// 调用 WindowSession#addToDisplay(...)，才是真正创建了一个 Window。</span></span><br><span class="line">                res = mWindowSession.addToDisplay(...);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerGlobal</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> IWindowSession sWindowSession;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IWindowSession <span class="title">getWindowSession</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (WindowManagerGlobal.class) &#123;</span><br><span class="line">            <span class="keyword">if</span> (sWindowSession == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    IWindowManager windowManager = getWindowManagerService();</span><br><span class="line">                    sWindowSession = windowManager.openSession(...);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sWindowSession;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这也能看出，WindowManagerGlobal 和 IWindowSession 都是应用内单例的；</p>
+<ul>
+<li><p>WindowManagerGlobal 是一个工具类，用于维护和提供一系列与 Window 相关的资源，例如在 <code>addView(...)</code> 中就创建并维护了 View、ViewRootImpl、LayoutParams，而 <code>getWindowSession(...)</code> 则维护并提供 IWindowSession 对象，但 WindowManagerGlobal 本身并不承担创建 Window 的责任，是一个纯粹的工具类。</p>
+</li>
+<li><p>IWindowSession 包含了一系列与 WindowManagerService 的交互逻辑：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Session</span> <span class="keyword">extends</span> <span class="title">IWindowSession</span>.<span class="title">Stub</span> <span class="keyword">implements</span> <span class="title">IBinder</span>.<span class="title">DeathRecipient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> WindowManagerService mService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">addToDisplay</span><span class="params">(...)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mService.addWindow(...);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>所以，关于 Window、PhoneWindow、ViewManager、WindowManager、WindowManagerImpl、WindowManagerGlobal、ViewRootImpl 的关系可以总结如下：</p>
+<ul>
+<li>首先在 <code>Activity#attach(...)</code> 阶段先创建 <code>new PhoneWindow(...)</code>；</li>
+<li>然后通过 <code>PhoneWindow#setWindowManager(...)</code> 的内部创建出来一个 WindowManagerImpl；</li>
+<li>所有创建 Window 的地方，不论是 Activity、Dialog、还是 PopupWindow，最终都会调用 <code>WindowManagerImpl#addView(...)</code>；</li>
+<li>WindowManagerImpl 则调用单例的 <code>WindowManagerGlobal#addView(...)</code>；</li>
+<li>WindowManagerGlobal 创建 <code>new ViewRootImpl(...)</code>；</li>
+<li>ViewRootImpl 通过 <code>setView(...)</code> 持有了用于创建 Window 的 View，以及指定 Window 属性的 LayoutParams，因此 <strong>ViewRootImpl 负责连接 View 和 Window</strong>；</li>
+<li>ViewRootImpl 从 WindowManagerGlobal 中获取单例的 IWindowSession，调用 <code>IWindowSession#addToDisplay(...)</code>；</li>
+<li>IWindowSession 调用 WMS 完成最终的 Window 创建，因此 <strong>IWindowSession 负责连接 ViewRootImpl 和 WMS</strong>。</li>
+</ul>
+<blockquote>
+<p>除了创建窗口，WindowManagerImpl 还能通过 <code>updateView(...)</code> 和 <code>removeView(...)</code> 更新及移除 Window。</p>
+</blockquote>
+<hr>
+<h2 id="4-PhoneWindow"><a href="#4-PhoneWindow" class="headerlink" title="4. PhoneWindow"></a>4. PhoneWindow</h2><h3 id="4-1-PhoneWindow不是Window"><a href="#4-1-PhoneWindow不是Window" class="headerlink" title="4.1 PhoneWindow不是Window"></a>4.1 PhoneWindow不是Window</h3><p>通过上文分析会发现，创建 Window 最终都是通过 <code>WindowManagerImpl#addView(...)</code> 实现的，而 WindowManagerImpl 又是在 <code>PhoneWindow#setWindowManager(...)</code> 中创建的，那为什么 PhoneWindow 不是一个实际的 Window 呢？这个问题需要从两个方面考虑：</p>
+<p>（1）PhoneWindow 与 Window 并不是一一对应关系：</p>
+<p>首先，PhoneWindow 和实际显示在屏幕上的 Window 并不是一一对应的关系。尽管在 Activity 启动流程中创建了一个 <code>new PhoneWindow(...)</code>，但例如 PopupWindow、或是手动调用 <code>getWindowManager().addView(...)</code> 创建一个 Window 时，都并没有创建 PhoneWindow，而且它们最终都是用这个 Activity 的 WindowManagerImpl 来创建的，与 Activity 创建的 PhoneWindow 并没有直接关系。即便是 Dialog 在构造方法中创建了属于自己的 PhoneWindow 对象，但 <code>show()</code> 的时候用到的 WindowManagerImpl 也是通过 <code>mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);</code> 从传入的 Context 中获取的，而创建 Dialog 传入的 Context 又几乎肯定是 Activity，所以实际上这些创建 Window 的过程，仅仅只和 WindowManagerImpl 有关，与 PhoneWindow 并没有什么关系。</p>
+<p>（2）PhoneWindow 并没有与 WMS 的交互：</p>
+<p>Android 对 Window 真正的创建、更新、和移除，都是通过 IWindowSession 调用 WindowManagerService 实现的；反之 WMS 也是通过 IWindowSession 来分配、调度、以及管理实际的 Window。而每个 App 只有一个单例的 IWindowSession，保存在同样单例的 WindowManagerGlobal 中，只有 ViewRootImpl 获取并操作了 IWindowSession，而 ViewRootImpl 又是 WindowManagerImpl 每次调用 <code>addView(...)</code> 时创建的，因此这个与 WMS 交互的过程同样与 PhoneWindow 无关。</p>
+<h3 id="4-2-PhoneWindow的意义"><a href="#4-2-PhoneWindow的意义" class="headerlink" title="4.2 PhoneWindow的意义"></a>4.2 PhoneWindow的意义</h3><p>上文中提到，Activity 在 <code>attach(...)</code> 时创建了自己的 PhoneWindow，而 Dialog 也在构造方法中创建了自己的 PhoneWindow，乍一看似乎 PhoneWindow 就是一个实际的 Window，当然通过上文也已经知道并非如此。PhoneWindow 与 Window 的关系，非常类似于 Socket 与 TCP / UDP 的关系：</p>
+<ul>
+<li>TCP / UDP 都是实际上的传输层协议，但 Socket 既不参与实际数据协议的转换（传输层）、又不负责维护设备之间的通信信道（会话层，Socket 虽然可以建立连接，但 Socket 只是帮忙发起了请求，本质上这条连接并不是 Socket 维护的，而是操作系统维护的）、也不负责传输数据的编解码（表示层），因为 Socket 并不属于 OSI 模型中的任何一层，Socket 只是对 TCP / UDP 的封装而并不参与到实际网络传输中的缓解，应该把 Socket 看成一个工具。</li>
+<li>而 PhoneWindow 与 Window 的关系也是同理，PhoneWindow 维护了与 Window 相关的资源（例如 WindowManager、Type 属性、Flags 属性、SoftInputMode 属性等）；并提供了一系列与 Window 相关的工具方法（例如加载 DecorView、设置 Title、获取实际 Window 的一些状态等）。当需要改变 Window 的属性时，实际上是把对应的属性设置到 PhoneWindow 中，然后由 ViewRootImpl 请求 WMS 后读取并按照对应的属性设置 Window。</li>
+</ul>
+<p>当然上文也提到，Dialog 会在构造方法中创建自己的 PhoneWindow，这是因为 Dialog 是一个很灵活的组件，本质上 Dialog 其实就是另一个 Window，但开发人员对 Dialog 的 Window 有很大的自定义需求，经常需要修改 Window 的属性，因此 Dialog 对创建出来的 Window 资源做了一层封装，放在自己的 PhoneWindow 中，而对于 PopupWindow 或手动调用 <code>getWindowManager().addView(...)</code> 创建的 Window，只是 Google 没有提供获取 Window 并修改属性的 API 而已。</p>
+<hr>
+<h2 id="5-Window加载时机"><a href="#5-Window加载时机" class="headerlink" title="5. Window加载时机"></a>5. Window加载时机</h2><h3 id="5-1-Activity的Window"><a href="#5-1-Activity的Window" class="headerlink" title="5.1 Activity的Window"></a>5.1 Activity的Window</h3><p>在 <a href="/post/android/android-activity/" title="@LINK">Activity 启动流程</a> 中对 Activity 的启动做了分析，Activity 的 Window 是在 <code>ActivityThread#handleResumeActivity(...)</code> 中调用 <code>wm.addView(decor, l);</code> 创建的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivityThread</span> <span class="keyword">extends</span> <span class="title">ClientTransactionHandler</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleResumeActivity</span><span class="params">(IBinder token, <span class="keyword">boolean</span> finalStateRequest, <span class="keyword">boolean</span> isForward, String reason)</span> </span>&#123;</span><br><span class="line">      <span class="comment">// 先调用了 performResumeActivity</span></span><br><span class="line">        <span class="keyword">final</span> ActivityClientRecord r = performResumeActivity(token, finalStateRequest, reason);</span><br><span class="line">        <span class="keyword">final</span> Activity a = r.activity;</span><br><span class="line">        <span class="keyword">if</span> (r.window == <span class="keyword">null</span> &amp;&amp; !a.mFinished &amp;&amp; willBeVisible) &#123;</span><br><span class="line">            ......</span><br><span class="line">            <span class="keyword">if</span> (a.mVisibleFromClient) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!a.mWindowAdded) &#123;</span><br><span class="line">                    a.mWindowAdded = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="comment">// 然后才创建 Window</span></span><br><span class="line">                    wm.addView(decor, l);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ActivityClientRecord <span class="title">performResumeActivity</span><span class="params">(IBinder token, <span class="keyword">boolean</span> finalStateRequest,</span></span></span><br><span class="line"><span class="function"><span class="params">            String reason)</span> </span>&#123;</span><br><span class="line">        ......</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 调用到 Activity 内</span></span><br><span class="line">            r.activity.performResume(r.startsNotResumed, reason);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终调用了 <code>Activity#performResume(...)</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Activity</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">performResume</span><span class="params">(<span class="keyword">boolean</span> followedByPause, String reason)</span> </span>&#123;</span><br><span class="line">        ......</span><br><span class="line">        <span class="comment">// 这一步已经回调了 Activity 的 onResume() 生命周期</span></span><br><span class="line">        mInstrumentation.callActivityOnResume(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过源码可以看出，Activity 在回调 <code>onResume()</code> 生命周期的时候，Window 以及 ViewRootImpl 是还没有创建的！</p>
+<h3 id="5-2-创建新Window"><a href="#5-2-创建新Window" class="headerlink" title="5.2 创建新Window"></a>5.2 创建新Window</h3><p>上文已经得出结论，Activity 在 <code>onResume()</code> 执行完返回之后，才会执行创建 Window 和 ViewRootImpl 的逻辑；</p>
+<ul>
+<li>这就带来了一个问题：在 Activity 生命周期的 <code>onResume</code> 回调中，可以创建 Window 吗？例如弹出一个 PopupWindow、或是调用 <code>getWindowManager().addView(...)</code>、或是弹出一个 Dialog？</li>
+<li>答案：<ul>
+<li>Dialog 可以。</li>
+<li>PopupWindow 默认情况下不能，需要指定某个范围内的 Type，否则抛出异常。</li>
+<li>手动调用 <code>getWindowManager().addView(...)</code> 只有在 Window 的 Type 属性在某个范围内才可以，否则抛出异常。</li>
+</ul>
+</li>
+</ul>
+<p>抛出的异常是：<code>android.view.WindowManager$BadTokenException: Unable to add window -- token null is not valid; is your activity running?</code>，抛出的地方位于：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewRootImpl</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setView</span><span class="params">(View view, WindowManager.LayoutParams attrs, View panelParentView)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 首先把 DecorView 存为成员变量 mView</span></span><br><span class="line">        <span class="keyword">if</span> (mView == <span class="keyword">null</span>) &#123;</span><br><span class="line">            mView = view;</span><br><span class="line">        &#125;</span><br><span class="line">        ......</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 通过 IWindowSession 实际请求 WMS 创建 Window：</span></span><br><span class="line">            res = mWindowSession.addToDisplay(...);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (res &lt; WindowManagerGlobal.ADD_OKAY) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (res) &#123;</span><br><span class="line">                <span class="keyword">case</span> WindowManagerGlobal.ADD_BAD_APP_TOKEN:</span><br><span class="line">                <span class="keyword">case</span> WindowManagerGlobal.ADD_BAD_SUBWINDOW_TOKEN:</span><br><span class="line">                    <span class="comment">// 就是在这里抛出的异常，Token 为 null。</span></span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> WindowManager.BadTokenException(</span><br><span class="line">                            <span class="string">&quot;Unable to add window -- token &quot;</span> + attrs.token</span><br><span class="line">                            + <span class="string">&quot; is not valid; is your activity running?&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过上文分析可知，创建一个 Window 的过程为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerImpl</span> <span class="keyword">implements</span> <span class="title">WindowManager</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(<span class="meta">@NonNull</span> View view, <span class="meta">@NonNull</span> ViewGroup.LayoutParams params)</span> </span>&#123;</span><br><span class="line">        applyDefaultToken(params);</span><br><span class="line">        mGlobal.addView(view, params, mContext.getDisplay(), mParentWindow);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerGlobal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 实际创建 Window</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(View view, ViewGroup.LayoutParams params,</span></span></span><br><span class="line"><span class="function"><span class="params">            Display display, Window parentWindow)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> WindowManager.LayoutParams wparams = (WindowManager.LayoutParams) params;</span><br><span class="line">        <span class="comment">// 如果 parentWindow 不为空，说明当前已经存在一个 Window 了，</span></span><br><span class="line">        <span class="comment">// 就需要用 parentWindow 的属性对新 Window 的 LayoutParams 做预处理。</span></span><br><span class="line">        <span class="keyword">if</span> (parentWindow != <span class="keyword">null</span>) &#123;</span><br><span class="line">            parentWindow.adjustLayoutParamsForSubWindow(wparams);</span><br><span class="line">        &#125;</span><br><span class="line">        ViewRootImpl root;</span><br><span class="line">        <span class="keyword">synchronized</span> (mLock) &#123;</span><br><span class="line">            root = <span class="keyword">new</span> ViewRootImpl(view.getContext(), display);</span><br><span class="line">            view.setLayoutParams(wparams);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 将 DecorView 传入 ViewRootImpl。</span></span><br><span class="line">                root.setView(view, wparams, panelParentView);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Window</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 这个方法的意义就在于，如果新的窗口是一个 SubWindow，则它需要继承一些父 Window 的属性，</span></span><br><span class="line">    <span class="comment">// 例如 Token，SubWindow 会使用父 Window 的 Token 作为创建自己的授权。</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">adjustLayoutParamsForSubWindow</span><span class="params">(WindowManager.LayoutParams wp)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 注意这里最外层的三个条件，对 Window 的 Type 做了判断</span></span><br><span class="line">        <span class="keyword">if</span> (wp.type &gt;= WindowManager.LayoutParams.FIRST_SUB_WINDOW &amp;&amp;</span><br><span class="line">                wp.type &lt;= WindowManager.LayoutParams.LAST_SUB_WINDOW) &#123;</span><br><span class="line">            <span class="comment">// 当 (1000 &lt;= Type &lt;= 1999) 时，也就是 SubWindow，则 Token 是通过 DecorView 获取的</span></span><br><span class="line">            <span class="keyword">if</span> (wp.token == <span class="keyword">null</span>) &#123;</span><br><span class="line">                View decor = peekDecorView();</span><br><span class="line">                <span class="keyword">if</span> (decor != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    wp.token = decor.getWindowToken();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ......</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (wp.type &gt;= WindowManager.LayoutParams.FIRST_SYSTEM_WINDOW &amp;&amp;</span><br><span class="line">                wp.type &lt;= WindowManager.LayoutParams.LAST_SYSTEM_WINDOW) &#123;</span><br><span class="line">            <span class="comment">// 当 (2000 &lt;= Type &lt;= 2999) 时，此时新 Window 是一个系统 Window，</span></span><br><span class="line">            <span class="comment">// 因此不需要继承什么属性，生命周期也应该独立，源码注释也有说明。</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 否则此时新 Window 的 Type 范围就是：(1 &lt;= Type &lt;= 99)，属于 Application 类型，</span></span><br><span class="line">            <span class="comment">// 则 Token 直接复用当前 Window 的 Token。</span></span><br><span class="line">            <span class="keyword">if</span> (wp.token == <span class="keyword">null</span>) &#123;</span><br><span class="line">                wp.token = mContainer == <span class="keyword">null</span> ? mAppToken : mContainer.mAppToken;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到在 <code>Window#adjustLayoutParamsForSubWindow(LayoutParams)</code> 中对新 Window 的判断有三个大分支，按优先级顺序：</p>
+<ul>
+<li><code>1000 &lt;= Type &lt;= 1999</code></li>
+<li><code>2000 &lt;= Type &lt;= 2999</code></li>
+<li><code>1 &lt;= Type &lt;= 99</code></li>
+</ul>
+<h4 id="5-2-1-作为SubWindow时"><a href="#5-2-1-作为SubWindow时" class="headerlink" title="5.2.1 作为SubWindow时"></a>5.2.1 作为SubWindow时</h4><p>当新 Window <code>1000 &lt;= Type &lt;= 1999</code> 时，说明新 Window 是一个 SubWindow，SubWindow 的前提就是已经存在父 Window，因此 Token 就从父 Window 的 DecorView 里面获取：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// getWindowToken() 其实是 View 的方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="comment">// dispatchAttachedToWindow 存入 AttachInfo，</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dispatchAttachedToWindow</span><span class="params">(AttachInfo info, <span class="keyword">int</span> visibility)</span> </span>&#123;</span><br><span class="line">        mAttachInfo = info;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// getWindowToken 就从存入的 AttachInfo 里面取出 Token</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">getWindowToken</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 可以看到返回的是 mAttachInfo.mWindowToken</span></span><br><span class="line">        <span class="keyword">return</span> mAttachInfo != <span class="keyword">null</span> ? mAttachInfo.mWindowToken : <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>DecorView#getWindowToken()</code> 获取的实际上是从 View 成员变量 <code>mAttachInfo</code> 获取的，因此就需要找到这个 <code>mAttachInfo</code> 是什么时候被存入 DecorView 的，也就是 <code>dispatchAttachedToWindow(...)</code> 是什么时候调用的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivityThread</span> <span class="keyword">extends</span> <span class="title">ClientTransactionHandler</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleResumeActivity</span><span class="params">(IBinder token, <span class="keyword">boolean</span> finalStateRequest, <span class="keyword">boolean</span> isForward, String reason)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建 Window 时传入的就是 DecorView</span></span><br><span class="line">        wm.addView(decor, l);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerGlobal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 入参的 View 就是 DecorView</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(View view, ViewGroup.LayoutParams params,</span></span></span><br><span class="line"><span class="function"><span class="params">            Display display, Window parentWindow)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> WindowManager.LayoutParams wparams = (WindowManager.LayoutParams) params;</span><br><span class="line">        <span class="keyword">if</span> (parentWindow != <span class="keyword">null</span>) &#123;</span><br><span class="line">            parentWindow.adjustLayoutParamsForSubWindow(wparams);</span><br><span class="line">        &#125;</span><br><span class="line">        ViewRootImpl root;</span><br><span class="line">        <span class="keyword">synchronized</span> (mLock) &#123;</span><br><span class="line">            root = <span class="keyword">new</span> ViewRootImpl(view.getContext(), display);</span><br><span class="line">            view.setLayoutParams(wparams);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 将 DecorView 传入 ViewRootImpl。</span></span><br><span class="line">                root.setView(view, wparams, panelParentView);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewRootImpl</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setView</span><span class="params">(View view, WindowManager.LayoutParams attrs, View panelParentView)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 首先把 DecorView 存为成员变量 mView</span></span><br><span class="line">        <span class="keyword">if</span> (mView == <span class="keyword">null</span>) &#123;</span><br><span class="line">            mView = view;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">performTraversals</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 这里 mView 就是 DecorView，用局部变量 host 持有：</span></span><br><span class="line">        <span class="keyword">final</span> View host = mView;</span><br><span class="line">        ......</span><br><span class="line">        <span class="comment">// 就是在这里把 AttachInfo 存入了 DecorView 中。</span></span><br><span class="line">        host.dispatchAttachedToWindow(mAttachInfo, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从源码中可以分析得出：</p>
+<ul>
+<li>WindowManagerGlobal 创建 ViewRootImpl 之后调用 <code>ViewRootImpl#setView(...)</code> 将 DecorView 存入 ViewRootImpl；</li>
+<li>ViewRootImpl 在实际开始渲染第一帧的时候才将 AttachInfo 存入 DecorView；</li>
+<li>这之后 <code>DecorView#getWindowToken()</code> 才不为空。</li>
+<li>因此当新建的 Window <code>1000 &lt;= Type &lt;= 1999</code> 时，只有在 DecorView 第一帧渲染之后才能获取到 Token。</li>
+</ul>
+<h4 id="5-2-2-作为SystemWindow时"><a href="#5-2-2-作为SystemWindow时" class="headerlink" title="5.2.2 作为SystemWindow时"></a>5.2.2 作为SystemWindow时</h4><p>当 <code>2000 &lt;= Type &lt;= 2999</code> 时，说明新 Window 是一个 SystemWindow，则不需要从其他 Window 继承任何属性，也不需要复用其他 Window 的 Token，Android 将以独立生命周期处理这个 Window，在源码中也没有做什么处理，这种情况下是不会抛出异常的。</p>
+<h4 id="5-2-3-作为ApplicationWindow时"><a href="#5-2-3-作为ApplicationWindow时" class="headerlink" title="5.2.3 作为ApplicationWindow时"></a>5.2.3 作为ApplicationWindow时</h4><p>当上述两个条件均不满足时，说明 <code>1 &lt;= Type &lt;= 99</code>，也即新 Window 是一个 ApplicationWindow，则新 Window 就直接复用当前 Window 的 Token，又因为 WindowManagerGlobal 中调用的是 <code>parentWindow.adjustLayoutParamsForSubWindow(LayoutParams)</code>，所以新 Window 就是复用的 <code>parentWindow</code> 的 Token，对应在 Activity 中就是 Activity 的 Window 的 Token，再进一步也就是 <code>Activity#attach(...)</code> 阶段从 AMS 传进来的 Token，因此新 Window 在这个阶段（只是预处理 LayoutParams 的阶段，还没有创建 ViewRootImpl）就已经具有了 Token，因此在后续创建 ViewRootImpl 并调用 <code>ViewRootImpl#setView(...)</code> 时也就不会抛出异常。</p>
+<h4 id="5-2-4-问题分析"><a href="#5-2-4-问题分析" class="headerlink" title="5.2.4 问题分析"></a>5.2.4 问题分析</h4><p>上文 3 个小节已经对新 Window 的 Type 取不同值时，对应 Token 的获取时机做了分析，因此对于 <code>Activity#onCreate()</code> 时是否能创建新 Window，就能通过新 Window 的 Type 取值做判断了：</p>
+<p>（1）PopupWindow：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PopupWindow</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 实际取值：1000，属于 SubWindow 的范围</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mWindowLayoutType = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWindowLayoutType</span><span class="params">(<span class="keyword">int</span> layoutType)</span> </span>&#123;</span><br><span class="line">        mWindowLayoutType = layoutType;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getWindowLayoutType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mWindowLayoutType;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showAtLocation</span><span class="params">(IBinder token, <span class="keyword">int</span> gravity, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> WindowManager.LayoutParams p = createPopupLayoutParams(token);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showAsDropDown</span><span class="params">(View anchor, <span class="keyword">int</span> xoff, <span class="keyword">int</span> yoff, <span class="keyword">int</span> gravity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> WindowManager.LayoutParams p =</span><br><span class="line">                createPopupLayoutParams(anchor.getApplicationWindowToken());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> WindowManager.<span class="function">LayoutParams <span class="title">createPopupLayoutParams</span><span class="params">(IBinder token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> WindowManager.LayoutParams p = <span class="keyword">new</span> WindowManager.LayoutParams();</span><br><span class="line">        p.type = mWindowLayoutType;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，PopupWindow 在成员变量中已经指定了默认的 <code>Type == 1000</code>，因此默认情况下的 PopupWindow 在 <code>Activity#onResume()</code> 阶段无法通过 DecorView 获取到 Token，会抛出异常，但可以通过手动设置 <code>popupWindow.setWindowLayoutType(1 ~ 99)</code> 直接复用 Activity 的 Window 的 Token 解决问题。</p>
+<p>（2）手动调用 <code>getWindowManager.addView(...)</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getWindowManager().addView(textView, <span class="keyword">new</span> WindowManager.LayoutParams(</span><br><span class="line">        <span class="number">100</span>,              <span class="comment">// 宽</span></span><br><span class="line">        <span class="number">100</span>,              <span class="comment">// 高</span></span><br><span class="line">        TYPE_APPLICATION, <span class="comment">// Type 值，手动指定在 1 ~ 99 即可</span></span><br><span class="line">        <span class="number">0</span>,                <span class="comment">// Flags</span></span><br><span class="line">        <span class="number">0</span>                 <span class="comment">// Bitmap 的像素格式</span></span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+
+<p>由于可以手动指定 Type 属性，因此指定在 1 ~ 99 范围内即可。</p>
+<p>（3）Dialog：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dialog</span> </span>&#123;</span><br><span class="line">    Dialog(<span class="meta">@NonNull</span> Context context, <span class="meta">@StyleRes</span> <span class="keyword">int</span> themeResId, <span class="keyword">boolean</span> createContextThemeWrapper) &#123;</span><br><span class="line">        <span class="keyword">final</span> Window w = <span class="keyword">new</span> PhoneWindow(mContext);</span><br><span class="line">        mWindow = w;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        WindowManager.LayoutParams l = mWindow.getAttributes();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Window</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Window 的 LayoutParams 有默认值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WindowManager.LayoutParams mWindowAttributes =</span><br><span class="line">        <span class="keyword">new</span> WindowManager.LayoutParams();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WindowManager</span> <span class="keyword">extends</span> <span class="title">ViewManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LayoutParams</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">LayoutParams</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);</span><br><span class="line">            <span class="comment">// WindowManager.LayoutParams 的默认 Type 就是 TYPE_APPLICATION</span></span><br><span class="line">            type = TYPE_APPLICATION;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，Dialog 在构造方法中创建了自己的 PhoneWindow，而 Window 默认的 LayoutParams 中 <code>Type == TYPE_APPLICATION == 2</code>，所以 Dialog 也是直接复用了当前 Window 的 Token。</p>
+<hr>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43766753/article/details/108350589" title="@LINK">Android全面解析之Window机制（作者：weixin_43766753）</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else{
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
+<script>
+    <!--动态浏览器标签-->
+    var OriginTitle = document.title;
+    var titleTime;
+    var titleTime2;
+    var titleTime3;
+    var blankTitle = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000"
+    blankTitle = blankTitle + blankTitle + blankTitle;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+            // 失去焦点时不切换标题
+            // document.title = "Waiting...";
+            document.title = OriginTitle;
+            clearTimeout(titleTime);
+            clearTimeout(titleTime2);
+            clearTimeout(titleTime3);
+        }
+        else {
+            document.title = "Welcome";
+            titleTime = setTimeout(function () {
+                document.title = "Back";
+                titleTime2 = setTimeout(function () {
+                    document.title = "Welcome Back !";
+                    titleTime3 = setTimeout(function () {
+                        document.title = OriginTitle;
+                    }, 500);
+                }, 300);
+            }, 300);
+        }
+    });
+</script>
+
+
+
+
+
+
+    
+    
+    <style type="text/css">
+        .postEndContainer {
+            border-radius: 10px;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+        .toAbout {
+            font-size: 18px;
+            text-align: center;
+            color: #EB6D39;
+            cursor: pointer;
+            border-bottom: none;
+        }
+        .toAbout:hover {
+            background: #EB6D39;
+            color: #FFFFFF;
+            cursor: pointer;
+            border-bottom: none;
+        }
+
+        .postEndText {
+            animation: slideHorizontal 4.0s ease infinite;
+        }
+        
+        @keyframes slideHorizontal {
+            0% {
+                transform: rotateX(0deg);
+            }
+            25% {
+                transform: rotateX(360deg);
+            }
+            50% {
+                transform: rotateX(720deg);
+            }
+            100% {
+                transform: rotateX(720deg);
+            }
+        }
+    </style>
+    
+        
+        <div class="pagination postEndContainer toAbout" onClick="window.open('/about/','_self')">
+            <div class="postEndText">全 文 结 束&ensp;&ensp;<i class="fab fa-leanpub"></i>&ensp;&ensp;点 击 留 言</div>
+        </div>
+    
+
+    
+    <img src="/images/reward.png" style="width: 300px; max-width: 100%;">
+
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者: </strong>Luis
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接:</strong>
+      <a href="https://blog.luis.ltd/post/android/android-window/" title="Android-Window机制">https://blog.luis.ltd/post/android/android-window/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明: </strong>所有文章均由 Luis 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议，引用前请务必联系授权。
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+              <a href="/tags/Window/" rel="tag"><i class="fa fa-tag"></i> Window</a>
+              <a href="/tags/PhoneWindow/" rel="tag"><i class="fa fa-tag"></i> PhoneWindow</a>
+              <a href="/tags/WindowManager/" rel="tag"><i class="fa fa-tag"></i> WindowManager</a>
+              <a href="/tags/ViewRootImpl/" rel="tag"><i class="fa fa-tag"></i> ViewRootImpl</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/android/android-router/" rel="prev" title="Android-Router路由框架浅析">
+                  <i class="fa fa-chevron-left"></i> Android-Router路由框架浅析
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/android/android-activity/" rel="next" title="Android-Activity深入理解">
+                  Android-Activity深入理解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuShulun</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>Site Symbols:</span>
+    <span title="Site Symbols">380k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>Site Read Time &asymp;</span>
+    <span title="Site Read Time">7:02</span>
+  </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script class="next-config" data-name="nprogress" type="application/json">{&quot;enable&quot;:true,&quot;spinner&quot;:true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+<style type="text/css">
+    .toBottom {
+        color: #EEEEEE;
+        border-bottom: none;
+    }
+    .toBottom:hover {
+        color: #EB6D39;
+        border-bottom: none;
+    }
+</style>
+<div class="scrollToBottom back-to-top back-to-top-on" role="button" style="bottom: 30px;" onClick="window.open('#postBottom','_self')">
+    <span class="fa fa-arrow-down"> Down</span>
+</div>
+
+<script>
+    $(function() {
+        $('.scrollToBottom').click(function(){
+            
+            $('html,body').animate({scrollTop:$('.bottom').offset().top}, 800);
+        });
+    })
+</script>
+
+<a id='postBottom'></a>
+</body>
+</html>

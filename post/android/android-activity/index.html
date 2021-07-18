@@ -31,7 +31,7 @@
 <meta property="og:description" content="（1）Activity 简介（Activity 的生命周期、Activity 的启动与退出）；（2）Activity 的启动模式（Standard、SingleTop、SingleTask、SingleInstance）；（3）Activity 启动流程（Application 启动流程、onCreate、onStart、onResume）；（4）Activity 布局加载流程（setConten">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog.luis.ltd/post/android/android-activity/activity_lifecycle.svg">
-<meta property="article:published_time" content="2021-06-06T13:42:31.000Z">
+<meta property="article:published_time" content="2020-09-20T13:42:31.000Z">
 <meta property="article:author" content="Luis">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="四大组件">
@@ -84,7 +84,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">2021/07/13 - 02:47:25</p>
+      <p class="site-subtitle" itemprop="description">2021/07/18 - 12:44:09</p>
   </div>
 
   <div class="site-nav-right">
@@ -99,9 +99,9 @@
 <nav class="site-nav">
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">68</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">69</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">120</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">124</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -181,7 +181,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">Posts</span>
         </a>
       </div>
@@ -194,7 +194,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">120</span>
+        <span class="site-state-item-count">124</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -288,7 +288,7 @@
       </span>
       <span class="post-meta-item-text">Posted:</span>
 
-      <time title="Created::2021-06-06 21:42:31" itemprop="dateCreated datePublished" datetime="2021-06-06T21:42:31+08:00">2021-06-06</time>
+      <time title="Created::2020-09-20 21:42:31" itemprop="dateCreated datePublished" datetime="2020-09-20T21:42:31+08:00">2020-09-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -366,7 +366,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Read Time &asymp;</span>
-      <span>54 Min</span>
+      <span>53 Min</span>
     </span>
 </div>
 
@@ -789,7 +789,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerImpl</span> <span class="keyword">implements</span> <span class="title">WindowManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WindowManagerGlobal mGlobal = WindowManagerGlobal.getInstance();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// handleResumeActivity(...) 中，调用该方法传入的 View 实际上就是 DecorView</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(<span class="meta">@NonNull</span> View view, <span class="meta">@NonNull</span> ViewGroup.LayoutParams params)</span> </span>&#123;</span><br><span class="line">        applyDefaultToken(params);</span><br><span class="line">        <span class="comment">// 这个 mGlobal 是 WindowManagerGlobal 实例对象</span></span><br><span class="line">        mGlobal.addView(view, params, mContext.getDisplay(), mParentWindow);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对应 mGlobal.addView(...) 的源码</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowManagerGlobal</span> </span>&#123;</span><br><span class="line">    <span class="comment">//  这里传入的 View 实际上是 DecorView</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addView</span><span class="params">(View view, ViewGroup.LayoutParams params, Display display, Window parentWindow)</span> </span>&#123;</span><br><span class="line">        ViewRootImpl root;</span><br><span class="line">        <span class="keyword">synchronized</span> (mLock) &#123;</span><br><span class="line">            <span class="comment">// 创建 ViewRootImpl。</span></span><br><span class="line">            root = <span class="keyword">new</span> ViewRootImpl(view.getContext(), display);</span><br><span class="line">            <span class="comment">// mRoots 是一个 ArrayList&lt;ViewRootImpl&gt; 类型的集合。</span></span><br><span class="line">            mRoots.add(root);</span><br><span class="line">            mParams.add(wparams);</span><br><span class="line">            <span class="comment">// do this last because it fires off messages to start doing things</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// ViewRootImpl 持有 DecorView。</span></span><br><span class="line">                root.setView(view, wparams, panelParentView);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>终于找到了 ViewRootImpl 初始化的地方，其构造方法内绑定了初始化时的线程：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewRootImpl</span> <span class="keyword">implements</span> <span class="title">ViewParent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> IWindowSession mWindowSession;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewRootImpl</span><span class="params">(Context context, Display display)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个 WindowSession，App 创建 Window 时，实际上都是通过 ViewRootImpl 拿到 WindowSession，</span></span><br><span class="line">        <span class="comment">// 再通过 WindowSession 与 WindowManagerService 交互完成的，</span></span><br><span class="line">        <span class="comment">// 其中用到了 Activity#attach 传入 PhoneWindow 的 IBinder token。</span></span><br><span class="line">        <span class="comment">// 所以实际上 PhoneWindow 持有了和 Window 相关的信息，但真正和 WMS 通信的是 ViewRootImpl。</span></span><br><span class="line">        mWindowSession = WindowManagerGlobal.getWindowSession();</span><br><span class="line">        <span class="comment">// 绑定了初始化时的线程</span></span><br><span class="line">        mThread = Thread.currentThread();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setView</span><span class="params">(View view, WindowManager.LayoutParams attrs, View panelParentView)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 传入的 view 就是 DecorView。</span></span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mView == <span class="keyword">null</span>) &#123;</span><br><span class="line">                mView = view;</span><br><span class="line">                ......</span><br><span class="line">                <span class="comment">// 调用 WindowSession#addToDisplay，才是真正创建了一个 Window。</span></span><br><span class="line">                <span class="comment">// 传入的 mWindow 就是 Activity#attach 中创建的 PhoneWindow，主要用于获取 Token 等 Window 相关信息，</span></span><br><span class="line">                <span class="comment">// 而 Token 是由 AMS 通过 ActivityThread#performLaunchActivity 传入、并存入 PhoneWindow 中的，</span></span><br><span class="line">                <span class="comment">// 由此也可知，Service 启动时没有经过这个阶段，所以 Service 没有 Token，无法创建 Window。</span></span><br><span class="line">                res = mWindowSession.addToDisplay(mWindow, ...);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewRootImpl</span> <span class="keyword">implements</span> <span class="title">ViewParent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> IWindowSession mWindowSession;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewRootImpl</span><span class="params">(Context context, Display display)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个 WindowSession，App 创建 Window 时，实际上都是通过 ViewRootImpl 拿到 WindowSession，</span></span><br><span class="line">        <span class="comment">// 再通过 WindowSession 与 WindowManagerService 交互完成的，</span></span><br><span class="line">        <span class="comment">// 其中用到了 Activity#attach 传入 PhoneWindow 的 IBinder token。</span></span><br><span class="line">        <span class="comment">// 所以实际上 PhoneWindow 持有了和 Window 相关的信息，但真正和 WMS 通信的是 ViewRootImpl。</span></span><br><span class="line">        mWindowSession = WindowManagerGlobal.getWindowSession();</span><br><span class="line">        <span class="comment">// 绑定了初始化时的线程</span></span><br><span class="line">        mThread = Thread.currentThread();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setView</span><span class="params">(View view, WindowManager.LayoutParams attrs, View panelParentView)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 传入的 view 就是 DecorView。</span></span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mView == <span class="keyword">null</span>) &#123;</span><br><span class="line">                mView = view;</span><br><span class="line">                ......</span><br><span class="line">                <span class="comment">// 调用 WindowSession#addToDisplay(...)，才是真正创建了一个 Window。</span></span><br><span class="line">                res = mWindowSession.addToDisplay(...);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然后 Instrumentation 会回调 <code>Activity.onResume()</code>，表示 Activity 进入到了 <code>onResume()</code> 的生命周期。到了这一步，Activity 初始化了 PhoneWindow 以及 DecorView，并且在 ViewRootImpl 中加载了 DecorView，这也表示 Activity 已经从视觉上可见。</p>
 <h4 id="4-3-2-performResumeActivity"><a href="#4-3-2-performResumeActivity" class="headerlink" title="4.3.2 performResumeActivity()"></a>4.3.2 performResumeActivity()</h4><p>ActivityThread 在 Activity 的 onResume 阶段大部分逻辑都在 <code>handlerResumeActivity(...)</code> 内，和视图资源相关。<code>performResumeActivity(...)</code> 则主要是为 <code>handlerResumeActivity(...)</code> 提供了依赖的 ActivityClientRecord 资源，以及通知 Instrumentation 回调 <code>onResume()</code>：</p>
@@ -1013,10 +1013,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/post/android/android-window/" rel="prev" title="Android-Window机制">
+                  <i class="fa fa-chevron-left"></i> Android-Window机制
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/post/android/android-ui_thread/" rel="next" title="Android子线程到底能否更新UI——可能是最全面的解析">
-                  Android子线程到底能否更新UI——可能是最全面的解析 <i class="fa fa-chevron-right"></i>
+                <a href="/post/linux/linux-io_block/" rel="next" title="Linux-IO的阻塞和非阻塞">
+                  Linux-IO的阻塞和非阻塞 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -1050,14 +1053,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">362k</span>
+    <span title="Site Symbols">380k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">6:42</span>
+    <span title="Site Read Time">7:02</span>
   </span>
 </div>
 
