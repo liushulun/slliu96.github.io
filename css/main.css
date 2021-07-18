@@ -3180,6 +3180,16 @@ body {
   background: #222;
   border-radius: 10px 10px 0px 0px;
 }
+@media (max-width: 767px) {
+  .site-brand-container {
+    border-radius: 0px 0px 0px 0px;
+  }
+}
+@media (max-width: 991px) {
+  .site-brand-container {
+    border-radius: 0px 0px 0px 0px;
+  }
+}
 .menu .menu-item a,
 .menu .menu-item span.exturl {
   padding: 5px 20px;
@@ -3428,13 +3438,16 @@ body {
 }
 .post-body h2:before {
   content: '§ ';
-  color: var(--custom-color-theme);
 }
 .post-body h2 {
   margin-bottom: 50px;
 }
 .post-body h3 {
   margin-top: 50px;
+}
+div.post-body strong {
+  color: #eb6d39;
+  font-weight: bold;
 }
 .highlight {
   background: var(--custom-color-background-dark) !important;

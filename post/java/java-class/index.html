@@ -23,17 +23,24 @@
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;blog.luis.ltd&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#EB6D39&quot;,&quot;save&quot;:&quot;manual&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:true,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeInDown&quot;,&quot;post_header&quot;:null,&quot;post_body&quot;:null,&quot;coll_header&quot;:&quot;none&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="未完待续">
+<meta name="description" content="（1）Java 对象加载流程；（2）Java 类的生命周期；（3）热修复、热更新。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java类加载机制">
 <meta property="og:url" content="https://blog.luis.ltd/post/java/java-class/index.html">
 <meta property="og:site_name" content="Luis&#39;s Blogs">
-<meta property="og:description" content="未完待续">
+<meta property="og:description" content="（1）Java 对象加载流程；（2）Java 类的生命周期；（3）热修复、热更新。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.luis.ltd/post/java/java-class/class_lifecycle.svg">
 <meta property="article:published_time" content="2019-11-09T15:17:04.000Z">
 <meta property="article:author" content="Luis">
 <meta property="article:tag" content="Java">
+<meta property="article:tag" content="ClassLoader">
+<meta property="article:tag" content="类加载机制">
+<meta property="article:tag" content="双亲委托">
+<meta property="article:tag" content="热更新">
+<meta property="article:tag" content="热修复">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.luis.ltd/post/java/java-class/class_lifecycle.svg">
 
 
 <link rel="canonical" href="https://blog.luis.ltd/post/java/java-class/">
@@ -76,7 +83,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">2021/07/18 - 12:44:09</p>
+      <p class="site-subtitle" itemprop="description">2021/07/18 - 12:52:21</p>
   </div>
 
   <div class="site-nav-right">
@@ -93,7 +100,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">69</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">124</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">129</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -157,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="nav-text">Java类加载机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ClassLoader%E5%8E%9F%E7%90%86"><span class="nav-text">ClassLoader原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#34-%E7%83%AD%E4%BF%AE%E5%A4%8D%EF%BC%88%E7%83%AD%E6%9B%B4%E6%96%B0%EF%BC%89%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-text">34. 热修复（热更新）的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%9B%BF%E6%8D%A2"><span class="nav-text">代码替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%9B%BF%E6%8D%A2"><span class="nav-text">资源替换</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="nav-text">Java类加载机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AF%B9%E8%B1%A1%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B"><span class="nav-text">1. 对象加载流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java%E7%B1%BB%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">2. Java类生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="nav-text">2.1 类的加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-text">2.2 类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E7%B1%BB%E8%B5%84%E6%BA%90%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">2.3 类资源的初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%83%AD%E4%BF%AE%E5%A4%8D%EF%BC%88%E7%83%AD%E6%9B%B4%E6%96%B0%EF%BC%89%E5%8E%9F%E7%90%86"><span class="nav-text">3. 热修复（热更新）原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E4%BB%A3%E7%A0%81%E6%9B%BF%E6%8D%A2"><span class="nav-text">3.1 代码替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%B5%84%E6%BA%90%E6%9B%BF%E6%8D%A2"><span class="nav-text">3.2 资源替换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -186,7 +193,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -336,6 +343,11 @@
       
       <div class="post-tags">
           <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          <a href="/tags/ClassLoader/" rel="tag"><i class="fa fa-tag"></i> ClassLoader</a>
+          <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" rel="tag"><i class="fa fa-tag"></i> 类加载机制</a>
+          <a href="/tags/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%89%98/" rel="tag"><i class="fa fa-tag"></i> 双亲委托</a>
+          <a href="/tags/%E7%83%AD%E6%9B%B4%E6%96%B0/" rel="tag"><i class="fa fa-tag"></i> 热更新</a>
+          <a href="/tags/%E7%83%AD%E4%BF%AE%E5%A4%8D/" rel="tag"><i class="fa fa-tag"></i> 热修复</a>
       </div>
   </div>
 ############################################# 注释结束 -->
@@ -345,18 +357,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Post Symbols:</span>
-      <span>2.1k</span>
+      <span>7k</span>
     </span>
     <span class="post-meta-item" title="Read Time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Read Time &asymp;</span>
-      <span>2 Min</span>
+      <span>8 Min</span>
     </span>
 </div>
 
-            <div class="post-description">未完待续</div>
+            <div class="post-description">（1）Java 对象加载流程；（2）Java 类的生命周期；（3）热修复、热更新。</div>
         </div>
       </header>
 
@@ -366,23 +378,160 @@
     <div class="post-body" itemprop="articleBody">
         <span id="more"></span>
 
-<h1 id="Java类加载机制"><a href="#Java类加载机制" class="headerlink" title="Java类加载机制"></a>Java类加载机制</h1><h1 id="ClassLoader原理"><a href="#ClassLoader原理" class="headerlink" title="ClassLoader原理"></a>ClassLoader原理</h1><p><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_6383597b0100fsiw.html">http://blog.sina.com.cn/s/blog_6383597b0100fsiw.html</a></p>
-<p>ClassLoader 查找类的步骤：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hngmduyi/article/details/84292549">https://blog.csdn.net/hngmduyi/article/details/84292549</a></p>
-<p>JVM启动时，运行BootStrap ClassLoader，用于加载Java核心API，BootStrap ClassLoader还会加载另外两个ClassLoader：Extension ClassLoader（用于加载扩展的Java Class，例如JavaX开头的包和存放在JRE的ext目录下的类等）、Application ClassLoader（也叫System ClassLoader，用于加载应用程序自身的类，比如ClassPath目录下定义的Class文件），这三个ClassLoader在加载Class文件时采用双亲委托模式，每一个ClassLoader都继承自ClassLoader抽象类，且都有一个parent ClassLoader，有一个getParent()方法用于返回双亲ClassLoader，如果getParent()为null，则认为该ClassLoader的Parent就直接是BootStrap ClassLoader。所有的ClassLoader在加载class之前，都会先委托它的双亲ClassLoader加载，只有Parent无法加载时，才由它加载。</p>
+<h1 id="Java类加载机制"><a href="#Java类加载机制" class="headerlink" title="Java类加载机制"></a>Java类加载机制</h1><h2 id="1-对象加载流程"><a href="#1-对象加载流程" class="headerlink" title="1. 对象加载流程"></a>1. 对象加载流程</h2><p>当 JVM 收到一条创建对象的指令时，需要经过以下过程：</p>
 <ul>
-<li>为什么要用双亲委托式？</li>
+<li>JVM 对类采用懒加载的方式，避免启动时大量占用 CPU 和内存，因此创建对象前，需要先检查常量池中是否存在目标类的符号引用；<ul>
+<li>如果存在，说明类已被加载，JVM 将在堆区为新生对象分配一块内存，分配方式有「指针碰撞」和「空闲列表」两种，分配过程通过 CAS 保证原子性。<ul>
+<li>指针碰撞：如果Java堆是绝对规整的，所有用过的内存都放在一边，所有没用过的内存存放在另一边，中间存放一个指针作为分界点指示器。分配内存时，将指针从用过的内存区域向空闲内存区域移动等距离区域。</li>
+<li>空闲列表：如果Java不是规整的，这时，虚拟机就必须维护一张列表，列表上记录了可用的内存块，在分配内存时，从列表上找到一个足够大的连续内存块分配给对象，并更新列表上的记录。</li>
 </ul>
-<p>出于安全考虑。假如不使用双亲委托，用户自己写了一个java.lang.system的类并加入到ClassPath中，就会被System ClassLoader加载进来，那用户就能随意操控系统了。而使用双亲委托后，即使用户把这样的Class放进了ClassPath中，System ClassLoader会首先请求它的Parent，也就是BootStrap ClassLoader来加载这样的类，但是由于Android关键的一些类，都已经被封装进了系统，因此BootStrap ClassLoader已经加载过了系统里面的关键类，则会跳过这样的非法加载。</p>
+</li>
+<li>如果不存在，说明类信息仍未被加载，需要先加载目标类，然后再继续完成新生对象的加载。</li>
+</ul>
+</li>
+<li>初始化内存空间内的信息：新生对象在堆区分配内存后，将内存空间中的非静态成员变量都用默认值初始化（静态变量在类的加载流程中就已经初始化），因此成员变量在声明时可以不必显式初始化。</li>
+<li>初始化内存空间的基本信息：计算哈希值、记录所属类的信息等。</li>
+<li>继续执行代码指定的初始化，例如构造方法、代码块等。<ul>
+<li>按照顺序也可以看出，非静态成员变量的初始化发生在构造方法调用之前，非静态成员变量的初始化在效果上等同于一个非静态的代码块。</li>
+</ul>
+</li>
+<li>将堆区的对象内存链接到栈区的引用。</li>
+</ul>
+<p>至此对象已经创建完毕。但 Java 中栈区的引用和堆区的对象只是一种链接方式，引用如何通过访问指向的对象内存完成方法调用、数据读写，则是由虚拟机实现的。主要的实现方式有两种：</p>
+<ul>
+<li>句柄访问：JVM 在堆区独立划分一块句柄池，每当一个对象在堆区创建后，JVM 都将对象在堆区的实际地址存入句柄池作为一条句柄，然后将栈中的引用链接到该句柄，因此引用实际指向的是一条句柄，再由该句柄指向堆中的对象内存。<ul>
+<li>优势：由于引用指向的是句柄，因此当堆中的内存发生改变时（例如被 GC），不需要改变引用的指向，只需要改变句柄指向的内存，这种情况下引用的指针是稳定的。</li>
+<li>劣势：更多的引用意味着访问实际内存时会带来额外性能开销。</li>
+</ul>
+</li>
+<li>直接指针：JVM 直接将栈区的引用指向堆区的对象内存，引用可以直接操作内存指针访问，因此相比句柄访问减少了一个指针。<ul>
+<li>优势：由于指针更少，因此从引用访问实际内存时，性能开销更小。</li>
+<li>劣势：当堆区内存经常改变时，引用的指针也需要经常改变，指针的指向是不稳定的。</li>
+<li>HotSpot 虚拟机采用的是直接指针。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>对于句柄访问，从应用层来看比较难理解其引用指针稳定带来的好处，但从 JVM 实现上来看，JVM 的开发人员可以不用关注堆区的对象是否改变，以及改变后对栈区引用的重定向等问题，因此这个优劣势更多是面向 JVM 层而不是应用层的。</p>
+</blockquote>
 <hr>
-<h1 id="34-热修复（热更新）的原理"><a href="#34-热修复（热更新）的原理" class="headerlink" title="34. 热修复（热更新）的原理"></a>34. 热修复（热更新）的原理</h1><h2 id="代码替换"><a href="#代码替换" class="headerlink" title="代码替换"></a>代码替换</h2><p>两个方案：Native替换和Dex插桩。</p>
+<h2 id="2-Java类生命周期"><a href="#2-Java类生命周期" class="headerlink" title="2. Java类生命周期"></a>2. Java类生命周期</h2><p>通过上文可知，JVM 在创建对象时，如果目标类还未加载就需要先加载类。对于一个运行中的 JVM，其读取的类是已经编译成二进制字节流的 class 文件，class 文件中包含了对这个类信息的描述，因此类的加载流程，本质上就是 JVM 读取并校验 class 文件中的数据；然后将这些数据转换、解析、以及初始化；最终成为可以被 JVM 直接读取的内存。从一个类被 JVM 加载进内存到被 JVM 卸载清理的流程如下：</p>
+<p><img data-src="./class_lifecycle.svg" alt="JVM 中类的生命周期" title="@ASSET"></p>
+<h3 id="2-1-类的加载"><a href="#2-1-类的加载" class="headerlink" title="2.1 类的加载"></a>2.1 类的加载</h3><ul>
+<li>加载：主要是读取 class 文件；<ul>
+<li>通过类的全限定名获取对应 class 文件的二进制字节流。</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</li>
+<li>在内存中生成一个代表这个类的 <code>java.lang.Class</code> 对象，作为方法区这个类的各种数据的访问入口。</li>
+</ul>
+</li>
+<li>验证：为了确保 class 文件中的数据符合 JVM 要求，不会危害 JVM 的稳定性；<ul>
+<li>文件格式验证：验证字节流是否符合 class 文件格式的规范，并且能被当前版本的虚拟机处理，通过该阶段后，字节流会进入内存的方法区中进行储存。</li>
+<li>元数据验证：对字节码描述的信息进行语言分析，对类的元数据信息进行语义校验，确保其描述的信息符合 Java 语言规范要求。</li>
+<li>字节码验证：通过数据流和控制流分析，确定程序语义是合法的、符合逻辑的。这个阶段对类的方法进行校验分析，保证类的方法在运行时不会做出危害虚拟机安全的事件。</li>
+<li>符号引用验证：对类自身以外的信息（常量池中各种符号引用）的信息进行校检，确保后续解析阶段能正常执行。</li>
+</ul>
+</li>
+<li>准备：为类的静态变量赋默认值；<ul>
+<li>静态成员变量根据变量类型被赋值为 0, false, 或 null。</li>
+<li>静态常量 <code>static final</code> 不会被赋默认值，在编译时会为静态常量标记 <code>ConstantValue</code> 属性，如果没有则会编译错误。在准备阶段 JVM 会用标记的 <code>ConstantValue</code> 为静态常量赋值。</li>
+</ul>
+</li>
+<li>解析：主要是针对（1）类或接口、（2）字段、（3）类方法、（4）接口方法、（5）方法类型、（6）方法句柄、（7）调用限定符，将常量池中的这 7 种符号引用替换为直接引用。可以理解为，JVM 在加载阶段使用一些符号来描述类的这些信息，但还没有创建实际的内存，然后在解析阶段再实际加载进内存中，并转换为直接引用；<ul>
+<li>符号引用：用一组符号来描述所引用的目标，符号可以是任何字面量，只要使用时无歧义定位到目标即可。符号引用与虚拟机的内存布局无关，引用的目标并不一定已经加载到内存中。符号引用的字面量形式明确地定义在 JVM 规范的 Class 文件格式中，因此各种虚拟机实现的内存布局可以不相同，但是他们能接受的符号引用必须都是一致的。</li>
+<li>直接引用：直接引用是可以直接定位到目标的指针、相对偏移量或是一个能间接定位目标的句柄。直接引用是与虚拟机的内存布局相关的，同一个符号引用在不同虚拟机实例上翻译出来的直接引用一般不会相同。如果有了直接引用，那引用的目标必定已经在内存中存在。</li>
+</ul>
+</li>
+<li>初始化：按照代码执行的初始化，直到该阶段，JVM 才会真正开始执行构造器的初始化，例如成员变量的赋值、代码块、构造方法等；<ul>
+<li>尽管静态成员变量在准备阶段就已经被 JVM 赋了默认值，但直到初始化阶段才会读取代码中的显式赋值。</li>
+<li>静态代码块也在初始化阶段才会执行。</li>
+<li>静态构造块（静态成员变量和静态代码块）的执行顺序取决于 JVM 的读取顺序（通常也就是代码编写顺序）决定。</li>
+<li>非静态构造块（非静态成员变量和非静态代码块）的执行顺序也取决于 JVM 的读取顺序（通常也就是代码编写顺序）决定，如果一个非静态成员变量在声明后没有立即显式初始化，则也会被赋默认值。</li>
+<li>在静态成员变量初始化完毕和静态代码块执行完毕、非静态成员变量初始化完毕和非静态代码块执行完毕之后，才会调用构造方法。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-类加载器"><a href="#2-2-类加载器" class="headerlink" title="2.2 类加载器"></a>2.2 类加载器</h3><p>JVM 默认提供了 3 种类加载器，如有必要也允许添加自定义的类加载器：</p>
+<ul>
+<li>Bootstrap ClassLoader: 负责加载 <code>lib/</code> 目录下的类，以及 <code>-Xbootclasspath</code> 参数所指定的路径中的类。通常这些类都是 JVM 运行必须且核心的类。</li>
+<li>Application ClassLoader: 负责加载 <code>classPath</code> 所指定的用户目录下的类，如果应用程序没有自定义类加载器，则通常使用该加载器作为应用程序中默认的类加载器。<blockquote>
+<p>Application ClassLoader 也叫 System ClassLoader。</p>
+</blockquote>
+</li>
+<li>Extension ClassLoader: 负责加载 <code>lib/ext</code> 目录下的类，以及被 <code>java.ext.dirs</code> 环境变量指定的目录下的类，Android 虚拟机去掉了这个类加载器。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLodaer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ClassLoader parent;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">ClassLoader</span><span class="params">(ClassLoader parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(checkCreateClassLoader(), parent);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">ClassLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 当使用无参构造方法时，传入的 parent 是 SystemClassLodaer，其实也就是 ApplicationClassLoader</span></span><br><span class="line">        <span class="keyword">this</span>(checkCreateClassLoader(), getSystemClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ClassLoader</span><span class="params">(Void unused, ClassLoader parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.parent = parent;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> ClassLoader <span class="title">getParent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 只有 Bootstrap ClassLoader 返回 null</span></span><br><span class="line">        <span class="keyword">return</span> parent;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JVM 启动时就会运行 BootStrap ClassLoader，用于加载 Java 核心 API，以及另外两个 ClassLoader：Extension ClassLoader、Application ClassLoade。每一个 ClassLoader 都继承自 ClassLoader 抽象类，如果 <code>getParent() == null</code> 则认为该 ClassLoader 就是 BootStrap ClassLoader。</p>
+<p>ClassLoader 在加载 Class 文件时采用双亲委托模式，所有的 ClassLoader 在收到一个加载类的请求时，都会先委托它的 ParentClassLodaer 加载，并逐层向上传递直到 BootstrapClassLoader。当 ParentClassLodaer 无法加载时会返回，再由当前 ClassLoader 尝试加载，并逐层向下返回。因此，加载过程可以看成 <strong>自底向上检查</strong> 以及 <strong>自顶向下加载</strong>。这种设计有 3 个优点：</p>
+<ul>
+<li>使用双亲委派模型来组织类加载器之间的关系，Java 类随着其加载器一起具备了一种带有优先级的层次关系。</li>
+<li>避免类的重复加载，当父类加载器已经加载过了某个类时，子类收到加载请求后，向上传递给父类时即可判断该类已被加载。</li>
+<li>避免核心类（如 Object, System 等）被篡改，JVM 在启动时，BootstrapClassLoader 会加载核心类，如果用户尝试加载一个篡改过的类，由于双亲委托制，一定会向上传递到 BootstrapClassLoader，因此就能判断类已加载，即可跳过非法类的加载。</li>
+</ul>
+<h3 id="2-3-类资源的初始化"><a href="#2-3-类资源的初始化" class="headerlink" title="2.3 类资源的初始化"></a>2.3 类资源的初始化</h3><p>根据上文，类中的静态资源在准备阶段就已经被赋默认值，但所有变量的显式赋值都发生在初始化阶段，静态变量和静态代码块等效、非静态变量和非静态代码块等效、等效的资源按照 JVM 执行顺序初始化；按照该规范即可分析所有资源初始化情况。</p>
+<p>（1）静态变量显式赋值在静态代码块之前：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        a = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Demo() &#123;</span><br><span class="line">        System.out.println(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>类准备阶段，为静态变量赋默认值 <code>int a = 0</code></li>
+<li>类初始化阶段<ul>
+<li>执行静态构造块<ul>
+<li>先执行显式赋值 <code>a = 5</code></li>
+<li>再向下执行静态代码块 <code>a = 10</code></li>
+</ul>
+</li>
+<li>执行构造方法<ul>
+<li>最终获取到 <code>a == 10</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>（2）非静态变量显示赋值在非静态代码块之前：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        a = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Demo() &#123;</span><br><span class="line">        System.out.println(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>类初始化阶段<ul>
+<li>执行构造块：<ul>
+<li>先执行显示赋值，<code>a = 5</code></li>
+<li>再向下执行非静态代码块 <code>a = 10</code></li>
+</ul>
+</li>
+<li>执行构造方法<ul>
+<li>最终获取到 <code>a == 10</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>（3）变量显式赋值在代码块之后：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 静态代码块 + 静态成员变量赋值</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        a = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">    Demo() &#123;</span><br><span class="line">        System.out.println(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 非静态代码块 + 非静态成员变量赋值</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        a = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">    Demo() &#123;</span><br><span class="line">        System.out.println(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>按照一般理解，非静态的成员变量是在类初始化阶段执行到的时候才会定义，那如果在声明之前的非静态代码块引用，应该会报错 <code>Illegal forward reference</code> 才对，但实际上编译是通过的，最终构造方法里都是 <code>a == 5</code>。难道是对于变量赋值也采用了懒加载，执行到代码块中的 <code>a</code> 时，先执行了 <code>a</code> 的定义吗？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 是否静态是一样的，以静态为例</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        a = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span> b = a;  <span class="comment">// 编译错误，Illegal forward reference</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">    Demo() &#123;</span><br><span class="line">        System.out.println(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然而，在代码块中只要引用 <code>a</code> 就会编译出错。实际上，<strong>等效代码中变量的声明总是应该在被引用之前，唯独「除非该变量位于赋值语句的左值」这种情况例外</strong>，其中 <strong>等效</strong> 指的是「静态代码块与静态成员变量」、「非静态代码块与非静态成员变量」这种关系，等效关系的代码的执行顺序取决于 JVM 读取顺序。如果是非等效关系的代码，则还与 JVM 加载的时机有关。例如上述例子，如果改成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 是否静态是一样的，以静态为例</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        a = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span> b = a;  <span class="comment">// 通过，运行通过</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">    Demo() &#123;</span><br><span class="line">        System.out.println(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于静态成员变量在类的准备阶段就已经定义且赋默认值，并且在初始化阶段，静态的构造块又先于非静态构造块执行，所以不论编码顺序如何，最终执行到非静态代码块时，<code>a</code> 已经完全初始化了。</p>
+<hr>
+<h2 id="3-热修复（热更新）原理"><a href="#3-热修复（热更新）原理" class="headerlink" title="3. 热修复（热更新）原理"></a>3. 热修复（热更新）原理</h2><h3 id="3-1-代码替换"><a href="#3-1-代码替换" class="headerlink" title="3.1 代码替换"></a>3.1 代码替换</h3><p>两个方案：Native替换和Dex插桩。</p>
 <p>（1）Native替换</p>
 <p>例如阿里的AndFix，是先在Native层找到需要修复的方法的结构体，然后改变其NativeFunc字段值，这个值是用来指定JVM执行方法时在Native层对应的指针位置，也即：Native层在执行代码的时候，不同的方法存在内存中由Native层的指针指向不同的地址里，修改了某个方法后，将新的方法的NativeFunc字段指定为旧方法的，使得Native指针指向的方法所在的内存为新方法所在的内存，来达到替换的效果。</p>
 <p>优点是不需要重启就能生效，是基于方法级别的修复。<br>缺点是不能新增变量和类、方法等，因为如果新增了方法或类，就会导致编译后的Dex中方法数发生变化，则 <code>dexElements[]</code> 中方法的索引就会变化，原来的索引对应的方法就可能发生错乱。</p>
 <p>（2）Dex插桩</p>
 <p>在编译 Android 代码时，会把代码编译成 dex 字节码，Android 在运行一个 App 时，会通过 ClassLoader 来加载 dex 文件，加载时，越靠前的Dex优先被使用，因此可以通过把热更新后的类或方法编译成的 patch.dex 文件插入到 <code>dexElements[]</code> 数组的头部使得虚拟机只加载修复后的类。</p>
 <p>优点是可以做较大的改动，稳定性高，不会侵入进程（因为需要重启才生效）。<br>缺点是影响性能，安装APK时，如果某个Dex中的类，在static方法、private方法、构造方法、override方法中引用的对象，也在同一个Dex文件内，则虚拟机会给该Class打上CLASS_ISPREVERIFIED已验证标签，运行时对应的对象就直接在当前Dex中找，否则没有打上标签的类，在运行时，就需要遍历所有的Dex查找，会影响性能。但热修复时，打出来的patch.dex，只包含了修复的class，所以绝大部分情况下，是不能打CLASS_ISPREVERIFIED标志的，否则在运行时，在patch.dex中找不到引用的对象，会抛出IllegalAccessError: Class ref in pre-verified class resolved to unexpected implementation错误。所以需要强制不打标志，不打标志就会导致在加载的时候要遍历所有的Dex，因此影响性能。</p>
-<h2 id="资源替换"><a href="#资源替换" class="headerlink" title="资源替换"></a>资源替换</h2><p>（1）资源的加载是通过 AssetManager 实现的，通过反射调用addAssetPath，将完整的新资源包加入到AssetManager中来替换掉整个AssetManager中持有的资源。然后查找所有引用了旧AssetManager的地方，通过反射替换为新的AssetManager的引用。</p>
+<h3 id="3-2-资源替换"><a href="#3-2-资源替换" class="headerlink" title="3.2 资源替换"></a>3.2 资源替换</h3><p>（1）资源的加载是通过 AssetManager 实现的，通过反射调用addAssetPath，将完整的新资源包加入到AssetManager中来替换掉整个AssetManager中持有的资源。然后查找所有引用了旧AssetManager的地方，通过反射替换为新的AssetManager的引用。</p>
 <p>（2）SO库的修复本质上就是对Native方法的修复和替换，把新SO库的路径插入到<code>NativeLibraryDirectories[]</code> 数组的最前面，就能使得Native层加载SO时加载的是新的SO库。</p>
+<hr>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/a745233700/article/details/90232862" title="@LINK">Java虚拟机：对象创建过程与类加载机制、双亲委派模型（作者： 张维鹏）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/csdn_life18/article/details/107302315" title="@LINK">java对象的访问方式句柄和直接指针介绍（作者：csdn_life18）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9d358d652fd6" title="@LINK">JVM 虚拟机与对象创建过程（作者：Marker_Sky）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/king_kgh/article/details/78291783" title="@LINK">Java虚拟机类加载(解析阶段)（作者：jhappyfly）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wang_k516/article/details/90753472" title="@LINK">JVM、Dalvik和ART（作者：戒不掉的码瘾）</a></li>
+</ul>
 
     </div>
 
@@ -523,6 +672,11 @@
 
           <div class="post-tags">
               <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              <a href="/tags/ClassLoader/" rel="tag"><i class="fa fa-tag"></i> ClassLoader</a>
+              <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" rel="tag"><i class="fa fa-tag"></i> 类加载机制</a>
+              <a href="/tags/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%89%98/" rel="tag"><i class="fa fa-tag"></i> 双亲委托</a>
+              <a href="/tags/%E7%83%AD%E6%9B%B4%E6%96%B0/" rel="tag"><i class="fa fa-tag"></i> 热更新</a>
+              <a href="/tags/%E7%83%AD%E4%BF%AE%E5%A4%8D/" rel="tag"><i class="fa fa-tag"></i> 热修复</a>
           </div>
 
         
@@ -569,14 +723,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">380k</span>
+    <span title="Site Symbols">384k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">7:02</span>
+    <span title="Site Read Time">7:07</span>
   </span>
 </div>
 

@@ -84,7 +84,7 @@
       <h1 class="site-title">Luis's Blogs</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">2021/07/18 - 12:44:09</p>
+      <p class="site-subtitle" itemprop="description">2021/07/18 - 12:52:21</p>
   </div>
 
   <div class="site-nav-right">
@@ -101,7 +101,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">69</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">124</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">129</span></a></li>
         
             
   <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-comments fa-fw"></i>About</a></li>
@@ -194,7 +194,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">Tags</span></a>
       </div>
   </nav>
@@ -424,11 +424,11 @@
 </ul>
 <p>需要先了解到，Android 中 Activity 是存在任务栈 Task 中的，启动一个 Activity 时会将其压栈，销毁时弹出，不同启动模式会导致 Activity 任务栈产生不同的行为，且一个 App 进程可以拥有多个 Activity 任务栈。</p>
 <p>Activity 可以通过在 Manifest 中指定 <code>taskAffinity</code> 来指定其 <strong>倾向于</strong> 加入的任务栈，但只有在满足条件时才会添加到该指定任务栈中。Activity 在启动时会先查找是否存在指定的栈，假如存在则会 <strong>「优先尝试」</strong> 压入对应栈，否则才会新建一个栈并启动。如果 Activity 没有指定，则默认等同于 Application 的 taskAffinity，如果 Application 也没有指定，则默认等同于包名。</p>
+<p>但是，<code>taskAffinity</code> 并非 100% 生效；例如 singleInstance 模式启动 Activity 时，其栈内仅允许存在该 Activity；即使其他 Activity 指定同一个 taskAffinity，依然会启动到新的栈中，但这两个栈的 taskAffinity 名称相同；所以判断栈是否相同仍然只能通过 TaskID，而不是 taskAffinity。</p>
 <blockquote>
-<p><code>taskAffinity</code> 并非 100% 生效。例如 singleInstance 模式启动 Activity 时，其栈内仅允许存在该 Activity；即使其他 Activity 指定同一个 taskAffinity，依然会启动到新的栈中，但这两个栈的 taskAffinity 名称相同；所以判断栈是否相同仍然只能通过 TaskID，而不是 taskAffinity。</p>
+<p>下文描述了 Activity 不同启动模式对栈的影响，用 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>，任务栈之间用 <code>-</code> 连接，右侧的任务栈为最新任务栈。</p>
 </blockquote>
 <h3 id="2-1-Standard"><a href="#2-1-Standard" class="headerlink" title="2.1 Standard"></a>2.1 Standard</h3><p>（1）Standard 即标准默认模式。启动一个 Activity 时，不论 Activity 在任务栈中是否已经有实例，都新建一个实例并压入任务栈。当前 Activity 在当前任务栈可以有多个实例，每个实例也可以在不同任务栈。</p>
-<p>Standard 启动方式任务栈的行为实例如下（其中 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>）：</p>
 <table>
 <thead>
 <tr>
@@ -460,7 +460,6 @@
 </tbody></table>
 <p>（2）Standard 模式通常用于允许一个页面同时创建多个，或者从逻辑上可以保证不会触发多个的情况下。</p>
 <h3 id="2-2-SingleTop"><a href="#2-2-SingleTop" class="headerlink" title="2.2 SingleTop"></a>2.2 SingleTop</h3><p>（1）SingleTop 即栈顶唯一模式，启动一个 Activity 时，如果该 Activity 已在栈顶则不会新建一个 Activity 实例而是复用它，否则其行为和 Standard 模式一致。</p>
-<p>SingleTop 启动方式任务栈的行为实例如下（其中 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>）：</p>
 <table>
 <thead>
 <tr>
@@ -504,7 +503,6 @@
 <p>（2）SingleTop 模式通常用于可能多次弹出的页面。实际上，我认为除非某个 Activity 有明确的需求要打开多个实例，否则都应该使用 SingleTop。因为大多数页面跳转都有可能被误触发多次，但绝大多数情况下都是不希望同时存在多个实例的。</p>
 <h3 id="2-3-SingleTask"><a href="#2-3-SingleTask" class="headerlink" title="2.3 SingleTask"></a>2.3 SingleTask</h3><p>（1）SingleTask 即任务栈唯一模式，启动一个 Activity 时，如果任务栈中存在该 Activity 实例，则复用它，否则才创建一个新的 Activity 实例。SingleTask 和 SingleTop 的区别在于，SingleTop 只在栈顶 Activity 和要启动的 Activity 相同时才复用，而 SingleTask 是每个 Activity 在当前整个任务栈中都只有一个实例。</p>
 <p>此外 SingleTask 还有一个重要特性：当一个 SingleTask 模式 Activity 被从任务栈中间移到栈顶时，会将原本任务栈中位于该 SingleTask Activity 之上的其他 Activity 销毁。需要注意的是，如果新启动一个 SingleTask Activity 并压入任务栈，由于其原本并不在栈中而是直接压入栈顶，因此不会导致栈内其他 Activity 被销毁。</p>
-<p>SingleTask 启动方式任务栈的行为实例如下（其中 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>）：</p>
 <table>
 <thead>
 <tr>
@@ -555,8 +553,7 @@
 <li>而 B 启动 C 时，同样由于 B 设置了 SingleInstance 属性，因此会先判断 C 的启动模式，以及 Manifest 中 C 对应的 <code>taskAffinity</code>，如果没有指定，则会把 C 启动在默认栈中，也就是和 A 同一个栈。</li>
 <li>因此如果在 C 中按下返回键，由于 A 和 C 在同一个栈，所以会回到 A，而不是 B。</li>
 </ul>
-<p>重点在于：任务栈不是唯一的，一个 App 可以有多个任务栈，就像 Android 系统的后台应用列表一样，里面包括了多个应用，而每个应用又管理自己的多个任务栈（可以理解为 <strong>任务栈的总栈</strong>），每个任务栈又分别管理包含的 Activity。</p>
-<p>SingleInstance 启动方式任务栈的行为实例如下（其中 <code>/</code> 表示 <strong>栈底</strong>，<code>&gt;</code> 表示 <strong>栈顶</strong>，任务栈之间用 <code>-</code> 连接，右侧的任务栈为最新任务栈，M 为最开始以 Standard 启动的 Activity）：</p>
+<p>重点在于：任务栈不是唯一的，一个 App 可以有多个任务栈，每个任务栈又分别管理包含的 Activity。</p>
 <table>
 <thead>
 <tr>
@@ -567,6 +564,12 @@
 </tr>
 </thead>
 <tbody><tr>
+<td>0</td>
+<td align="left">未启动</td>
+<td align="left">未启动</td>
+<td align="center">Start standard M</td>
+</tr>
+<tr>
 <td>1</td>
 <td align="left">/M&gt;</td>
 <td align="left">退出</td>
@@ -1053,14 +1056,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Site Symbols:</span>
-    <span title="Site Symbols">380k</span>
+    <span title="Site Symbols">384k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Site Read Time &asymp;</span>
-    <span title="Site Read Time">7:02</span>
+    <span title="Site Read Time">7:07</span>
   </span>
 </div>
 
